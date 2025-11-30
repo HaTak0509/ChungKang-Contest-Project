@@ -34,7 +34,8 @@ public class Monster : MonoBehaviour
 
     // 이벤트 핸들러: '나'에게 감정 주입 요청이 들어왔는지 확인하고 처리
     //해당 코드는 OnEmotionAppliedToMonster.Invoke가 호출 되면 얘가 불러와짐 | 옵저버 구조
-    private void OnEmotionApplied(Monster targetMonster, EmotionType addEmotion)     {
+    private void OnEmotionApplied(Monster targetMonster, EmotionType addEmotion)     
+    {
         if (targetMonster == this)
         {
             MonsterEmotionManager.HandleEmotionApplied(this, addEmotion);
