@@ -4,7 +4,8 @@ public class PlayerEmotionController : MonoBehaviour
 {
     //*************************************************************
     // [ 코드 설명 ] :
-    // 몬스터에게 감정을 부여하는 역할을 하도록 하는 코드(임시)
+    // 적을 클릭하면 감정 패널 호출, 이후 감정 변경 상태임을 Bool로 확인
+    // 이후 1,2,3,4또는 버튼 클릭으로 감정 변경 요청
     //
     // [ 주의점 ] :
     // 해당 클랫는 감정 주입 이벤트를 '발행(Invoke)'하는 역할만 함
@@ -13,30 +14,43 @@ public class PlayerEmotionController : MonoBehaviour
     //*************************************************************
 
     private Camera _mainCamera;
+    private bool _IsControlling = false;
+    private Monster _CurMonster;
+
+    public static PlayerEmotionController Instance;
 
     void Awake()
     {
+        Instance = this;
         _mainCamera = Camera.main; //메인카메라 캐싱
-
-
+       
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) // 1번 키 → 기쁨 주입
-            TryApplyEmotion(EmotionType.Joy);
+        if (Input.GetMouseButtonDown(0))
+        {
+            CheckEmotion();
+        }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2)) // 2번 키 → 슬픔
-            TryApplyEmotion(EmotionType.Sad);
+        if (_IsControlling)
+        {
 
-        if (Input.GetKeyDown(KeyCode.Alpha3)) // 3번 키 → 화남
-            TryApplyEmotion(EmotionType.Rage);
+            if (Input.GetKeyDown(KeyCode.Alpha1)) // 1번 키 → 기쁨 주입
+                TryApplyEmotion(EmotionType.Joy);
 
-        if (Input.GetKeyDown(KeyCode.Alpha4)) // 4번 키 → 두려움
-            TryApplyEmotion(EmotionType.Fear);
+            if (Input.GetKeyDown(KeyCode.Alpha2)) // 2번 키 → 슬픔
+                TryApplyEmotion(EmotionType.Sad);
+
+            if (Input.GetKeyDown(KeyCode.Alpha3)) // 3번 키 → 화남
+                TryApplyEmotion(EmotionType.Rage);
+
+            if (Input.GetKeyDown(KeyCode.Alpha4)) // 4번 키 → 두려움
+                TryApplyEmotion(EmotionType.Fear);
+        }
     }
 
-    void TryApplyEmotion(EmotionType emotion)
+    void CheckEmotion()
     {
         if (_mainCamera == null)
         {
@@ -50,38 +64,44 @@ public class PlayerEmotionController : MonoBehaviour
         Vector2 mousePos = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
 
-
         if (hit.collider != null)
         {
             Debug.Log("몬스터 발견");
-            Monster monster = hit.collider.GetComponent<Monster>();
+            _CurMonster = hit.collider.GetComponent<Monster>();
+
+            if(!_IsControlling)
+                HandUIController.Instance.InUI();
+            _IsControlling = _CurMonster;
             
-
-            if (monster != null)
-            {
-                Debug.Log($"감정 ({emotion}) 주입 시도");
-
-                // MonsterEmotionManager의 정적 이벤트를 호출
-                if (MonsterEmotionManager.OnEmotionAppliedToMonster != null)
-                {
-                    MonsterEmotionManager.OnEmotionAppliedToMonster.Invoke(monster, emotion);
-
-                    // [ 진행 방향 ] 
-                    // 플레이어가 몬스터의 감정 변경을 시도함
-                    // 여기서 Invoke -> Monster에서 OnEmotionApplied호출 ->
-                    // MonsterEmotionManager에 HandleEmotionApplied호출됨
-                    // 몬스터의 감정이 변경됨
-
-                }
-                else
-                {
-                    Debug.LogWarning("MonsterEmotionManager의 이벤트 리스너가 연결되지 않았습니다.");
-                }
-            }
         }
         else
         {
             Debug.Log("몬스터 없음");
+        }
+    }
+
+    public void TryApplyEmotion(EmotionType emotion)
+    {
+
+        if (_CurMonster != null)
+        {
+            Debug.Log($"감정 ({emotion}) 주입 시도");
+
+            // MonsterEmotionManager의 정적 이벤트를 호출
+            if (MonsterEmotionManager.OnEmotionAppliedToMonster != null)
+            {
+                MonsterEmotionManager.OnEmotionAppliedToMonster.Invoke(_CurMonster, emotion);
+
+                // [ 진행 방향 ] 
+                // 플레이어가 몬스터의 감정 변경을 시도함
+                // 여기서 Invoke -> Monster에서 OnEmotionApplied호출 ->
+                // MonsterEmotionManager에 HandleEmotionApplied호출됨
+                // 몬스터의 감정이 변경됨
+            }
+            else
+            {
+                Debug.LogWarning("MonsterEmotionManager의 이벤트 리스너가 연결되지 않았습니다.");
+            }
         }
     }
 }

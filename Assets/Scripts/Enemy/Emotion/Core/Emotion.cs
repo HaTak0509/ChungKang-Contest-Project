@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 public enum EmotionType
 {
     //*************************************************************
@@ -29,3 +30,26 @@ public enum EmotionType
     Panic//패닉
 }
 
+public static class Emotion
+{
+    private static readonly Dictionary<EmotionType, string> _EmotionLore = new();
+
+    static Emotion() //정적 생성자, 한번만 실행됨. 미리 행동 로직을 딕셔너리에 캐싱해둠
+    {
+        _EmotionLore.Add(EmotionType.Joy, "");
+        _EmotionLore.Add(EmotionType.Sad, "");
+        _EmotionLore.Add(EmotionType.Rage, "");
+        _EmotionLore.Add(EmotionType.Fear, "");
+        _EmotionLore.Add(EmotionType.HeartBreaking, "");
+        _EmotionLore.Add(EmotionType.Jealousy, "");
+        _EmotionLore.Add(EmotionType.Thrill, "");
+        _EmotionLore.Add(EmotionType.Resentment, "");
+        _EmotionLore.Add(EmotionType.Anxiety, "");
+        _EmotionLore.Add(EmotionType.Tension, "");
+        _EmotionLore.Add(EmotionType.Madness, "");
+        _EmotionLore.Add(EmotionType.Screaming, "");
+        _EmotionLore.Add(EmotionType.Outrage, "");
+        _EmotionLore.Add(EmotionType.Panic, "");
+    }
+
+}
