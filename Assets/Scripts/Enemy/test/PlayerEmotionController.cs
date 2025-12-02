@@ -104,4 +104,12 @@ public class PlayerEmotionController : MonoBehaviour
             }
         }
     }
+
+    public EmotionType CheckCurEmotion()
+    {
+        if (_CurMonster != null)
+            return _CurMonster.CurrentEmotion;
+        else
+            return EmotionType.Neutral;
+    }
 }

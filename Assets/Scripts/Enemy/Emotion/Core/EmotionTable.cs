@@ -33,8 +33,6 @@ public static class EmotionTable
         if (_mixTable.ContainsKey((added, current))) //순서 반대로 해서 검사
             return _mixTable[(added, current)];
 
-       
-
         //조합이 없다면 추가되는 감정을 반환, 
 
         //해당 부분은 보완필요함. 무감정이나, 분해관련해서도 이야기가 필요함

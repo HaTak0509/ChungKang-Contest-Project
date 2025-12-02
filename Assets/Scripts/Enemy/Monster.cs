@@ -14,7 +14,7 @@ public class Monster : MonoBehaviour
     [SerializeField] public EmotionType CurrentEmotion { get; private set; } // 읽기 가능, 수정 불가능
 
     private IEmotionState _currentState;
-
+    private bool _IsOff = false;
     void Start()
     {
         // 시작 시 초기 감정 설정 | 이부분 보안 필요할지도
@@ -57,6 +57,7 @@ public class Monster : MonoBehaviour
 
     private void Update()
     {
-        _currentState?.UpdateState(this); // 현재 행동이 있다면, 행동 함수 실행
+        if (!_IsOff)
+            _currentState?.UpdateState(this); // 현재 행동이 있다면, 행동 함수 실행
     }
 }

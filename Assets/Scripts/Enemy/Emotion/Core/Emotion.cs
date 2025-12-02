@@ -1,10 +1,11 @@
-using System.Collections.Generic;
+using UnityEngine;
 public enum EmotionType
 {
     //*************************************************************
     // [ 코드 설명 ] :
     // 몬스터 감정
     // Neutral의 경우 Null 방지를 위해 추가함
+    // 정적 생성자로, 감정에따른 설명을 저장하고자, 딕셔너리에 초기화
     //*************************************************************
 
 
@@ -30,26 +31,30 @@ public enum EmotionType
     Panic//패닉
 }
 
+
+
 public static class Emotion
 {
-    private static readonly Dictionary<EmotionType, string> _EmotionLore = new();
 
-    static Emotion() //정적 생성자, 한번만 실행됨. 미리 행동 로직을 딕셔너리에 캐싱해둠
+    private static EmotionDatabase _db; //감정목록
+
+    public static EmotionDatabase DB
     {
-        _EmotionLore.Add(EmotionType.Joy, "");
-        _EmotionLore.Add(EmotionType.Sad, "");
-        _EmotionLore.Add(EmotionType.Rage, "");
-        _EmotionLore.Add(EmotionType.Fear, "");
-        _EmotionLore.Add(EmotionType.HeartBreaking, "");
-        _EmotionLore.Add(EmotionType.Jealousy, "");
-        _EmotionLore.Add(EmotionType.Thrill, "");
-        _EmotionLore.Add(EmotionType.Resentment, "");
-        _EmotionLore.Add(EmotionType.Anxiety, "");
-        _EmotionLore.Add(EmotionType.Tension, "");
-        _EmotionLore.Add(EmotionType.Madness, "");
-        _EmotionLore.Add(EmotionType.Screaming, "");
-        _EmotionLore.Add(EmotionType.Outrage, "");
-        _EmotionLore.Add(EmotionType.Panic, "");
+        get
+        {
+            if (_db == null) //캐싱이 안됐다면?
+                _db = Resources.Load<EmotionDatabase>("EmotionDatabase"); //Assets/Resources/경로를 따라 찾음.
+           
+            
+            return _db;
+        }
+    }
+
+    public static EmotionData Get(EmotionType type) //우리가 사용하는 부분, 감정을 넣으면 해당 감정에 속성을 모두 가져옴
+    {
+        return DB.Get(type); //EmotionDataBase의 GEt() 실행하여 속성 가져옴
+
     }
 
 }
+

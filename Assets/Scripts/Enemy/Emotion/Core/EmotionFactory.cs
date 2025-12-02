@@ -29,6 +29,7 @@ public static class EmotionFactory
         //_StateTable.Add(EmotionType.Joy, new JoyState());
 
 
+
         //이후 더 추가할 예정
     }
 
