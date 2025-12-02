@@ -7,6 +7,8 @@ public class PlayerMove : MonoBehaviour
 {
     [SerializeField] private float walkSpeed;
     [SerializeField] private float SprintSpeed;
+    [SerializeField] private float jumpImpulse;
+    [SerializeField] private float dashImpulse;
 
     private Vector2 _moveInput;
     private Rigidbody2D _rb;
@@ -43,13 +45,27 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+    private bool _isDash = false;
+
+    public bool IsDash
+    {
+        get { return _isDash; }
+        set
+        {
+            _isDash = value;
+        }
+    }
+
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _touchingDetection = GetComponent<TouchingDetection>();
     }
 
     void FixedUpdate()
     {
+        if (IsDash) return;
+
         _rb.velocity = new Vector2((_moveInput.x * CurrentMoveSpeed), _rb.velocity.y); // 속도 계산
     }
 
@@ -62,7 +78,10 @@ public class PlayerMove : MonoBehaviour
 
     public void OnJumpInputAction (InputAction.CallbackContext context) // 점프
     {
-
+        if (context.started && _touchingDetection.IsGround) // 바닥에 닿아있다면 점프
+        {
+            _rb.velocity = new Vector2(_rb.velocity.x, jumpImpulse);
+        }
     }
 
     public void OnSprintInputAction (InputAction.CallbackContext context) // 달리기 입력 계산
@@ -76,5 +95,27 @@ public class PlayerMove : MonoBehaviour
         {
             IsSprint = false;
         }
+    }
+
+    public void OnDashInputAction (InputAction.CallbackContext context) // 대쉬 입력 계산
+    {
+        if (IsDash) return; // 이미 대쉬가 실행중이라면 발동X
+
+        if (context.started)
+        {
+            StartCoroutine(DashRoutine()); // 코루틴으로 대쉬 실행
+        }
+    }
+
+    private IEnumerator DashRoutine() // 대쉬 거리 계산
+    {
+        IsDash = true ;
+
+        float dir = _rb.transform.localScale.x > 0 ? 1 : -1; // Player가 보는 방향 구하기
+        _rb.velocity = new Vector2(dashImpulse * dir, _rb.velocity.y); // 구한 방향에 따라 대쉬
+
+        yield return new WaitForSeconds(0.15f); // 몇 초 안에 대쉬 거리를 이동할지
+        
+        IsDash = false ;
     }
 }
