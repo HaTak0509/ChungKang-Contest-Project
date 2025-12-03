@@ -69,7 +69,7 @@ public class EmotionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
 
 
-    public void OnPointerEnter(PointerEventData eventData) //버튼에 진입시  [현재 감정] + [추가할 감정]표시, 이후 해당 합성 감정의 설명 받아오기
+    public void OnPointerEnter(PointerEventData eventData) //버튼에 진입시 [현재 감정] + [추가할 감정]표시, 이후 해당 합성 감정의 설명 받아오기
     {
         Lore.SetActive(true);
         LoreReset();
@@ -77,13 +77,12 @@ public class EmotionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     private void LoreReset()
     {
+        Debug.Log("변경됨");
+
         var curEmtion = PlayerEmotionController.Instance.CheckCurEmotion();
-
-        EmotionText.text = Emotion.Get(curEmtion).korean + " + " + Emotion.Get(type).korean;
-
-
         var emotion = EmotionTable.Mix(curEmtion, type);
 
+        EmotionText.text = "[ " + Emotion.Get(emotion).korean + " ]\n" + Emotion.Get(curEmtion).korean + " + " + Emotion.Get(type).korean;
         EmotionLore.text = Emotion.Get(emotion).lore;
     }
 

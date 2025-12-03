@@ -16,9 +16,12 @@ public static class EmotionTable
         {
             {(EmotionType.Joy, EmotionType.Sad), EmotionType.HeartBreaking},
             {(EmotionType.Joy, EmotionType.Rage), EmotionType.Jealousy},
-            {(EmotionType.Sad, EmotionType.Fear), EmotionType.Thrill},
-            {(EmotionType.Sad, EmotionType.Rage), EmotionType.Anxiety},
+            {(EmotionType.Joy, EmotionType.Fear), EmotionType.Thrill},
+
+            {(EmotionType.Sad, EmotionType.Rage), EmotionType.Resentment},
+            {(EmotionType.Sad, EmotionType.Fear), EmotionType.Anxiety},
             {(EmotionType.Rage, EmotionType.Fear), EmotionType.Tension},
+            
             {(EmotionType.Joy, EmotionType.Joy), EmotionType.Madness},
             {(EmotionType.Sad, EmotionType.Sad), EmotionType.Screaming},
             {(EmotionType.Rage, EmotionType.Rage), EmotionType.Outrage},
