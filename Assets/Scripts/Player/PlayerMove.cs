@@ -10,6 +10,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float jumpImpulse;
     [SerializeField] private float dashImpulse;
 
+    private Vector3 baseScale;
     private Vector2 _moveInput;
     private Rigidbody2D _rb;
     private TouchingDetection _touchingDetection;
@@ -58,6 +59,7 @@ public class PlayerMove : MonoBehaviour
 
     void Start()
     {
+        baseScale = transform.localScale;
         _rb = GetComponent<Rigidbody2D>();
         _touchingDetection = GetComponent<TouchingDetection>();
     }
@@ -74,6 +76,7 @@ public class PlayerMove : MonoBehaviour
         _moveInput = context.ReadValue<Vector2>();
 
         IsMoving = _moveInput != Vector2.zero;
+        Facing(_moveInput);
     }
 
     public void OnJumpInputAction (InputAction.CallbackContext context) // 점프
@@ -97,6 +100,11 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+    public void OnInteractionInputAction (InputAction.CallbackContext context) // 상호작용 입력 계산
+    {
+
+    }
+
     public void OnDashInputAction (InputAction.CallbackContext context) // 대쉬 입력 계산
     {
         if (IsDash) return; // 이미 대쉬가 실행중이라면 발동X
@@ -117,5 +125,13 @@ public class PlayerMove : MonoBehaviour
         yield return new WaitForSeconds(0.15f); // 몇 초 안에 대쉬 거리를 이동할지
         
         IsDash = false ;
+    }
+
+    private void Facing(Vector2 input) // Player회전
+    {
+        if (input.x < 0) // 왼 쪽의 이동이 감지되었을 때 왼쪽을 보게한다.
+            transform.localScale = new Vector3(-Mathf.Abs(baseScale.x), baseScale.y, baseScale.z);
+        else if (input.x > 0) // 오른 쪽의 이동이 감지되었을 때 오른쪽을 보게한다.
+            transform.localScale = new Vector3(Mathf.Abs(baseScale.x), baseScale.y, baseScale.z);
     }
 }
