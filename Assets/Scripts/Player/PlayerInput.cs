@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMove : MonoBehaviour
+public class PlayerInput : MonoBehaviour
 {
     [SerializeField] private float walkSpeed;
     [SerializeField] private float SprintSpeed;
