@@ -33,9 +33,14 @@ public class PlayerEmotionController : MonoBehaviour
             CheckEmotion();
         }
 
-        if (_IsControlling)
+        if (Input.GetMouseButtonDown(1))
         {
+            CheckBreakEmotion();
+        }
 
+
+            if (_IsControlling)
+        {
             if (Input.GetKeyDown(KeyCode.Alpha1)) // 1번 키 → 기쁨 주입
                 TryApplyEmotion(EmotionType.Joy);
 
@@ -62,7 +67,7 @@ public class PlayerEmotionController : MonoBehaviour
 
         // 마우스 클릭 위치 월드 좌표 변환
         Vector2 mousePos = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
-        RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+        RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero,20, 1 << LayerMask.NameToLayer("Enemy"));
 
         if (hit.collider != null)
         {
@@ -80,6 +85,32 @@ public class PlayerEmotionController : MonoBehaviour
         }
     }
 
+    void CheckBreakEmotion()
+    {
+        if(_mainCamera == null)
+        {
+            Debug.LogError("메인카메라 캐싱 안됨. 고쳐오셈");
+            return;
+        }
+
+        Debug.Log("클릭 시도");
+
+        // 마우스 클릭 위치 월드 좌표 변환
+        Vector2 mousePos = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, 20, 1 << LayerMask.NameToLayer("Enemy"));
+
+        if (hit.collider != null)
+        {
+            Debug.Log("몬스터 발견");
+            var monster = hit.collider.GetComponent<Monster>();
+
+            monster.RemoveEmotion();
+
+        }
+
+    }
+
+
     public void TryApplyEmotion(EmotionType emotion)
     {
 
@@ -91,7 +122,7 @@ public class PlayerEmotionController : MonoBehaviour
             if (MonsterEmotionManager.OnEmotionAppliedToMonster != null)
             {
                 MonsterEmotionManager.OnEmotionAppliedToMonster.Invoke(_CurMonster, emotion);
-
+                MonsterEmotionManager.OnEmotionLore.Invoke();
                 // [ 진행 방향 ] 
                 // 플레이어가 몬스터의 감정 변경을 시도함
                 // 여기서 Invoke -> Monster에서 OnEmotionApplied호출 ->

@@ -2374,7 +2374,7 @@ GameObject:
   - component: {fileID: 1244942363}
   - component: {fileID: 1244942359}
   - component: {fileID: 1244942364}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: monster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2522,7 +2522,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &1244942364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2764,7 +2764,7 @@ GameObject:
   - component: {fileID: 1506039561}
   - component: {fileID: 1506039560}
   - component: {fileID: 1506039559}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}

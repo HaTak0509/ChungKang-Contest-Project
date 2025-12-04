@@ -1,5 +1,8 @@
 
 
+using UnityEngine;
+using System;
+
 public class JoyState : IEmotionState
 {
     //*************************************************************
@@ -10,18 +13,23 @@ public class JoyState : IEmotionState
 
     public EmotionType Type => EmotionType.Joy;
 
+
+    private MonsterMovement _monsterMovement;
+
     public void OnEnter(Monster monster)
     {
-        //monster.CanBePushed = true;
-        //monster.EnableDash = true;
-        //monster.SetMovementStyle(MovementStyle.FreeRoam);
+        _monsterMovement = monster.GetComponent<MonsterMovement>();
     }
 
     public void UpdateState(Monster monster)
     {
-        // 근처에 플레이어 있으면 활력 회복
-        //monster.Energy += Time.deltaTime;
+        
+        _monsterMovement.Move(0.2f);
+
     }
 
-    public void OnExit(Monster monster) { }
+    public void OnExit(Monster monster) 
+    {
+    
+    }
 }

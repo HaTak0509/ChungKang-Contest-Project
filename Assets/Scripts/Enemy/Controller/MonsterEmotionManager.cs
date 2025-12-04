@@ -11,6 +11,7 @@ public class MonsterEmotionManager : MonoBehaviour
     //*************************************************************
     
     public static Action<Monster, EmotionType> OnEmotionAppliedToMonster;
+    public static Action OnEmotionLore;
 
     public void Awake()
     {
@@ -19,17 +20,18 @@ public class MonsterEmotionManager : MonoBehaviour
 
     public static void HandleEmotionApplied(Monster monster, EmotionType addEmotion) // 플레이어가 호출하는 감정 변경 함수
     {
-        
-        var finalEmotion = EmotionTable.Mix(monster.CurrentEmotion, addEmotion);//현재감정, 추가할 감정의 합성 여부를 확인
+        monster.AddEmotion(addEmotion);
+
+        var finalEmotion = EmotionTable.Mix(monster.CurrentEmotion, (EmotionType)monster.PlusEmotion);//현재감정, 추가할 감정의 합성 여부를 확인
 
         if (finalEmotion != monster.CurrentEmotion) //현재감정과 겹치지 않는다면
         {
-            Debug.Log($"감정 합성 결과: {monster.CurrentEmotion} + {addEmotion} = {finalEmotion}. 행동 방식 변경됨");
+            Debug.Log($"감정 합성 결과: {monster.CurrentEmotion} + {monster.PlusEmotion} = {finalEmotion}. 행동 방식 변경됨");
             monster.SetEmotion(finalEmotion);
         }
         else
         {
-            Debug.Log($"감정 합성 결과: {monster.CurrentEmotion} + {addEmotion} = {finalEmotion}. 변화 없음");
+            Debug.Log($"감정 합성 결과: {monster.CurrentEmotion} + {monster.PlusEmotion} = {finalEmotion}. 변화 없음");
         }
     }
 }

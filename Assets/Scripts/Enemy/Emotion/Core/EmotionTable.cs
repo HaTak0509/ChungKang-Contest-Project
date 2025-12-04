@@ -20,6 +20,7 @@ public static class EmotionTable
 
             {(EmotionType.Sad, EmotionType.Rage), EmotionType.Resentment},
             {(EmotionType.Sad, EmotionType.Fear), EmotionType.Anxiety},
+
             {(EmotionType.Rage, EmotionType.Fear), EmotionType.Tension},
             
             {(EmotionType.Joy, EmotionType.Joy), EmotionType.Madness},

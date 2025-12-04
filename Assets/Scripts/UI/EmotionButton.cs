@@ -58,7 +58,8 @@ public class EmotionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             method.Invoke(manager, new object[] { type });
         });
 
-        button.onClick.AddListener(LoreReset);
+        MonsterEmotionManager.OnEmotionLore += LoreReset;
+
 
         Lore = transform.Find("Lore").gameObject;
 
@@ -67,7 +68,11 @@ public class EmotionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         Lore.SetActive(false);
     }
 
-
+    void OnDestroy()
+    {
+        //메모리 누수 방지를 위해 오브젝트 제거시 이벤트 구독 해제
+        MonsterEmotionManager.OnEmotionLore -= LoreReset;
+    }
 
     public void OnPointerEnter(PointerEventData eventData) //버튼에 진입시 [현재 감정] + [추가할 감정]표시, 이후 해당 합성 감정의 설명 받아오기
     {
@@ -77,7 +82,7 @@ public class EmotionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     private void LoreReset()
     {
-        Debug.Log("변경됨");
+        Debug.Log("설명 변경됨");
 
         var curEmtion = PlayerEmotionController.Instance.CheckCurEmotion();
         var emotion = EmotionTable.Mix(curEmtion, type);
