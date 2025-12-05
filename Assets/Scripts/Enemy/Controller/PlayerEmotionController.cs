@@ -143,4 +143,12 @@ public class PlayerEmotionController : MonoBehaviour
         else
             return EmotionType.Neutral;
     }
+
+    public EmotionType CheckOriginEmotion()
+    {
+        if (_CurMonster != null)
+            return _CurMonster.OriginEmotion;
+        else
+            return EmotionType.Neutral;
+    }
 }

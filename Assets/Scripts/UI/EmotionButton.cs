@@ -84,11 +84,26 @@ public class EmotionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         Debug.Log("설명 변경됨");
 
-        var curEmtion = PlayerEmotionController.Instance.CheckCurEmotion();
-        var emotion = EmotionTable.Mix(curEmtion, type);
+        var curEmotion = PlayerEmotionController.Instance.CheckCurEmotion();
+        var originEmotion = PlayerEmotionController.Instance.CheckOriginEmotion();
+        var emotion = EmotionTable.Mix(curEmotion, type);
 
-        EmotionText.text = "[ " + Emotion.Get(emotion).korean + " ]\n" + Emotion.Get(curEmtion).korean + " + " + Emotion.Get(type).korean;
-        EmotionLore.text = Emotion.Get(emotion).lore;
+        if (curEmotion == EmotionType.Neutral)
+        {
+            EmotionText.text = "[ " + Emotion.Get(emotion).korean + " ]\n";
+            EmotionLore.text = Emotion.Get(emotion).lore;
+        }else if(curEmotion >= EmotionType.HeartBreaking)
+        {
+            EmotionText.text = "[ 분해하기 ]\n";
+            EmotionLore.text = Emotion.Get(originEmotion).lore;
+        }
+        else
+        {
+            EmotionText.text = "[ " + Emotion.Get(emotion).korean + " ]\n" + Emotion.Get(curEmotion).korean + " + " + Emotion.Get(type).korean;
+            EmotionLore.text = Emotion.Get(emotion).lore;
+
+        }
+
     }
 
     public void OnPointerExit(PointerEventData eventData)
