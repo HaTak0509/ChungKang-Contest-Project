@@ -129,9 +129,15 @@ public class PlayerInput : MonoBehaviour
 
     private void Facing(Vector2 input) // Player회전
     {
-        if (input.x < 0) // 왼 쪽의 이동이 감지되었을 때 왼쪽을 보게한다.
-            transform.localScale = new Vector3(-Mathf.Abs(baseScale.x), baseScale.y, baseScale.z);
-        else if (input.x > 0) // 오른 쪽의 이동이 감지되었을 때 오른쪽을 보게한다.
-            transform.localScale = new Vector3(Mathf.Abs(baseScale.x), baseScale.y, baseScale.z);
+        if (input.x == 0) return;
+
+        float currentScaleY = transform.localScale.y;
+        float currentScaleZ = transform.localScale.z;
+        float absX = Mathf.Abs(transform.localScale.x);
+
+        if (input.x < 0)
+            transform.localScale = new Vector3(-absX, currentScaleY, currentScaleZ);
+        else
+            transform.localScale = new Vector3(absX, currentScaleY, currentScaleZ);
     }
 }
