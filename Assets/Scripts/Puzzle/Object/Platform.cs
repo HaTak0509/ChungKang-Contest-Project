@@ -23,10 +23,6 @@ public class Platform : MonoBehaviour
             playerParent = collision.transform;
             playerParent.SetParent(transform);
             isPressed = true;
-
-            // 옵션: 눌린 스프라이트 변경
-            if (pressedSprite != null)
-                GetComponent<SpriteRenderer>().sprite = pressedSprite;
         }
     }
 
@@ -38,9 +34,6 @@ public class Platform : MonoBehaviour
             playerParent.SetParent(null);
             playerParent = null;
             isPressed = false;
-
-            // 옵션: 원래 스프라이트 복구
-            // (Start에서 원래 스프라이트 저장 후 여기서 복구)
         }
     }
 

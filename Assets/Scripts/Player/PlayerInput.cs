@@ -129,8 +129,6 @@ public class PlayerInput : MonoBehaviour
 
     private void Facing(Vector2 input) // PlayerÈ¸Àü
     {
-        if (input.x == 0) return;
-
         float currentScaleY = transform.localScale.y;
         float currentScaleZ = transform.localScale.z;
         float absX = Mathf.Abs(transform.localScale.x);
