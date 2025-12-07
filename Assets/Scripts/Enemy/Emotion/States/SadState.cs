@@ -3,7 +3,7 @@
 using UnityEngine;
 using System;
 
-public class JoyState : IEmotionState
+public class SadState : IEmotionState
 {
     //*************************************************************
     // [ 코드 설명 ] :
@@ -11,21 +11,22 @@ public class JoyState : IEmotionState
     // 확장성을 챙기기 위해 인터페이스 형식을 사용함
     //*************************************************************
 
-    public EmotionType Type => EmotionType.Joy;
-
+    public EmotionType Type => EmotionType.Sad;
+    private GameObject SmokeParticle;
 
     private MonsterMovement _movement;
 
     public void OnEnter(Monster monster)
     {
         _movement = monster.GetComponent<MonsterMovement>();
+
     }
 
     public void UpdateState(Monster monster)
     {
 
         // 1) 앞으로 이동
-        _movement.Move(0.6f);
+        _movement.Move(0);
 
         // 2) 벽이면 반전
         if (_movement.IsWallAhead())
@@ -33,8 +34,8 @@ public class JoyState : IEmotionState
             _movement.Flip();
         }
 
-        // 3) Joy 특유의 행동 추가 가능
-        // 활력 증가, 랜덤 점프 등
+
+
 
     }
 
