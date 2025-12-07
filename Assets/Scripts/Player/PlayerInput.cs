@@ -131,11 +131,11 @@ public class PlayerInput : MonoBehaviour
     {
         float currentScaleY = transform.localScale.y;
         float currentScaleZ = transform.localScale.z;
-        float absX = Mathf.Abs(transform.localScale.x);
+        float currentScalex = transform.localScale.x;
 
         if (input.x < 0)
-            transform.localScale = new Vector3(-absX, currentScaleY, currentScaleZ);
+            transform.localScale = new Vector3(-currentScalex, currentScaleY, currentScaleZ);
         else
-            transform.localScale = new Vector3(absX, currentScaleY, currentScaleZ);
+            transform.localScale = new Vector3(currentScalex, currentScaleY, currentScaleZ);
     }
 }
