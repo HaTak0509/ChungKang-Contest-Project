@@ -87,6 +87,7 @@ public class EmotionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         var curEmotion = PlayerEmotionController.Instance.CheckCurEmotion();
         var originEmotion = PlayerEmotionController.Instance.CheckOriginEmotion();
         var emotion = EmotionTable.Mix(curEmotion, type);
+        var curOff = PlayerEmotionController.Instance.CheckCurOFF();
 
         if (curEmotion == EmotionType.Neutral)
         {
@@ -95,6 +96,10 @@ public class EmotionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         }else if(curEmotion >= EmotionType.HeartBreaking)
         {
             EmotionText.text = "[ 분해하기 ]\n";
+            EmotionLore.text = Emotion.Get(originEmotion).lore;
+        }else if (curOff)
+        {
+            EmotionText.text = "[ 활성화하기 ]\n";
             EmotionLore.text = Emotion.Get(originEmotion).lore;
         }
         else

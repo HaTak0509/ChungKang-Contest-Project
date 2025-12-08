@@ -1,7 +1,4 @@
-
-
 using UnityEngine;
-using System;
 
 public class SadState : IEmotionState
 {
@@ -12,14 +9,16 @@ public class SadState : IEmotionState
     //*************************************************************
 
     public EmotionType Type => EmotionType.Sad;
-    private GameObject SmokeParticle;
+    private GameObject Smoke;
 
     private MonsterMovement _movement;
 
     public void OnEnter(Monster monster)
     {
         _movement = monster.GetComponent<MonsterMovement>();
-
+        GameObject _smokePrefab = Resources.Load<GameObject>("Particle/SmokeParticle");
+        Smoke = GameObject.Instantiate(_smokePrefab, new Vector3(0,0,0), Quaternion.identity);
+        Smoke.transform.SetParent(monster.transform, false);
     }
 
     public void UpdateState(Monster monster)
@@ -41,6 +40,6 @@ public class SadState : IEmotionState
 
     public void OnExit(Monster monster) 
     {
-    
+        GameObject.Destroy(Smoke);
     }
 }

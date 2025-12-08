@@ -20,6 +20,8 @@ public class Monster : MonoBehaviour
 
     private IEmotionState _currentState;
     private bool _IsOff = false;
+    public bool IsOff => _IsOff;
+
     void Start()
     {
         // 이벤트 리스너 등록: MonsterEmotionManager의 정적 이벤트를 구독, 다른 곳에서 감정 주입 요청이 오면 처리함
@@ -80,16 +82,21 @@ public class Monster : MonoBehaviour
         else//기본 감정이라면
         {
             _IsOff = true;
-            Debug.Log("해옹 OFF");
+            _currentState.OnExit(this); //현재 행동 종료
+            Debug.Log("행동 OFF");
         }
     }
+    public void OnEmotion()
+    {
+        _IsOff = true;
+        _currentState.OnEnter(this);
+    }
 
-
+    
     public void AddEmotion(EmotionType emotion)
     {
         PlusEmotion = emotion;
     }
-
 
     private void Update()
     {

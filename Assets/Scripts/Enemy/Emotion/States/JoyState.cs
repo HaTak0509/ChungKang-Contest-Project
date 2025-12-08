@@ -18,23 +18,20 @@ public class JoyState : IEmotionState
 
     public void OnEnter(Monster monster)
     {
-        _movement = monster.GetComponent<MonsterMovement>();
+        if(_movement == null)
+            _movement = monster.GetComponent<MonsterMovement>();
     }
 
     public void UpdateState(Monster monster)
     {
 
-        // 1) 앞으로 이동
         _movement.Move(0.6f);
 
-        // 2) 벽이면 반전
         if (_movement.IsWallAhead())
         {
             _movement.Flip();
         }
 
-        // 3) Joy 특유의 행동 추가 가능
-        // 활력 증가, 랜덤 점프 등
 
     }
 

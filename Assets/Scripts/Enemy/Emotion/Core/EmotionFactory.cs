@@ -20,7 +20,7 @@ public static class EmotionFactory
     static EmotionFactory() //정적 생성자, 한번만 실행됨. 미리 행동 로직을 딕셔너리에 캐싱해둠
     {
         _StateTable.Add(EmotionType.Joy,new JoyState());
-        //_StateTable.Add(EmotionType.Joy, new JoyState());
+        _StateTable.Add(EmotionType.Sad, new SadState());
         //_StateTable.Add(EmotionType.Joy, new JoyState());
         //_StateTable.Add(EmotionType.Joy, new JoyState());
 
