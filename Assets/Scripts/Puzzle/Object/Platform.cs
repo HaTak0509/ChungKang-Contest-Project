@@ -2,27 +2,29 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
+    [SerializeField] private Door targetDoor;
+
     [SerializeField] private float sinkAmount = 0.2f;  // 얼마나 내려갈지
     [SerializeField] private float sinkSpeed = 10f;    // 내려가는 속도
-    [SerializeField] private Sprite pressedSprite;     // 눌린 스프라이트
+    [SerializeField] private Sprite pressedSprite;
 
     private Vector3 originalPosition;
     private bool isPressed = false;
-    private Transform playerParent;
+    private Transform player;
 
     void Start()
     {
-        originalPosition = transform.position;  // 원래 위치 저장
+        // 원래 위치 저장
+        originalPosition = transform.position;  
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            // 플레이어를 발판 자식으로 만들어 따라 내려가게 함 (깔끔한 움직임)
-            playerParent = collision.transform;
-            playerParent.SetParent(transform);
+            player = collision.transform;
             isPressed = true;
+            targetDoor.OpenDoor();
         }
     }
 
@@ -30,17 +32,25 @@ public class Platform : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            // 플레이어 부모 해제
-            playerParent.SetParent(null);
-            playerParent = null;
+            player = null;
             isPressed = false;
+            targetDoor.CloseDoor();
         }
     }
-
     void Update()
     {
-        // Lerp로 부드럽게 위치 이동
+        Vector3 prevPos = transform.position;
+
         Vector3 targetPos = isPressed ? originalPosition + Vector3.down * sinkAmount : originalPosition;
+
         transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * sinkSpeed);
+
+        if (player != null)
+        {
+            // 이번 프레임 동안 이동한 거리 계산
+            Vector3 delta = transform.position - prevPos;
+            // 플레이어를 그만큼 이동
+            player.position += delta; 
+        }
     }
 }

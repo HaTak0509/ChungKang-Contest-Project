@@ -1,26 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    private BoxCollider2D _collider;
-    private bool _input;
+    [SerializeField] private bool hold;
 
-    void Start()
+    private Animator animator;
+    private Collider2D collider2D;
+    private bool opened;
+
+    private void Awake()
     {
-        _collider = GetComponent<BoxCollider2D>();
+        animator = GetComponent<Animator>();
+        collider2D = GetComponent<Collider2D>();
+        collider2D.isTrigger = false;
+        opened = false;
     }
 
-    void Update()
+    public void OpenDoor()
     {
-        if (_input)
+        if (hold)
         {
-            _collider.isTrigger = true;
+            // hold 모드에서는 단순히 트리거 ON
+            collider2D.isTrigger = true;
         }
-        else 
+        else
         {
-            _collider.isTrigger = false;
+            // 일반 모드는 한 번 열리면 끝
+            if (!opened)
+            {
+                opened = true;
+                collider2D.isTrigger = true;
+            }
+        }
+    }
+
+    public void CloseDoor()
+    {
+        // hold 모드일 때만 닫힘
+        if (hold)
+        {
+            collider2D.isTrigger = false;
         }
     }
 }

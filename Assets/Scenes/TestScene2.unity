@@ -203,7 +203,7 @@ Transform:
   m_GameObject: {fileID: 336280145}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.98, y: -1.62, z: 0}
+  m_LocalPosition: {x: -0.97, y: -1.66, z: 0}
   m_LocalScale: {x: 1.2376561, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -221,6 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13b51d0f6f5fb784fb82962989975698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetDoor: {fileID: 1711315830}
   sinkAmount: 0.2
   sinkSpeed: 10
   pressedSprite: {fileID: 0}
@@ -284,7 +285,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1067,7 +1068,7 @@ GameObject:
   - component: {fileID: 1711315832}
   - component: {fileID: 1711315831}
   - component: {fileID: 1711315830}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1153,6 +1154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1e51623067faeb4ba9e240d87c102c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hold: 0
 --- !u!50 &1711315831
 Rigidbody2D:
   serializedVersion: 4
