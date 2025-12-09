@@ -95,7 +95,7 @@ public class EmotionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             EmotionLore.text = Emotion.Get(emotion).lore;
         }else if(curEmotion >= EmotionType.HeartBreaking)
         {
-            EmotionText.text = "[ 분해하기 ]\n";
+            EmotionText.text = "[ 분해하기 ]\n" + Emotion.Get(emotion).korean;
             EmotionLore.text = Emotion.Get(originEmotion).lore;
         }else if (curOff)
         {

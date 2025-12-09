@@ -155,7 +155,7 @@ public class PlayerEmotionController : MonoBehaviour
     public bool CheckCurOFF()
     {
         if (_CurMonster != null)
-            return _CurMonster.IsOff;
+            return _CurMonster._IsOff;
         else
             return false;
     }

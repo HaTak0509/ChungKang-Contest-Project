@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 public class Monster : MonoBehaviour
@@ -13,14 +14,15 @@ public class Monster : MonoBehaviour
     [SerializeField] private EmotionType _initialEmotion = EmotionType.Neutral; // 몬스터의 기본 시작 감정
     [SerializeField] public EmotionType CurrentEmotion { get; private set; } // 읽기 가능, 수정 불가능
 
+
     [SerializeField] public EmotionType OriginEmotion { get; private set; } // 읽기 가능, 수정 불가능
     [SerializeField] public EmotionType? PlusEmotion { get; private set; } // 읽기 가능, 수정 불가능
 
 
 
-    private IEmotionState _currentState;
-    private bool _IsOff = false;
-    public bool IsOff => _IsOff;
+    public IEmotionState _currentState { get; private set; }//현재 상태
+
+    public bool _IsOff { get; private set; } = false;
 
     void Start()
     {
@@ -49,6 +51,9 @@ public class Monster : MonoBehaviour
             MonsterEmotionManager.HandleEmotionApplied(this, addEmotion);
         }
     }
+
+
+
 
     //감정 세팅
     public void SetEmotion(EmotionType newEmotion)
@@ -88,7 +93,7 @@ public class Monster : MonoBehaviour
     }
     public void OnEmotion()
     {
-        _IsOff = true;
+        _IsOff = false;
         _currentState.OnEnter(this);
     }
 

@@ -23,7 +23,7 @@ public class MonsterEmotionManager : MonoBehaviour
         if (monster.CurrentEmotion >= EmotionType.HeartBreaking)
         {
             monster.RemoveEmotion();
-        }else if (monster.IsOff)
+        }else if (monster._IsOff)
         {
             monster.OnEmotion();
         }
