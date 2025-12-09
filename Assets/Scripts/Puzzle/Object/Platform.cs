@@ -3,6 +3,7 @@ using UnityEngine;
 public class Platform : MonoBehaviour
 {
     [SerializeField] private Door targetDoor;
+    [SerializeField] private Bridge targetBridge;
 
     [SerializeField] private float sinkAmount = 0.2f;  // 얼마나 내려갈지
     [SerializeField] private float sinkSpeed = 10f;    // 내려가는 속도
@@ -24,7 +25,8 @@ public class Platform : MonoBehaviour
         {
             player = collision.transform;
             isPressed = true;
-            targetDoor.OpenDoor();
+            if (targetDoor != null) targetDoor.OpenDoor();
+            if (targetBridge != null) targetBridge.OpenBridge();
         }
     }
 
@@ -34,7 +36,8 @@ public class Platform : MonoBehaviour
         {
             player = null;
             isPressed = false;
-            targetDoor.CloseDoor();
+            if (targetDoor != null) targetDoor.CloseDoor();
+            if (targetBridge != null) targetBridge.CloseBridge();
         }
     }
     void Update()

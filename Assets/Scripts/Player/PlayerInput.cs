@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -131,11 +134,11 @@ public class PlayerInput : MonoBehaviour
     {
         float currentScaleY = transform.localScale.y;
         float currentScaleZ = transform.localScale.z;
-        float currentScalex = transform.localScale.x;
+        float absX = Mathf.Abs(transform.localScale.x);
 
         if (input.x < 0)
-            transform.localScale = new Vector3(-currentScalex, currentScaleY, currentScaleZ);
-        else
-            transform.localScale = new Vector3(currentScalex, currentScaleY, currentScaleZ);
+            transform.localScale = new Vector3(-absX, currentScaleY, currentScaleZ);
+        else if (input.x > 0)
+            transform.localScale = new Vector3(absX, currentScaleY, currentScaleZ);
     }
 }
