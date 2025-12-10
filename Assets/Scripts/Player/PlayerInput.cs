@@ -13,10 +13,13 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private float jumpImpulse;
     [SerializeField] private float dashImpulse;
 
+    public bool moveLimit;
+
     private Vector3 baseScale;
     private Vector2 _moveInput;
     private Rigidbody2D _rb;
     private TouchingDetection _touchingDetection;
+    private DamageAble _damageAble;
 
     public float CurrentMoveSpeed // 현재 속도를 계산
     {
@@ -49,29 +52,21 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
-    private bool _isDash = false;
-
-    public bool IsDash
-    {
-        get { return _isDash; }
-        set
-        {
-            _isDash = value;
-        }
-    }
-
     void Start()
     {
         baseScale = transform.localScale;
+        moveLimit = false;
         _rb = GetComponent<Rigidbody2D>();
         _touchingDetection = GetComponent<TouchingDetection>();
+        _damageAble = GetComponent<DamageAble>();
     }
 
     void FixedUpdate()
     {
-        if (IsDash) return;
+        if (moveLimit) return;
 
-        _rb.velocity = new Vector2((_moveInput.x * CurrentMoveSpeed), _rb.velocity.y); // 속도 계산
+        _rb.velocity = new Vector2(_moveInput.x * CurrentMoveSpeed, _rb.velocity.y); // 속도 계산
+        
     }
 
     public void OnMoveInputAction(InputAction.CallbackContext context) // 움직임 입력 계산
@@ -110,7 +105,7 @@ public class PlayerInput : MonoBehaviour
 
     public void OnDashInputAction (InputAction.CallbackContext context) // 대쉬 입력 계산
     {
-        if (IsDash) return; // 이미 대쉬가 실행중이라면 발동X
+        if (moveLimit) return; // 움직임 막기
 
         if (context.started)
         {
@@ -120,14 +115,14 @@ public class PlayerInput : MonoBehaviour
 
     private IEnumerator DashRoutine() // 대쉬 거리 계산
     {
-        IsDash = true ;
+        moveLimit = true ;
 
         float dir = _rb.transform.localScale.x > 0 ? 1 : -1; // Player가 보는 방향 구하기
         _rb.velocity = new Vector2(dashImpulse * dir, _rb.velocity.y); // 구한 방향에 따라 대쉬
 
         yield return new WaitForSeconds(0.15f); // 몇 초 안에 대쉬 거리를 이동할지
-        
-        IsDash = false ;
+
+        moveLimit = false ;
     }
 
     private void Facing(Vector2 input) // Player회전

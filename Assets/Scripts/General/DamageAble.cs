@@ -5,8 +5,11 @@ using UnityEngine.Events;
 
 public class DamageAble : MonoBehaviour
 {
-    [SerializeField] private float knockBackDistance;
+    [SerializeField] private float knockBackForce;
+    [SerializeField] private float knockBackDuration;
 
+    private PlayerInput playerInput;
+    private Rigidbody2D rb2D;
     private bool _hit = false;
 
     public bool Hit
@@ -20,38 +23,40 @@ public class DamageAble : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("GetHit Button = E");
+        playerInput = GetComponent<PlayerInput>();
+        rb2D = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
         if (Input.GetKey(KeyCode.E))
         {
-            GetHit();
+            if (_hit) return;
+            KnockBack(knockBackForce);
+            Debug.Log("GetHit Button = E");
         }
     }
 
-    public void GetHit()
+    public void KnockBack(float force)
     {
-        if (_hit) return;
-        StartCoroutine(KnockBackCoroutine(0.3f));
-    }
-
-    private IEnumerator KnockBackCoroutine(float duration)
-    {
-        Vector2 start = transform.position;
         Vector2 dir = transform.localScale.x > 0 ? Vector2.left : Vector2.right;
-        Vector2 end = start + (dir * knockBackDistance);
+        rb2D.AddForce(dir * force, ForceMode2D.Impulse);
 
-        float t = 0;
+        SetMoveLimit(true);
+        _hit = true;
 
-        while (t < duration)
-        {
-            t += Time.deltaTime / duration;
+        StartCoroutine(KnockbackEnd());
+    }
+    private void SetMoveLimit(bool value)
+    {
+        if (playerInput != null)
+            playerInput.moveLimit = value;
+    }
+    private IEnumerator KnockbackEnd()
+    {
+        yield return new WaitForSeconds(knockBackDuration);
 
-            transform.position = Vector2.Lerp(start, end, t);
-
-            yield return null;
-        }
+        SetMoveLimit(false);
+        _hit = false;
     }
 }
