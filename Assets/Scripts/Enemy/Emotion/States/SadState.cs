@@ -34,14 +34,6 @@ public class SadState : IEmotionState
     public void UpdateState(Monster monster)
     {
 
-        // 1) 앞으로 이동
-        _movement.Move(0);
-
-        // 2) 벽이면 반전
-        if (_movement.IsWallAhead())
-        {
-            _movement.Flip();
-        }
 
     }
 

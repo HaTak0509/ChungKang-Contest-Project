@@ -27,11 +27,6 @@ public class JoyState : IEmotionState
 
         _movement.Move(0.6f);
 
-        if (_movement.IsWallAhead())
-        {
-            _movement.Flip();
-        }
-
 
     }
 
