@@ -22,7 +22,7 @@ public static class EmotionFactory
         _StateTable.Add(EmotionType.Joy,new JoyState());
         _StateTable.Add(EmotionType.Sad, new SadState());
         _StateTable.Add(EmotionType.Rage, new RageState());
-        //_StateTable.Add(EmotionType.Joy, new JoyState());
+        _StateTable.Add(EmotionType.Fear, new FearState());
 
         _StateTable.Add(EmotionType.Madness, new MadnessState());
         //_StateTable.Add(EmotionType.Joy, new JoyState());

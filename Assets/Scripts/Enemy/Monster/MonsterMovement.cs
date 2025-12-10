@@ -6,16 +6,19 @@ public class MonsterMovement : MonoBehaviour
     private float _direction = 1f; // 1 = 오른쪽, -1 = 왼쪽
     private float moveSpeed = 3f;
     private Rigidbody2D _rb;
-    public bool _isFacingRight { get; private set; } = true;
     private Coroutine _chargeRoutine;
+    private Coroutine _WaitRoutine;
     private Monster _monster;
+    private LayerMask wallLayer;
 
     public float jumpForce = 8f;
-    public LayerMask wallLayer;
-
+   
+    
+    
+    public bool _isFacingRight { get; private set; } = true;
     public bool IsCharge { get; private set; } = false;
     public bool IsChargeWait { get; private set; } = false;
-
+    public bool IsChargeCool = false;
 
 
     void Awake()
@@ -82,7 +85,7 @@ public class MonsterMovement : MonoBehaviour
         else
             transform.localScale = new Vector3(1, 1, 1);
 
-        // ▶ 속도 적용 (Y축 직선 돌진)
+        // ▶ 속도 적용 (x축 직선 돌진)
         _rb.velocity = new Vector2(xDirection * 15f, 0);
 
         // 돌진 시간
@@ -104,9 +107,27 @@ public class MonsterMovement : MonoBehaviour
 
     public void StartWait(float WaitTime = 2f)
     {
-        //할부분
+        if (_WaitRoutine == null)
+            _WaitRoutine = StartCoroutine(WaitRoutine(WaitTime));
     }
 
+    public IEnumerator WaitRoutine(float WaitTime = 2f)
+    {
+        float timer = 0f;
+
+        while (timer < WaitTime)
+        {
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        IsChargeCool = true;
+    }
+
+    public void Stop()
+    {
+        _rb.velocity = Vector2.zero;
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

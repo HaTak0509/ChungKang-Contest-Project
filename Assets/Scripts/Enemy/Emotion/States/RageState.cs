@@ -20,6 +20,8 @@ public class RageState : IEmotionState
     public State currentState = State.Idle; //대기
 
     public float detectRange = 5f; //감지 범위
+    public float ChargeCooltime = 5f; //돌진 쿨타임
+
 
 
 
@@ -53,11 +55,20 @@ public class RageState : IEmotionState
             case State.Charge:
                 _movement.StartCharge(_player);
 
-                if(_movement.IsChargeWait == false && _movement.IsCharge == false) 
+                if (_movement.IsChargeWait == false && _movement.IsCharge == false)
+                {
+                    Debug.Log("대기 변경");
                     currentState = State.Recover;
+                }
                 break;
             case State.Recover:
-                    
+                _movement.StartWait(ChargeCooltime);
+
+                if (_movement.IsChargeCool)
+                {
+                    _movement.IsChargeCool = false;
+                    currentState = State.Idle;
+                }
                 break;
         }
     }
