@@ -314,6 +314,9 @@ GameObject:
   - component: {fileID: 457471256}
   - component: {fileID: 457471251}
   - component: {fileID: 457471250}
+  - component: {fileID: 457471259}
+  - component: {fileID: 457471261}
+  - component: {fileID: 457471260}
   - component: {fileID: 457471255}
   - component: {fileID: 457471258}
   m_Layer: 7
@@ -350,9 +353,9 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 457471250}
-        m_TargetAssemblyTypeName: PlayerMove, Assembly-CSharp
-        m_MethodName: OnMoveInputAction
+      - m_Target: {fileID: 457471251}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnMove
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -366,9 +369,9 @@ MonoBehaviour:
     m_ActionName: PlayerInput/PlayerMove[/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 457471250}
-        m_TargetAssemblyTypeName: PlayerMove, Assembly-CSharp
-        m_MethodName: OnJumpInputAction
+      - m_Target: {fileID: 457471251}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnJump
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -382,9 +385,9 @@ MonoBehaviour:
     m_ActionName: PlayerInput/Jump[/Keyboard/space]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 457471250}
-        m_TargetAssemblyTypeName: PlayerMove, Assembly-CSharp
-        m_MethodName: OnSprintInputAction
+      - m_Target: {fileID: 457471251}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnSprint
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -398,9 +401,9 @@ MonoBehaviour:
     m_ActionName: PlayerInput/Sprint[/Keyboard/leftShift]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 457471250}
-        m_TargetAssemblyTypeName: PlayerMove, Assembly-CSharp
-        m_MethodName: OnDashInputAction
+      - m_Target: {fileID: 457471251}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnDash
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -442,14 +445,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 457471248}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5c472ff2e01e24498f0f460ad2206b8, type: 3}
+  m_Script: {fileID: 11500000, guid: 5c4806d8560220b4bb2d111495d34077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 5
-  SprintSpeed: 7
-  jumpImpulse: 5
-  dashImpulse: 15
-  moveLimit: 0
+  walkSpeed: 6
+  sprintSpeed: 10
 --- !u!114 &457471251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -462,6 +462,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 954c30cd6ce88c34288dbcf3f92cc2cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movement: {fileID: 457471250}
+  jump: {fileID: 457471259}
+  dash: {fileID: 457471261}
+  damageable: {fileID: 457471258}
 --- !u!212 &457471252
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -641,8 +645,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07574466d5e05b94e8cac906115a350d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockBackForce: 50
-  knockBackDuration: 0.15
+  knockbackForce: 12
+  knockbackDuration: 0.25
+  startInvincible: 0
+  onInvincibleEnd:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &457471259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 457471248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f771770d13863b4e80af0785dd968d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpForce: 4
+--- !u!114 &457471260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 457471248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0a9962c822d695409f1e112be125380, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &457471261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 457471248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad9893ff3cb884744bf4f8b18077e2e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashForce: 24
+  dashTime: 0.15
+  dashCooldown: 0.8
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
