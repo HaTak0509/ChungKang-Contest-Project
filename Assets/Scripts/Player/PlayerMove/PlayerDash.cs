@@ -7,21 +7,21 @@ public class PlayerDash : MonoBehaviour
     [SerializeField] float dashTime = 0.15f;
     [SerializeField] float dashCooldown = 0.8f;
 
-    private Rigidbody2D rb;
+    private Rigidbody2D _rb2D;
     private PlayerFacing facing;
-    private Damageable health;
+    private Damageable _damageable;
     private bool canDash = true;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        _rb2D = GetComponent<Rigidbody2D>();
         facing = GetComponent<PlayerFacing>();
-        health = GetComponent<Damageable>();
+        _damageable = GetComponent<Damageable>();
     }
 
     public void TryDash()
     {
-        if (!canDash || health.IsStunnedOrKnockback) return;
+        if (!canDash || _damageable.IsKnockback) return;
 
         StartCoroutine(DashRoutine());
     }
@@ -29,12 +29,20 @@ public class PlayerDash : MonoBehaviour
     private IEnumerator DashRoutine()
     {
         canDash = false;
-        health.SetInvincible(dashTime); // 대시 중 무적 (선택)
+        _damageable.SetInvincible(dashTime);
 
         float dir = facing.IsFacingRight ? 1f : -1f;
+        _rb2D.velocity = new Vector2(dashForce * dir, _rb2D.velocity.y); // y 유지
 
         yield return new WaitForSeconds(dashTime);
 
+        // 대시 끝! → 이제 PlayerMovement가 다시 제어권 가짐
+        // 쿨타임은 별도 코루틴으로
+        StartCoroutine(CooldownRoutine());
+    }
+
+    private IEnumerator CooldownRoutine()
+    {
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
     }

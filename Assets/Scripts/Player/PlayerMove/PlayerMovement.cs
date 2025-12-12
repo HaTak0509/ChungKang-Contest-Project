@@ -5,38 +5,37 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float walkSpeed = 6f;
     [SerializeField] float sprintSpeed = 10f;
 
-    private Rigidbody2D rb;
-    private Damageable health;
-    private PlayerFacing facing;
-    private Vector2 moveInput;
-    private bool isSprinting;
+    private Rigidbody2D _rb2D;
+    private Damageable _damageable;
+    private PlayerFacing _facing;
+    private Vector2 _moveInput;
+    private bool _isSprinting;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        health = GetComponent<Damageable>();
-        facing = GetComponent<PlayerFacing>();
+        _rb2D = GetComponent<Rigidbody2D>();
+        _damageable = GetComponent<Damageable>();
+        _facing = GetComponent<PlayerFacing>();
     }
 
     public void SetInput(Vector2 input)
     {
-        moveInput = input;
+        _moveInput = input;
         if (input.sqrMagnitude > 0.01f)
-            facing.FaceDirection(input.x);
+            _facing.FaceDirection(input.x);
     }
 
-    public void SetSprinting(bool value) => isSprinting = value;
+    public void SetSprinting(bool value) => _isSprinting = value;
 
     private void FixedUpdate()
     {
-        if (health.IsStunnedOrKnockback) // ³Ë¹é Á¦¾î
+        if (_damageable != null && _damageable.IsInvincible)
         {
-            rb.velocity = new Vector2(0, rb.velocity.y);
             return;
         }
 
-        float speed = isSprinting ? sprintSpeed : walkSpeed;
+        float speed = _isSprinting ? sprintSpeed : walkSpeed;
 
-        rb.velocity = new Vector2(moveInput.x * speed, rb.velocity.y);
+        _rb2D.velocity = new Vector2(_moveInput.x * speed, _rb2D.velocity.y);
     }
 }

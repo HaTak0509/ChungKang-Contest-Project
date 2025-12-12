@@ -4,22 +4,22 @@ public class PlayerJump : MonoBehaviour
 {
     [SerializeField] float jumpForce = 14f;
 
-    private Rigidbody2D rb;
-    private TouchingDetection ground;
-    private Damageable health;
+    private Rigidbody2D _rb2D;
+    private TouchingDetection _ground;
+    private Damageable _damageable;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        ground = GetComponent<TouchingDetection>();
-        health = GetComponent<Damageable>();
+        _rb2D = GetComponent<Rigidbody2D>();
+        _ground = GetComponent<TouchingDetection>();
+        _damageable = GetComponent<Damageable>();
     }
 
     public void TryJump()
     {
-        if (!ground.IsGround) return;
-        if (health.IsStunnedOrKnockback) return;
+        if (!_ground.IsGround) return;
+        if (_damageable.IsKnockback) return;
 
-        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        _rb2D.velocity = new Vector2(_rb2D.velocity.x, jumpForce);
     }
 }

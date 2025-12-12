@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class PlayerFacing : MonoBehaviour
 {
-    private Vector3 baseScale;
+    private Vector3 _baseScale;
     public bool IsFacingRight { get; private set; } = true;
 
-    private void Awake() => baseScale = transform.localScale;
+    private void Awake() => _baseScale = transform.localScale;
 
     public void FaceDirection(float inputX)
     {
@@ -15,8 +15,8 @@ public class PlayerFacing : MonoBehaviour
         if (faceRight != IsFacingRight)
         {
             IsFacingRight = faceRight;
-            float x = faceRight ? baseScale.x : -baseScale.x;
-            transform.localScale = new Vector3(x, baseScale.y, baseScale.z);
+            float x = faceRight ? _baseScale.x : -_baseScale.x;
+            transform.localScale = new Vector3(x, _baseScale.y, _baseScale.z);
         }
     }
 }

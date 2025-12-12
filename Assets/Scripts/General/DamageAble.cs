@@ -18,7 +18,6 @@ public class Damageable : MonoBehaviour
 
     public bool IsKnockback => isKnockback;
     public bool IsInvincible => isInvincible;
-    public bool IsStunnedOrKnockback => isKnockback || isInvincible;
 
     private void Awake()
     {
