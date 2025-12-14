@@ -17,7 +17,7 @@ public class FearState : IEmotionState
 
 
     private float safeDistance = 4f;  // 플레이어와의 최소 거리
-    private float moveSpeed = 0.3f;   // 몬스터가 이동할 기본 속도
+
 
 
     public void OnEnter(Monster monster)
