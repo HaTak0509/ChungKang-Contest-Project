@@ -48,12 +48,10 @@ public class PlayerController : MonoBehaviour
         if (context.started)
         {
             intercation = true;
-            Debug.Log(123);
         }
         else if (context.canceled)
         {
             intercation = false;
-            Debug.Log(456);
         }
     }
 }
