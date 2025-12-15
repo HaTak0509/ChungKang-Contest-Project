@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public PlayerJump jump;
     public PlayerDash dash;
     public Damageable damageable;
+    public bool intercation;
 
     private Vector2 moveInput;
 
@@ -40,5 +41,19 @@ public class PlayerController : MonoBehaviour
     public void OnDash(InputAction.CallbackContext context)
     {
         if (context.started) dash.TryDash();
+    }
+
+    public void OnInteraction(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            intercation = true;
+            Debug.Log(123);
+        }
+        else if (context.canceled)
+        {
+            intercation = false;
+            Debug.Log(456);
+        }
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Lift : MonoBehaviour
 {
+    [SerializeField] private PlayerController playerController;
+
     private bool active = false;
     private Rigidbody2D _rb2D;
     private BoxCollider2D _collider2D;
@@ -16,25 +18,21 @@ public class Lift : MonoBehaviour
 
     void Update()
     {
-        if (active)
-        {
 
-        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            active = true;
+            if (playerController.intercation)f
+            {
+                StartCoroutine(Lifting());
+            }
         }
     }
-
-    private void OnCollisionExit2D(Collision2D collision)
+    private IEnumerator Lifting()
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            active = false;
-        }
+        yield return null;
     }
 }
