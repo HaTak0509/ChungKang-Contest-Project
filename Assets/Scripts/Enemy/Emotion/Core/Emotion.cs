@@ -55,6 +55,5 @@ public static class Emotion
         return DB.Get(type); //EmotionDataBase의 GEt() 실행하여 속성 가져옴
 
     }
-
 }
 
