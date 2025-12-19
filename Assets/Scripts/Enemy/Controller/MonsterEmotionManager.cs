@@ -6,43 +6,13 @@ public class MonsterEmotionManager : MonoBehaviour
     
     //*************************************************************
     // [ 코드 설명 ] :
-    // 몬스터의 감정을 변경함
-    // 이벤트 구조로 감정을 변경함. 유지보수성및 확장성 좋음
+    // 잉여 코드 | 수정 핋요
     //*************************************************************
     
-    public static Action<Monster, EmotionType> OnEmotionAppliedToMonster;
-    public static Action OnEmotionLore;
 
-    public void Awake()
-    {
-       
-    }
+    //이부분 해결해야함
+    public static Action<bool> OnPannel;
 
-    public static void HandleEmotionApplied(Monster monster, EmotionType addEmotion) // 플레이어가 호출하는 감정 변경 함수
-    {
-        if (monster.CurrentEmotion >= EmotionType.HeartBreaking)
-        {
-            monster.RemoveEmotion();
-        }else if (monster._IsOff)
-        {
-            monster.OnEmotion();
-        }
-        else
-        {
-            monster.AddEmotion(addEmotion);
 
-            var finalEmotion = EmotionTable.Mix(monster.CurrentEmotion, (EmotionType)monster.PlusEmotion);//현재감정, 추가할 감정의 합성 여부를 확인
-
-            if (finalEmotion != monster.CurrentEmotion) //현재감정과 겹치지 않는다면
-            {
-                Debug.Log($"감정 합성 결과: {monster.CurrentEmotion} + {monster.PlusEmotion} = {finalEmotion}. 행동 방식 변경됨");
-                monster.SetEmotion(finalEmotion);
-            }
-            else
-            {
-                Debug.Log($"감정 합성 결과: {monster.CurrentEmotion} + {monster.PlusEmotion} = {finalEmotion}. 변화 없음");
-            }
-
-        }
-    }
+   
 }

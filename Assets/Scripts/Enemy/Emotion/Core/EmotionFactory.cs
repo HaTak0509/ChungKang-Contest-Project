@@ -22,7 +22,6 @@ public static class EmotionFactory
         _StateTable.Add(EmotionType.Joy,new JoyState());
         _StateTable.Add(EmotionType.Sad, new SadState());
         _StateTable.Add(EmotionType.Rage, new RageState());
-        _StateTable.Add(EmotionType.Fear, new FearState());
 
         _StateTable.Add(EmotionType.Madness, new MadnessState());
         //_StateTable.Add(EmotionType.Joy, new JoyState());
@@ -45,7 +44,7 @@ public static class EmotionFactory
         // 특정 감정에 대한 State 클래스가 구현되지 않았을 경우 Neutral 상태를 반환, 오류를 방지
         //만약 _StateTable에 Neutral 감정 상태가 등록되어 있으면(= true) 이후 neutralState여기에 넣어서 아래코드 실행
         {
-            if (_StateTable.TryGetValue(EmotionType.Neutral, out var neutralState)) 
+            if (_StateTable.TryGetValue(EmotionType.Null, out var neutralState)) 
             Debug.LogError($"EmotionState not implemented for type: {type}. Returning NeutralState.");
             return neutralState;
         }

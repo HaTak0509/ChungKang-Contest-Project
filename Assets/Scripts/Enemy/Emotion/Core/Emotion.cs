@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 public enum EmotionType
 {
@@ -10,7 +11,7 @@ public enum EmotionType
 
 
 
-    Neutral, //NULL
+    Null, //NULL
 
     //기본 검정
     Joy, //기쁨
@@ -29,6 +30,13 @@ public enum EmotionType
     Screaming, //절규
     Outrage, //격분
     Panic//패닉
+}
+
+[System.Serializable]
+public struct EmotionInventory
+{
+    public EmotionType Emotion;
+    public List<EmotionType> Filter;
 }
 
 
