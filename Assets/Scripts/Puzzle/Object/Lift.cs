@@ -10,6 +10,7 @@ public class LiftController : MonoBehaviour
     private bool _atBottom = false;  // 아래에 있는지 여부
     private bool _playerOnLift = false;  // Player가 타고 있는지
     private bool _isMoving = false;  // 이동 중인지
+    private bool _isStart = false;
     private Rigidbody2D _rb2D;
     private Rigidbody2D _playerRb2D;
 
@@ -21,11 +22,6 @@ public class LiftController : MonoBehaviour
 
     void Update()
     {
-        if (_playerOnLift)
-        {
-
-        }
-
         // F키 누르고, Player가 타고 있고, 이동 중이 아닐 때만 동작
         if (Input.GetKeyDown(KeyCode.F) && _playerOnLift && !_isMoving)
         {
@@ -52,16 +48,20 @@ public class LiftController : MonoBehaviour
 
         while (Vector2.Distance(_rb2D.position, target) > 0.01f)
         {
-            _rb2D.MovePosition(
-                Vector2.MoveTowards(
-                    _rb2D.position,
-                    target,
-                    speed * Time.fixedDeltaTime
-                )
-            );
+            _rb2D.MovePosition(Vector2.MoveTowards(_rb2D.position, target, speed * Time.fixedDeltaTime));
+
+            if (!_isStart && _playerRb2D != null)
+            {
+                _playerRb2D.gravityScale = 50;
+                _isStart = true;
+            }
+            else if (_isStart && _playerRb2D != null)
+            {
+                _playerRb2D.gravityScale = 1;
+            }
+
             yield return new WaitForFixedUpdate();
         }
-
         _rb2D.MovePosition(target);
         _isMoving = false;
     }
