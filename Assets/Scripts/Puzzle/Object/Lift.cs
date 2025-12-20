@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LiftController : MonoBehaviour
@@ -46,7 +47,7 @@ public class LiftController : MonoBehaviour
     {
         _isMoving = true;
 
-        while (Vector2.Distance(_rb2D.position, target) > 0.01f)
+        while (Vector2.Distance(_rb2D.position, target) > 2f)
         {
             _rb2D.MovePosition(Vector2.MoveTowards(_rb2D.position, target, speed * Time.fixedDeltaTime));
 
@@ -62,6 +63,26 @@ public class LiftController : MonoBehaviour
 
             yield return new WaitForFixedUpdate();
         }
+
+        while (Vector2.Distance(_rb2D.position, target) > 0.01f)
+        {
+            float remaining = Vector2.Distance(_rb2D.position, target);
+
+            // 0~1 사이 비율 (2f에서 시작해서 0에 가까워짐)
+            float t = Mathf.Clamp01(remaining / 2f);
+
+            // 감속 커브 (부드럽게)
+            float slowFactor = Mathf.SmoothStep(0.2f, 1f, remaining);
+
+            float step = speed * slowFactor * Time.fixedDeltaTime;
+
+            _rb2D.MovePosition(
+                Vector2.MoveTowards(_rb2D.position, target, step)
+            );
+
+            yield return new WaitForFixedUpdate();
+        }
+
         _rb2D.MovePosition(target);
         _isMoving = false;
     }
