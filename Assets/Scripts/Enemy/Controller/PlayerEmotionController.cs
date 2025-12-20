@@ -35,7 +35,7 @@ public class PlayerEmotionController : MonoBehaviour
         {
             _IsControll = !_IsControll;
 
-            MonsterEmotionManager.OnPannel.Invoke(_IsControll);
+            PlayerEmotionInventory.OnPannel.Invoke(_IsControll);
 
             //Time.timeScale = _IsControll ? 0 : 1;
             //시간 정지는 어떻게 구현할지 고려

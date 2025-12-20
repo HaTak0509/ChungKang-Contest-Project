@@ -12,13 +12,13 @@ public class EmotionPannelController : MonoBehaviour
         _animator = GetComponent<Animator>();
         _animator.Play("Out", 0, 1f);
 
-        MonsterEmotionManager.OnPannel += OnPannel;
+        PlayerEmotionInventory.OnPannel += OnPannel;
     }
 
     void OnDestroy()
     {
         //메모리 누수 방지를 위해 오브젝트 제거시 이벤트 구독 해제
-        MonsterEmotionManager.OnPannel -= OnPannel;
+        PlayerEmotionInventory.OnPannel -= OnPannel;
     }
 
 

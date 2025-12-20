@@ -12,12 +12,10 @@ public class SadState : IEmotionState
     public EmotionType Type => EmotionType.Sad;
     
     private GameObject Smoke;
-    private MonsterMovement _movement;
     private ParticleSystem _particleSystem;
 
     public void OnEnter(Monster monster)
     {
-        _movement = monster.GetComponent<MonsterMovement>();
 
 
         if (Smoke == null)

@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class EmotionSlot : MonoBehaviour, IDropHandler
+public class EmotionSlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
     //*************************************************************
     // [ 코드 설명 ] :
@@ -11,10 +12,14 @@ public class EmotionSlot : MonoBehaviour, IDropHandler
     //*************************************************************
 
     private Monster curMonster;
+    private Outline _outline;
+
     public int slotIndex;
 
     private void Start()
     {
+        _outline = GetComponent<Outline>();
+        _outline.enabled = false;
         curMonster = transform.root.GetComponent<Monster>(); //부모인 몬스터 불러오기
         if(curMonster == null)
         {
@@ -35,8 +40,12 @@ public class EmotionSlot : MonoBehaviour, IDropHandler
             if (CheckFilter(emotionSprite.Type))
             {
                 if (transform.childCount != 0)//만약 이미 감정이 있다면, 해당 감정 제거
-                    transform.GetChild(0).gameObject.GetComponent<EmotionSprite>().Remove();
+                    return;
 
+                if(emotionSprite.monster != null)
+                {
+                    emotionSprite.Remove();
+                }
 
                 // 아이템의 위치를 슬롯 위치로 고정
                 eventData.pointerDrag.transform.SetParent(transform, false);
@@ -51,7 +60,14 @@ public class EmotionSlot : MonoBehaviour, IDropHandler
         }
     }
 
-
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (eventData.pointerDrag != null && eventData.pointerDrag.GetComponent<EmotionSprite>())
+        {
+            _outline.enabled = true;
+        }
+    }
+        public void OnPointerExit(PointerEventData eventData) => _outline.enabled = false;
 
     bool CheckFilter(EmotionType emotionType) //필터가 있는지 확인하고, 필터가 있다면 확인
     {

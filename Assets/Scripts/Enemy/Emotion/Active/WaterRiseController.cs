@@ -44,13 +44,7 @@ public class WaterRiseController : MonoBehaviour
 
         StartRise();
     }
-
-    void Update()
-    {
-      
-
-       
-    }
+    
 
     void SetHeight(float height)
     {

@@ -16,10 +16,10 @@ public class Monster : MonoBehaviour
     private List<EmotionInventory> _emotionInventories = new List<EmotionInventory>(2);
     public IReadOnlyList<EmotionInventory> EmotionInventories => _emotionInventories;// 외부에서는 이 프로퍼티를 통해 읽기만 가능합니다.
 
-    [SerializeField] public EmotionType _CurrentEmotion { get; private set; } // 읽기 가능, 수정 불가능
+    [field: SerializeField] public EmotionType _CurrentEmotion { get; private set; } // 읽기 가능, 수정 불가능
 
 
-    public IEmotionState _currentState { get; private set; }//현재 상태
+    public IEmotionState _currentState { get; private set; } = null;//현재 상태
 
     public bool _IsOff { get; private set; } = false;
 
@@ -40,9 +40,13 @@ public class Monster : MonoBehaviour
             _currentState.OnExit(this); // 감정 종료 시 호출
 
 
+
+        Debug.Log(transform.name);
         // [보강] EmotionFactory를 통해 캐싱된 상태 객체를 가져옴 (new를 사용하지 않음)
         _currentState = EmotionFactory.Create(newEmotion); // 새 행동 받아오기 
         Debug.Log($"[Monster] 감정이 {newEmotion.ToString()}으로 변경됨");
+
+        _CurrentEmotion = newEmotion;
 
         if( _currentState != null )
             _currentState.OnEnter(this); // 감정 변경 시 호출
@@ -50,7 +54,6 @@ public class Monster : MonoBehaviour
 
     private void Update()
     {
-        if (!_IsOff)
             _currentState?.UpdateState(this); // 현재 행동이 있다면, 행동 함수 실행
     }
 

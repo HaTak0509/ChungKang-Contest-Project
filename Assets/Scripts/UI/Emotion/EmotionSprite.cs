@@ -29,13 +29,11 @@ public class EmotionSprite : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     private CanvasGroup canvasGroup;
     private RectTransform rectTransform;
     private Vector2 offset; // 마우스와 UI 중심 사이의 차이
-    private Transform Inventory;
 
 
 
     void Start()
     {
-        Inventory = transform.parent;
         OriginalSlot = curSlot;
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
@@ -45,7 +43,7 @@ public class EmotionSprite : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public void OnBeginDrag(PointerEventData eventData)
     {
         // 드래그 시작 시 투명도 조절 및 마우스 클릭 통과 설정
-        canvasGroup.alpha = 0.6f;
+        canvasGroup.alpha = 0.4f;
         canvasGroup.blocksRaycasts = false;
         originalPosition = rectTransform.anchoredPosition;
         isDropped = false;
@@ -84,19 +82,21 @@ public class EmotionSprite : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         if (curSlot == SlotState.Monster && isDropped == false)//몬스터 슬롯에 있는데, 드롭이 다른곳이라면?
         {
             Remove();
+
+            //위치 변경
+            transform.SetParent(PlayerEmotionInventory.Instance.Inventory, false);
+            rectTransform.transform.localPosition = Vector3.zero;
+
+            ChaingedState(SlotState.Inventory);
+
+
+            return;
         }
 
 
-        if (curSlot == OriginalSlot)
-        {
-            // 특정 슬롯에 놓이지 않았다면 원래 위치로 복귀
-            rectTransform.anchoredPosition = originalPosition;
-        }
-        else
-        {
-            OriginalSlot = curSlot;
-        }
-        
+      
+        // 특정 슬롯에 놓이지 않았다면 원래 위치로 복귀
+        rectTransform.anchoredPosition = originalPosition;
 
     }
 
@@ -107,11 +107,7 @@ public class EmotionSprite : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         monster.AddEmotion(GetComponentInParent<EmotionSlot>().slotIndex, EmotionType.Null); //슬롯에 감정을 넣고, 합성인지 확인
         monster = null;
 
-        //위치 변경
-        transform.SetParent(Inventory, false);
-        rectTransform.transform.localPosition = Vector3.zero;
 
-        ChaingedState(SlotState.Inventory);
 
     }
 
