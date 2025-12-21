@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class EmotionPannelController : MonoBehaviour
 {
     private Animator _animator;
-
+    public TMP_Text EmotionText;
     void Start()
     {
         _animator = GetComponent<Animator>();
@@ -34,6 +32,11 @@ public class EmotionPannelController : MonoBehaviour
         {
             _animator.SetTrigger("Out");
         }
+    }
+
+    public void EmotionTextChange(string emotion)//만약 색깔까지 추가할꺼면 Emotion 통으로 가져오기
+    {
+        EmotionText.text = emotion;
     }
 
 

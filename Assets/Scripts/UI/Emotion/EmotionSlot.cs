@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -26,6 +25,13 @@ public class EmotionSlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IP
             Debug.LogWarning("아, 부모에 Monster 없다던데? 야 따로 빈 오브젝트 넣었니?");
         }
 
+
+        EmotionData SlotFilter = Emotion.Get(curMonster.EmotionInventories[slotIndex].Filter);
+
+        if (ColorUtility.TryParseHtmlString(SlotFilter.hexColor, out Color newColor))
+        {
+            _outline.effectColor = newColor;
+        }
     }
 
 
@@ -34,17 +40,31 @@ public class EmotionSlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IP
         // eventData.pointerDrag는 현재 드래그 중인 오브젝트입니다.
         if (eventData.pointerDrag != null)
         {
+            _outline.enabled = false;
+
             //무사히 슬롯에 안착 했으면 bool값 변화
             EmotionSprite emotionSprite = eventData.pointerDrag.GetComponent<EmotionSprite>();
             emotionSprite.isDropped = true;
             if (CheckFilter(emotionSprite.Type))
             {
-                if (transform.childCount != 0)//만약 이미 감정이 있다면, 해당 감정 제거
+                if (transform.childCount != 0) //만약 이미 감정이 있다면, 실패
+                {
+                    PlayerEmotionInventory.OnErrorPannel.Invoke("이미 할당된 감정이 있습니다.");
                     return;
+                }
 
                 if(emotionSprite.monster != null)
                 {
                     emotionSprite.Remove();
+                }
+
+             
+
+                EmotionData SlotFilter = Emotion.Get(curMonster.EmotionInventories[slotIndex].Filter);
+
+                if (ColorUtility.TryParseHtmlString(SlotFilter.hexColor, out Color newColor))
+                {
+                    _outline.effectColor = newColor;
                 }
 
                 // 아이템의 위치를 슬롯 위치로 고정
@@ -71,24 +91,24 @@ public class EmotionSlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IP
 
     bool CheckFilter(EmotionType emotionType) //필터가 있는지 확인하고, 필터가 있다면 확인
     {
-        List<EmotionType> types = curMonster.EmotionInventories[slotIndex].Filter;
+        EmotionType types = curMonster.EmotionInventories[slotIndex].Filter;
 
-        if (types == null || types.Count == 0)
+        if (types == EmotionType.Null)
         {
-            Debug.Log("필터 없음");
+            Debug.Log("필터가 없음");
             return true;
         }
 
-        for (int i = 0; i < types.Count; i++)
+        if (types == emotionType)
         {
-            if (types[i] == emotionType)
-            {
-                Debug.Log("필터에 성립함");
-                return true;
-
-            }
+            Debug.Log("필터에 성립함");
+            return true;
         }
-        Debug.Log("필터에 들어가지 않음");
-        return false;
+        else
+        {
+            Debug.Log("필터에 들어가지 않음");
+            PlayerEmotionInventory.OnErrorPannel.Invoke("[필터 요구 감정]만 할당 가능합니다.");
+            return false;
+        }
     }
 }

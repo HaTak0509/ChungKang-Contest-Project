@@ -36,7 +36,7 @@ public enum EmotionType
 public struct EmotionInventory
 {
     public EmotionType Emotion;
-    public List<EmotionType> Filter;
+    public EmotionType Filter;
 }
 
 

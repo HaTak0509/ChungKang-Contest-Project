@@ -16,10 +16,13 @@ public class Monster : MonoBehaviour
     private List<EmotionInventory> _emotionInventories = new List<EmotionInventory>(2);
     public IReadOnlyList<EmotionInventory> EmotionInventories => _emotionInventories;// 외부에서는 이 프로퍼티를 통해 읽기만 가능합니다.
 
+
+
     [field: SerializeField] public EmotionType _CurrentEmotion { get; private set; } // 읽기 가능, 수정 불가능
 
 
     public IEmotionState _currentState { get; private set; } = null;//현재 상태
+    public EmotionPannelController _controller;
 
     public bool _IsOff { get; private set; } = false;
 
@@ -47,6 +50,8 @@ public class Monster : MonoBehaviour
         Debug.Log($"[Monster] 감정이 {newEmotion.ToString()}으로 변경됨");
 
         _CurrentEmotion = newEmotion;
+
+        _controller.EmotionTextChange(Emotion.Get(_CurrentEmotion).korean);
 
         if( _currentState != null )
             _currentState.OnEnter(this); // 감정 변경 시 호출

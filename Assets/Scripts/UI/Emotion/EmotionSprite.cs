@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class EmotionSprite : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -17,8 +18,6 @@ public class EmotionSprite : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public Vector2 originalPosition { get; private set; }
     public SlotState curSlot { get; private set; } = SlotState.Inventory;
-    private SlotState OriginalSlot;
-
     public enum SlotState
     {
         Inventory,
@@ -34,10 +33,14 @@ public class EmotionSprite : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     void Start()
     {
-        OriginalSlot = curSlot;
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
         if (canvasGroup == null) canvasGroup = gameObject.AddComponent<CanvasGroup>();
+
+
+        GetComponent<Image>().sprite = Emotion.Get(Type).Sprite;
+
+       
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -81,6 +84,12 @@ public class EmotionSprite : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
         if (curSlot == SlotState.Monster && isDropped == false)//몬스터 슬롯에 있는데, 드롭이 다른곳이라면?
         {
+            if (PlayerEmotionInventory.Instance.transform.childCount >= PlayerEmotionInventory.Instance.InventoryCount)
+            {
+                PlayerEmotionInventory.OnErrorPannel.Invoke("빈 인벤토리가 없습니다.");
+                return;
+            }
+
             Remove();
 
             //위치 변경
@@ -106,9 +115,6 @@ public class EmotionSprite : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
         monster.AddEmotion(GetComponentInParent<EmotionSlot>().slotIndex, EmotionType.Null); //슬롯에 감정을 넣고, 합성인지 확인
         monster = null;
-
-
-
     }
 
 
