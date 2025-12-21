@@ -10,17 +10,13 @@ public class TouchingDetection : MonoBehaviour
 
     private Animator _animator;
     private CapsuleCollider2D _capsuleCollider;
-    private RaycastHit _raycastHit;
 
     private bool _isGround = false;
 
     public bool IsGround
     {
         get { return _isGround; }
-        set 
-        {
-            _isGround = value; 
-        }
+        set {_isGround = value; }
     }
 
     private bool _isOnWall = false;
@@ -28,10 +24,7 @@ public class TouchingDetection : MonoBehaviour
     public bool IsOnWall
     {
         get { return _isOnWall; }
-        set 
-        {
-            _isOnWall = value; 
-        }
+        set {_isOnWall = value; }
     }
 
     void Start()
