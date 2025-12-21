@@ -6,6 +6,8 @@ public class LiftController : MonoBehaviour
 {
     [SerializeField] private float speed = 3f;  // 이동 속도
     [SerializeField] private float downY = -5f; // Inspector에서 땅에 닿을 Y 위치 설정 (예: -5)
+    [SerializeField] private float decelerationPosition = 3f;
+    [SerializeField] private float decelerationSpeed = 0.2f; 
 
     private Vector2 _originalPos;  // 원래 위 위치
     private bool _atBottom = false;  // 아래에 있는지 여부
@@ -68,11 +70,8 @@ public class LiftController : MonoBehaviour
         {
             float remaining = Vector2.Distance(_rb2D.position, target);
 
-            // 0~1 사이 비율 (2f에서 시작해서 0에 가까워짐)
-            float t = Mathf.Clamp01(remaining / 2f);
-
             // 감속 커브 (부드럽게)
-            float slowFactor = Mathf.SmoothStep(0.2f, 1f, remaining);
+            float slowFactor = Mathf.SmoothStep(decelerationSpeed, 1f, remaining);
 
             float step = speed * slowFactor * Time.fixedDeltaTime;
 
