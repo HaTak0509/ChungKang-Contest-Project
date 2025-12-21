@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -8,14 +9,26 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D _rb2D;
     private Damageable _damageable;
     private PlayerFacing _facing;
+    private TouchingDetection _touchingDetection;
     private Vector2 _moveInput;
     private bool _isSprinting;
+
+    private float CurrentSpeed
+    {
+        get
+        {
+            if (_touchingDetection.IsOnWall) return 0; 
+            if (_isSprinting) return sprintSpeed;
+            return walkSpeed;
+        }
+    }
 
     private void Awake()
     {
         _rb2D = GetComponent<Rigidbody2D>();
         _damageable = GetComponent<Damageable>();
         _facing = GetComponent<PlayerFacing>();
+        _touchingDetection = GetComponent<TouchingDetection>();
     }
 
     public void SetInput(Vector2 input)
@@ -34,8 +47,6 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        float speed = _isSprinting ? sprintSpeed : walkSpeed;
-
-        _rb2D.velocity = new Vector2(_moveInput.x * speed, _rb2D.velocity.y);
+        _rb2D.velocity = new Vector2(_moveInput.x * CurrentSpeed, _rb2D.velocity.y);
     }
 }
