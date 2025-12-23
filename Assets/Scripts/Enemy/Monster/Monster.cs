@@ -16,8 +16,6 @@ public class Monster : MonoBehaviour
     private List<EmotionInventory> _emotionInventories = new List<EmotionInventory>(2);
     public IReadOnlyList<EmotionInventory> EmotionInventories => _emotionInventories;// 외부에서는 이 프로퍼티를 통해 읽기만 가능합니다.
 
-
-
     [field: SerializeField] public EmotionType _CurrentEmotion { get; private set; } // 읽기 가능, 수정 불가능
 
 
@@ -71,7 +69,7 @@ public class Monster : MonoBehaviour
 
         //감정 불러오기
         EmotionType emotion1 = _emotionInventories[0].Emotion;
-        EmotionType emotion2 = _emotionInventories[1].Emotion; //슬롯2 가 없을 경우
+        EmotionType emotion2 = EmotionType.Null;
         if (_emotionInventories != null && _emotionInventories.Count > 1)
         {
             emotion2 = _emotionInventories[1].Emotion;

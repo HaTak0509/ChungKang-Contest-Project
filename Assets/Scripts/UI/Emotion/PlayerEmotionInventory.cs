@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class PlayerEmotionInventory : MonoBehaviour
 {
-    public int InventoryCount = 3;
-
+    [Range(1, 3)] public int InventoryCount = 3;
 
     public Transform Inventory {  get; private set; }
 
@@ -18,6 +17,8 @@ public class PlayerEmotionInventory : MonoBehaviour
     {
         Instance = this;
         Inventory = gameObject.transform;
+
+        GetComponent<RectTransform>().sizeDelta = new Vector2(60, InventoryCount * 50f);
     }
 
 }

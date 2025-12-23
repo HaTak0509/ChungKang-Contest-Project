@@ -107,7 +107,7 @@ public class EmotionSlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IP
         else
         {
             Debug.Log("필터에 들어가지 않음");
-            PlayerEmotionInventory.OnErrorPannel.Invoke("[필터 요구 감정]만 할당 가능합니다.");
+            PlayerEmotionInventory.OnErrorPannel.Invoke("[ " +types + " ]만 할당 가능합니다.");
             return false;
         }
     }
