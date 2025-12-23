@@ -87,6 +87,7 @@ public class EmotionSprite : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             if (PlayerEmotionInventory.Instance.transform.childCount >= PlayerEmotionInventory.Instance.InventoryCount)
             {
                 PlayerEmotionInventory.OnErrorPannel.Invoke("빈 인벤토리가 없습니다.");
+                rectTransform.anchoredPosition = originalPosition;
                 return;
             }
 

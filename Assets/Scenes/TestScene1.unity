@@ -1969,9 +1969,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _emotionInventories:
   - Emotion: 0
-    Filter: 0
-  - Emotion: 0
-    Filter: 0
+    Filter: 1
   <_CurrentEmotion>k__BackingField: 0
   _controller: {fileID: 215192775}
 --- !u!50 &1121913413
@@ -2097,7 +2095,7 @@ Transform:
   m_GameObject: {fileID: 1121913410}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.15, y: 0.16, z: 0}
+  m_LocalPosition: {x: -3.8, y: -0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2273,7 +2271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _emotionInventories:
   - Emotion: 0
-    Filter: 1
+    Filter: 0
   - Emotion: 0
     Filter: 0
   <_CurrentEmotion>k__BackingField: 0
@@ -2339,7 +2337,7 @@ Transform:
   m_GameObject: {fileID: 1244942358}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.72, y: 0.17, z: 0}
+  m_LocalPosition: {x: 2.93, y: 0.23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3433,7 +3431,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 61.43, y: 150.6776}
+  m_SizeDelta: {x: 60, y: 150}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1808684399
 MonoBehaviour:
