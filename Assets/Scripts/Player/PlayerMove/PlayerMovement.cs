@@ -17,12 +17,10 @@ public class PlayerMovement : MonoBehaviour
     {
         get
         {
-            if (_touchingDetection.IsOnWall) return 0; 
             if (_isSprinting) return sprintSpeed;
             return walkSpeed;
         }
     }
-
     private void Awake()
     {
         _rb2D = GetComponent<Rigidbody2D>();
@@ -47,6 +45,29 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        _rb2D.velocity = new Vector2(_moveInput.x * CurrentSpeed, _rb2D.velocity.y);
+        // 왼쪽 벽에 닿은 상태에서 왼쪽을 보고 있다면
+        if (_touchingDetection.WallDirection == -1 && transform.localScale.x < 0)
+        {
+            _rb2D.velocity = new Vector2(0, _rb2D.velocity.y);
+        }
+        else if (_touchingDetection.WallDirection == -1 && transform.localScale.x > 0)
+        {
+            _rb2D.velocity = new Vector2(_moveInput.x * CurrentSpeed, _rb2D.velocity.y);
+        }
+        
+        // 오른쪽 벽에 닿은 상태에서 오른쪽을 보고 있다면
+        if (_touchingDetection.WallDirection == 1 && transform.localScale.x > 0)
+        {
+            _rb2D.velocity = new Vector2(0, _rb2D.velocity.y);
+        }
+        else if (_touchingDetection.WallDirection == 1 && transform.localScale.x < 0)
+        {
+            _rb2D.velocity = new Vector2(_moveInput.x * CurrentSpeed, _rb2D.velocity.y);
+        }
+
+        if (!_touchingDetection.IsOnWall)
+        {
+            _rb2D.velocity = new Vector2(_moveInput.x * CurrentSpeed, _rb2D.velocity.y);
+        }
     }
 }

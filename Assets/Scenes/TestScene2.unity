@@ -734,8 +734,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  groundDistance: 0.05
-  wallDistance: 0.4
+  groundCheckDistance: 0.1
+  wallCheckDistance: 0.2
+  showDebugRays: 1
 --- !u!95 &457471256
 Animator:
   serializedVersion: 5
@@ -1738,7 +1739,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2baa22ad4c94d2e45bd07eb783d54c6c, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
