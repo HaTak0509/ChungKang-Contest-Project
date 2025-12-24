@@ -6,6 +6,7 @@ public class PlayerDash : MonoBehaviour
     [SerializeField] float dashForce = 24f;
     [SerializeField] float dashTime = 0.15f;
     [SerializeField] float dashCooldown = 0.8f;
+    [SerializeField] bool dashVitality = true;
 
     private Rigidbody2D _rb2D;
     private PlayerFacing facing;
@@ -22,8 +23,7 @@ public class PlayerDash : MonoBehaviour
     public void TryDash()
     {
         if (!canDash || _damageable.IsKnockback) return;
-
-        StartCoroutine(DashRoutine());
+        if (dashVitality) StartCoroutine(DashRoutine());
     }
 
     private IEnumerator DashRoutine()
