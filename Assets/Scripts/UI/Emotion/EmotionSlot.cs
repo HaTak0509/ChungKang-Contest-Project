@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Timeline;
 using UnityEngine.UI;
 
 public class EmotionSlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
@@ -17,12 +19,22 @@ public class EmotionSlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IP
 
     private void Start()
     {
+        
+
+
         _outline = GetComponent<Outline>();
         _outline.enabled = false;
         curMonster = transform.root.GetComponent<Monster>(); //부모인 몬스터 불러오기
         if(curMonster == null)
         {
             Debug.LogWarning("아, 부모에 Monster 없다던데? 야 따로 빈 오브젝트 넣었니?");
+        }
+
+        if (curMonster.EmotionInventories[slotIndex].Emotion != EmotionType.Null && transform.childCount == 0)
+        {
+            GameObject emotion = Instantiate(PlayerEmotionInventory.Instance.EmotionPrefab, transform);
+            emotion.GetComponent<EmotionSprite>().Type = curMonster.EmotionInventories[slotIndex].Emotion;
+            emotion.GetComponent<EmotionSprite>().curSlot = EmotionSprite.SlotState.Monster;
         }
 
 

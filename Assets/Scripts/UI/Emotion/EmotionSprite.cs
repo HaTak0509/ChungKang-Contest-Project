@@ -17,7 +17,7 @@ public class EmotionSprite : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
 
     public Vector2 originalPosition { get; private set; }
-    public SlotState curSlot { get; private set; } = SlotState.Inventory;
+    public SlotState curSlot = SlotState.Inventory;
     public enum SlotState
     {
         Inventory,

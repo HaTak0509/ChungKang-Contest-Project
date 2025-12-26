@@ -12,6 +12,8 @@ public class Monster : MonoBehaviour
     //*************************************************************
 
 
+
+
     [SerializeField]
     private List<EmotionInventory> _emotionInventories = new List<EmotionInventory>(2);
     public IReadOnlyList<EmotionInventory> EmotionInventories => _emotionInventories;// 외부에서는 이 프로퍼티를 통해 읽기만 가능합니다.

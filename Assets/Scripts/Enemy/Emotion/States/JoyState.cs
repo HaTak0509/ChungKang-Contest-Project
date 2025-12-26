@@ -1,7 +1,4 @@
-
-
 using UnityEngine;
-using System;
 
 public class JoyState : IEmotionState
 {
@@ -25,7 +22,7 @@ public class JoyState : IEmotionState
     public void UpdateState(Monster monster)
     {
 
-        _movement.Move(0.6f);
+        _movement.Move(3f);
 
 
     }
