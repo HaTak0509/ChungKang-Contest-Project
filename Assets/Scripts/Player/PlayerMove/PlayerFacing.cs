@@ -5,7 +5,10 @@ public class PlayerFacing : MonoBehaviour
     private Vector3 _baseScale;
     public bool IsFacingRight { get; private set; } = true;
 
-    private void Awake() => _baseScale = transform.localScale;
+    private void Awake()
+    {
+        _baseScale = transform.localScale;
+    }
 
     public void FaceDirection(float inputX)
     {

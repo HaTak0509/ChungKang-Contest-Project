@@ -4,20 +4,20 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float walkSpeed = 6f;
-    [SerializeField] float sprintSpeed = 10f;
+    [SerializeField] float pushingSpeed = 4; 
 
     private Rigidbody2D _rb2D;
     private Damageable _damageable;
     private PlayerFacing _facing;
     private TouchingDetection _touchingDetection;
     private Vector2 _moveInput;
-    private bool _isSprinting;
+    private bool _isPushing;
 
     private float CurrentSpeed
     {
         get
         {
-            if (_isSprinting) return sprintSpeed;
+            if (_isPushing) return pushingSpeed;
             return walkSpeed;
         }
     }
@@ -35,8 +35,6 @@ public class PlayerMovement : MonoBehaviour
         if (input.sqrMagnitude > 0.01f)
             _facing.FaceDirection(input.x);
     }
-
-    public void SetSprinting(bool value) => _isSprinting = value;
 
     private void FixedUpdate()
     {

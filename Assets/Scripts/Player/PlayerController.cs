@@ -30,14 +30,6 @@ public class PlayerController : MonoBehaviour
         if (context.started) jump.TryJump();
     }
 
-    public void OnSprint(InputAction.CallbackContext context)
-    {
-        if (context.started)
-            movement.SetSprinting(true);
-        else if (context.canceled)
-            movement.SetSprinting(false);
-    }
-
     public void OnDash(InputAction.CallbackContext context)
     {
         if (context.started) dash.TryDash();
