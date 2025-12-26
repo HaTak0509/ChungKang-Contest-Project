@@ -6,7 +6,8 @@ public class PlayerDash : MonoBehaviour
     [SerializeField] float dashForce = 24f;
     [SerializeField] float dashTime = 0.15f;
     [SerializeField] float dashCooldown = 0.8f;
-    [SerializeField] bool dashVitality = true;
+    
+    public bool dashVitality = true;
 
     private Rigidbody2D _rb2D;
     private PlayerFacing facing;
@@ -24,6 +25,7 @@ public class PlayerDash : MonoBehaviour
     {
         if (!canDash || _damageable.IsKnockback) return;
         if (dashVitality) StartCoroutine(DashRoutine());
+        dashVitality = false;
     }
 
     private IEnumerator DashRoutine()
@@ -36,7 +38,6 @@ public class PlayerDash : MonoBehaviour
 
         yield return new WaitForSeconds(dashTime);
 
-        // 대시 끝! → 이제 PlayerMovement가 다시 제어권 가짐
         // 쿨타임은 별도 코루틴으로
         StartCoroutine(CooldownRoutine());
     }
