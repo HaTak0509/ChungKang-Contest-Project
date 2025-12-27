@@ -41,36 +41,36 @@ public class RageState : IEmotionState
 
     public void UpdateState(Monster monster)
     {
-        switch (currentState)
-        {
-            case State.Idle:
-                _movement.Move(0.6f);
+        //switch (currentState)
+        //{
+        //    case State.Idle:
+        //        _movement.Move(0.6f);
 
-                if (IsPlayerInFront())
-                {
-                    currentState = State.Charge;
-                }
-                break;
+        //        if (IsPlayerInFront())
+        //        {
+        //            currentState = State.Charge;
+        //        }
+        //        break;
 
-            case State.Charge:
-                _movement.StartCharge(_player);
+        //    case State.Charge:
+        //        _movement.StartCharge(_player);
 
-                if (_movement.IsChargeWait == false && _movement.IsCharge == false)
-                {
-                    Debug.Log("대기 변경");
-                    currentState = State.Recover;
-                }
-                break;
-            case State.Recover:
-                _movement.StartWait(ChargeCooltime);
+        //        if (_movement.IsChargeWait == false && _movement.IsCharge == false)
+        //        {
+        //            Debug.Log("대기 변경");
+        //            currentState = State.Recover;
+        //        }
+        //        break;
+        //    case State.Recover:
+        //        _movement.StartWait(ChargeCooltime);
 
-                if (_movement.IsChargeCool)
-                {
-                    _movement.IsChargeCool = false;
-                    currentState = State.Idle;
-                }
-                break;
-        }
+        //        if (_movement.IsChargeCool)
+        //        {
+        //            _movement.IsChargeCool = false;
+        //            currentState = State.Idle;
+        //        }
+        //        break;
+        //}
     }
 
 

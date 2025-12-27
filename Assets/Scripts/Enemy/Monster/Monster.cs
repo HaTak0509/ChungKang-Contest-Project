@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Threading;
-using UnityEditor;
 using UnityEngine;
 
 public class Monster : MonoBehaviour
@@ -10,6 +8,9 @@ public class Monster : MonoBehaviour
     // 감정에 따른 여러 행동방식을 자연스럽게 연결하고 확장하기위해
     // 행동 로직을 받아오는 구조로 함
     //*************************************************************
+
+    public float InteractRange = 5f;
+
 
 
     [SerializeField]

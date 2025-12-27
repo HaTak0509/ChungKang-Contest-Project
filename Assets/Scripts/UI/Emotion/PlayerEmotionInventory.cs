@@ -6,6 +6,7 @@ public class PlayerEmotionInventory : MonoBehaviour
     [Range(1, 3)] public int InventoryCount = 3;
 
     public Transform Inventory {  get; private set; }
+    public GameObject EmotionPrefab;
 
     public static PlayerEmotionInventory Instance;
     public static Action<bool> OnPannel;

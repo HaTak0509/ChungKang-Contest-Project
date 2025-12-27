@@ -1,8 +1,4 @@
-
-
 using UnityEngine;
-using System;
-
 public class JoyState : IEmotionState
 {
     //*************************************************************
@@ -15,23 +11,41 @@ public class JoyState : IEmotionState
 
 
     private MonsterMovement _movement;
+    private DrawSensingRange _lineRenderer;
+    private LayerMask _playerLayer = LayerMask.GetMask("Player");
 
     public void OnEnter(Monster monster)
     {
-        if(_movement == null)
+        if (_movement == null)
             _movement = monster.GetComponent<MonsterMovement>();
+
+        if (_lineRenderer == null) //라인렌더러 찾아서, 켜고 색깔 지정하기
+        {
+            _lineRenderer = monster.GetComponent<DrawSensingRange>();
+            _lineRenderer.OnLine();
+
+            if (ColorUtility.TryParseHtmlString(Emotion.Get(monster._CurrentEmotion).hexColor, out Color newColor))
+            {
+                Debug.Log(newColor.ToString());
+                _lineRenderer.Draw(monster.InteractRange, newColor);
+            }
+        }
     }
 
     public void UpdateState(Monster monster)
     {
+        _movement.Move(3f);
 
-        _movement.Move(0.6f);
+        Collider2D hit = Physics2D.OverlapCircle(monster.transform.position, monster.InteractRange, _playerLayer);
 
-
+        if (hit != null)
+        {
+            hit.GetComponent<PlayerDash>().dashVitality = true;
+        }
     }
 
     public void OnExit(Monster monster) 
     {
-    
+        _lineRenderer.OffLine();
     }
 }
