@@ -112,7 +112,7 @@ public class MonsterMovement : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawLine(new Vector2(pointA.x, transform.position.y - 0.5f), new Vector2(pointA.x, transform.position.y + 0.5f));
         Gizmos.DrawLine(new Vector2(pointB.x, transform.position.y - 0.5f), new Vector2(pointB.x, transform.position.y + 0.5f));
-        Gizmos.DrawLine(pointA, pointB);
+        Gizmos.DrawLine(new Vector2(pointA.x, transform.position.y), new Vector2(pointB.x, transform.position.y));
     }
 
     

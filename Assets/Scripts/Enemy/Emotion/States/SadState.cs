@@ -10,33 +10,49 @@ public class SadState : IEmotionState
     //*************************************************************
 
     public EmotionType Type => EmotionType.Sad;
-    
-    private GameObject Smoke;
-    private ParticleSystem _particleSystem;
+
+    private MonsterMovement _movement;
+    private DrawSensingRange _lineRenderer;
+    //private GameObject Smoke;
+    //private ParticleSystem _particleSystem;
 
     public void OnEnter(Monster monster)
     {
 
+        if (_movement == null)
+            _movement = monster.GetComponent<MonsterMovement>();
 
-        if (Smoke == null)
+        if (_lineRenderer == null) //라인렌더러 찾아서, 켜고 색깔 지정하기
         {
-            GameObject _smokePrefab = Resources.Load<GameObject>("Particle/SmokeParticle");
-            Smoke = GameObject.Instantiate(_smokePrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            Smoke.transform.SetParent(monster.transform, false);
-            _particleSystem = Smoke.GetComponent<ParticleSystem>();
+            _lineRenderer = monster.GetComponent<DrawSensingRange>();
+            _lineRenderer.OnLine();
+
+            if (ColorUtility.TryParseHtmlString(Emotion.Get(monster._CurrentEmotion).hexColor, out Color newColor))
+            {
+                Debug.Log(newColor.ToString());
+                _lineRenderer.Draw(monster.InteractRange, newColor);
+            }
         }
 
-        _particleSystem.Play();
+        //if (Smoke == null)
+        //{
+        //    GameObject _smokePrefab = Resources.Load<GameObject>("Particle/SmokeParticle");
+        //    Smoke = GameObject.Instantiate(_smokePrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        //    Smoke.transform.SetParent(monster.transform, false);
+        //    _particleSystem = Smoke.GetComponent<ParticleSystem>();
+        //}
+
+        //_particleSystem.Play();
     }
 
     public void UpdateState(Monster monster)
     {
 
-
     }
 
     public void OnExit(Monster monster) 
     {
-        _particleSystem.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+        _lineRenderer.OffLine();
+        //_particleSystem.Stop(true, ParticleSystemStopBehavior.StopEmitting);
     }
 }
