@@ -32,14 +32,9 @@ public class Damageable : MonoBehaviour
         if (startInvincible) SetInvincible(999f);
     }
 
-    public void TakePush(Vector2 pushPosition)
-    {
-        ApplyKnockback(pushPosition);
-    }
-
     public void TakePushFromPosition(Vector2 attackerPos)
     {
-        Vector2 dir = ((Vector2)transform.position - attackerPos).normalized;
+        Vector2 dir = ((Vector2)transform.position -attackerPos).normalized;
         ApplyKnockback(dir);
     }
 
@@ -85,6 +80,6 @@ public class Damageable : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
-            TakePush(transform.position + Vector3.left);
+            TakePushFromPosition(transform.position + Vector3.left);
     }
 }
