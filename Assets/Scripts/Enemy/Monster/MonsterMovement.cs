@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Threading;
 using UnityEngine;
 
 public class MonsterMovement : MonoBehaviour
@@ -7,31 +7,29 @@ public class MonsterMovement : MonoBehaviour
     public enum MovementState
     {
         Idle,
-        Move
+        Move,
+        Dash
     }
 
 
     private Rigidbody2D _rb;
-    private MovementState _movementState = MovementState.Move;
-    //private Monster _monster;
+    private Monster _monster;
+    private Transform _player;
+    public MovementState _movementState { get; private set; } = MovementState.Move;
 
-
-
+    public float Speed = 4f;
     
     public Vector2 pointA;
     public Vector2 pointB;
     public LayerMask collisionLayer;
-
-
-
 
     private float _direction = 1f; // 1은 오른쪽, -1은 왼쪽
     public bool _isFacingRight { get; private set; } = true;
 
     void Awake()
     {
+        _monster = GetComponent<Monster>();
         _rb = GetComponent<Rigidbody2D>();
-        //_monster = GetComponent<Monster>();
 
         // 시작 시 A와 B 중 더 오른쪽에 있는 값을 자동으로 정렬 (실수 방지)
         if (pointA.x > pointB.x)
@@ -40,10 +38,11 @@ public class MonsterMovement : MonoBehaviour
             pointA = pointB;
             pointB = temp;
         }
-
+        if (_player == null)
+            _player = GameObject.FindWithTag("Player").transform;
     }
 
-    public void Move(float Speed)
+    public void Move()
     {
         if (_movementState == MovementState.Move)
         {
@@ -60,6 +59,26 @@ public class MonsterMovement : MonoBehaviour
         {
             _movementState=MovementState.Move;
         }
+    }
+
+    public void Dash()
+    {
+        _movementState = MovementState.Dash;
+
+        //플레이어 위치 기준 위/ 아래 방향 판단
+        float xDirection = Mathf.Sign(_player.position.x - transform.position.x);
+
+        // ▶ 몬스터가 플레이어 방향을 바라보도록 Flip
+        if (_player.position.x < transform.position.x && _isFacingRight)
+        {
+            Flip();
+        }else if(_player.position.x > transform.position.x && !_isFacingRight)
+        {
+            Flip();
+        }
+        
+        // ▶ 속도 적용 (x축 직선 돌진)
+        _rb.velocity = new Vector2(xDirection * Speed * 2f, 0);
     }
 
     public bool IsWallAhead()
@@ -85,11 +104,16 @@ public class MonsterMovement : MonoBehaviour
 
 
         // 방향 전환 시 속도를 즉시 0으로 해주면 더 깔끔하게 꺾입니다.
-        _rb.velocity = new Vector2(0, _rb.velocity.y);
+        StopMove();
 
         
         GetComponent<SpriteRenderer>().flipX = _direction == 1 ? false : true;
 
+    }
+
+    public void StopMove()
+    {
+        _rb.velocity = new Vector2(0, _rb.velocity.y);
     }
 
     private void CheckBoundaries()
@@ -115,77 +139,30 @@ public class MonsterMovement : MonoBehaviour
         Gizmos.DrawLine(new Vector2(pointA.x, transform.position.y), new Vector2(pointB.x, transform.position.y));
     }
 
-    
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+      
+        if (_movementState == MovementState.Dash)
+        {
+            // 플레이어와 접촉 시 밀치기
+            if (collision.transform.CompareTag("Player"))
+            {
+                Debug.Log("플레이어와 충돌");
+                collision.transform.GetComponent<Damageable>().TakePushFromPosition(transform.position);
+                _movementState = MovementState.Idle;
+            }
+            // 버튼과 접촉 시 활성화
+            else if (collision.transform.CompareTag("Button"))
+            {
 
+            }
+            // 벽 또는 목적지 도달 시 종료
+            else if (collision.transform.CompareTag("Wall") || collision.transform.CompareTag("Destination"))
+            {
 
-    //private IEnumerator ChargeRoutine(Transform player, float WaitTime = 1f)
-    //{
-    //    IsChargeWait = true;
-    //    yield return new WaitForSeconds(WaitTime);
-    //    IsCharge = true;
-    //    IsChargeWait = false;
+            }
+        }
 
-    //    // 플레이어 위치 기준 위/아래 방향 판단
-    //    float xDirection = Mathf.Sign(player.position.x - transform.position.x);
+    }
 
-    //    // ▶ 몬스터가 플레이어 방향을 바라보도록 Flip
-    //    if (player.position.x < transform.position.x)
-    //        transform.localScale = new Vector3(-1, 1, 1);
-    //    else
-    //        transform.localScale = new Vector3(1, 1, 1);
-
-    //    // ▶ 속도 적용 (x축 직선 돌진)
-    //    _rb.velocity = new Vector2(xDirection * 15f, 0);
-
-    //    // 돌진 시간
-    //    float timer = 0f;
-    //    float chargeTime = 0.5f;
-
-    //    while (timer < chargeTime)
-    //    {
-    //        timer += Time.deltaTime;
-    //        yield return null;
-    //    }
-
-    //    // 돌진 종료
-    //    _rb.velocity = Vector2.zero;
-    //    IsCharge = false;
-
-    //}
-
-    //public IEnumerator WaitRoutine(float WaitTime = 2f)
-    //{
-    //    float timer = 0f;
-
-    //    while (timer < WaitTime)
-    //    {
-    //        timer += Time.deltaTime;
-    //        yield return null;
-    //    }
-
-    //    IsChargeCool = true;
-    //}
-
-    //public void Stop()
-    //{
-    //    _rb.velocity = Vector2.zero;
-    //}
-
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.collider.CompareTag("Player") && IsCharge)
-    //    {
-    //        IsCharge = false;
-    //        if (_monster._currentState is RageState rage)
-    //        {
-    //            _rb.velocity = Vector2.zero;
-    //            rage.OnHitPlayer();
-    //        }
-    //    }
-    //    else if (collision.collider.CompareTag("Wall"))
-    //    {
-    //        _rb.velocity = Vector2.zero;
-    //        IsCharge = false;
-    //    }
-    //}
 }
