@@ -6,12 +6,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float walkSpeed = 6f;
     [SerializeField] float pushingSpeed = 4; 
 
+    public bool _isPushing;
+
     private Rigidbody2D _rb2D;
     private Damageable _damageable;
     private PlayerFacing _facing;
     private TouchingDetection _touchingDetection;
     private Vector2 _moveInput;
-    private bool _isPushing;
 
     private float CurrentSpeed
     {
