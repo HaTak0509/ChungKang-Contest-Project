@@ -13,11 +13,13 @@ public class Damageable : MonoBehaviour
     public UnityEvent onInvincibleEnd;
 
     private Rigidbody2D rb;
-    private bool isKnockback = false;
-    private bool isInvincible = false;
+    private bool _isKnockback = false;
+    private bool _isInvincible = false;
+    private Coroutine _invincibleCoroutine;
 
-    public bool IsKnockback => isKnockback;
-    public bool IsInvincible => isInvincible;
+
+    public bool IsKnockback => _isKnockback;
+    public bool IsInvincible => _isInvincible;
 
     private void Awake()
     {
@@ -30,50 +32,54 @@ public class Damageable : MonoBehaviour
         if (startInvincible) SetInvincible(999f);
     }
 
-    public void TakePush(Vector2 pushPosition, bool applyKnockback = true)
+    public void TakePush(Vector2 pushPosition)
     {
-        if (applyKnockback)
-            ApplyKnockback(pushPosition);
+        ApplyKnockback(pushPosition);
     }
 
-    private void ApplyKnockback(Vector2 dirOrPos)
+    public void TakePushFromPosition(Vector2 attackerPos)
     {
-        if (isKnockback) return;
+        Vector2 dir = ((Vector2)transform.position - attackerPos).normalized;
+        ApplyKnockback(dir);
+    }
 
-        Vector2 dir = dirOrPos;
-        if (dirOrPos == (Vector2)transform.position)
-            dir = ((Vector2)transform.position - dirOrPos).normalized;
+    private void ApplyKnockback(Vector2 dir)
+    {
+        if (_isKnockback) return;
 
-        if (Mathf.Abs(dir.y) < 0.3f) dir.y = 0.4f;
+        if (Mathf.Abs(dir.y) < 0.3f)
+            dir.y = 0.4f;
 
         rb.velocity = Vector2.zero;
         rb.AddForce(dir * knockbackForce, ForceMode2D.Impulse);
 
-        StopAllCoroutines();
+        StopCoroutine(KnockbackRoutine());
         StartCoroutine(KnockbackRoutine());
     }
 
     private IEnumerator KnockbackRoutine()
     {
-        isKnockback = true;
-        isInvincible = true;
+        _isKnockback = true;
+        _isInvincible = true;
         yield return new WaitForSeconds(knockbackDuration);
-        isKnockback = false;
-        isInvincible = false;
+        _isKnockback = false;
+        _isInvincible = false;
         onInvincibleEnd?.Invoke();
     }
 
     public void SetInvincible(float duration)
     {
-        StopAllCoroutines();
-        StartCoroutine(InvincibleRoutine(duration));
+        if (_invincibleCoroutine != null)
+            StopCoroutine(_invincibleCoroutine);
+
+        _invincibleCoroutine = StartCoroutine(InvincibleRoutine(duration));
     }
 
     private IEnumerator InvincibleRoutine(float duration)
     {
-        isInvincible = true;
+        _isInvincible = true;
         yield return new WaitForSeconds(duration);
-        isInvincible = false;
+        _isInvincible = false;
         onInvincibleEnd?.Invoke();
     }
     private void Update()
