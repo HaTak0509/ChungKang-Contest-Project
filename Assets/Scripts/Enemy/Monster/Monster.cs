@@ -5,8 +5,11 @@ public class Monster : MonoBehaviour
 {
     //*************************************************************
     // [ 코드 설명 ] :
-    // 감정에 따른 여러 행동방식을 자연스럽게 연결하고 확장하기위해
-    // 행동 로직을 받아오는 구조로 함
+    // 몬스터의 감정 로직을 총괄하는 스크립트
+    //
+    // 몬스터는 감정을 새로 받으면 그에 맞는 행동 로직을 
+    // EmotuonFactory에서 받아오고
+    // Fiexed업데이트에서 매프레임 실행한다
     //*************************************************************
 
     public float InteractRange = 5f;
@@ -54,7 +57,7 @@ public class Monster : MonoBehaviour
             _currentState.OnEnter(this); // 감정 변경 시 호출
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
             _currentState?.UpdateState(this); // 현재 행동이 있다면, 행동 함수 실행
     }

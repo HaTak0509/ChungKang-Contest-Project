@@ -3,6 +3,12 @@ using UnityEngine;
 
 public class ErrorPannel : MonoBehaviour
 {
+    //*************************************************************
+    // [ 코드 설명 ] :
+    // 에러 메시지 애니메이션 실행 및 텍스트 표시 
+    //
+    //*************************************************************
+    
     private Animator _animator;
     public TMP_Text ErrorText;
     void Start()

@@ -622,7 +622,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 1000
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -670,7 +670,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 1, y: 1.34}
   m_Direction: 0
 --- !u!212 &235574344
 SpriteRenderer:
@@ -1613,9 +1613,9 @@ GameObject:
   - component: {fileID: 731546933}
   - component: {fileID: 731546932}
   - component: {fileID: 731546931}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: Square (1)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1920,9 +1920,9 @@ GameObject:
   - component: {fileID: 811397418}
   - component: {fileID: 811397417}
   - component: {fileID: 811397416}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: Square (2)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4008,7 +4008,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07574466d5e05b94e8cac906115a350d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockbackForce: 80
+  knockbackForce: 120
   knockbackDuration: 0.25
   startInvincible: 0
   onInvincibleEnd:
@@ -4781,8 +4781,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1792744472}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.7547649, y: -0.27182123, z: 0.04748154}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.75476456, y: -0.27182126, z: 0.04748154}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5345,6 +5345,6 @@ SceneRoots:
   - {fileID: 1506039562}
   - {fileID: 731546934}
   - {fileID: 811397419}
-  - {fileID: 1792744473}
   - {fileID: 1636512945}
   - {fileID: 1580977222}
+  - {fileID: 1792744473}

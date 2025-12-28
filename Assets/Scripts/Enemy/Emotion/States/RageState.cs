@@ -16,7 +16,6 @@ public class RageState : IEmotionState
     // 로직 제어 변수
     private float _attackStateTimer = 0f;      // 공격 상태 유지 타이머 (3초)
     private float _readyTimer = 0f;            // 돌격 준비 타이머 (1초)
-    private Vector3 _targetPosition;           // 돌격 목표 지점
     private bool _isDashing = false;           // 현재 돌진 중인지 여부
     private bool _isReadying = false;          // 현재 준비 중인지 여부
 
@@ -60,7 +59,7 @@ public class RageState : IEmotionState
 
     private void HandleAttackLogic(Monster monster)
     {
-        if (!_isReadying)
+        if (!_isReadying && !_isDashing)
         {
             // 준비 단계 진입
             StartReady();
@@ -74,7 +73,7 @@ public class RageState : IEmotionState
 
             if (_readyTimer <= 0)
             {
-                StartDash();
+                StartDash(monster);
             }
         }
 
@@ -82,11 +81,13 @@ public class RageState : IEmotionState
         {
             _movement.Dash();
         }
+        
 
-        if(_isReadying && _isDashing && _movement._movementState != MonsterMovement.MovementState.Dash)
+        if (_isDashing && _movement._movementState != MonsterMovement.MovementState.Dash)
         {
             StopDash();
         }
+
     }
 
     private void StartReady()
@@ -98,11 +99,27 @@ public class RageState : IEmotionState
 
     }
 
-    private void StartDash()
+    private void StartDash(Monster monster)
     {
 
         _isReadying = false;
         _isDashing = true;
+        _movement.ChangeState(MonsterMovement.MovementState.Dash);
+
+
+        //플레이어 위치 기준 위/ 아래 방향 판단
+        float xDirection = Mathf.Sign(_player.position.x - monster.transform.position.x);
+
+        // ▶ 몬스터가 플레이어 방향을 바라보도록 Flip
+        if (_player.position.x < monster.transform.position.x && _movement._isFacingRight)
+        {
+            _movement.Flip();
+        }
+        else if (_player.position.x > monster.transform.position.x && !_movement._isFacingRight)
+        {
+            _movement.Flip();
+        }
+
         Debug.Log("돌진");
     }
 

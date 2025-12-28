@@ -2,6 +2,15 @@ using UnityEngine;
 
 public class MonsterMovement : MonoBehaviour
 {
+    //*************************************************************
+    // [ 코드 설명 ] :
+    // 몬스터의 움직임, 경로설정, 돌진등을 감지함
+    //
+    // 이동은 사전에 지정된 두개의 A,B의 지점을 왕복하는 방식으로 진행되며
+    // 만약 이동방향에 오브젝트를 만난다면 FSM상태를 대기로 변경 후 정지
+    // 돌진또한 Dash 상태를 변경하는 방식으로 진행됨
+    //*************************************************************
+
 
     public enum MovementState
     {
@@ -12,6 +21,7 @@ public class MonsterMovement : MonoBehaviour
 
 
     private Rigidbody2D _rb;
+    private TouchingDetection _touchingDetection;
     private Monster _monster;
     private Transform _player;
     public MovementState _movementState { get; private set; } = MovementState.Move;
@@ -27,8 +37,10 @@ public class MonsterMovement : MonoBehaviour
 
     void Awake()
     {
+        _touchingDetection = GetComponent<TouchingDetection>();
         _monster = GetComponent<Monster>();
         _rb = GetComponent<Rigidbody2D>();
+
 
         // 시작 시 A와 B 중 더 오른쪽에 있는 값을 자동으로 정렬 (실수 방지)
         if (pointA.x > pointB.x)
@@ -45,7 +57,8 @@ public class MonsterMovement : MonoBehaviour
     {
         if (_movementState == MovementState.Move)
         {
-            _rb.velocity = new Vector2(Speed * _direction, _rb.velocity.y);
+            Vector2 nextPosition = _rb.position + new Vector2(Speed * _direction, 0) * Time.fixedDeltaTime;
+            _rb.MovePosition(nextPosition);
         }
 
         CheckBoundaries();
@@ -62,22 +75,13 @@ public class MonsterMovement : MonoBehaviour
 
     public void Dash()
     {
-        _movementState = MovementState.Dash;
+        Vector2 nextPosition = _rb.position + new Vector2(Speed * 2 * _direction, 0) * Time.fixedDeltaTime;
+        _rb.MovePosition(nextPosition);
+    }
 
-        //플레이어 위치 기준 위/ 아래 방향 판단
-        float xDirection = Mathf.Sign(_player.position.x - transform.position.x);
-
-        // ▶ 몬스터가 플레이어 방향을 바라보도록 Flip
-        if (_player.position.x < transform.position.x && _isFacingRight)
-        {
-            Flip();
-        }else if(_player.position.x > transform.position.x && !_isFacingRight)
-        {
-            Flip();
-        }
-        
-        // ▶ 속도 적용 (x축 직선 돌진)
-        _rb.velocity = new Vector2(xDirection * Speed * 2f, 0);
+    public void ChangeState(MovementState movementState)
+    {
+        _movementState = movementState;
     }
 
     public bool IsWallAhead()
@@ -129,6 +133,21 @@ public class MonsterMovement : MonoBehaviour
         }
     }
 
+    private bool OutBoundaries()
+    {
+        // 오른쪽으로 가고 있는데 B지점을 넘어섰다면
+        if (_direction > 0 && transform.position.x >= pointB.x)
+        {
+            return true;
+        }
+        // 왼쪽으로 가고 있는데 A지점을 넘어섰다면
+        else if (_direction < 0 && transform.position.x <= pointA.x)
+        {
+            return true;
+        }
+        return false;
+    }
+
     private void OnDrawGizmos()
     {
         // 에디터에서 범위를 보기 쉽게 표시
@@ -138,7 +157,7 @@ public class MonsterMovement : MonoBehaviour
         Gizmos.DrawLine(new Vector2(pointA.x, transform.position.y), new Vector2(pointB.x, transform.position.y));
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
       
         if (_movementState == MovementState.Dash)
@@ -150,17 +169,15 @@ public class MonsterMovement : MonoBehaviour
                 collision.transform.GetComponent<Damageable>().TakePushFromPosition(transform.position);
                 _movementState = MovementState.Idle;
             }
-            // 버튼과 접촉 시 활성화
-            else if (collision.transform.CompareTag("Button"))
+            
+            if (_touchingDetection.IsOnWall || OutBoundaries())
             {
-
+                StopMove();
+                _movementState = MovementState.Idle;
             }
-            // 벽 또는 목적지 도달 시 종료
-            else if (collision.transform.CompareTag("Wall") || collision.transform.CompareTag("Destination"))
-            {
 
-            }
         }
+
 
     }
 
