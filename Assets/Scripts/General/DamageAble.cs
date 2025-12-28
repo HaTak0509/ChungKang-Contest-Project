@@ -34,7 +34,7 @@ public class Damageable : MonoBehaviour
 
     public void TakePushFromPosition(Vector2 attackerPos)
     {
-        Vector2 dir = ((Vector2)transform.position -attackerPos).normalized;
+        Vector2 dir = ((Vector2)transform.position - attackerPos).normalized;
         ApplyKnockback(dir);
     }
 

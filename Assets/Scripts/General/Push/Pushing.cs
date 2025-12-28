@@ -8,6 +8,17 @@ public class Pushing : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.GetComponent<PushingObject>() != null)
+        {
+            _pushingOb = collision.gameObject.GetComponent<PushingObject>();
+        }
+    }
 
+    private void Update()
+    {
+        if (_pushingOb != null)
+        {
+
+        }
     }
 }
