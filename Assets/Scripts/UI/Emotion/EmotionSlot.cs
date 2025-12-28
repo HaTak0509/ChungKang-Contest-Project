@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Timeline;
 using UnityEngine.UI;
 
 public class EmotionSlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
@@ -35,6 +32,7 @@ public class EmotionSlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IP
             GameObject emotion = Instantiate(PlayerEmotionInventory.Instance.EmotionPrefab, transform);
             emotion.GetComponent<EmotionSprite>().Type = curMonster.EmotionInventories[slotIndex].Emotion;
             emotion.GetComponent<EmotionSprite>().curSlot = EmotionSprite.SlotState.Monster;
+            emotion.GetComponent<EmotionSprite>().monster = curMonster;
         }
 
 
@@ -119,7 +117,7 @@ public class EmotionSlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IP
         else
         {
             Debug.Log("필터에 들어가지 않음");
-            PlayerEmotionInventory.OnErrorPannel.Invoke("[ " +types + " ]만 할당 가능합니다.");
+            PlayerEmotionInventory.OnErrorPannel.Invoke("[ " + Emotion.Get(types).korean + " ]만 할당 가능합니다.");
             return false;
         }
     }

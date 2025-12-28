@@ -34,7 +34,7 @@ public class JoyState : IEmotionState
 
     public void UpdateState(Monster monster)
     {
-        _movement.Move(3f);
+        _movement.Move();
 
         Collider2D hit = Physics2D.OverlapCircle(monster.transform.position, monster.InteractRange, _playerLayer);
 

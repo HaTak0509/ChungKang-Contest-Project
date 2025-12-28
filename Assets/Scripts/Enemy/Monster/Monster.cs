@@ -12,7 +12,6 @@ public class Monster : MonoBehaviour
     public float InteractRange = 5f;
 
 
-
     [SerializeField]
     private List<EmotionInventory> _emotionInventories = new List<EmotionInventory>(2);
     public IReadOnlyList<EmotionInventory> EmotionInventories => _emotionInventories;// 외부에서는 이 프로퍼티를 통해 읽기만 가능합니다.
@@ -32,7 +31,7 @@ public class Monster : MonoBehaviour
         _CurrentEmotion = _emotionInventories[0].Emotion;
         SetEmotion(_CurrentEmotion);
 
-        
+
     }
 
     //감정 세팅
@@ -43,7 +42,6 @@ public class Monster : MonoBehaviour
 
 
 
-        Debug.Log(transform.name);
         // [보강] EmotionFactory를 통해 캐싱된 상태 객체를 가져옴 (new를 사용하지 않음)
         _currentState = EmotionFactory.Create(newEmotion); // 새 행동 받아오기 
         Debug.Log($"[Monster] 감정이 {newEmotion.ToString()}으로 변경됨");
@@ -80,5 +78,11 @@ public class Monster : MonoBehaviour
         SetEmotion(EmotionTable.Mix(emotion1, emotion2)); //슬롯 1,2 합성해서 행동로직 가져오기
     }
 
+    private void OnDrawGizmos()
+    {
+        // 에디터에서 범위를 보기 쉽게 표시
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(new Vector2(transform.position.x, transform.position.y), InteractRange);
+    }
 
 }

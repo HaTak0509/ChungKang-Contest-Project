@@ -22,14 +22,10 @@ public enum EmotionType
     // 합성 감정
     HeartBreaking, //애틋
     Jealousy, //질투
-    Thrill, //설렘
     Resentment, //원망
-    Anxiety, //불안
-    Tension, //긴장
     Madness, //광기
     Screaming, //절규
     Outrage, //격분
-    Panic//패닉
 }
 
 [System.Serializable]
