@@ -1,24 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Pushing : MonoBehaviour
 {
-    private PushingObject _pushingOb;
+    public bool isPush;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private PushingObject _pushingOb;
+    private Rigidbody2D playerRb;
+
+    private void Awake()
     {
-        if (collision.gameObject.GetComponent<PushingObject>() != null)
+        playerRb = GetComponent<Rigidbody2D>();
+    }
+
+    private void FixedUpdate()
+    {
+        if (isPush && _pushingOb != null)
         {
-            _pushingOb = collision.gameObject.GetComponent<PushingObject>();
+            Vector2 moveDir = playerRb.velocity.normalized;
+            _pushingOb.Push(moveDir);
         }
     }
 
-    private void Update()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (_pushingOb != null)
+        if (collision.gameObject.TryGetComponent(out PushingObject pushingObject))
         {
+            _pushingOb = pushingObject;
+            _pushingOb.isPushing = true;
+            isPush = true;
+        }
+    }
 
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.TryGetComponent(out PushingObject pushingObject))
+        {
+            pushingObject.Stop();
+            pushingObject.isPushing = false;
+
+            isPush = false;
+            _pushingOb = null;
         }
     }
 }

@@ -6,19 +6,18 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float walkSpeed = 6f;
     [SerializeField] float pushingSpeed = 4; 
 
-    public bool _isPushing;
-
     private Rigidbody2D _rb2D;
     private Damageable _damageable;
     private PlayerFacing _facing;
     private TouchingDetection _touchingDetection;
+    private Pushing _pushing;
     private Vector2 _moveInput;
 
     private float CurrentSpeed
     {
         get
         {
-            if (_isPushing) return pushingSpeed;
+            if (_pushing.isPush) return pushingSpeed;
             return walkSpeed;
         }
     }
@@ -28,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
         _damageable = GetComponent<Damageable>();
         _facing = GetComponent<PlayerFacing>();
         _touchingDetection = GetComponent<TouchingDetection>();
+        _pushing = GetComponent<Pushing>();
     }
 
     public void SetInput(Vector2 input)

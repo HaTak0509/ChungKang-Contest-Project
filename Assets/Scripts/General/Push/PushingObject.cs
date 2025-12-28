@@ -1,18 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PushingObject : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public bool isPushing;
+    public float pushForce = 5f;
+
+    private Rigidbody2D rb;
+
+    private void Awake()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Push(Vector2 direction)
     {
-        
+        rb.velocity = new Vector2(direction.x * pushForce, rb.velocity.y);
+    }
+
+    public void Stop()
+    {
+        rb.velocity = new Vector2(0, rb.velocity.y);
     }
 }
