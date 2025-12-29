@@ -69,7 +69,7 @@ public class RageState : IEmotionState
         {
             _readyTimer -= Time.deltaTime;
             // 준비 시간 동안 플레이어 위치 추적 (목표 갱신)
-            _targetPosition = _player.position;
+
 
             if (_readyTimer <= 0)
             {

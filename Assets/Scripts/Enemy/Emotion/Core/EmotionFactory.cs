@@ -22,6 +22,7 @@ public static class EmotionFactory
             EmotionType.Joy => new JoyState(),
             EmotionType.Sad => new SadState(),
             EmotionType.Rage => new RageState(),
+            EmotionType.HeartBreaking => new HeartBreakingState(),
             _ => new NeutralState()
         };
 

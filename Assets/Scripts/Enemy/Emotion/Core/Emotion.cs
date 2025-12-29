@@ -17,12 +17,12 @@ public enum EmotionType
     Joy, //기쁨
     Sad, //슬픔
     Rage, //화남
-    Fear, //두려움 
 
     // 합성 감정
     HeartBreaking, //애틋
     Jealousy, //질투
     Resentment, //원망
+
     Madness, //광기
     Screaming, //절규
     Outrage, //격분
