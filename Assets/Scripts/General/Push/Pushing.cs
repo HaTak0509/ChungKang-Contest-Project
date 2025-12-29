@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class Pushing : MonoBehaviour
 {
-    public bool isPush;
+    public bool leftPush;
+    public bool rightPush;
 
     private PushingObject _pushingOb;
     private Rigidbody2D playerRb;
@@ -14,10 +15,28 @@ public class Pushing : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isPush && _pushingOb != null)
+        if (leftPush && _pushingOb != null)
         {
             Vector2 moveDir = playerRb.velocity.normalized;
             _pushingOb.Push(moveDir);
+
+            if (!leftPush)
+            {
+                _pushingOb.Stop();
+                _pushingOb = null;
+            }
+        }
+
+        if (rightPush && _pushingOb != null)
+        {
+            Vector2 moveDir = playerRb.velocity.normalized;
+            _pushingOb.Push(moveDir);
+
+            if (!rightPush)
+            {
+                _pushingOb.Stop();
+                _pushingOb = null;
+            }
         }
     }
 
@@ -26,8 +45,15 @@ public class Pushing : MonoBehaviour
         if (collision.gameObject.TryGetComponent(out PushingObject pushingObject))
         {
             _pushingOb = pushingObject;
-            _pushingOb.isPushing = true;
-            isPush = true;
+
+            if (transform.position.x > _pushingOb.gameObject.transform.position.x)
+            {
+                leftPush = true;
+            }
+            else if (transform.position.x < _pushingOb.gameObject.transform.position.x)
+            {
+                rightPush = true;
+            }
         }
     }
 
@@ -35,11 +61,14 @@ public class Pushing : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent(out PushingObject pushingObject))
         {
-            pushingObject.Stop();
-            pushingObject.isPushing = false;
-
-            isPush = false;
-            _pushingOb = null;
+            if (transform.position.x > _pushingOb.gameObject.transform.position.x)
+            {
+                leftPush = false;
+            }
+            else if (transform.position.x < _pushingOb.gameObject.transform.position.x)
+            {
+                rightPush = false;
+            }
         }
     }
 }

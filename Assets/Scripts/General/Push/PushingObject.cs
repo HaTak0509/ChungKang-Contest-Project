@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class PushingObject : MonoBehaviour
 {
-    public bool isPushing;
     public float pushForce = 5f;
 
     private Rigidbody2D rb;
@@ -14,7 +13,7 @@ public class PushingObject : MonoBehaviour
 
     public void Push(Vector2 direction)
     {
-        rb.velocity = new Vector2(direction.x * pushForce, rb.velocity.y);
+        rb.velocity = new Vector2(direction.x * pushForce, rb.velocity.y).normalized;
     }
 
     public void Stop()

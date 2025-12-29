@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     {
         get
         {
-            if (_pushing.isPush) return pushingSpeed;
+            if (_pushing.leftPush || _pushing.rightPush) return pushingSpeed;
             return walkSpeed;
         }
     }
