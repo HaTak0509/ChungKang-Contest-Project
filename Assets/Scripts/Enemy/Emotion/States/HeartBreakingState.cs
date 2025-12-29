@@ -38,7 +38,7 @@ public class HeartBreakingState : IEmotionState
 
         if (hit != null)
         {
-
+            //일단 대기
         }
 
     }
