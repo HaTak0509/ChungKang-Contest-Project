@@ -1,5 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+
 
 public class Monster : MonoBehaviour
 {
@@ -25,11 +28,12 @@ public class Monster : MonoBehaviour
     public IEmotionState _currentState { get; private set; } = null;//현재 상태
     public EmotionPannelController _controller;
 
-    public bool _IsOff { get; private set; } = false;
+    private MonsterMovement _movement;
+    private Coroutine _OffCoroutine;
 
     void Start()
     {
-
+        _movement = GetComponent<MonsterMovement>();
         // 시작 시 초기 감정 설정 | 이부분 보안 필요할지도
         _CurrentEmotion = _emotionInventories[0].Emotion;
         SetEmotion(_CurrentEmotion);
@@ -59,7 +63,10 @@ public class Monster : MonoBehaviour
 
     private void FixedUpdate()
     {
-            _currentState?.UpdateState(this); // 현재 행동이 있다면, 행동 함수 실행
+
+
+        _currentState?.UpdateState(this); // 현재 행동이 있다면, 행동 함수 실행
+
     }
 
     public void AddEmotion(int index, EmotionType emotionType) //슬롯에 감정 추가하기
@@ -80,6 +87,28 @@ public class Monster : MonoBehaviour
 
         SetEmotion(EmotionTable.Mix(emotion1, emotion2)); //슬롯 1,2 합성해서 행동로직 가져오기
     }
+
+    public void StartWait(float Time)
+    {
+        if (_OffCoroutine == null)
+            _OffCoroutine = StartCoroutine(WaitOff(Time));
+    }
+    
+    private IEnumerator WaitOff(float Wait)
+    {
+        float Origin_Inter = InteractRange;
+        float Origin_Speed = _movement.Speed;
+
+        InteractRange = 0;
+        _movement.Speed = 0;
+
+        yield return new WaitForSeconds(Wait);
+
+        InteractRange = Origin_Inter;
+        _movement.Speed = Origin_Speed;
+    }
+
+
 
     private void OnDrawGizmos()
     {
