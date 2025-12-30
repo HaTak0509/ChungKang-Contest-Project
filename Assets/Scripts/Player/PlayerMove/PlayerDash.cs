@@ -25,7 +25,6 @@ public class PlayerDash : MonoBehaviour
     {
         if (!canDash || _damageable.IsKnockback) return;
         if (dashVitality) StartCoroutine(DashRoutine());
-        dashVitality = false;
     }
 
     private IEnumerator DashRoutine()
@@ -46,5 +45,6 @@ public class PlayerDash : MonoBehaviour
     {
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
+        dashVitality = false;
     }
 }

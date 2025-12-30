@@ -19,7 +19,7 @@ public class Pushing : MonoBehaviour
             if (!leftPush)
             {
                 _pushingOb.Stop();
-                _pushingOb = null; 
+                _pushingOb = null;
             }
             Vector2 moveDir = playerRb.velocity.normalized;
             _pushingOb.Push(moveDir);
@@ -32,7 +32,7 @@ public class Pushing : MonoBehaviour
                 _pushingOb.Stop();
                 _pushingOb = null;
             }
-            Vector2 moveDir = playerRb.velocity.normalized; 
+            Vector2 moveDir = playerRb.velocity.normalized;
             _pushingOb.Push(moveDir);
         } 
     }
