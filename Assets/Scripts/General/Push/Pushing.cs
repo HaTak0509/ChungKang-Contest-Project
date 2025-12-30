@@ -15,7 +15,7 @@ public class Pushing : MonoBehaviour
     private void Update() 
     { 
         if (leftPush && _pushingOb != null)
-        { 
+        {
             if (!leftPush)
             {
                 _pushingOb.Stop();
