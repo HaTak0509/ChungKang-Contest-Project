@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -15,7 +14,20 @@ public class Monster : MonoBehaviour
     // Fiexed업데이트에서 매프레임 실행한다
     //*************************************************************
 
-    public float InteractRange = 5f;
+    [Header("기본 설정")]
+    public float baseSpeed = 5f;
+    public float baseDetectionRange = 5f;
+
+    // 현재 실제 적용되는 값
+    public float Speed {  get; private set; }
+    public float InteractRange { get; private set; }
+    
+
+    
+    // 나를 멈추게 하는 원인들
+    private HashSet<string> disableReasons = new HashSet<string>();
+
+    public bool IsDisabled => disableReasons.Count > 0;
 
 
     [SerializeField]
@@ -28,17 +40,16 @@ public class Monster : MonoBehaviour
     public IEmotionState _currentState { get; private set; } = null;//현재 상태
     public EmotionPannelController _controller;
 
-    private MonsterMovement _movement;
-    private Coroutine _OffCoroutine;
+    private Coroutine _FreezeCoroutine;
 
     void Start()
-    {
-        _movement = GetComponent<MonsterMovement>();
+    { 
+        InteractRange = baseDetectionRange;
+
+
         // 시작 시 초기 감정 설정 | 이부분 보안 필요할지도
         _CurrentEmotion = _emotionInventories[0].Emotion;
         SetEmotion(_CurrentEmotion);
-
-
     }
 
     //감정 세팅
@@ -64,6 +75,9 @@ public class Monster : MonoBehaviour
     private void FixedUpdate()
     {
 
+        Speed = IsDisabled ? 0f : baseSpeed;
+        InteractRange = IsDisabled ? 0f : baseDetectionRange;
+
 
         _currentState?.UpdateState(this); // 현재 행동이 있다면, 행동 함수 실행
 
@@ -88,27 +102,34 @@ public class Monster : MonoBehaviour
         SetEmotion(EmotionTable.Mix(emotion1, emotion2)); //슬롯 1,2 합성해서 행동로직 가져오기
     }
 
-    public void StartWait(float Time)
+
+
+    // --- 기능 1: 3초 동안 정지 ---
+    public void FreezeForThreeSeconds()
     {
-        if (_OffCoroutine == null)
-            _OffCoroutine = StartCoroutine(WaitOff(Time));
-    }
-    
-    private IEnumerator WaitOff(float Wait)
-    {
-        float Origin_Inter = InteractRange;
-        float Origin_Speed = _movement.Speed;
-
-        InteractRange = 0;
-        _movement.Speed = 0;
-
-        yield return new WaitForSeconds(Wait);
-
-        InteractRange = Origin_Inter;
-        _movement.Speed = Origin_Speed;
+        if(_FreezeCoroutine == null)
+        {
+           _FreezeCoroutine = StartCoroutine(FreezeRoutine());
+        }
+        else
+        {
+            StopCoroutine(_FreezeCoroutine);
+            _FreezeCoroutine = StartCoroutine(FreezeRoutine());
+        }
     }
 
+    private IEnumerator FreezeRoutine()
+    {
+        SetStatus("Wait3_Freeze", true);
+        yield return new WaitForSeconds(3f);
+        SetStatus("Wait3_Freeze", false);
+    }
 
+    public void SetStatus(string reason, bool shouldDisable)
+    {
+        if (shouldDisable) disableReasons.Add(reason);
+        else disableReasons.Remove(reason);
+    }
 
     private void OnDrawGizmos()
     {

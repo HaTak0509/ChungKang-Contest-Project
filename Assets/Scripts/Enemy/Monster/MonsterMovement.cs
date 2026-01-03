@@ -26,8 +26,9 @@ public class MonsterMovement : MonoBehaviour
     private Transform _player;
     public MovementState _movementState { get; private set; } = MovementState.Move;
 
-    public float Speed = 4f;
-    
+
+
+
     public Vector2 pointA;
     public Vector2 pointB;
     public LayerMask collisionLayer;
@@ -57,7 +58,7 @@ public class MonsterMovement : MonoBehaviour
     {
         if (_movementState == MovementState.Move)
         {
-            Vector2 nextPosition = _rb.position + new Vector2(Speed * _direction, 0) * Time.fixedDeltaTime;
+            Vector2 nextPosition = _rb.position + new Vector2(_monster.Speed * _direction, 0) * Time.fixedDeltaTime;
             _rb.MovePosition(nextPosition);
         }
 
@@ -75,7 +76,7 @@ public class MonsterMovement : MonoBehaviour
 
     public void Dash()
     {
-        Vector2 nextPosition = _rb.position + new Vector2(Speed * 2 * _direction, 0) * Time.fixedDeltaTime;
+        Vector2 nextPosition = _rb.position + new Vector2(_monster.Speed * 2 * _direction, 0) * Time.fixedDeltaTime;
         _rb.MovePosition(nextPosition);
     }
 

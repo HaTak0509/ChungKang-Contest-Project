@@ -113,6 +113,10 @@ public class JealousyState : IEmotionState
             Vector3 myPos = _movement.transform.position;
             _movement.transform.position = targetAI.position;
             targetAI.position = myPos;
+
+            targetAI.GetComponent<Monster>().FreezeForThreeSeconds();
+            _movement.GetComponent<Monster>().FreezeForThreeSeconds();
+            
         }
 
         _CoolTimer = Cool_DURATION;
