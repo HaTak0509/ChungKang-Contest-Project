@@ -1,22 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Elevator : MonoBehaviour
 {
-    [SerializeField] private GameObject currentScene;
-    [SerializeField] private GameObject nextScene;
+    [SerializeField] private int nextLevel;
 
     public bool clear;
-    private bool _action;
 
+    private bool _action;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.F) && _action)
         {
             Debug.Log(123);
-            // Destroy(currentScene);
-            // Instantiate(nextScene);
+
+            // LevelReset.Instance.LoadLevel(nextLevel);
         }
     }
     private void OnTriggerStay2D(Collider2D other)

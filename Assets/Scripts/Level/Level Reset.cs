@@ -1,13 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelReset : MonoBehaviour
 {
+    [SerializeField] LevelDatabase database;
+
     public static LevelReset Instance;
 
-    public bool reset;
-    private GameObject currentScene;
+    private GameObject currentLevel;
+    private int index;
 
     private void Awake()
     {
@@ -16,28 +16,23 @@ public class LevelReset : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        
         Instance = this;
 
-        currentScene = GetComponent<GameObject>();
+        LoadLevel(0);
     }
-
     private void Update()
     {
-        if (reset)
-        {
-            OnReset();
-        }
-
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            reset = true;
+            LoadLevel(0);
         }
     }
-
-    private void OnReset()
+    public void LoadLevel(int i)
     {
-        reset = false;
-        Instantiate(currentScene);
+        if (currentLevel != null)
+            Destroy(currentLevel);
+
+        index = i;
+        currentLevel = Instantiate(database.levels[index]);
     }
 }
