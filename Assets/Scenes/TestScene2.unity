@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &131622153
 RectTransform:
   m_ObjectHideFlags: 0
@@ -366,6 +366,7 @@ GameObject:
   - component: {fileID: 257284281}
   - component: {fileID: 257284280}
   - component: {fileID: 257284279}
+  - component: {fileID: 257284282}
   m_Layer: 5
   m_Name: AudioButton
   m_TagString: Untagged
@@ -436,7 +437,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 257284280}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 257284282}
+        m_TargetAssemblyTypeName: AudioButton, Assembly-CSharp
+        m_MethodName: OAudioButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &257284280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -475,6 +488,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 257284277}
   m_CullTransparentMesh: 1
+--- !u!114 &257284282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257284277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 661638dfb220de041b2f793e12b6785f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &337982658
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,6 +512,7 @@ GameObject:
   - component: {fileID: 337982662}
   - component: {fileID: 337982661}
   - component: {fileID: 337982660}
+  - component: {fileID: 337982663}
   m_Layer: 5
   m_Name: MenuButton
   m_TagString: Untagged
@@ -507,7 +533,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 141296719}
-  m_Father: {fileID: 1279633029}
+  m_Father: {fileID: 908252470}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -557,7 +583,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 337982661}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 337982663}
+        m_TargetAssemblyTypeName: MenuButton, Assembly-CSharp
+        m_MethodName: OnMenuButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &337982661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -596,6 +634,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 337982658}
   m_CullTransparentMesh: 1
+--- !u!114 &337982663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337982658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7725b168e2d43446bb4dc30aca9af05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuImage: {fileID: 1279633028}
 --- !u!1 &500510039
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,7 +838,7 @@ GameObject:
   - component: {fileID: 726504679}
   - component: {fileID: 726504678}
   m_Layer: 5
-  m_Name: MouseText
+  m_Name: Sensitivity Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -832,7 +883,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Mouse
+  m_text: Sensitivity
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1003,6 +1054,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 337982659}
   - {fileID: 1279633029}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1147,7 +1199,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &945237126
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1466,7 +1518,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 337982659}
   - {fileID: 2070020197}
   - {fileID: 131622153}
   - {fileID: 945237126}
@@ -1635,6 +1686,7 @@ GameObject:
   - component: {fileID: 1674054861}
   - component: {fileID: 1674054860}
   - component: {fileID: 1674054859}
+  - component: {fileID: 1674054862}
   m_Layer: 5
   m_Name: MouseButton
   m_TagString: Untagged
@@ -1705,7 +1757,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1674054860}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1674054862}
+        m_TargetAssemblyTypeName: MouseSensitivityButton, Assembly-CSharp
+        m_MethodName: OnMouseSensitivityButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1674054860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1744,6 +1808,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1674054857}
   m_CullTransparentMesh: 1
+--- !u!114 &1674054862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674054857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1a6237517e0faa41bbe3ac6c176bc75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioButton: {fileID: 945237125}
+  mouseButton: {fileID: 1674054857}
+  mouseSensitivity: {fileID: 500510039}
 --- !u!1 &1879388634
 GameObject:
   m_ObjectHideFlags: 0
@@ -1966,7 +2045,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2070020197
 RectTransform:
   m_ObjectHideFlags: 0

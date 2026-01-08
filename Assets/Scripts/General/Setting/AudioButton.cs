@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class AudioButton : MonoBehaviour
 {
-    
+    public void OAudioButton()
+    {
+        
+    }
 }

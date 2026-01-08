@@ -1,11 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MenuButton : MonoBehaviour
 {
-    private void Menu()
+    [SerializeField] private GameObject menuImage;
+
+    private void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            OnMenuButton();
+        }
+    }
+
+    public void OnMenuButton()
+    {
+        bool isActive = menuImage.activeSelf;
+        menuImage.SetActive(!isActive);
     }
 }
