@@ -5,9 +5,11 @@ public class MenuController : MonoBehaviour
     public static MenuController Instance;
 
     [Header("Menu Objects")]
-    public GameObject menu;
-    public GameObject sensitivity;
-    public GameObject audio;
+    public GameObject menuButton;
+    public GameObject resetButton;
+    public GameObject audioButton;
+    public GameObject sensitivityButton;
+    public GameObject returnButton;
 
     private void Awake()
     {
@@ -24,21 +26,23 @@ public class MenuController : MonoBehaviour
         switch (type)
         {
             case MenuType.Menu:
-                menu.SetActive(true);
+                menuButton.SetActive(true);
                 break;
             case MenuType.Sensitivity:
-                sensitivity.SetActive(true);
+                sensitivityButton.SetActive(true);
                 break;
             case MenuType.Audio:
-                audio.SetActive(true);
+                audioButton.SetActive(true);
                 break;
         }
     }
 
     private void CloseAll()
     {
-        menu.SetActive(false);
-        sensitivity.SetActive(false);
-        audio.SetActive(false);
+        menuButton.SetActive(false);
+        resetButton.SetActive(false);
+        audioButton.SetActive(false);
+        sensitivityButton.SetActive(false);
+        returnButton.SetActive(false);
     }
 }
