@@ -25,6 +25,12 @@ public static class EmotionFactory
             EmotionType.HeartBreaking => new HeartBreakingState(),
             EmotionType.Jealousy => new JealousyState(),
             EmotionType.Madness => new MadnessState(),
+            EmotionType.Screaming => new ScreamiingState(),
+            EmotionType.Outrage => new OutrageState(),
+
+
+
+
             _ => new NeutralState()
         };
 

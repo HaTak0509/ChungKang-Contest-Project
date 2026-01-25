@@ -1,129 +1,137 @@
 using UnityEngine;
-using UnityEngine.Tilemaps;
 using System.Collections;
 
 public class WaterRiseController : MonoBehaviour
 {
-
-    enum WaterRisePhase
-    {
-        BubbleOnly,   // 거품만 자람
-        WaterRising   // 물이 자람
-    }
-
     [Header("Water Settings")]
-    [SerializeField] private float riseSpeed = 0.5f; // 초당 상승 높이
+    [SerializeField] private float riseSpeed = 8.0f;
+    [SerializeField] private float stepHeight = 1.0f;
+    [SerializeField] private float waitTime = 1.0f;
     [SerializeField] private float maxHeight = 15f;
     [SerializeField] private float bubbleMaxHeight = 1f;
 
-
+    [Header("References")]
     public SpriteRenderer _WaterSprite;
     public SpriteRenderer _BubbleSprite;
 
-
-
-    private WaterRisePhase _phase = WaterRisePhase.BubbleOnly;
     private float _currentBubbleHeight;
-
-
-    private float _currentHeight;
+    private float _currentWaterHeight;
     private float _currentWidth;
     private BoxCollider2D _col;
-
     private float _currentY;
+
+    // 제어 플래그
+    private bool _isMoving = false;      // 현재 물리적으로 이동 중인가?
+    private bool _shouldContinue = true; // 다음 칸으로 계속 갈 것인가?
+    private Coroutine _activeRoutine;
 
     void Awake()
     {
-        
-        _currentHeight = _WaterSprite.size.y;
+        _currentWaterHeight = _WaterSprite.size.y;
         _currentWidth = _WaterSprite.size.x;
         _currentY = _WaterSprite.transform.position.y;
-
         _col = _WaterSprite.GetComponent<BoxCollider2D>();
 
+        UpdateVisuals();
 
-        StartRise();
-    }
-    
-
-    void SetHeight(float height)
-    {
-        _WaterSprite.size = new Vector2(_currentWidth, height);
-
-        _WaterSprite.transform.position =
-            new Vector3(
-                _WaterSprite.transform.position.x,
-                _currentY + height * 0.5f,
-                _WaterSprite.transform.position.z
-            );
-
-        _col.size = new Vector2(_currentWidth, height);
+        StartRising();
     }
 
-    public void StartRise()
+    // --- 제어 함수 ---
+
+    public void StartRising()
     {
-        StartCoroutine(WaterUpCoroutine(riseSpeed));
+        _shouldContinue = true;
+        if (_activeRoutine != null) StopCoroutine(_activeRoutine);
+        _activeRoutine = StartCoroutine(HandleWaterMovement(true));
     }
 
-
-    private IEnumerator WaterUpCoroutine(float riseSpeed)
+    public void StartFalling()
     {
-        while (true)
+        _shouldContinue = true;
+        if (_activeRoutine != null) StopCoroutine(_activeRoutine);
+        _activeRoutine = StartCoroutine(HandleWaterMovement(false));
+    }
+
+    public void StopMovement()
+    {
+        // 다음 칸으로 넘어가지 않도록 설정 (현재 이동중인 칸은 마저 이동함)
+        _shouldContinue = false;
+    }
+
+    // --- 핵심 로직 ---
+
+    private IEnumerator HandleWaterMovement(bool isUpward)
+    {
+        while (_shouldContinue)
         {
-            switch (_phase)
+            float currentTotal = _currentWaterHeight + _currentBubbleHeight;
+            float targetTotal;
+
+            if (isUpward)
+                targetTotal = Mathf.Min(currentTotal + stepHeight, maxHeight);
+            else
+                targetTotal = Mathf.Max(currentTotal - stepHeight, 0);
+
+            if (Mathf.Approximately(currentTotal, targetTotal)) break;
+
+            // [한 칸 이동 시작]
+            _isMoving = true;
+            while (!Mathf.Approximately(_currentWaterHeight + _currentBubbleHeight, targetTotal))
             {
-                case WaterRisePhase.BubbleOnly:
-                    UpdateBubbleOnly();
-                    break;
+                float step = riseSpeed * Time.deltaTime;
 
-                case WaterRisePhase.WaterRising:
-                    UpdateWaterRising(riseSpeed);
-                    break;
+                if (isUpward)
+                {
+                    if (_currentBubbleHeight < bubbleMaxHeight)
+                        _currentBubbleHeight = Mathf.MoveTowards(_currentBubbleHeight, bubbleMaxHeight, step);
+                    else
+                        _currentWaterHeight = Mathf.MoveTowards(_currentWaterHeight, targetTotal - bubbleMaxHeight, step);
+                }
+                else
+                {
+                    if (_currentWaterHeight > 0)
+                    {
+                        float targetWater = Mathf.Max(0, targetTotal - _currentBubbleHeight);
+                        _currentWaterHeight = Mathf.MoveTowards(_currentWaterHeight, targetWater, step);
+                    }
+                    else
+                        _currentBubbleHeight = Mathf.MoveTowards(_currentBubbleHeight, 0, step);
+                }
+
+                UpdateVisuals();
+                yield return null;
             }
+            _isMoving = false;
+            // [한 칸 이동 끝]
 
-            if (_currentHeight >= maxHeight)
-                break;
+            // 다음 칸으로 가기 전 대기 (이 사이에 StopMovement가 호출되면 다음 루프에서 while문이 종료됨)
+            yield return new WaitForSeconds(waitTime);
 
-            yield return null;
+            if (isUpward && (_currentWaterHeight + _currentBubbleHeight) >= maxHeight) break;
+            if (!isUpward && (_currentWaterHeight + _currentBubbleHeight) <= 0) break;
         }
+        _activeRoutine = null;
     }
 
-    void UpdateBubbleOnly()
+    void UpdateVisuals()
     {
-        _currentBubbleHeight += riseSpeed * Time.deltaTime;
-        _currentBubbleHeight = Mathf.Min(_currentBubbleHeight, bubbleMaxHeight);
+        _WaterSprite.size = new Vector2(_currentWidth, _currentWaterHeight);
+        _WaterSprite.transform.position = new Vector3(
+            _WaterSprite.transform.position.x,
+            _currentY + _currentWaterHeight * 0.5f,
+            _WaterSprite.transform.position.z
+        );
 
-        // 거품만 길어짐
         _BubbleSprite.size = new Vector2(_currentWidth, _currentBubbleHeight);
+        _BubbleSprite.transform.position = new Vector3(
+            _WaterSprite.transform.position.x,
+            _currentY + _currentWaterHeight + _currentBubbleHeight * 0.5f,
+            _WaterSprite.transform.position.z
+        );
 
-        // 위치는 물 위에서 고정
-        _BubbleSprite.transform.position =
-            new Vector3(
-                _WaterSprite.transform.position.x,
-                _currentY + _currentHeight + _currentBubbleHeight * 0.5f,
-                _WaterSprite.transform.position.z
-            );
-
-        // 임계치 도달 → 물 상승 단계로 전환
-        if (_currentBubbleHeight >= bubbleMaxHeight)
-        {
-            _phase = WaterRisePhase.WaterRising;
-        }
+        float totalHeight = _currentWaterHeight + _currentBubbleHeight;
+        _col.size = new Vector2(_currentWidth, totalHeight);
+        _col.offset = new Vector2(0, totalHeight * 0.5f);
     }
-
-
-    void UpdateWaterRising(float riseSpeed)
-    {
-        _currentHeight += riseSpeed * Time.deltaTime;
-        SetHeight(_currentHeight);
-
-        // 거품은 물 위에 얹힘 (길이는 고정)
-        _BubbleSprite.transform.position =
-            new Vector3(
-                _WaterSprite.transform.position.x,
-                _currentY + _currentHeight + _currentBubbleHeight * 0.5f,
-                _WaterSprite.transform.position.z
-            );
-    }
-
 }

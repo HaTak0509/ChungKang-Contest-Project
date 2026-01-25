@@ -1412,7 +1412,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7019953517035574583, guid: c73db0f06018aba428e8a7d01c9c9b97, type: 3}
       propertyPath: Type
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3214,6 +3214,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1585230684
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1585230685}
+  m_Layer: 0
+  m_Name: Fire
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1585230685
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1585230684}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1636512945}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1636512943
 GameObject:
   m_ObjectHideFlags: 0
@@ -3224,13 +3255,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1636512945}
   - component: {fileID: 1636512944}
+  - component: {fileID: 1636512946}
   m_Layer: 0
   m_Name: WaterManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1636512944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3243,7 +3275,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d27c2e2e569a16141b67d212720a308d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  riseSpeed: 0.25
+  riseSpeed: 8
+  stepHeight: 1
+  waitTime: 1
   maxHeight: 5
   bubbleMaxHeight: 1
   _WaterSprite: {fileID: 1323652886}
@@ -3263,8 +3297,22 @@ Transform:
   m_Children:
   - {fileID: 1323652887}
   - {fileID: 1752353509}
+  - {fileID: 1585230685}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1636512946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1636512943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e5fd7396f1d27646816d55f696dec7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Humidity: 0
 --- !u!1 &1708884444
 GameObject:
   m_ObjectHideFlags: 0
@@ -3931,55 +3979,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftPush: 0
   rightPush: 0
---- !u!1 &1792744472
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1792744473}
-  - component: {fileID: 1792744474}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1792744473
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1792744472}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.75476456, y: -0.27182126, z: 0.04748154}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1792744474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1792744472}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d27c2e2e569a16141b67d212720a308d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  riseSpeed: 1
-  maxHeight: 15
-  bubbleMaxHeight: 15
-  _WaterSprite: {fileID: 0}
-  _BubbleSprite: {fileID: 0}
 --- !u!1 &1808684397
 GameObject:
   m_ObjectHideFlags: 0
@@ -4470,7 +4469,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7019953517035574583, guid: c73db0f06018aba428e8a7d01c9c9b97, type: 3}
       propertyPath: Type
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4490,6 +4489,5 @@ SceneRoots:
   - {fileID: 1506039562}
   - {fileID: 731546934}
   - {fileID: 811397419}
-  - {fileID: 1636512945}
-  - {fileID: 1792744473}
   - {fileID: 1783865544}
+  - {fileID: 1636512945}
