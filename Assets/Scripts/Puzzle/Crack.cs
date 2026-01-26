@@ -4,64 +4,69 @@ public class Crack : MonoBehaviour
 {
     [SerializeField] private GameObject activationCrack;
     [SerializeField] private GameObject deactivationCrack;
+    [SerializeField] private GameObject closeCrack;
 
-    public bool activationCrackActive;
-    public bool deactivationCrackActive;
+    public int _openLimit;
 
-    private bool _interactionActive;
-    private bool _active;
+    private bool _isActivated;
+    private bool _playerInRange;
+    private int _currentLimit;
 
     private void Awake()
     {
-        activationCrackActive = false;
-        deactivationCrackActive = false;
-        _active = false;
+        SetCrack(false);
+        deactivationCrack.SetActive(false);
     }
 
     private void Update()
     {
-        if (deactivationCrackActive)
-            deactivationCrack.SetActive(true);
-        else
-            deactivationCrack.SetActive(false);
+        if (!_playerInRange) return;
 
-        if (_interactionActive && !_active)
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            if (deactivationCrackActive)
-            {
-                if (Input.GetKey(KeyCode.F))
-                {
-                    activationCrackActive = true;
-                    activationCrack.SetActive(true);
-                    deactivationCrackActive = false;
-                }
-            }
-
-            if (activationCrackActive)
-            {
-                if (Input.GetKey(KeyCode.F))
-                {
-                    activationCrackActive = false;
-                    activationCrack.SetActive(false);
-                    deactivationCrackActive = true;
-                }
-            }
+            SetCrack(!_isActivated);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
-            _interactionActive = true;
+            _playerInRange = true;
+
+            if (!_isActivated)
+                deactivationCrack.SetActive(true);
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
-            _interactionActive = false;
+            _playerInRange = false;
+            deactivationCrack.SetActive(false);
+        }
+    }
+
+    private void SetCrack(bool value)
+    {
+        if (_currentLimit >= _openLimit) return;
+
+        _isActivated = value;
+
+        activationCrack.SetActive(_isActivated);
+        deactivationCrack.SetActive(!_isActivated && _playerInRange);
+        closeCrack.SetActive(_isActivated && _playerInRange);
+    }
+
+    public void SetPlayerInRange(bool value)
+    {
+        _playerInRange = value;
+
+        // 아직 활성화 안 된 상태면 표시 제어
+        if (!_isActivated)
+        {
+            deactivationCrack.SetActive(_playerInRange);
         }
     }
 }

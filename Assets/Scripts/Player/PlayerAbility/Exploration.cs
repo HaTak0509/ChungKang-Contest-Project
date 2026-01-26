@@ -4,23 +4,23 @@ public class Exploration : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Crack"))
-        {
-            Crack crack = collision.gameObject.GetComponent<Crack>();
+        if (!collision.CompareTag("Crack")) return;
 
-            if (!crack.activationCrackActive)
-                crack.deactivationCrackActive = true;
+        Crack crack = collision.GetComponent<Crack>();
+        if (crack != null)
+        {
+            crack.SetPlayerInRange(true);
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Crack"))
+        if (!collision.CompareTag("Crack")) return;
+
+        Crack crack = collision.GetComponent<Crack>();
+        if (crack != null)
         {
-            Crack crack = collision.gameObject.GetComponent<Crack>();
-            
-            if (!crack.activationCrackActive)
-                crack.deactivationCrackActive = false;
+            crack.SetPlayerInRange(false);
         }
     }
 }
