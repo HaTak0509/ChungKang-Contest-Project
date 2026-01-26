@@ -1,5 +1,5 @@
 using UnityEngine;
-public class JealousyState : IEmotionState
+public class JealousyState : IEmotionState //질투
 {
     //*************************************************************
     // [ 코드 설명 ] :
@@ -114,9 +114,6 @@ public class JealousyState : IEmotionState
             _movement.transform.position = targetAI.position;
             targetAI.position = myPos;
 
-            targetAI.GetComponent<Monster>().FreezeForThreeSeconds();
-            _movement.GetComponent<Monster>().FreezeForThreeSeconds();
-            
         }
 
         _CoolTimer = Cool_DURATION;

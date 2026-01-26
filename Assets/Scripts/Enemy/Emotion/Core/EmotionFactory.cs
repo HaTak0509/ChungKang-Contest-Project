@@ -20,14 +20,11 @@ public static class EmotionFactory
         return type switch
         {
             EmotionType.Joy => new JoyState(),
-            EmotionType.Sad => new SadState(),
             EmotionType.Rage => new RageState(),
-            EmotionType.HeartBreaking => new HeartBreakingState(),
             EmotionType.Jealousy => new JealousyState(),
             EmotionType.Resentment => new ResentmentState(),
 
 
-            EmotionType.Madness => new MadnessState(),
             EmotionType.Screaming => new ScreamiingState(),
             EmotionType.Outrage => new OutrageState(),
 

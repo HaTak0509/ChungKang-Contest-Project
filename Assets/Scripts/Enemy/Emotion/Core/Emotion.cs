@@ -15,25 +15,16 @@ public enum EmotionType
 
     //기본 검정
     Joy, //기쁨
-    Sad, //슬픔
     Rage, //화남
 
-    // 합성 감정
-    HeartBreaking, //애틋
+
     Jealousy, //질투
     Resentment, //원망
 
-    Madness, //광기
     Screaming, //절규
     Outrage, //격분
 }
 
-[System.Serializable]
-public struct EmotionInventory
-{
-    public EmotionType Emotion;
-    public EmotionType Filter;
-}
 
 
 

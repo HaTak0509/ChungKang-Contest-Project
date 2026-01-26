@@ -31,14 +31,11 @@ public class Monster : MonoBehaviour
 
 
     [SerializeField]
-    private List<EmotionInventory> _emotionInventories = new List<EmotionInventory>(2);
-    public IReadOnlyList<EmotionInventory> EmotionInventories => _emotionInventories;// 외부에서는 이 프로퍼티를 통해 읽기만 가능합니다.
-
-    [field: SerializeField] public EmotionType _CurrentEmotion { get; private set; } // 읽기 가능, 수정 불가능
+    public EmotionType _emotion = EmotionType.Null;
+    public EmotionType _CurrentEmotion { get; private set; } // 읽기 가능, 수정 불가능
 
 
     public IEmotionState _currentState { get; private set; } = null;//현재 상태
-    public EmotionPannelController _controller;
 
     private Coroutine _FreezeCoroutine;
 
@@ -48,7 +45,7 @@ public class Monster : MonoBehaviour
 
 
         // 시작 시 초기 감정 설정 | 이부분 보안 필요할지도
-        _CurrentEmotion = _emotionInventories[0].Emotion;
+        _CurrentEmotion = _emotion;
         SetEmotion(_CurrentEmotion);
     }
 
@@ -66,7 +63,6 @@ public class Monster : MonoBehaviour
 
         _CurrentEmotion = newEmotion;
 
-        _controller.EmotionTextChange(Emotion.Get(_CurrentEmotion).korean);
 
         if( _currentState != null )
             _currentState.OnEnter(this); // 감정 변경 시 호출
@@ -83,53 +79,6 @@ public class Monster : MonoBehaviour
 
     }
 
-    public void AddEmotion(int index, EmotionType emotionType) //슬롯에 감정 추가하기
-    {
-        EmotionInventory temp = _emotionInventories[index];
-        temp.Emotion = emotionType;
-        _emotionInventories[index] = temp; //슬롯에 감정 넣기
-
-
-        //감정 불러오기
-        EmotionType emotion1 = _emotionInventories[0].Emotion;
-        EmotionType emotion2 = EmotionType.Null;
-        if (_emotionInventories != null && _emotionInventories.Count > 1)
-        {
-            emotion2 = _emotionInventories[1].Emotion;
-        }
-
-
-        SetEmotion(EmotionTable.Mix(emotion1, emotion2)); //슬롯 1,2 합성해서 행동로직 가져오기
-    }
-
-
-
-    // --- 기능 1: 3초 동안 정지 ---
-    public void FreezeForThreeSeconds()
-    {
-        if(_FreezeCoroutine == null)
-        {
-           _FreezeCoroutine = StartCoroutine(FreezeRoutine());
-        }
-        else
-        {
-            StopCoroutine(_FreezeCoroutine);
-            _FreezeCoroutine = StartCoroutine(FreezeRoutine());
-        }
-    }
-
-    private IEnumerator FreezeRoutine()
-    {
-        SetStatus("Wait3_Freeze", true);
-        yield return new WaitForSeconds(3f);
-        SetStatus("Wait3_Freeze", false);
-    }
-
-    public void SetStatus(string reason, bool shouldDisable)
-    {
-        if (shouldDisable) disableReasons.Add(reason);
-        else disableReasons.Remove(reason);
-    }
 
     private void OnDrawGizmos()
     {

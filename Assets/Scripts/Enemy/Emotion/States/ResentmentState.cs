@@ -9,7 +9,7 @@ public class ResentmentState : IEmotionState //원망
     // 확장성을 챙기기 위해 인터페이스 형식을 사용함
     //*************************************************************
 
-    public EmotionType Type => EmotionType.Madness;
+    public EmotionType Type => EmotionType.Resentment;
 
     private CircleCollider2D _circleCollider2D;
     private Flotation _flotation;

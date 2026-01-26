@@ -34,7 +34,7 @@ public class WaterRiseController : MonoBehaviour
 
         UpdateVisuals();
 
-        StartRising();
+       // StartRising();
     }
 
     // --- 제어 함수 ---
