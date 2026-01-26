@@ -6,8 +6,10 @@ public class LevelReset : MonoBehaviour
 
     public static LevelReset Instance;
 
-    private GameObject currentLevel;
-    private int index;
+    public int _currentLevelIndex;
+
+    private GameObject _currentLevel;
+    private int _index;
 
     private void Awake()
     {
@@ -29,10 +31,12 @@ public class LevelReset : MonoBehaviour
     }
     public void LoadLevel(int i)
     {
-        if (currentLevel != null)
-            Destroy(currentLevel);
+        if (_currentLevel != null)
+            Destroy(_currentLevel);
 
-        index = i;
-        currentLevel = Instantiate(database.levels[index]);
+        _index = i;
+        _currentLevelIndex = i;
+        _currentLevel = Instantiate(database.levels[_index]);
+        // 여기서 레벨 저장
     }
 }

@@ -24,7 +24,7 @@ public class Damageable : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        Debug.Log("E키를 누르면 넉백(일단 오른쪽으로만 밀림)");
+        Debug.Log("q키를 누르면 넉백(일단 오른쪽으로만 밀림)");
     }
 
     private void Start()
@@ -79,7 +79,7 @@ public class Damageable : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.Q))
             TakePushFromPosition(transform.position + Vector3.left);
     }
 }

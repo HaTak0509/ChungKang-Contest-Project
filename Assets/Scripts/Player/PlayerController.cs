@@ -3,11 +3,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private GameObject explorationRange;   
+
     public PlayerMovement movement;
     public PlayerJump jump;
     public PlayerDash dash;
     public Damageable damageable;
-    public bool intercation;
 
     private Vector2 moveInput;
 
@@ -39,11 +40,7 @@ public class PlayerController : MonoBehaviour
     {
         if (context.started)
         {
-            intercation = true;
-        }
-        else if (context.canceled)
-        {
-            intercation = false;
+            explorationRange.SetActive(!explorationRange.activeSelf);
         }
     }
 }

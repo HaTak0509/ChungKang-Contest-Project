@@ -2,48 +2,31 @@ using UnityEngine;
 
 public class MenuController : MonoBehaviour
 {
-    public static MenuController Instance;
+    [SerializeField] private GameObject menu;
+    [SerializeField] private GameObject menuButton;
+    [SerializeField] private GameObject backButton;
+    [SerializeField] private GameObject ResetButton;
+    [SerializeField] private GameObject ReturnMainMenuButton;
 
-    [Header("Menu Objects")]
-    public GameObject menuButton;
-    public GameObject resetButton;
-    public GameObject audioButton;
-    public GameObject returnButton;
-
-    private void Awake()
+    public void OnMenu()
     {
-        if (Instance == null)
-            Instance = this;
-        else
-            Destroy(gameObject);
-    }
-
-    public void Open(MenuType type)
-    {
-        CloseAll();
-
-        switch (type)
-        {
-            case MenuType.Menu:
-                menuButton.SetActive(true);
-                break;
-            case MenuType.Reset:
-                resetButton.SetActive(true);
-                break;
-            case MenuType.Audio:
-                audioButton.SetActive(true);
-                break;
-            case MenuType.Return:
-                returnButton.SetActive(true);
-                break;
-        }
-    }
-
-    private void CloseAll()
-    {
+        menu.SetActive(true);
         menuButton.SetActive(false);
-        resetButton.SetActive(false);
-        audioButton.SetActive(false);
-        returnButton.SetActive(false);
+    }
+
+    public void OnBack()
+    {
+        menu.SetActive(false);
+        menuButton.SetActive(true);
+    }
+
+    public void OnReset()
+    {
+        LevelReset.Instance.LoadLevel(LevelReset.Instance._currentLevelIndex);
+    }
+
+    public void OnReturnMainMenu()
+    {
+        LevelReset.Instance.LoadLevel(0);
     }
 }

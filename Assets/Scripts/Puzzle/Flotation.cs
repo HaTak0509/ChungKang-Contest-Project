@@ -31,9 +31,6 @@ public class Flotation : MonoBehaviour
         _playerPosition = collider.gameObject.transform;
         _playerRb = collider.GetComponent<Rigidbody2D>();
         _playerMovement = collider.GetComponent<PlayerMovement>();
-        _playerMovement.moveLimit = true;
-
-        _playerRb.velocity = Vector2.zero;
     }
 
     private void OnTriggerExit2D(Collider2D collider)
@@ -42,7 +39,6 @@ public class Flotation : MonoBehaviour
 
         action = false;
         _playerPosition = null;
-        _playerMovement.moveLimit = false;
         _playerRb = null;
         _playerMovement = null;
     }
