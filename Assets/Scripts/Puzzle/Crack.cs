@@ -30,22 +30,18 @@ public class Crack : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
-        {
-            _playerInRange = true;
+        if (!collision.CompareTag("ExplorationRange")) return;
+        _playerInRange = true;
 
-            if (!_isActivated)
-                deactivationCrack.SetActive(true);
-        }
+        if (!_isActivated)
+            deactivationCrack.SetActive(true);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
-        {
-            _playerInRange = false;
-            deactivationCrack.SetActive(false);
-        }
+        if (!collision.CompareTag("ExplorationRange")) return;
+        _playerInRange = false;
+        deactivationCrack.SetActive(false);
     }
 
     private void SetCrack(bool value)

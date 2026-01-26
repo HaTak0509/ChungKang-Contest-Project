@@ -2,10 +2,10 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class LiftController : MonoBehaviour
+public class VerticalLift : MonoBehaviour
 {
     [SerializeField] private float speed = 3f;  // 이동 속도
-    [SerializeField] private float downY = -5f; // Inspector에서 땅에 닿을 Y 위치 설정 (예: -5)
+    [SerializeField] private float verticalY = -5f; // Inspector에서 땅에 닿을 Y 위치 설정 (예: -5)
     [SerializeField] private float decelerationPosition = 3f;
     [SerializeField] private float decelerationSpeed = 0.2f; 
 
@@ -20,7 +20,7 @@ public class LiftController : MonoBehaviour
     void Start()
     {
         _rb2D = GetComponent<Rigidbody2D>();
-        _originalPos = transform.position;  // 시작 위치를 원래 위치로 저장
+        _originalPos = transform.position; // 시작 위치를 원래 위치로 저장
     }
 
     void Update()
@@ -38,7 +38,7 @@ public class LiftController : MonoBehaviour
             else
             {
                 // 위에서 아래로 내려감
-                target = new Vector2(_originalPos.x, downY);
+                target = new Vector2(_originalPos.x, verticalY);
                 _atBottom = true;
             }
             StartCoroutine(MoveTo(target));
