@@ -1,8 +1,7 @@
 public enum MenuType
 {
     Menu,
-    Sensitivity,
-    Audio,
     Reset,
+    Audio,
     Return
 }

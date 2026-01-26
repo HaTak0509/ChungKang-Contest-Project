@@ -8,7 +8,6 @@ public class MenuController : MonoBehaviour
     public GameObject menuButton;
     public GameObject resetButton;
     public GameObject audioButton;
-    public GameObject sensitivityButton;
     public GameObject returnButton;
 
     private void Awake()
@@ -28,11 +27,14 @@ public class MenuController : MonoBehaviour
             case MenuType.Menu:
                 menuButton.SetActive(true);
                 break;
-            case MenuType.Sensitivity:
-                sensitivityButton.SetActive(true);
+            case MenuType.Reset:
+                resetButton.SetActive(true);
                 break;
             case MenuType.Audio:
                 audioButton.SetActive(true);
+                break;
+            case MenuType.Return:
+                returnButton.SetActive(true);
                 break;
         }
     }
@@ -42,7 +44,6 @@ public class MenuController : MonoBehaviour
         menuButton.SetActive(false);
         resetButton.SetActive(false);
         audioButton.SetActive(false);
-        sensitivityButton.SetActive(false);
         returnButton.SetActive(false);
     }
 }
