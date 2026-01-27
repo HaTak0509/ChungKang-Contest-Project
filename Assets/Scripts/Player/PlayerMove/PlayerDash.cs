@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements.Experimental;
 
 public class PlayerDash : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class PlayerDash : MonoBehaviour
     [SerializeField] float dashCooldown = 0.8f;
     
     public bool dashVitality = true;
+    public bool dashing;
 
     private Rigidbody2D _rb2D;
     private PlayerFacing facing;
@@ -29,6 +31,7 @@ public class PlayerDash : MonoBehaviour
 
     private IEnumerator DashRoutine()
     {
+        dashing = true;
         canDash = false;
         _damageable.SetInvincible(dashTime);
 
@@ -36,6 +39,8 @@ public class PlayerDash : MonoBehaviour
         _rb2D.velocity = new Vector2(dashForce * dir, _rb2D.velocity.y); // y 유지
 
         yield return new WaitForSeconds(dashTime);
+        
+        dashing = false;
 
         // 쿨타임은 별도 코루틴으로
         StartCoroutine(CooldownRoutine());

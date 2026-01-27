@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
+    [SerializeField] private PlayerDash playerDash;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void Update()
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (!playerDash.dashVitality)
         {
-
+            gameObject.layer = LayerMask.NameToLayer("Default");
+        }
+        else
+        {
+            gameObject.layer = LayerMask.NameToLayer("Ground");
         }
     }
 }

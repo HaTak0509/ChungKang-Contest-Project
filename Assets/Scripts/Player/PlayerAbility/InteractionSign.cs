@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class InteractionSign : MonoBehaviour
@@ -25,12 +26,11 @@ public class InteractionSign : MonoBehaviour
     {
         if (isQuitting) return;
 
-        // 대상이 더 이상 유효하지 않거나 태그가 변경된 경우
-        List<Transform> toRemove = new List<Transform>();
-        foreach (var kvp in quInsMark)
+        List<Transform> toRemove = new();
+
+        foreach (var target in quInsMark.Keys)
         {
-            Transform target = kvp.Key;
-            if (target == null || target.tag != "PuzzleObject")
+            if (target == null || !target.CompareTag("PuzzleObject"))
             {
                 toRemove.Add(target);
             }
@@ -42,7 +42,6 @@ public class InteractionSign : MonoBehaviour
         }
     }
 
-
     private void OnApplicationQuit()
     {
         isQuitting = true;
@@ -53,7 +52,7 @@ public class InteractionSign : MonoBehaviour
         if (isQuitting) return;
         if (collision.CompareTag("PuzzleObject"))
         {
-            CreateQuMark(collision.transform);
+            CreateMark(collision.transform);
         }
     }
 
@@ -71,7 +70,7 @@ public class InteractionSign : MonoBehaviour
         if (isQuitting) return;
         if (collision.gameObject.CompareTag("PuzzleObject") && collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
-            CreateQuMark(collision.transform);
+            CreateMark(collision.transform);
         }
     }
 
@@ -80,7 +79,7 @@ public class InteractionSign : MonoBehaviour
         if (isQuitting) return;
         if (collision.gameObject.CompareTag("PuzzleObject") && collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
-            CreateQuMark(collision.transform);
+            CreateMark(collision.transform);
         }
     }
 
@@ -93,14 +92,23 @@ public class InteractionSign : MonoBehaviour
         }
     }
 
-    private void CreateQuMark(Transform target)
+    private void CreateMark(Transform target)
     {
         if (quInsMark.ContainsKey(target)) return;
 
-        GameObject mark = Instantiate(questionMark, target.position + Vector3.up * setHeight, Quaternion.identity);
+        GameObject prefab = questionMark;
+
+        // 현재 대상들 중 최우선인지 확인
+        Transform top = sequence.GetTopPriority(quInsMark.Keys.Append(target));
+        if (top == target)
+        {
+            prefab = exclamationMark;
+        }
+
+        GameObject mark = Instantiate(prefab, target.position + Vector3.up * setHeight, Quaternion.identity);
         quInsMark.Add(target, mark);
 
-        // 마크 나타나는 애니메이션 시작
+        RefreshMarks(); //  중요
         StartCoroutine(ShowQuMark(mark));
     }
 
@@ -108,9 +116,49 @@ public class InteractionSign : MonoBehaviour
     {
         if (!quInsMark.TryGetValue(target, out GameObject mark)) return;
 
-        // 마크 제거 애니메이션 실행 후 제거
-        StartCoroutine(HideQuMark(target, mark));
+        // 먼저 Dictionary에서 제거
+        quInsMark.Remove(target);
+
+        // 애니메이션은 오브젝트만 관리
+        StartCoroutine(HideQuMark(mark));
+
+        RefreshMarks();
     }
+
+
+    private void RefreshMarks()
+    {
+        if (sequence == null || quInsMark.Count == 0) return;
+
+        Transform top = sequence.GetTopPriority(quInsMark.Keys);
+
+        // 키 목록 복사
+        List<Transform> targets = new List<Transform>(quInsMark.Keys);
+
+        foreach (Transform target in targets)
+        {
+            if (!quInsMark.TryGetValue(target, out GameObject mark)) continue;
+
+            bool isTop = target == top;
+            GameObject correctPrefab = isTop ? exclamationMark : questionMark;
+
+            // 이미 맞는 타입이면 패스
+            if (mark != null && mark.name.Contains(correctPrefab.name))
+                continue;
+
+            Destroy(mark);
+
+            GameObject newMark = Instantiate(
+                correctPrefab,
+                target.position + Vector3.up * setHeight,
+                Quaternion.identity
+            );
+
+            quInsMark[target] = newMark;
+            StartCoroutine(ShowQuMark(newMark));
+        }
+    }
+
 
     private IEnumerator ShowQuMark(GameObject mark)
     {
@@ -140,14 +188,13 @@ public class InteractionSign : MonoBehaviour
         }
     }
 
-    private IEnumerator HideQuMark(Transform target, GameObject mark)
+    private IEnumerator HideQuMark(GameObject mark)
     {
         float t = 0f;
         SpriteRenderer sr = mark.GetComponent<SpriteRenderer>();
         if (sr == null) yield break;
 
         Color c = sr.color;
-
         Vector3 startPos = mark.transform.position;
         Vector3 endPos = startPos - Vector3.up * maxHeight;
 
@@ -165,10 +212,9 @@ public class InteractionSign : MonoBehaviour
             yield return null;
         }
 
-        // 안전하게 제거
         Destroy(mark);
-        quInsMark.Remove(target);
     }
+
 
     private void OnDisable()
     {
