@@ -1,28 +1,23 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float walkSpeed = 6f;
-    [SerializeField] float pushingSpeed = 4;
+    [SerializeField] float pushingSpeed = 4f;
 
-    public bool moveLimit; 
+    public bool moveLimit;
 
     private Rigidbody2D _rb2D;
     private Damageable _damageable;
     private PlayerFacing _facing;
     private TouchingDetection _touchingDetection;
     private Pushing _pushing;
+
     private Vector2 _moveInput;
 
-    private float CurrentSpeed
-    {
-        get
-        {
-            if (_pushing.leftPush || _pushing.rightPush) return pushingSpeed;
-            return walkSpeed;
-        }
-    }
+    private float CurrentSpeed =>
+        (_pushing.leftPush || _pushing.rightPush) ? pushingSpeed : walkSpeed;
+
     private void Awake()
     {
         _rb2D = GetComponent<Rigidbody2D>();
@@ -35,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     public void SetInput(Vector2 input)
     {
         _moveInput = input;
+
         if (input.sqrMagnitude > 0.01f)
             _facing.FaceDirection(input.x);
     }
@@ -42,39 +38,30 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         if (_damageable != null && _damageable.IsInvincible)
-        {
             return;
+
+        float desiredX = 0f;
+
+        if (!moveLimit)
+        {
+            desiredX = _moveInput.x * CurrentSpeed;
+
+            // 벽 방향 제한
+            if (_touchingDetection.IsOnWall)
+            {
+                if (_touchingDetection.WallDirection == -1 && desiredX < 0)
+                    desiredX = 0;
+                else if (_touchingDetection.WallDirection == 1 && desiredX > 0)
+                    desiredX = 0;
+            }
         }
 
-        if (moveLimit)
-        {
-            _rb2D.velocity = new Vector2(0, _rb2D.velocity.y);
-            return;
-        }
+        ApplyHorizontalVelocity(desiredX);
+    }
 
-        // 왼쪽 벽에 닿은 상태에서 왼쪽을 보고 있다면
-        if (_touchingDetection.WallDirection == -1 && transform.localScale.x < 0)
-        {
-            _rb2D.velocity = new Vector2(0, _rb2D.velocity.y);
-        }
-        else if (_touchingDetection.WallDirection == -1 && transform.localScale.x > 0)
-        {
-            _rb2D.velocity = new Vector2(_moveInput.x * CurrentSpeed, _rb2D.velocity.y);
-        }
-
-        // 오른쪽 벽에 닿은 상태에서 오른쪽을 보고 있다면
-        if (_touchingDetection.WallDirection == 1 && transform.localScale.x > 0)
-        {
-            _rb2D.velocity = new Vector2(0, _rb2D.velocity.y);
-        }
-        else if (_touchingDetection.WallDirection == 1 && transform.localScale.x < 0)
-        {
-            _rb2D.velocity = new Vector2(_moveInput.x * CurrentSpeed, _rb2D.velocity.y);
-        }
-
-        if (!_touchingDetection.IsOnWall)
-        {
-            _rb2D.velocity = new Vector2(_moveInput.x * CurrentSpeed, _rb2D.velocity.y);
-        }
+    private void ApplyHorizontalVelocity(float desiredX)
+    {
+        // 핵심: Y는 절대 건드리지 않는다
+        _rb2D.velocity = new Vector2(desiredX, _rb2D.velocity.y);
     }
 }

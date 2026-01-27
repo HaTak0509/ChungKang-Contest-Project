@@ -5,55 +5,84 @@ public class Platform : MonoBehaviour
     [SerializeField] private Door targetDoor;
     [SerializeField] private Bridge targetBridge;
 
-    [SerializeField] private float sinkAmount = 0.2f;  // 얼마나 내려갈지
-    [SerializeField] private float sinkSpeed = 10f;    // 내려가는 속도
-    [SerializeField] private Sprite pressedSprite;
+    [SerializeField] private float sinkAmount = 0.2f;
+    [SerializeField] private float sinkSpeed = 2f;
 
     private Vector3 originalPosition;
-    private bool isPressed = false;
-    private Transform player;
+    private Vector3 pressedPosition;
+
+    private int pressCount = 0; // 몇 개가 밟고 있는지
+    private Transform carriedObject; // 플레이어 or 박스
 
     void Start()
     {
-        // 원래 위치 저장
-        originalPosition = transform.position;  
+        originalPosition = transform.position;
+        pressedPosition = originalPosition + Vector3.down * sinkAmount;
+    }
+
+    void Update()
+    {
+        Vector3 prevPos = transform.position;
+
+        Vector3 targetPos = pressCount > 0 ? pressedPosition : originalPosition;
+
+        // 정확히 목표 위치까지 이동
+        transform.position = Vector3.MoveTowards(
+            transform.position,
+            targetPos,
+            sinkSpeed * Time.deltaTime
+        );
+
+        // 발판 위 오브젝트 같이 이동
+        if (carriedObject != null)
+        {
+            Vector3 delta = transform.position - prevPos;
+            carriedObject.position += delta;
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (!IsTopCollision(collision)) return;
+
+        if (collision.gameObject.CompareTag("Player") ||
+            collision.gameObject.CompareTag("LightBox"))
         {
-            player = collision.transform;
-            isPressed = true;
-            if (targetDoor != null) targetDoor.OpenDoor();
-            if (targetBridge != null) targetBridge.OpenBridge();
+            pressCount++;
+
+            carriedObject = collision.transform;
+
+            if (pressCount == 1)
+            {
+                if (targetDoor != null) targetDoor.OpenDoor();
+                if (targetBridge != null) targetBridge.OpenBridge();
+            }
         }
     }
 
     void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") ||
+            collision.gameObject.CompareTag("LightBox"))
         {
-            player = null;
-            isPressed = false;
-            if (targetDoor != null) targetDoor.CloseDoor();
-            if (targetBridge != null) targetBridge.CloseBridge();
+            pressCount = Mathf.Max(pressCount - 1, 0);
+
+            if (pressCount == 0)
+            {
+                carriedObject = null;
+                if (targetDoor != null) targetDoor.CloseDoor();
+                if (targetBridge != null) targetBridge.CloseBridge();
+            }
         }
     }
-    void Update()
+
+    bool IsTopCollision(Collision2D collision)
     {
-        Vector3 prevPos = transform.position;
-
-        Vector3 targetPos = isPressed ? originalPosition + Vector3.down * sinkAmount : originalPosition;
-
-        transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * sinkSpeed);
-
-        if (player != null)
+        foreach (ContactPoint2D contact in collision.contacts)
         {
-            // 이번 프레임 동안 이동한 거리 계산
-            Vector3 delta = transform.position - prevPos;
-            // 플레이어를 그만큼 이동
-            player.position += delta; 
+            if (contact.normal.y < -0.5f)
+                return true;
         }
+        return false;
     }
 }
