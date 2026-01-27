@@ -2,47 +2,31 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    [SerializeField] private bool hold;
+    public bool currentState;
 
     private Animator animator;
-    private Collider2D collider2D;
-    private bool opened;
+    private new Collider2D collider;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        collider2D = GetComponent<Collider2D>();
-        collider2D.isTrigger = false;
-        opened = false;
+        collider = GetComponent<Collider2D>();
+        collider.isTrigger = false;
     }
 
     public void OpenDoor()
     {
-        if (hold)
-        {
-            // hold 모드에서는 단순히 트리거 ON
-            collider2D.isTrigger = true;
-            // animator추가
-        }
-        else
-        {
-            // 일반 모드는 한 번 열리면 끝
-            if (!opened)
-            {
-                opened = true;
-                collider2D.isTrigger = true;
-                // animator추가
-            }
-        }
+        currentState = true;
+        collider.isTrigger = true;
+        gameObject.tag = "Untagged";
+        gameObject.layer = LayerMask.NameToLayer("Default");
     }
 
     public void CloseDoor()
     {
-        // hold 모드일 때만 닫힘
-        if (hold)
-        {
-            // animator추가
-            collider2D.isTrigger = false;
-        }
+        currentState = false;
+        collider.isTrigger = false;
+        gameObject.tag = "PuzzleObject";
+        gameObject.layer = LayerMask.NameToLayer("Ground");
     }
 }

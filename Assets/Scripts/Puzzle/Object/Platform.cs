@@ -3,7 +3,6 @@ using UnityEngine;
 public class Platform : MonoBehaviour
 {
     [SerializeField] private Door targetDoor;
-    [SerializeField] private Bridge targetBridge;
 
     [SerializeField] private float sinkAmount = 0.2f;
     [SerializeField] private float sinkSpeed = 2f;
@@ -55,7 +54,6 @@ public class Platform : MonoBehaviour
             if (pressCount == 1)
             {
                 if (targetDoor != null) targetDoor.OpenDoor();
-                if (targetBridge != null) targetBridge.OpenBridge();
             }
         }
     }
@@ -71,7 +69,6 @@ public class Platform : MonoBehaviour
             {
                 carriedObject = null;
                 if (targetDoor != null) targetDoor.CloseDoor();
-                if (targetBridge != null) targetBridge.CloseBridge();
             }
         }
     }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,17 +12,46 @@ public class InteractionSign : MonoBehaviour
     [SerializeField] private float duration = 0.3f;
 
     private Dictionary<Transform, GameObject> quInsMark = new();
+    private InteractionSequence sequence;
 
     private bool isQuitting = false;
+
+    private void Awake()
+    {
+        sequence = GetComponent<InteractionSequence>();
+    }
+
+    private void Update()
+    {
+        if (isQuitting) return;
+
+        // 대상이 더 이상 유효하지 않거나 태그가 변경된 경우
+        List<Transform> toRemove = new List<Transform>();
+        foreach (var kvp in quInsMark)
+        {
+            Transform target = kvp.Key;
+            if (target == null || target.tag != "PuzzleObject")
+            {
+                toRemove.Add(target);
+            }
+        }
+
+        foreach (var t in toRemove)
+        {
+            RemoveQuMark(t);
+        }
+    }
+
 
     private void OnApplicationQuit()
     {
         isQuitting = true;
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (isQuitting) return;
-        if (collision.CompareTag("Crack") || collision.CompareTag("PuzzleObject"))
+        if (collision.CompareTag("PuzzleObject"))
         {
             CreateQuMark(collision.transform);
         }
@@ -30,13 +60,22 @@ public class InteractionSign : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (isQuitting) return;
-        if (collision.CompareTag("Crack") || collision.CompareTag("PuzzleObject"))
+        if (collision.CompareTag("PuzzleObject"))
         {
             RemoveQuMark(collision.transform);
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (isQuitting) return;
+        if (collision.gameObject.CompareTag("PuzzleObject") && collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            CreateQuMark(collision.transform);
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
     {
         if (isQuitting) return;
         if (collision.gameObject.CompareTag("PuzzleObject") && collision.gameObject.layer == LayerMask.NameToLayer("Ground"))

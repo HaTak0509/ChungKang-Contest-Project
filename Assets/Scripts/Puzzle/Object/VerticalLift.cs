@@ -30,6 +30,8 @@ public class VerticalLift : MonoBehaviour
         // F키 누르고, Player가 타고 있고, 이동 중이 아닐 때만 동작
         if ((Input.GetKeyDown(KeyCode.F) && _playerOnLift && !_isMoving) || (_calling && !_isMoving))
         {
+            gameObject.tag = "Wall";
+            _isStart = false;
             Vector2 target;
             if (_atBottom)
             {
@@ -46,7 +48,19 @@ public class VerticalLift : MonoBehaviour
             StartCoroutine(MoveTo(target));
         }
     }
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (!collision.gameObject.CompareTag("Player")) return;
+        _playerOnLift = true;
+        _playerRb2D = collision.rigidbody;
+    }
 
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (!collision.gameObject.CompareTag("Player")) return;
+        _playerOnLift = false;
+        _playerRb2D = null;
+    }
     IEnumerator MoveTo(Vector2 target)
     {
         _isMoving = true;
@@ -58,7 +72,7 @@ public class VerticalLift : MonoBehaviour
 
             if (!_isStart && _playerRb2D != null)
             {
-                _playerRb2D.gravityScale = 50;
+                _playerRb2D.gravityScale = 100;
                 _isStart = true;
             }
             else if (_isStart && _playerRb2D != null)
@@ -85,21 +99,8 @@ public class VerticalLift : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
 
+        gameObject.tag = "PuzzleObject";
         _rb2D.MovePosition(target);
         _isMoving = false;
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (!collision.gameObject.CompareTag("Player")) return;
-        _playerOnLift = true;
-        _playerRb2D = collision.rigidbody;
-    }
-
-    void OnCollisionExit2D(Collision2D collision)
-    {
-        if (!collision.gameObject.CompareTag("Player")) return;
-        _playerOnLift = false;
-        _playerRb2D = null;
     }
 }

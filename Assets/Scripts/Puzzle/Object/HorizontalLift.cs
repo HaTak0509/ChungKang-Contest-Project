@@ -15,7 +15,6 @@ public class HorizontalLift : MonoBehaviour
     private Vector2 _originalPos;  // 원래 위 위치
     private bool _atGoal = false;  // 토착 했는가
     private bool _playerOnLift = false;  // Player가 타고 있는지
-    private bool _isStart = false;
     private Rigidbody2D _rb2D;
     private Rigidbody2D _playerRb2D;
 
@@ -30,6 +29,7 @@ public class HorizontalLift : MonoBehaviour
         // F키 누르고, Player가 타고 있고, 이동 중이 아닐 때만 동작
         if ((Input.GetKeyDown(KeyCode.F) && _playerOnLift && !_isMoving) || (_calling && !_isMoving))
         {
+            gameObject.tag = "Wall";
             Vector2 target;
             if (_atGoal)
             {
@@ -45,6 +45,19 @@ public class HorizontalLift : MonoBehaviour
             }
             StartCoroutine(MoveTo(target));
         }
+    }
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (!collision.gameObject.CompareTag("Player")) return;
+        _playerOnLift = true;
+        _playerRb2D = collision.rigidbody;
+    }
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (!collision.gameObject.CompareTag("Player")) return;
+        _playerOnLift = false;
+        _playerRb2D = null;
     }
 
     IEnumerator MoveTo(Vector2 target)
@@ -72,23 +85,8 @@ public class HorizontalLift : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
 
+        gameObject.tag = "PuzzleObject";
         _rb2D.MovePosition(target);
         _isMoving = false;
-    }
-
-
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (!collision.gameObject.CompareTag("Player")) return;
-        _playerOnLift = true;
-        _playerRb2D = collision.rigidbody;
-    }
-
-    void OnCollisionExit2D(Collision2D collision)
-    {
-        if (!collision.gameObject.CompareTag("Player")) return;
-        _playerOnLift = false;
-        _playerRb2D = null;
     }
 }
