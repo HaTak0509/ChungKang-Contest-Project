@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerJump : MonoBehaviour
 {
-    [SerializeField] float jumpForce = 14f;
+    [SerializeField] float jumpForce = 5f;
 
     private Rigidbody2D _rb2D;
     private TouchingDetection _ground;
