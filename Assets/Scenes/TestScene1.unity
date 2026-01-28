@@ -2469,6 +2469,7 @@ GameObject:
   - component: {fileID: 498951950616171017}
   - component: {fileID: 3111079406672632662}
   - component: {fileID: 5706264792653927621}
+  - component: {fileID: 8823980393438759052}
   m_Layer: 8
   m_Name: Monster
   m_TagString: Untagged
@@ -2605,7 +2606,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointA: {x: -7.04, y: -1.75}
-  pointB: {x: 8.53, y: -1.75}
+  pointB: {x: 4.94, y: -1.75}
   collisionLayer:
     serializedVersion: 2
     m_Bits: 129
@@ -2697,7 +2698,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseSpeed: 5
   baseDetectionRange: 3
-  _emotion: 1
+  _emotion: 2
+--- !u!114 &8823980393438759052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3750227915269010198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 636a4b0dc0cb6d047b7a6a188fbc7099, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  groundCheckDistance: 0.1
+  wallCheckDistance: 0.2
+  showDebugRays: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

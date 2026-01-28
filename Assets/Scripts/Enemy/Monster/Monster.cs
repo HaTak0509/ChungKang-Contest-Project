@@ -19,11 +19,11 @@ public class Monster : MonoBehaviour
     public float baseDetectionRange = 5f;
 
     // 현재 실제 적용되는 값
-    public float Speed {  get; private set; }
+    public float Speed { get; private set; }
     public float InteractRange { get; private set; }
-    
 
-    
+
+
     // 나를 멈추게 하는 원인들
     private HashSet<string> disableReasons = new HashSet<string>();
 
@@ -34,13 +34,10 @@ public class Monster : MonoBehaviour
     public EmotionType _emotion = EmotionType.Null;
     public EmotionType _CurrentEmotion { get; private set; } // 읽기 가능, 수정 불가능
 
-
     public IEmotionState _currentState { get; private set; } = null;//현재 상태
 
-    private Coroutine _FreezeCoroutine;
-
     void Start()
-    { 
+    {
         InteractRange = baseDetectionRange;
 
 
@@ -64,7 +61,7 @@ public class Monster : MonoBehaviour
         _CurrentEmotion = newEmotion;
 
 
-        if( _currentState != null )
+        if (_currentState != null)
             _currentState.OnEnter(this); // 감정 변경 시 호출
     }
 
@@ -77,6 +74,13 @@ public class Monster : MonoBehaviour
 
         _currentState?.UpdateState(this); // 현재 행동이 있다면, 행동 함수 실행
 
+    }
+
+    public void TwistMob()
+    {
+        EmotionType twist_temp = Emotion.Twist(_CurrentEmotion);
+
+        SetEmotion(twist_temp);
     }
 
 

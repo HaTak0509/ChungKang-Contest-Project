@@ -16,22 +16,46 @@ public enum EmotionType
     //기본 검정
     Joy, //기쁨
     Rage, //화남
-
-
     Jealousy, //질투
     Resentment, //원망
-
     Screaming, //절규
     Outrage, //격분
+
+
+
+    //뒤틀린 감정
+    TwistJoy,//기쁨
+    TwistRage, //화남
+    TwistResentment, //원망
+    TwistScreaming, //절규
+    TwistOutrage, //격분(절망)
+
 }
-
-
-
 
 public static class Emotion
 {
 
     private static EmotionDatabase _db; //감정목록
+
+    private static readonly Dictionary<EmotionType, EmotionType> _mixTable =
+        new()
+        {
+
+            {EmotionType.Joy, EmotionType.TwistJoy},
+            {EmotionType.Rage, EmotionType.TwistRage},
+            {EmotionType.Jealousy, EmotionType.Jealousy },
+            {EmotionType.Resentment, EmotionType.TwistResentment },
+            {EmotionType.Screaming, EmotionType.TwistScreaming},
+            {EmotionType.Outrage, EmotionType.TwistOutrage},
+
+            //반전된 감정들
+            {EmotionType.TwistJoy, EmotionType.Joy},
+            {EmotionType.TwistRage, EmotionType.Rage},
+            {EmotionType.TwistResentment, EmotionType.Resentment },
+            {EmotionType.TwistScreaming, EmotionType.Screaming},
+            {EmotionType.TwistOutrage, EmotionType.Outrage}
+        };
+
 
     public static EmotionDatabase DB
     {
@@ -44,6 +68,12 @@ public static class Emotion
             return _db;
         }
     }
+
+    public static EmotionType Twist(EmotionType type)
+    {
+        return _mixTable[type];
+    }
+
 
     public static EmotionData Get(EmotionType type) //우리가 사용하는 부분, 감정을 넣으면 해당 감정에 속성을 모두 가져옴
     {
