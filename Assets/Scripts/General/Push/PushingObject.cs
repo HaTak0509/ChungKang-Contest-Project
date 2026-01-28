@@ -2,20 +2,21 @@ using UnityEngine;
 
 public class PushingObject : MonoBehaviour
 {
-    private Rigidbody2D boxRb;
+    private Rigidbody2D rb;
 
     private void Awake()
     {
-        boxRb = GetComponentInParent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    public void Push(Vector2 velocity)
+    // Player의 x velocity를 그대로 복사
+    public void CopyVelocity(float playerVelX)
     {
-        boxRb.velocity = new Vector2(velocity.x, boxRb.velocity.y);
+        rb.velocity = new Vector2(playerVelX, rb.velocity.y);
     }
 
     public void Stop()
     {
-        boxRb.velocity = new Vector2(0f, boxRb.velocity.y);
+        rb.velocity = new Vector2(0f, rb.velocity.y);
     }
 }

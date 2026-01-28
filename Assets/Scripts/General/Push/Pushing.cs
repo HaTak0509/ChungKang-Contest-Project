@@ -2,59 +2,65 @@ using UnityEngine;
 
 public class Pushing : MonoBehaviour
 {
-    [SerializeField] private float pushSpeed = 4f;
-    
     public bool isPushing;
 
-    private Animator animator;
-    private PushingObject pushingOb;
-    private float inputX;
+    private PushingObject pushingObj;
+    private Rigidbody2D playerRb;
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
-    }
-
-    private void Update()
-    {
-        inputX = Input.GetAxisRaw("Horizontal");
-
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            isPushing = !isPushing;
-        }
-
-        animator.SetBool(AnimationStrings.IsPushing, isPushing);
+        playerRb = GetComponent<Rigidbody2D>();
     }
 
     private void FixedUpdate()
     {
-        if (pushingOb == null)
-            return;
+        if (pushingObj == null) return;
 
-        // 밀기 상태가 아니면 정지
-        if (!isPushing || Mathf.Abs(inputX) < 0.01f)
+        float playerVelX = playerRb.velocity.x;
+
+        // 플레이어가 멈추면 상자도 멈춤
+        if (Mathf.Abs(playerVelX) < 0.01f)
         {
-            pushingOb.Stop();
+            isPushing = false;
+            pushingObj.Stop();
             return;
         }
 
-        pushingOb.Push(new Vector2(inputX * pushSpeed, 0f));
-    }
+        // 플레이어 → 상자 방향 확인
+        float toBox = pushingObj.transform.position.x - transform.position.x;
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("LightBox"))
+        // 상자 쪽으로 움직일 때만 복사
+        if (Mathf.Sign(playerVelX) == Mathf.Sign(toBox))
         {
-            pushingOb = collision.GetComponent<PushingObject>();
+            isPushing = true;
+            pushingObj.CopyVelocity(playerVelX);
+        }
+        else
+        {
+            // 반대 방향이면 즉시 분리
+            isPushing = false;
+            pushingObj.Stop();
+            pushingObj = null;
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.CompareTag("LightBox"))
+        if (collision.gameObject.TryGetComponent(out PushingObject obj))
         {
-            pushingOb = null;
+            pushingObj = obj;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.TryGetComponent(out PushingObject obj))
+        {
+            if (pushingObj == obj)
+            {
+                pushingObj.Stop();
+                pushingObj = null;
+            }
         }
     }
 }

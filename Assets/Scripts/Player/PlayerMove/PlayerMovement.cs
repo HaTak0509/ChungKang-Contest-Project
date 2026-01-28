@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _moveInput = input;
 
-        if (input.sqrMagnitude > 0.01f && !_pushing.isPushing)
+        if (input.sqrMagnitude > 0.01f)
             _facing.FaceDirection(input.x);
     }
 
@@ -41,6 +41,15 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_damageable != null && _damageable.IsInvincible)
             return;
+
+        if (_pushing.isPushing)
+        {
+            _animator.SetBool(AnimationStrings.IsPushing, true);
+        }
+        else
+        {
+            _animator.SetBool(AnimationStrings.IsPushing, false);
+        }
 
         float desiredX = 0f;
 
