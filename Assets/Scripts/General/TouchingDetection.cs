@@ -10,6 +10,7 @@ public class TouchingDetection : MonoBehaviour
     [SerializeField] private bool showDebugRays = true;
 
     private CapsuleCollider2D _capsuleCollider;
+    private Animator _animator;
 
     // Public 프로퍼티들
     public bool IsGround { get; private set; }
@@ -19,12 +20,22 @@ public class TouchingDetection : MonoBehaviour
     void Awake()
     {
         _capsuleCollider = GetComponent<CapsuleCollider2D>();
+        _animator = GetComponent<Animator>();
     }
 
     void FixedUpdate()  // 물리 관련은 FixedUpdate가 더 안정적
     {
         CheckGround();
         CheckWalls();
+
+        if (IsGround)
+        {
+            _animator.SetBool(AnimationStrings.IsGround, true);
+        }
+        else
+        {
+            _animator.SetBool(AnimationStrings.IsGround, false);
+        }
     }
 
     private void CheckGround()

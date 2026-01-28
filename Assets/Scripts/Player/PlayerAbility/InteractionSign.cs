@@ -26,7 +26,9 @@ public class InteractionSign : MonoBehaviour
     {
         if (isQuitting) return;
 
-        List<Transform> toRemove = new();
+        else if (PlayerController.Instance.interaction && quInsMark.Count == 0) PlayerController.Instance.interaction = false;
+
+            List<Transform> toRemove = new();
 
         foreach (var target in quInsMark.Keys)
         {
@@ -125,7 +127,6 @@ public class InteractionSign : MonoBehaviour
         RefreshMarks();
     }
 
-
     private void RefreshMarks()
     {
         if (sequence == null || quInsMark.Count == 0) return;
@@ -158,7 +159,6 @@ public class InteractionSign : MonoBehaviour
             StartCoroutine(ShowQuMark(newMark));
         }
     }
-
 
     private IEnumerator ShowQuMark(GameObject mark)
     {
@@ -214,7 +214,6 @@ public class InteractionSign : MonoBehaviour
 
         Destroy(mark);
     }
-
 
     private void OnDisable()
     {

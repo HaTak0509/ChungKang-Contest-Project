@@ -16,6 +16,7 @@ public class Damageable : MonoBehaviour
     private bool _isKnockback = false;
     private bool _isInvincible = false;
     private Coroutine _invincibleCoroutine;
+    private Animator _animator;
 
 
     public bool IsKnockback => _isKnockback;
@@ -24,6 +25,7 @@ public class Damageable : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
         Debug.Log("q키를 누르면 넉백(일단 오른쪽으로만 밀림)");
     }
 
@@ -47,6 +49,11 @@ public class Damageable : MonoBehaviour
 
         rb.velocity = Vector2.zero;
         rb.AddForce(dir * knockbackForce, ForceMode2D.Impulse);
+
+        if (_animator != null)
+        {
+            _animator.SetTrigger(AnimationStrings.IsKnockback);
+        }
 
         StopCoroutine(KnockbackRoutine());
         StartCoroutine(KnockbackRoutine());

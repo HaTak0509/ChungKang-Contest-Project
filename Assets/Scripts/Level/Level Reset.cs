@@ -4,7 +4,7 @@ public class LevelReset : MonoBehaviour
 {
     [SerializeField] LevelDatabase database;
 
-    public static LevelReset Instance;
+    public static LevelReset Instance { get; private set;}
 
     public int _currentLevelIndex;
 
