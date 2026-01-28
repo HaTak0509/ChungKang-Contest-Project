@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!interaction) return;
 
-        interaction = false; // 한 번만 처리
+        interaction = false;
 
         if (interactionSign == null) return;
 

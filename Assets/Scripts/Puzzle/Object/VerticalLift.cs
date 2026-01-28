@@ -4,19 +4,17 @@ using UnityEngine;
 
 public class VerticalLift : MonoBehaviour, IInteractable
 {
-    [SerializeField] private float speed = 3f;  // 이동 속도
-    [SerializeField] private float verticalY = -5f; // Inspector에서 땅에 닿을 Y 위치 설정 (예: -5)
+    [SerializeField] private float speed = 3f; 
+    [SerializeField] private float verticalY = -5f; 
     [SerializeField] private float decelerationPosition = 3f;
     [SerializeField] private float decelerationSpeed = 0.2f;
 
-    // 상태
     public  bool isMoving = false;
     
     private bool _atBottom = false;
     private bool _playerOnLift = false;
     private bool _isStart = false;
 
-    // 위치 & 물리
     private Vector2 _originalPos;
     private Rigidbody2D _rb2D;
     private Rigidbody2D _playerRb2D;
