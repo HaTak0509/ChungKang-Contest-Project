@@ -14,15 +14,13 @@ public class JealousyState : IEmotionState //질투
     private Transform _player;
 
     private float _TeleportTimer = 0f;      // 텔레포트 대기 타이머 (3초)
-    private float _CoolTimer = 0f;      // 텔레포트 쿨타임 (몰루 /초)
     private LayerMask _MonsterLayer = LayerMask.GetMask("Enemy");
 
     private bool _isTeleporting = false;
     private bool _isCooltime = false;
 
 
-    private const float Ready_DURATION = 3f;
-    private const float Cool_DURATION = 15f;
+    private const float Ready_DURATION = 5f;
     private const float checkRadius = 3f;
 
     public void OnEnter(Monster monster)
@@ -33,22 +31,10 @@ public class JealousyState : IEmotionState //질투
         if (_player == null)
             _player = GameObject.FindWithTag("Player").transform;
 
-        StartTP();
     }
 
     public void UpdateState(Monster monster)
     {
-        
-        if (_isCooltime)
-        {
-            _CoolTimer -= Time.deltaTime;
-            if (_CoolTimer <= 0)
-            {
-                StartTP();
-            }
-        }
-
-        _CoolTimer -= Time.deltaTime;
 
         if (_isTeleporting)
         {
@@ -67,7 +53,7 @@ public class JealousyState : IEmotionState //질투
 
     }
 
-    void StartTP()
+    public void StartTP()
     {
         Debug.Log("텔포 시작!");
         _isTeleporting = true;
@@ -116,7 +102,6 @@ public class JealousyState : IEmotionState //질투
 
         }
 
-        _CoolTimer = Cool_DURATION;
         Debug.Log("텔포 종료");
         _isCooltime = true;
         _isTeleporting = false;

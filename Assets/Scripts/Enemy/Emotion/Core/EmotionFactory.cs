@@ -23,8 +23,6 @@ public static class EmotionFactory
             EmotionType.Rage => new RageState(),
             EmotionType.Jealousy => new JealousyState(),
             EmotionType.Resentment => new ResentmentState(),
-
-
             EmotionType.Screaming => new ScreamiingState(),
             EmotionType.Outrage => new OutrageState(),
 

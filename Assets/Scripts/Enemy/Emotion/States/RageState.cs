@@ -10,6 +10,7 @@ public class RageState : IEmotionState
     public EmotionType Type => EmotionType.Rage;
 
     private MonsterMovement _movement;
+    private DrawSensingRange _lineRenderer;
     private Transform _monsterTransform;
     private Transform _player;
 
@@ -30,6 +31,18 @@ public class RageState : IEmotionState
         if (_player == null)
             _player = GameObject.FindWithTag("Player").transform;
 
+
+        if (_lineRenderer == null) //라인렌더러 찾아서, 켜고 색깔 지정하기
+        {
+            _lineRenderer = monster.GetComponent<DrawSensingRange>();
+            _lineRenderer.OnLine();
+
+            if (ColorUtility.TryParseHtmlString(Emotion.Get(monster._CurrentEmotion).hexColor, out Color newColor))
+            {
+                Debug.Log(newColor.ToString());
+                _lineRenderer.Draw(monster.InteractRange, newColor);
+            }
+        }
     }
 
     public void UpdateState(Monster monster)
@@ -54,6 +67,7 @@ public class RageState : IEmotionState
 
     public void OnExit(Monster monster)
     {
+        _lineRenderer.OffLine();
         StopDash();
     }
 
