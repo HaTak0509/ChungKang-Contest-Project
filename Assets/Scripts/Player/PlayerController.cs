@@ -3,12 +3,15 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController Instance { get; private set;}
+
     [SerializeField] private GameObject explorationRange;   
 
     public PlayerMovement movement;
     public PlayerJump jump;
     public PlayerDash dash;
     public Damageable damageable;
+    public bool interaction;
 
     private Vector2 moveInput;
 
@@ -18,6 +21,8 @@ public class PlayerController : MonoBehaviour
         if (!jump) jump = GetComponent<PlayerJump>();
         if (!dash) dash = GetComponent<PlayerDash>();
         if (!damageable) damageable = GetComponent<Damageable>();
+
+        interaction = false;
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -36,11 +41,13 @@ public class PlayerController : MonoBehaviour
         if (context.started) dash.TryDash();
     }
 
+    public void OnInteraction(InputAction.CallbackContext context)
+    {
+        if (context.started) interaction = true;
+    }
+
     public void OnExploration(InputAction.CallbackContext context)
     {
-        if (context.started)
-        {
-            explorationRange.SetActive(!explorationRange.activeSelf);
-        }
+        if (context.started) explorationRange.SetActive(!explorationRange.activeSelf);
     }
 }
