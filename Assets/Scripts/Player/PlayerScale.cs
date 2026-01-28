@@ -1,3 +1,4 @@
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class PlayerScale : MonoBehaviour
@@ -5,7 +6,7 @@ public class PlayerScale : MonoBehaviour
 
     [Header("디버깅용 표시")]
     [SerializeField] float _Scale = 100;
-    float _MaxScale = 100;
+    private float _MaxScale = 100;
     public bool _isDown = false;
 
     [Header("최소 크기")] [Range(0f,100f)] public float _MinScale = 20;
@@ -15,9 +16,10 @@ public class PlayerScale : MonoBehaviour
     public static PlayerScale Instance;
     Vector3 _OriginScale;
 
-    // Start is called before the first frame update
     void Start()
     {
+        _Scale = _MaxScale;
+
         _OriginScale = transform.localScale;
         Instance = this;
     }
@@ -47,7 +49,8 @@ public class PlayerScale : MonoBehaviour
             ScaleUI.Instance._ScaleUI.SetActive(false);
         }
 
-        transform.localScale = _OriginScale * _Scale / 100f;
+        float temp = _Scale / _MaxScale;
+        transform.localScale = _OriginScale * temp;
         ScaleUI.Instance.CheckScaleBar(_Scale, _MaxScale);
     }
 
