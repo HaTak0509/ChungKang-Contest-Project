@@ -12,11 +12,12 @@ public class PlayerMovement : MonoBehaviour
     private PlayerFacing _facing;
     private TouchingDetection _touchingDetection;
     private Pushing _pushing;
+    public Animator _animator;
 
     private Vector2 _moveInput;
 
     private float CurrentSpeed =>
-        (_pushing.pushingOb != null) ? pushingSpeed : walkSpeed;
+        (_pushing.isPushing) ? pushingSpeed : walkSpeed;
 
     private void Awake()
     {
@@ -25,13 +26,14 @@ public class PlayerMovement : MonoBehaviour
         _facing = GetComponent<PlayerFacing>();
         _touchingDetection = GetComponent<TouchingDetection>();
         _pushing = GetComponent<Pushing>();
+        _animator = GetComponent<Animator>();
     }
 
     public void SetInput(Vector2 input)
     {
         _moveInput = input;
 
-        if (input.sqrMagnitude > 0.01f)
+        if (input.sqrMagnitude > 0.01f && !_pushing.isPushing)
             _facing.FaceDirection(input.x);
     }
 
@@ -63,5 +65,8 @@ public class PlayerMovement : MonoBehaviour
     {
         // 핵심: Y는 절대 건드리지 않는다
         _rb2D.velocity = new Vector2(desiredX, _rb2D.velocity.y);
+        if (_rb2D.velocity != Vector2.zero)
+            _animator.SetBool(AnimationStrings.IsMoving, true);
+        else _animator.SetBool(AnimationStrings.IsMoving, false);
     }
 }

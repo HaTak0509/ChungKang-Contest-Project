@@ -17,6 +17,13 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+
         if (!movement) movement = GetComponent<PlayerMovement>();
         if (!jump) jump = GetComponent<PlayerJump>();
         if (!dash) dash = GetComponent<PlayerDash>();
@@ -43,7 +50,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnInteraction(InputAction.CallbackContext context)
     {
-        if (context.started) interaction = true;
+        if (context.started) interaction = true; 
     }
 
     public void OnExploration(InputAction.CallbackContext context)

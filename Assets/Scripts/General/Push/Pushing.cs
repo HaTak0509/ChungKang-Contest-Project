@@ -2,11 +2,18 @@ using UnityEngine;
 
 public class Pushing : MonoBehaviour
 {
-    public PushingObject pushingOb;
-    public float pushSpeed = 4f;
+    [SerializeField] private float pushSpeed = 4f;
+    
+    public bool isPushing;
 
+    private Animator animator;
+    private PushingObject pushingOb;
     private float inputX;
-    private bool isPushing;
+
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     private void Update()
     {
@@ -16,6 +23,8 @@ public class Pushing : MonoBehaviour
         {
             isPushing = !isPushing;
         }
+
+        animator.SetBool(AnimationStrings.IsPushing, isPushing);
     }
 
     private void FixedUpdate()

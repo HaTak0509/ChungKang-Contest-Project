@@ -14,6 +14,7 @@ public class PlayerDash : MonoBehaviour
     private Rigidbody2D _rb2D;
     private PlayerFacing facing;
     private Damageable _damageable;
+    private Animator _animator;
     private bool canDash = true;
 
     private void Awake()
@@ -21,6 +22,7 @@ public class PlayerDash : MonoBehaviour
         _rb2D = GetComponent<Rigidbody2D>();
         facing = GetComponent<PlayerFacing>();
         _damageable = GetComponent<Damageable>();
+        _animator = GetComponent<Animator>();
     }
 
     public void TryDash()
@@ -34,6 +36,7 @@ public class PlayerDash : MonoBehaviour
         dashing = true;
         canDash = false;
         _damageable.SetInvincible(dashTime);
+        _animator.SetTrigger(AnimationStrings.IsDash);
 
         float dir = facing.IsFacingRight ? 1f : -1f;
         _rb2D.velocity = new Vector2(dashForce * dir, _rb2D.velocity.y); // y À¯Áö
