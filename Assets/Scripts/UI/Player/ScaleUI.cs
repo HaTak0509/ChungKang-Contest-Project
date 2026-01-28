@@ -12,7 +12,6 @@ public class ScaleUI : MonoBehaviour
     public static ScaleUI Instance;
     private Coroutine _ScaleBarRoutine;
     private float _MaxScaleHeight;
-    private float _MinScale;
 
     private Vector3 _parentScale;
 
@@ -21,7 +20,6 @@ public class ScaleUI : MonoBehaviour
         _MaxScaleHeight = _ScaleBar.sizeDelta.y;
         Instance = this;
         _parentScale = transform.parent.lossyScale;
-        _MinScale = PlayerScale.Instance._MinScale;
     }
 
     private void Update()
@@ -38,9 +36,8 @@ public class ScaleUI : MonoBehaviour
 
     public void CheckScaleBar(float Scale = 0, float MaxScale = 0)
     {
-        float temp = (Scale + _MinScale) > 100 ? 100 : Scale + _MinScale;
-        float percent = temp / MaxScale * 100;
-        float targetHeight = _MaxScaleHeight * (percent * 0.01f);
+        float percent = Scale / MaxScale;
+        float targetHeight = _MaxScaleHeight * percent;
 
 
         if (_ScaleBarRoutine != null)
@@ -51,7 +48,7 @@ public class ScaleUI : MonoBehaviour
     }
     private IEnumerator SmoothChangeBar(RectTransform Bar,float targetHeight)
     {
-        float duration = 0.05f; //
+        float duration = 0.05f;
         float elapsed = 0f;
         float startHeight = Bar.sizeDelta.y;
 
