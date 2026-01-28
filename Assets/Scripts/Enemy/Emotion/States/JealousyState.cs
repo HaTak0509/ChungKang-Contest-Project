@@ -21,7 +21,7 @@ public class JealousyState : IEmotionState //질투
 
 
     private const float Ready_DURATION = 5f;
-    private const float checkRadius = 3f;
+    private const float checkRadius = 99f;
 
     public void OnEnter(Monster monster)
     {
@@ -63,7 +63,6 @@ public class JealousyState : IEmotionState //질투
 
     void Teleport()
     {
-        // 1. 주변 AI 탐색
         Collider2D[] hitAIs = Physics2D.OverlapCircleAll(_player.transform.position, checkRadius, _MonsterLayer);
 
         if (hitAIs.Length == 0) return; // 3블럭 이내 AI가 없으면 종료

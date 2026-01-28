@@ -26,7 +26,7 @@ public static class EmotionFactory
             EmotionType.Screaming => new ScreamiingState(),
             EmotionType.Outrage => new OutrageState(),
 
-
+            EmotionType.TwistResentment => new TwistResentmentState(),
 
 
             _ => new NeutralState()

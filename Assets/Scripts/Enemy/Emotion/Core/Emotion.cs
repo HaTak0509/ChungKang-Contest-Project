@@ -1,15 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
+
+//*************************************************************
+// [ 코드 설명 ] :
+// 몬스터 감정
+// Neutral의 경우 Null 방지를 위해 추가함
+// 정적 생성자로, 감정에따른 설명을 저장하고자, 딕셔너리에 초기화
+//*************************************************************
+
+
 public enum EmotionType
 {
-    //*************************************************************
-    // [ 코드 설명 ] :
-    // 몬스터 감정
-    // Neutral의 경우 Null 방지를 위해 추가함
-    // 정적 생성자로, 감정에따른 설명을 저장하고자, 딕셔너리에 초기화
-    //*************************************************************
-
-
 
     Null, //NULL
 
@@ -27,8 +28,6 @@ public enum EmotionType
     TwistJoy,//기쁨
     TwistRage, //화남
     TwistResentment, //원망
-    TwistScreaming, //절규
-    TwistOutrage, //격분(절망)
 
 }
 
@@ -45,15 +44,13 @@ public static class Emotion
             {EmotionType.Rage, EmotionType.TwistRage},
             {EmotionType.Jealousy, EmotionType.Jealousy },
             {EmotionType.Resentment, EmotionType.TwistResentment },
-            {EmotionType.Screaming, EmotionType.TwistScreaming},
-            {EmotionType.Outrage, EmotionType.TwistOutrage},
+            {EmotionType.Screaming, EmotionType.Outrage},
+            {EmotionType.Outrage, EmotionType.Screaming},
 
             //반전된 감정들
             {EmotionType.TwistJoy, EmotionType.Joy},
             {EmotionType.TwistRage, EmotionType.Rage},
-            {EmotionType.TwistResentment, EmotionType.Resentment },
-            {EmotionType.TwistScreaming, EmotionType.Screaming},
-            {EmotionType.TwistOutrage, EmotionType.Outrage}
+            {EmotionType.TwistResentment, EmotionType.Resentment }
         };
 
 
