@@ -2,53 +2,69 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HorizontalLift : MonoBehaviour
+public class HorizontalLift : MonoBehaviour, IInteractable
 {
     [SerializeField] private float speed = 3f;  // 이동 속도
     [SerializeField] private float horizontalX = 5f; // Inspector에서 땅에 닿을 Y 위치 설정 (예: -5)
     [SerializeField] private float decelerationPosition = 3f;
     [SerializeField] private float decelerationSpeed = 0.2f;
 
-    public bool _calling;
+    // 상태
     public bool _isMoving = false;
 
-    private Vector2 _originalPos;  // 원래 위 위치
-    private bool _atGoal = false;  // 토착 했는가
-    private bool _playerOnLift = false;  // Player가 타고 있는지
+    private bool _atGoal = false;
+    private bool _playerOnLift = false;
+
+    // 위치 & 물리
+    private Vector2 _originalPos;
     private Rigidbody2D _rb2D;
     private Rigidbody2D _playerRb2D;
 
     void Start()
     {
         _rb2D = GetComponent<Rigidbody2D>();
-        _originalPos = transform.position; // 시작 위치를 원래 위치로 저장
+        _originalPos = transform.position;
     }
 
-    void Update()
+    public void Interact()
     {
-        // F키 누르고, Player가 타고 있고, 이동 중이 아닐 때만 동작
-        if ((Input.GetKeyDown(KeyCode.F) && _playerOnLift && !_isMoving) || (_calling && !_isMoving))
-        {
-            gameObject.tag = "Wall";
-            Vector2 target;
-            if (_atGoal)
-            {
-                // 원래 자리로 돌아옴
-                target = _originalPos;
-                _atGoal = false;
-            }
-            else
-            {
-                // 옆으로 이동함
-                target = new Vector2(horizontalX, _originalPos.y);
-                _atGoal = true;
-            }
-            StartCoroutine(MoveTo(target));
-        }
+        if (_isMoving) return;
+        if (!_playerOnLift) return;
+
+        StartLift();
     }
+
+    public void CallFromRemote()
+    {
+        if (_isMoving) return;
+
+        StartLift();
+    }
+
+    private void StartLift()
+    {
+        gameObject.tag = "Wall";
+
+        Vector2 target;
+
+        if (_atGoal)
+        {
+            target = _originalPos;
+            _atGoal = false;
+        }
+        else
+        {
+            target = new Vector2(horizontalX, _originalPos.y);
+            _atGoal = true;
+        }
+
+        StartCoroutine(MoveTo(target));
+    }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (!collision.gameObject.CompareTag("Player")) return;
+
         _playerOnLift = true;
         _playerRb2D = collision.rigidbody;
     }
@@ -56,6 +72,7 @@ public class HorizontalLift : MonoBehaviour
     void OnCollisionExit2D(Collision2D collision)
     {
         if (!collision.gameObject.CompareTag("Player")) return;
+
         _playerOnLift = false;
         _playerRb2D = null;
     }
@@ -63,7 +80,6 @@ public class HorizontalLift : MonoBehaviour
     IEnumerator MoveTo(Vector2 target)
     {
         _isMoving = true;
-        _calling = false;
 
         while (Vector2.Distance(_rb2D.position, target) > 0.01f)
         {
@@ -77,6 +93,7 @@ public class HorizontalLift : MonoBehaviour
 
             _rb2D.MovePosition(newPos);
 
+            // 플레이어 같이 이동
             if (_playerOnLift && _playerRb2D != null)
             {
                 _playerRb2D.position += delta;
@@ -85,8 +102,8 @@ public class HorizontalLift : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
 
-        gameObject.tag = "PuzzleObject";
         _rb2D.MovePosition(target);
+        gameObject.tag = "PuzzleObject";
         _isMoving = false;
     }
 }

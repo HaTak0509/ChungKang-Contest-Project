@@ -32,7 +32,6 @@ public class InteractionSequence : MonoBehaviour
 
             best = GetHigherPriority(best, t);
         }
-
         return best;
     }
 }

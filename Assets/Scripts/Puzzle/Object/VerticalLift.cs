@@ -2,55 +2,71 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class VerticalLift : MonoBehaviour
+public class VerticalLift : MonoBehaviour, IInteractable
 {
     [SerializeField] private float speed = 3f;  // 이동 속도
     [SerializeField] private float verticalY = -5f; // Inspector에서 땅에 닿을 Y 위치 설정 (예: -5)
     [SerializeField] private float decelerationPosition = 3f;
     [SerializeField] private float decelerationSpeed = 0.2f;
 
-    public bool _calling;
-    public bool _isMoving = false;  // 이동 중인지
-
-    private Vector2 _originalPos;  // 원래 위 위치
-    private bool _atBottom = false;  // 아래에 있는지 여부
-    private bool _playerOnLift = false;  // Player가 타고 있는지
+    // 상태
+    public  bool isMoving = false;
+    
+    private bool _atBottom = false;
+    private bool _playerOnLift = false;
     private bool _isStart = false;
+
+    // 위치 & 물리
+    private Vector2 _originalPos;
     private Rigidbody2D _rb2D;
     private Rigidbody2D _playerRb2D;
 
     void Start()
     {
         _rb2D = GetComponent<Rigidbody2D>();
-        _originalPos = transform.position; // 시작 위치를 원래 위치로 저장
+        _originalPos = transform.position;
     }
 
-    void Update()
+    public void Interact()
     {
-        // F키 누르고, Player가 타고 있고, 이동 중이 아닐 때만 동작
-        if ((Input.GetKeyDown(KeyCode.F) && _playerOnLift && !_isMoving) || (_calling && !_isMoving))
-        {
-            gameObject.tag = "Wall";
-            _isStart = false;
-            Vector2 target;
-            if (_atBottom)
-            {
-                // 아래에서 위로 올라감
-                target = _originalPos;
-                _atBottom = false;
-            }
-            else
-            {
-                // 위에서 아래로 내려감
-                target = new Vector2(_originalPos.x, verticalY);
-                _atBottom = true;
-            }
-            StartCoroutine(MoveTo(target));
-        }
+        if (isMoving) return;
+        if (!_playerOnLift) return;
+
+        StartLift();
     }
+
+    public void CallFromRemote()
+    {
+        if (isMoving) return;
+
+        StartLift();
+    }
+
+    private void StartLift()
+    {
+        gameObject.tag = "Wall";
+        _isStart = false;
+
+        Vector2 target;
+
+        if (_atBottom)
+        {
+            target = _originalPos;
+            _atBottom = false;
+        }
+        else
+        {
+            target = new Vector2(_originalPos.x, verticalY);
+            _atBottom = true;
+        }
+
+        StartCoroutine(MoveTo(target));
+    }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (!collision.gameObject.CompareTag("Player")) return;
+
         _playerOnLift = true;
         _playerRb2D = collision.rigidbody;
     }
@@ -58,38 +74,29 @@ public class VerticalLift : MonoBehaviour
     void OnCollisionExit2D(Collision2D collision)
     {
         if (!collision.gameObject.CompareTag("Player")) return;
+
         _playerOnLift = false;
         _playerRb2D = null;
     }
+
     IEnumerator MoveTo(Vector2 target)
     {
-        _isMoving = true;
-        _calling = false;
+        isMoving = true;
 
-        while (Vector2.Distance(_rb2D.position, target) > 2f)
+        while (Vector2.Distance(_rb2D.position, target) > decelerationPosition)
         {
-            _rb2D.MovePosition(Vector2.MoveTowards(_rb2D.position, target, speed * Time.fixedDeltaTime));
+            _rb2D.MovePosition(
+                Vector2.MoveTowards(_rb2D.position, target, speed * Time.fixedDeltaTime)
+            );
 
-            if (!_isStart && _playerRb2D != null)
-            {
-                _playerRb2D.gravityScale = 100;
-                _isStart = true;
-            }
-            else if (_isStart && _playerRb2D != null)
-            {
-                _playerRb2D.gravityScale = 1;
-            }
-
+            HandlePlayerGravity();
             yield return new WaitForFixedUpdate();
         }
 
         while (Vector2.Distance(_rb2D.position, target) > 0.01f)
         {
             float remaining = Vector2.Distance(_rb2D.position, target);
-
-            // 감속 커브 (부드럽게)
             float slowFactor = Mathf.SmoothStep(decelerationSpeed, 1f, remaining);
-
             float step = speed * slowFactor * Time.fixedDeltaTime;
 
             _rb2D.MovePosition(
@@ -99,8 +106,23 @@ public class VerticalLift : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
 
-        gameObject.tag = "PuzzleObject";
         _rb2D.MovePosition(target);
-        _isMoving = false;
+        gameObject.tag = "PuzzleObject";
+        isMoving = false;
+    }
+
+    private void HandlePlayerGravity()
+    {
+        if (_playerRb2D == null) return;
+
+        if (!_isStart)
+        {
+            _playerRb2D.gravityScale = 100;
+            _isStart = true;
+        }
+        else
+        {
+            _playerRb2D.gravityScale = 1;
+        }
     }
 }

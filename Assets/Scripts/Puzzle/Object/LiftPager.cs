@@ -3,27 +3,24 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class LiftPager : MonoBehaviour
+public class LiftPager : MonoBehaviour, IInteractable
 {
     [SerializeField] private HorizontalLift horizontalLift;
     [SerializeField] private VerticalLift verticalLift;
 
     private bool _active;
 
-    private void Update()
+    public void Interact()
     {
         if (_active)
         {
-            if (Input.GetKeyDown(KeyCode.F))
+            if (horizontalLift != null && (!horizontalLift._isMoving))
             {
-                if(horizontalLift != null && (!horizontalLift._calling && !horizontalLift._isMoving))
-                {
-                    horizontalLift._calling = true;
-                }
-                else if (verticalLift != null && (!verticalLift._calling && !verticalLift._isMoving))
-                {
-                    verticalLift._calling = true;
-                }
+                horizontalLift.CallFromRemote();
+            }
+            else if (verticalLift != null && (!verticalLift.isMoving))
+            {
+                verticalLift.CallFromRemote();
             }
         }
     }

@@ -2,26 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Button : MonoBehaviour
+public class Button : MonoBehaviour, IInteractable
 {
     [SerializeField] private Door targetDoor;
 
     private bool active;
 
-    void Update()
+    public void Interact()
     {
         if (active)
         {
-            if (Input.GetKeyDown(KeyCode.F))
+            if (targetDoor.currentState)
             {
-                if (targetDoor.currentState)
-                {
-                    targetDoor.CloseDoor();
-                }
-                else
-                {
-                    targetDoor.OpenDoor();
-                }
+                targetDoor.CloseDoor();
+            }
+            else
+            {
+                targetDoor.OpenDoor();
             }
         }
     }

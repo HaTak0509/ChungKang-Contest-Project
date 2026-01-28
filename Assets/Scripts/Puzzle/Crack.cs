@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Crack : MonoBehaviour
+public class Crack : MonoBehaviour, IInteractable
 {
     [SerializeField] private GameObject activationCrack;
     [SerializeField] private GameObject deactivationCrack;
@@ -18,16 +18,6 @@ public class Crack : MonoBehaviour
         deactivationCrack.SetActive(false);
     }
 
-    private void Update()
-    {
-        if (!_playerInRange) return;
-
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            SetCrack(!_isActivated);
-        }
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.CompareTag("ExplorationRange")) return;
@@ -42,6 +32,13 @@ public class Crack : MonoBehaviour
         if (!collision.CompareTag("ExplorationRange")) return;
         _playerInRange = false;
         deactivationCrack.SetActive(false);
+    }
+
+    public void Interact()
+    {
+        if (!_playerInRange) return;
+
+        SetCrack(!_isActivated);
     }
 
     private void SetCrack(bool value)
