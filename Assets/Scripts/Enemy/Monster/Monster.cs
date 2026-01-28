@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,7 +22,6 @@ public class Monster : MonoBehaviour
     public float InteractRange { get; private set; }
 
 
-
     // 나를 멈추게 하는 원인들
     private HashSet<string> disableReasons = new HashSet<string>();
 
@@ -46,7 +44,7 @@ public class Monster : MonoBehaviour
         SetEmotion(_CurrentEmotion);
     }
 
-    //감정 세팅
+
     public void SetEmotion(EmotionType newEmotion)//감정에 따른 행동 양식 받아오기
     {
         if (_currentState != null)//진짜 만약에 NULL이 떴다면, 그건 너가 문제야 알겠어?
