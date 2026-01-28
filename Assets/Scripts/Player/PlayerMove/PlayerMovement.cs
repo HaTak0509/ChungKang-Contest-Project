@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 _moveInput;
 
     private float CurrentSpeed =>
-        (_pushing.leftPush || _pushing.rightPush) ? pushingSpeed : walkSpeed;
+        (_pushing.pushingOb != null) ? pushingSpeed : walkSpeed;
 
     private void Awake()
     {

@@ -33,9 +33,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Interaction",
+                    "name": "Exploration",
                     "type": "Button",
                     "id": "8cd736b3-bf6a-48cd-ab09-c13db46c5817",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Interaction",
+                    "type": "Button",
+                    "id": "9e763cf0-5afb-4f15-b0e7-5992a3fad10f",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -113,6 +122,17 @@
                     "name": "",
                     "id": "074f5017-dc43-488c-9910-805ebfe1bd97",
                     "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Exploration",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "00649624-10b9-412a-999e-8c332a5eda3c",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

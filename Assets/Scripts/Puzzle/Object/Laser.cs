@@ -8,7 +8,7 @@ public class Laser : MonoBehaviour
 
     private void Update()
     {
-        if (!playerDash.dashVitality)
+        if (playerDash.dashing)
         {
             gameObject.layer = LayerMask.NameToLayer("Default");
         }

@@ -1,70 +1,51 @@
 using UnityEngine;
 
-public class Pushing : MonoBehaviour 
-{ 
-    public bool leftPush; 
-    public bool rightPush; 
-    private PushingObject _pushingOb;
-    private Rigidbody2D playerRb;
+public class Pushing : MonoBehaviour
+{
+    public PushingObject pushingOb;
+    public float pushSpeed = 4f;
 
-    private void Awake() 
-    { 
-        playerRb = GetComponent<Rigidbody2D>(); 
-    }
-    
-    private void Update() 
-    { 
-        if (leftPush && _pushingOb != null)
+    private float inputX;
+    private bool isPushing;
+
+    private void Update()
+    {
+        inputX = Input.GetAxisRaw("Horizontal");
+
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            if (!leftPush)
-            {
-                _pushingOb.Stop();
-                _pushingOb = null;
-            }
-            Vector2 moveDir = playerRb.velocity.normalized;
-            _pushingOb.Push(moveDir);
+            isPushing = !isPushing;
         }
-
-        if (rightPush && _pushingOb != null)
-        {
-            if (!rightPush)
-            {
-                _pushingOb.Stop();
-                _pushingOb = null;
-            }
-            Vector2 moveDir = playerRb.velocity.normalized;
-            _pushingOb.Push(moveDir);
-        } 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    { 
-        if (collision.gameObject.TryGetComponent(out PushingObject pushingObject))
+    private void FixedUpdate()
+    {
+        if (pushingOb == null)
+            return;
+
+        // 밀기 상태가 아니면 정지
+        if (!isPushing || Mathf.Abs(inputX) < 0.01f)
         {
-            _pushingOb = pushingObject;
-            if (transform.position.x > _pushingOb.gameObject.transform.position.x)
-            {
-                leftPush = true;
-            } 
-            else if (transform.position.x < _pushingOb.gameObject.transform.position.x) 
-            { 
-                rightPush = true;
-            }
+            pushingOb.Stop();
+            return;
         }
-    } 
-    
-    private void OnCollisionExit2D(Collision2D collision) 
-    { 
-        if (collision.gameObject.TryGetComponent(out PushingObject pushingObject))
+
+        pushingOb.Push(new Vector2(inputX * pushSpeed, 0f));
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("LightBox"))
         {
-            if (transform.position.x > _pushingOb.gameObject.transform.position.x) 
-            { 
-                leftPush = false;
-            }
-            else if (transform.position.x < _pushingOb.gameObject.transform.position.x)
-            {
-                rightPush = false;
-            } 
-        } 
-    } 
+            pushingOb = collision.GetComponent<PushingObject>();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("LightBox"))
+        {
+            pushingOb = null;
+        }
+    }
 }

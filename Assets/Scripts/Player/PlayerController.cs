@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
         if (context.started) dash.TryDash();
     }
 
-    public void OnInteraction(InputAction.CallbackContext context)
+    public void OnExploration(InputAction.CallbackContext context)
     {
         if (context.started)
         {

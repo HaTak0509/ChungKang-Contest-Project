@@ -1,20 +1,21 @@
 using UnityEngine;
-public class PushingObject : MonoBehaviour 
+
+public class PushingObject : MonoBehaviour
 {
-    private Rigidbody2D rb; 
+    private Rigidbody2D boxRb;
 
-    private void Awake() 
-    { 
-        rb = GetComponent<Rigidbody2D>();
-    } 
-
-    public void Push(Vector2 direction)
+    private void Awake()
     {
-        rb.velocity = new Vector2(direction.x, rb.velocity.y).normalized;
+        boxRb = GetComponentInParent<Rigidbody2D>();
     }
-    
+
+    public void Push(Vector2 velocity)
+    {
+        boxRb.velocity = new Vector2(velocity.x, boxRb.velocity.y);
+    }
+
     public void Stop()
     {
-        rb.velocity = new Vector2(0, rb.velocity.y);
-    } 
+        boxRb.velocity = new Vector2(0f, boxRb.velocity.y);
+    }
 }
