@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public PlayerDash dash;
     public Damageable damageable;
     public bool interaction;
+    public bool moveLimit;
 
     private InteractionSign interactionSign;
     private Animator animator;
@@ -44,6 +45,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        if (moveLimit) return;
         moveInput = context.ReadValue<Vector2>();
         animator.SetBool(AnimationStrings.IsMoving, moveInput != Vector2.zero);
         movement.SetInput(moveInput);
@@ -51,11 +53,13 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
+        if (moveLimit) return;
         if (context.started) jump.TryJump();
     }
 
     public void OnDash(InputAction.CallbackContext context)
     {
+        if (moveLimit) return;
         if (context.started) dash.TryDash();
     }
 

@@ -3,6 +3,8 @@ using UnityEngine;
 public class Pushing : MonoBehaviour
 {
     public bool isPushing;
+    public bool pushing;
+    public int puahingDirection;
 
     private PushingObject pushingObj;
     private Rigidbody2D playerRb;
@@ -14,33 +16,44 @@ public class Pushing : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (pushingObj == null || !pushingObj.isActive) return;
+        if (pushingObj == null || !pushingObj.isActive)
+        {
+            isPushing = false;
+            return;
+        }
+
+        isPushing = pushingObj.isActive;
 
         float playerVelX = playerRb.velocity.x;
 
-        // 플레이어가 멈추면 상자도 멈춤
         if (Mathf.Abs(playerVelX) < 0.01f)
         {
-            isPushing = false;
+            pushing = false;
             pushingObj.Stop();
             return;
         }
 
-        // 플레이어 → 상자 방향 확인
         float toBox = pushingObj.transform.position.x - transform.position.x;
 
-        // 상자 쪽으로 움직일 때만 복사
-        if (Mathf.Sign(playerVelX) == Mathf.Sign(toBox))
+        if (toBox > 0)
         {
-            isPushing = true;
+            puahingDirection = 1;
+        }
+        else if (toBox < 0)
+        {
+            puahingDirection = -1;
+        }
+
+
+        if (Mathf.Sign(playerVelX) == puahingDirection)
+        {
+            pushing = true;
             pushingObj.CopyVelocity(playerVelX);
         }
         else
         {
-            // 반대 방향이면 즉시 분리
-            isPushing = false;
+            pushing = false;
             pushingObj.Stop();
-            pushingObj = null;
         }
     }
 

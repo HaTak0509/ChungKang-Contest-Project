@@ -5,19 +5,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float walkSpeed = 6f;
     [SerializeField] float pushingSpeed = 4f;
 
-    public bool moveLimit;
-
     private Rigidbody2D _rb2D;
     private Damageable _damageable;
     private PlayerFacing _facing;
     private TouchingDetection _touchingDetection;
     private Pushing _pushing;
-    public Animator _animator;
+    private Animator _animator;
 
     private Vector2 _moveInput;
 
     private float CurrentSpeed =>
-        (_pushing.isPushing) ? pushingSpeed : walkSpeed;
+        (_pushing.pushing) ? pushingSpeed : walkSpeed;
 
     private void Awake()
     {
@@ -42,29 +40,20 @@ public class PlayerMovement : MonoBehaviour
         if (_damageable != null && _damageable.IsInvincible)
             return;
 
-        if (_pushing.isPushing)
-        {
-            _animator.SetBool(AnimationStrings.IsPushing, true);
-        }
-        else
-        {
-            _animator.SetBool(AnimationStrings.IsPushing, false);
-        }
+        _animator.SetBool(AnimationStrings.IsPushing, _pushing.pushing);
+
+        if (_pushing.isPushing && Mathf.Sign(_moveInput.x) != Mathf.Sign(_pushing.puahingDirection)) return;
 
         float desiredX = 0f;
+        
+        desiredX = _moveInput.x * CurrentSpeed;
 
-        if (!moveLimit)
+        if (_touchingDetection.IsOnWall)
         {
-            desiredX = _moveInput.x * CurrentSpeed;
-
-            // 벽 방향 제한
-            if (_touchingDetection.IsOnWall)
-            {
-                if (_touchingDetection.WallDirection == -1 && desiredX < 0)
-                    desiredX = 0;
-                else if (_touchingDetection.WallDirection == 1 && desiredX > 0)
-                    desiredX = 0;
-            }
+            if (_touchingDetection.WallDirection == -1 && desiredX < 0)
+                desiredX = 0;
+            else if (_touchingDetection.WallDirection == 1 && desiredX > 0)
+                desiredX = 0;
         }
 
         ApplyHorizontalVelocity(desiredX);
