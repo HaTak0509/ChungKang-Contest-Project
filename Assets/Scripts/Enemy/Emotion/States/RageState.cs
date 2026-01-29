@@ -152,4 +152,9 @@ public class RageState : IEmotionState
         return dist <= monster.InteractRange;
     }
 
+    public void OnAction(Monster monster)
+    {
+
+    }
+
 }

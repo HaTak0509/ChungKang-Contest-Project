@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Monster : MonoBehaviour
+public class Monster : MonoBehaviour, IInteractable
 {
     //*************************************************************
     // [ 코드 설명 ] :
@@ -15,7 +15,7 @@ public class Monster : MonoBehaviour
 
     [Header("기본 설정")]
     public float baseSpeed = 5f;
-    public float baseDetectionRange = 5f;
+    public float baseDetectionRange = 3f;
 
     // 현재 실제 적용되는 값
     public float Speed { get; private set; }
@@ -63,6 +63,12 @@ public class Monster : MonoBehaviour
             _currentState.OnEnter(this); // 감정 변경 시 호출
     }
 
+    public void Interact()
+    {
+        _currentState?.OnAction(this);
+    }
+
+
     private void FixedUpdate()
     {
 
@@ -86,7 +92,7 @@ public class Monster : MonoBehaviour
     {
         // 에디터에서 범위를 보기 쉽게 표시
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(new Vector2(transform.position.x, transform.position.y), InteractRange);
+        Gizmos.DrawWireSphere(new Vector2(transform.position.x, transform.position.y), baseDetectionRange);
     }
 
 }

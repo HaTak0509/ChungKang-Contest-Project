@@ -24,6 +24,8 @@ public class MonsterMovement : MonoBehaviour
     private TouchingDetection _touchingDetection;
     private Monster _monster;
     private Transform _player;
+    private Animator _animator;
+
     public MovementState _movementState { get; private set; } = MovementState.Move;
 
 
@@ -41,6 +43,7 @@ public class MonsterMovement : MonoBehaviour
         _touchingDetection = GetComponent<TouchingDetection>();
         _monster = GetComponent<Monster>();
         _rb = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();   
 
 
         // 시작 시 A와 B 중 더 오른쪽에 있는 값을 자동으로 정렬 (실수 방지)
@@ -59,8 +62,15 @@ public class MonsterMovement : MonoBehaviour
         if (_movementState == MovementState.Move)
         {
             Vector2 nextPosition = _rb.position + new Vector2(_monster.Speed * _direction, 0) * Time.fixedDeltaTime;
+
+      
+
             _rb.MovePosition(nextPosition);
         }
+
+        if (_movementState == MovementState.Move)
+            _animator.SetBool(AnimationStrings.IsMoving, true);
+        else _animator.SetBool(AnimationStrings.IsMoving, false);
 
         CheckBoundaries();
 
@@ -94,7 +104,7 @@ public class MonsterMovement : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(
             origin,
             Vector2.right * dir,
-            0.6f,
+            0.9f,
             collisionLayer
         );
 

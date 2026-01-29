@@ -20,6 +20,7 @@ public class ScaleUI : MonoBehaviour
         _MaxScaleHeight = _ScaleBar.sizeDelta.y;
         Instance = this;
         _parentScale = transform.parent.lossyScale;
+
     }
 
     private void Update()

@@ -27,7 +27,10 @@ public class ScreamiingState : IEmotionState
 
 
     }
+    public void OnAction(Monster monster)
+    {
 
+    }
     public void OnExit(Monster monster) 
     {
         HumidityManager.Instance.DownHumidity();
