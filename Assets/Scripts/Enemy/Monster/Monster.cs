@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Monster : MonoBehaviour, IInteractable
+public class Monster : MonoBehaviour
 {
     //*************************************************************
     // [ 코드 설명 ] :
@@ -16,6 +16,13 @@ public class Monster : MonoBehaviour, IInteractable
     [Header("기본 설정")]
     public float baseSpeed = 5f;
     public float baseDetectionRange = 3f;
+    public string hexColor = "#FFFFFF";
+    public GameObject TwistMonster;
+    
+    protected MonsterMovement _movement;
+    protected Animator _animator;
+    protected DrawSensingRange _lineRenderer;
+
 
     // 현재 실제 적용되는 값
     public float Speed { get; private set; }
@@ -28,45 +35,23 @@ public class Monster : MonoBehaviour, IInteractable
     public bool IsDisabled => disableReasons.Count > 0;
 
 
-    [SerializeField]
-    public EmotionType _emotion = EmotionType.Null;
-    public EmotionType _CurrentEmotion { get; private set; } // 읽기 가능, 수정 불가능
-
-    public IEmotionState _currentState { get; private set; } = null;//현재 상태
-
     void Start()
     {
         InteractRange = baseDetectionRange;
 
+        _movement = GetComponent<MonsterMovement>();
+        _animator = GetComponent<Animator>();
+        _lineRenderer = GetComponent<DrawSensingRange>();
 
-        // 시작 시 초기 감정 설정 | 이부분 보안 필요할지도
-        _CurrentEmotion = _emotion;
-        SetEmotion(_CurrentEmotion);
+        OnEnter();
+
+        if (TwistMonster != null)
+        {
+            TwistMonster = Instantiate(TwistMonster);
+            TwistMonster.SetActive(false);
+        }
     }
 
-
-    public void SetEmotion(EmotionType newEmotion)//감정에 따른 행동 양식 받아오기
-    {
-        if (_currentState != null)//진짜 만약에 NULL이 떴다면, 그건 너가 문제야 알겠어?
-            _currentState.OnExit(this); // 감정 종료 시 호출
-
-
-
-        // [보강] EmotionFactory를 통해 캐싱된 상태 객체를 가져옴 (new를 사용하지 않음)
-        _currentState = EmotionFactory.Create(newEmotion); // 새 행동 받아오기 
-        Debug.Log($"[Monster] 감정이 {newEmotion.ToString()}으로 변경됨");
-
-        _CurrentEmotion = newEmotion;
-
-
-        if (_currentState != null)
-            _currentState.OnEnter(this); // 감정 변경 시 호출
-    }
-
-    public void Interact()
-    {
-        _currentState?.OnAction(this);
-    }
 
 
     private void FixedUpdate()
@@ -75,16 +60,32 @@ public class Monster : MonoBehaviour, IInteractable
         Speed = IsDisabled ? 0f : baseSpeed;
         InteractRange = IsDisabled ? 0f : baseDetectionRange;
 
-
-        _currentState?.UpdateState(this); // 현재 행동이 있다면, 행동 함수 실행
-
+        UpdateState();
     }
 
     public void TwistMob()
     {
-        EmotionType twist_temp = Emotion.Twist(_CurrentEmotion);
+        OnExit();
+        gameObject.SetActive(false);
+        TwistMonster.SetActive(true);
 
-        SetEmotion(twist_temp);
+        TwistMonster.transform.position = transform.position;
+        TwistMonster.GetComponent<Monster>().OnEnter();
+    }
+
+
+    public virtual void OnEnter()
+    {
+       
+    }
+
+    public virtual void UpdateState()
+    {
+       
+    }
+    public virtual void OnExit()
+    {
+
     }
 
 

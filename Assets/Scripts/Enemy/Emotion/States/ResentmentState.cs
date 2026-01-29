@@ -1,7 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class ResentmentState : IEmotionState //원망
+public class ResentmentState : Monster
 {
     //*************************************************************
     // [ 코드 설명 ] :
@@ -9,7 +9,6 @@ public class ResentmentState : IEmotionState //원망
     // 확장성을 챙기기 위해 인터페이스 형식을 사용함
     //*************************************************************
 
-    public EmotionType Type => EmotionType.Resentment;
 
     private CircleCollider2D _circleCollider2D;
     private Flotation _flotation;

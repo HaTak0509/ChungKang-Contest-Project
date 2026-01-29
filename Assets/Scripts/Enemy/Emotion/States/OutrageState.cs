@@ -1,5 +1,4 @@
-using UnityEngine;
-public class OutrageState : IEmotionState
+public class OutrageState : Monster
 {
     //*************************************************************
     // [ 코드 설명 ] :
@@ -7,31 +6,18 @@ public class OutrageState : IEmotionState
     // 확장성을 챙기기 위해 인터페이스 형식을 사용함
     //*************************************************************
 
-    public EmotionType Type => EmotionType.Outrage;
-
-
-    private MonsterMovement _movement;
-
-    public void OnEnter(Monster monster)
+    public override void OnEnter()
     {
-        if (_movement == null)
-            _movement = monster.GetComponent<MonsterMovement>();
-
         HumidityManager.Instance.DownHumidity();
 
     }
 
-    public void UpdateState(Monster monster)
+    public override void UpdateState()
     {
         _movement.Move();
-
-
     }
-    public void OnAction(Monster monster)
-    {
-     
-    }
-    public void OnExit(Monster monster) 
+
+    public override void OnExit() 
     {
         HumidityManager.Instance.UpHumidity();
 

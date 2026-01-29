@@ -24,6 +24,11 @@ public class DrawSensingRange : MonoBehaviour
 
     public void Draw(float radius, Color color)
     {
+        lineRenderer.startColor = color;
+        lineRenderer.endColor = color;
+
+
+
         // 부모의 스케일 값을 가져옴 (0 방지)
         float lossyX = transform.lossyScale.x == 0 ? 1 : transform.lossyScale.x;
         float lossyY = transform.lossyScale.y == 0 ? 1 : transform.lossyScale.y;

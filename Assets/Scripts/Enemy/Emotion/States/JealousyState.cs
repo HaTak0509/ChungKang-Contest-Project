@@ -1,5 +1,5 @@
 using UnityEngine;
-public class JealousyState : IEmotionState //질투
+public class JealousyState : Monster, IInteractable
 {
     //*************************************************************
     // [ 코드 설명 ] :
@@ -7,34 +7,30 @@ public class JealousyState : IEmotionState //질투
     // 확장성을 챙기기 위해 인터페이스 형식을 사용함
     //*************************************************************
 
-    public EmotionType Type => EmotionType.Jealousy;
 
-
-    private MonsterMovement _movement;
     private Transform _player;
 
     private float _TeleportTimer = 0f;      // 텔레포트 대기 타이머 (3초)
-    private LayerMask _MonsterLayer = LayerMask.GetMask("Enemy");
 
     private bool _isTeleporting = false;
 
 
-    private const float Ready_DURATION = 5f;
+    [Header("대기 시간 설정")]
+    public float Ready_DURATION = 5f;
     private const float checkRadius = 99f;
 
 
 
-    public void OnEnter(Monster monster)
+    public override void OnEnter()
     {
-        if (_movement == null)
-            _movement = monster.GetComponent<MonsterMovement>();
 
         if (_player == null)
             _player = GameObject.FindWithTag("Player").transform;
 
+
     }
 
-    public void UpdateState(Monster monster)
+    public override void UpdateState()
     {
 
         if (_isTeleporting)
@@ -65,7 +61,9 @@ public class JealousyState : IEmotionState //질투
 
     void Teleport()
     {
-        Collider2D[] hitAIs = Physics2D.OverlapCircleAll(_player.transform.position, checkRadius, _MonsterLayer);
+        _animator.SetTrigger("IsAction");
+
+        Collider2D[] hitAIs = Physics2D.OverlapCircleAll(_player.transform.position, checkRadius, LayerMask.GetMask("Enemy"));
 
         if (hitAIs.Length == 0) return; // 3블럭 이내 AI가 없으면 종료
 
@@ -76,7 +74,6 @@ public class JealousyState : IEmotionState //질투
         {
             if(hit.gameObject == this._movement.gameObject) 
                 continue;
-
 
             float distance = Vector2.Distance(_player.transform.position, hit.transform.position);
 
@@ -95,26 +92,28 @@ public class JealousyState : IEmotionState //질투
             }
         }
 
+
         if (targetAI != null)
         {
             Vector3 myPos = _movement.transform.position;
             _movement.transform.position = targetAI.position;
             targetAI.position = myPos;
-
         }
 
         Debug.Log("텔포 종료");
         _isTeleporting = false;
     }
 
-    public void OnAction(Monster monster)
+    public void Interact()
     {
         StartTP();
     }
 
+
     public void OnExit(Monster monster) 
     {
-
+        _isTeleporting = false;
+        _TeleportTimer = 0;
     }
 
 }

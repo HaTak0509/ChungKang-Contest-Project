@@ -1,17 +1,13 @@
 using UnityEngine;
 
-public class RageState : IEmotionState
+public class RageState : Monster
 {
     //*************************************************************
     // [ 코드 설명 ] :
     // RAGE의 경우 FSM을 바탕으로 감지하고, 돌진하고, 복귀함
 
     //*************************************************************
-    public EmotionType Type => EmotionType.Rage;
 
-    private MonsterMovement _movement;
-    private DrawSensingRange _lineRenderer;
-    private Transform _monsterTransform;
     private Transform _player;
 
     // 로직 제어 변수
@@ -23,32 +19,27 @@ public class RageState : IEmotionState
     private const float ATTACK_DURATION = 3f;
     private const float READY_DURATION = 1f;
 
-    public void OnEnter(Monster monster)
+    public override void OnEnter()
     {
-        _movement = monster.GetComponent<MonsterMovement>();
-        _monsterTransform = monster.transform;
 
         if (_player == null)
             _player = GameObject.FindWithTag("Player").transform;
 
 
-        if (_lineRenderer == null) //라인렌더러 찾아서, 켜고 색깔 지정하기
-        {
-            _lineRenderer = monster.GetComponent<DrawSensingRange>();
-            _lineRenderer.OnLine();
+        _lineRenderer.OnLine();
 
-            if (ColorUtility.TryParseHtmlString(Emotion.Get(monster._CurrentEmotion).hexColor, out Color newColor))
-            {
-                Debug.Log(newColor.ToString());
-                _lineRenderer.Draw(monster.InteractRange, newColor);
-            }
+        if (ColorUtility.TryParseHtmlString(hexColor, out Color newColor))
+        {
+            Debug.Log(newColor.ToString());
+            _lineRenderer.Draw(InteractRange, newColor);
         }
+
     }
 
-    public void UpdateState(Monster monster)
+    public override void UpdateState()
     {
         // 1. 플레이어 감지 시 유지 시간 갱신
-        if (IsPlayerInRange(monster))
+        if (IsPlayerInRange())
         {
             _attackStateTimer = ATTACK_DURATION;
         }
@@ -62,16 +53,16 @@ public class RageState : IEmotionState
         }
 
         // 3. 내부 동작 로직 (준비 -> 돌진)
-        HandleAttackLogic(monster);
+        HandleAttackLogic();
     }
 
-    public void OnExit(Monster monster)
+    public override void OnExit()
     {
         _lineRenderer.OffLine();
         StopDash();
     }
 
-    private void HandleAttackLogic(Monster monster)
+    private void HandleAttackLogic()
     {
         if (!_isReadying && !_isDashing)
         {
@@ -87,7 +78,7 @@ public class RageState : IEmotionState
 
             if (_readyTimer <= 0)
             {
-                StartDash(monster);
+                StartDash();
             }
         }
 
@@ -113,7 +104,7 @@ public class RageState : IEmotionState
 
     }
 
-    private void StartDash(Monster monster)
+    private void StartDash()
     {
 
         _isReadying = false;
@@ -122,14 +113,14 @@ public class RageState : IEmotionState
 
 
         //플레이어 위치 기준 위/ 아래 방향 판단
-        float xDirection = Mathf.Sign(_player.position.x - monster.transform.position.x);
+        float xDirection = Mathf.Sign(_player.position.x - transform.position.x);
 
         // ▶ 몬스터가 플레이어 방향을 바라보도록 Flip
-        if (_player.position.x < monster.transform.position.x && _movement._isFacingRight)
+        if (_player.position.x < transform.position.x && _movement._isFacingRight)
         {
             _movement.Flip();
         }
-        else if (_player.position.x > monster.transform.position.x && !_movement._isFacingRight)
+        else if (_player.position.x > transform.position.x && !_movement._isFacingRight)
         {
             _movement.Flip();
         }
@@ -145,16 +136,11 @@ public class RageState : IEmotionState
         _movement.StopMove();
     }
 
-    private bool IsPlayerInRange(Monster monster)
+    private bool IsPlayerInRange()
     {
-        // Monster 클래스에 정의된 감지 범위(DetectionRange)를 사용한다고 가정
-        float dist = Vector3.Distance(_monsterTransform.position, _player.position);
-        return dist <= monster.InteractRange;
+        float dist = Vector3.Distance(transform.position, _player.position);
+        return dist <= InteractRange;
     }
 
-    public void OnAction(Monster monster)
-    {
-
-    }
 
 }

@@ -1,4 +1,4 @@
-using UnityEditor.Rendering;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerScale : MonoBehaviour
@@ -7,11 +7,11 @@ public class PlayerScale : MonoBehaviour
     [Header("디버깅용 표시")]
     [SerializeField] float _Scale = 100;
     private float _MaxScale = 100;
-    public bool _isDown = false;
+    private bool _isDown = false;
 
     [Header("최소 크기")] [Range(0f,100f)] public float _MinScale = 20;
 
-
+    private Coroutine _scaleRoutine;
 
     public static PlayerScale Instance;
     Vector3 _OriginScale;
@@ -24,39 +24,40 @@ public class PlayerScale : MonoBehaviour
         Instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void TriggerScaleChange()
     {
-        if (!_isDown && _Scale < _MaxScale)
-        {
-            // 현재 크기의 일정 비율만큼 증가
-            float amount = _Scale * 0.25f * Time.deltaTime;
-            AddScale(amount);
-        }
-        else if (_isDown && _Scale > _MinScale)
-        {
-            // 현재 크기의 일정 비율만큼 감소 (이것이 유저님이 원하신 '일정 비율 감소')
-            float amount = _Scale * 0.5f * Time.deltaTime;
-            AddScale(-amount);
-        }
+        if (_scaleRoutine != null) StopCoroutine(_scaleRoutine);
 
-        if (_Scale < _MaxScale)
-        {
-            ScaleUI.Instance._ScaleUI.SetActive(true);
-        }
-        else
-        {
-            ScaleUI.Instance._ScaleUI.SetActive(false);
-        }
+        // 100이면 20으로, 20이면 100으로 목표 설정
+        float target = (_Scale > _MinScale) ? _MinScale : _MaxScale;
+        
 
-        float temp = _Scale / _MaxScale;
-        transform.localScale = _OriginScale * temp;
-        ScaleUI.Instance.CheckScaleBar(_Scale, _MaxScale);
+        _scaleRoutine = StartCoroutine(ScaleLerp(target));
     }
 
-
-    public void AddScale(float AddScale)
+    IEnumerator ScaleLerp(float target)
     {
-        _Scale += AddScale;
+        float duration = 2.5f; // 0.2초 만에 빠르게 변화
+        float elapsed = 0f;
+        float startScale = _Scale;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+
+            // 부드러운 보간법 적용
+            _Scale = Mathf.Lerp(startScale, target, t);
+
+            // 실제 스케일 반영
+            float temp = _Scale / _MaxScale;
+            transform.localScale = _OriginScale * temp;
+            //ScaleUI.Instance.CheckScaleBar(_Scale, _MaxScale);
+
+            yield return null;
+        }
+
+        _Scale = target;
     }
+    
 }
