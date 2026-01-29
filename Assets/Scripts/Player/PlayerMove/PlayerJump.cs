@@ -7,6 +7,7 @@ public class PlayerJump : MonoBehaviour
     private Rigidbody2D _rb2D;
     private TouchingDetection _ground;
     private Damageable _damageable;
+    private Pushing _pushing;
     private Animator _animator;
 
     private void Awake()
@@ -14,13 +15,13 @@ public class PlayerJump : MonoBehaviour
         _rb2D = GetComponent<Rigidbody2D>();
         _ground = GetComponent<TouchingDetection>();
         _damageable = GetComponent<Damageable>();
+        _pushing = GetComponent<Pushing>();
         _animator = GetComponent<Animator>();
     }
 
     public void TryJump()
     {
-        if (!_ground.IsGround) return;
-        if (_damageable.IsKnockback) return;
+        if (!_ground.IsGround || _damageable.IsKnockback || _pushing.isPushing) return;
 
         _rb2D.velocity = new Vector2(_rb2D.velocity.x, jumpForce);
         _animator.SetTrigger(AnimationStrings.IsJump);

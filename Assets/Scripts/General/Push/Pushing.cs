@@ -4,7 +4,7 @@ public class Pushing : MonoBehaviour
 {
     public bool isPushing;
     public bool pushing;
-    public int puahingDirection;
+    public int pushingDirection;
 
     private PushingObject pushingObj;
     private Rigidbody2D playerRb;
@@ -37,15 +37,15 @@ public class Pushing : MonoBehaviour
 
         if (toBox > 0)
         {
-            puahingDirection = 1;
+            pushingDirection = 1;
         }
         else if (toBox < 0)
         {
-            puahingDirection = -1;
+            pushingDirection = -1;
         }
 
 
-        if (Mathf.Sign(playerVelX) == puahingDirection)
+        if (Mathf.Sign(playerVelX) == pushingDirection)
         {
             pushing = true;
             pushingObj.CopyVelocity(playerVelX);

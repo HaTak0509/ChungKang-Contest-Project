@@ -13,10 +13,11 @@ public class PlayerController : MonoBehaviour
     public Damageable damageable;
     public bool interaction;
     public bool moveLimit;
+    public Vector2 moveInput;
 
     private InteractionSign interactionSign;
+    private Pushing pushing;
     private Animator animator;
-    private Vector2 moveInput;
 
     private void Awake()
     {
@@ -33,6 +34,7 @@ public class PlayerController : MonoBehaviour
         if (!damageable) damageable = GetComponent<Damageable>();
 
         interactionSign = GetComponent<InteractionSign>();
+        pushing = GetComponent<Pushing>();
         animator = GetComponent<Animator>();
 
         interaction = false;
@@ -46,7 +48,17 @@ public class PlayerController : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         if (moveLimit) return;
+
         moveInput = context.ReadValue<Vector2>();
+
+        if (pushing.isPushing)
+        {
+            if (Mathf.Sign(moveInput.x) != Mathf.Sign(pushing.pushingDirection))
+            {
+                moveInput = Vector2.zero;
+            }
+        }
+
         animator.SetBool(AnimationStrings.IsMoving, moveInput != Vector2.zero);
         movement.SetInput(moveInput);
     }

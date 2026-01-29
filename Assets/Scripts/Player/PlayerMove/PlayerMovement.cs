@@ -5,6 +5,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float walkSpeed = 6f;
     [SerializeField] float pushingSpeed = 4f;
 
+    public bool IsPushingButNotActive =>
+    _pushing.isPushing && !_pushing.pushing;
+
     private Rigidbody2D _rb2D;
     private Damageable _damageable;
     private PlayerFacing _facing;
@@ -42,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
 
         _animator.SetBool(AnimationStrings.IsPushing, _pushing.pushing);
 
-        if (_pushing.isPushing && Mathf.Sign(_moveInput.x) != Mathf.Sign(_pushing.puahingDirection)) return;
+        if (_pushing.isPushing && Mathf.Sign(_moveInput.x) != Mathf.Sign(_pushing.pushingDirection)) return;
 
         float desiredX = 0f;
         

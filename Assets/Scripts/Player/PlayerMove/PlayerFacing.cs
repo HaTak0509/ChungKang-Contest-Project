@@ -15,7 +15,7 @@ public class PlayerFacing : MonoBehaviour
 
     public void FaceDirection(float inputX)
     {
-        if (inputX == 0 || _pushing.isPushing) return;
+        if (_pushing.isPushing) return;
 
         bool faceRight = inputX > 0;
         _spriteRenderer.flipX = !faceRight;

@@ -13,6 +13,7 @@ public class PlayerDash : MonoBehaviour
 
     private Rigidbody2D _rb2D;
     private PlayerFacing facing;
+    private Pushing _pushing;
     private Damageable _damageable;
     private Animator _animator;
     private bool canDash = true;
@@ -21,13 +22,14 @@ public class PlayerDash : MonoBehaviour
     {
         _rb2D = GetComponent<Rigidbody2D>();
         facing = GetComponent<PlayerFacing>();
+        _pushing = GetComponent<Pushing>();
         _damageable = GetComponent<Damageable>();
         _animator = GetComponent<Animator>();
     }
 
     public void TryDash()
     {
-        if (!canDash || _damageable.IsKnockback) return;
+        if (!canDash || _damageable.IsKnockback || _pushing.isPushing) return;
         if (dashVitality) StartCoroutine(DashRoutine());
     }
 
