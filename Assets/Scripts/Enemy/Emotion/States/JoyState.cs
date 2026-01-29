@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 public class JoyState : IEmotionState
 {
@@ -43,8 +44,10 @@ public class JoyState : IEmotionState
 
         if (hit != null)
         {
+            if(hit.GetComponent<PlayerDash>().dashVitality == false)
+                _animator.SetTrigger("isAction");
+            
             hit.GetComponent<PlayerDash>().dashVitality = true;
-            _animator.SetTrigger("isAction");   
         }
     }
 
