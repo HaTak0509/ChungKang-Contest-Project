@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public bool interaction;
 
     private InteractionSign interactionSign;
+    private Animator animator;
     private Vector2 moveInput;
 
     private void Awake()
@@ -31,6 +32,7 @@ public class PlayerController : MonoBehaviour
         if (!damageable) damageable = GetComponent<Damageable>();
 
         interactionSign = GetComponent<InteractionSign>();
+        animator = GetComponent<Animator>();
 
         interaction = false;
     }
@@ -43,6 +45,7 @@ public class PlayerController : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
+        animator.SetBool(AnimationStrings.IsMoving, moveInput != Vector2.zero);
         movement.SetInput(moveInput);
     }
 

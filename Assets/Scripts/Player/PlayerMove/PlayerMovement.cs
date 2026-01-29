@@ -74,8 +74,5 @@ public class PlayerMovement : MonoBehaviour
     {
         // 핵심: Y는 절대 건드리지 않는다
         _rb2D.velocity = new Vector2(desiredX, _rb2D.velocity.y);
-        if (_rb2D.velocity != Vector2.zero)
-            _animator.SetBool(AnimationStrings.IsMoving, true);
-        else _animator.SetBool(AnimationStrings.IsMoving, false);
     }
 }
