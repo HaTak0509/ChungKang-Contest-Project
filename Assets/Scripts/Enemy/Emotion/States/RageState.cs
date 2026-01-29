@@ -142,5 +142,4 @@ public class RageState : Monster
         return dist <= InteractRange;
     }
 
-
 }
