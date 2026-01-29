@@ -17,7 +17,7 @@ public class OptionManager : MonoBehaviour
 
 
     public TMP_Dropdown dropdown;
-    //public Toggle Toggle;
+    public Toggle Toggle;
     public int resolutionNum;
     List<Resolution> resolutions = new List<Resolution>();
     FullScreenMode screenMode;
@@ -66,7 +66,7 @@ public class OptionManager : MonoBehaviour
 
         int temp_fullscreen = PlayerPrefs.GetInt("FullScreen", 0);
 
-        //Toggle.isOn = temp_fullscreen == 1 ? true : false;
+        Toggle.isOn = temp_fullscreen == 1 ? true : false;
 
     }
 
@@ -77,14 +77,14 @@ public class OptionManager : MonoBehaviour
         OkClick();
     }
 
-    //public void FullScreen(bool isFull)
-    //{
-    //    screenMode = isFull ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed;
-    //    PlayerPrefs.SetInt("FullScreen", isFull ? 1 : 0);
-    //    PlayerPrefs.Save();
+    public void FullScreen(bool isFull)
+    {
+        screenMode = isFull ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed;
+        PlayerPrefs.SetInt("FullScreen", isFull ? 1 : 0);
+        PlayerPrefs.Save();
 
-    //    OkClick();
-    //}
+        OkClick();
+    }
 
     public void OkClick()
     {
