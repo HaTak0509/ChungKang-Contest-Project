@@ -1,12 +1,19 @@
 using UnityEngine;
 
-public class PushingObject : MonoBehaviour
+public class PushingObject : MonoBehaviour, IInteractable
 {
+    public bool isActive;
+
     private Rigidbody2D rb;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    public void Interact()
+    {
+        isActive = !isActive;
     }
 
     // Player의 x velocity를 그대로 복사

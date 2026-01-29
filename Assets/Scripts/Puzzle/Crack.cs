@@ -1,14 +1,14 @@
 using UnityEngine;
 
-public class Crack : MonoBehaviour, IInteractable
+public class Crack : MonoBehaviour
 {
     [SerializeField] private GameObject activationCrack;
     [SerializeField] private GameObject deactivationCrack;
     [SerializeField] private GameObject closeCrack;
 
-    public int _openLimit;
+    public int openLimit;
+    public bool isActivated;
 
-    private bool _isActivated;
     private bool _playerInRange;
     private int _currentLimit;
 
@@ -23,7 +23,7 @@ public class Crack : MonoBehaviour, IInteractable
         if (!collision.CompareTag("ExplorationRange")) return;
         _playerInRange = true;
 
-        if (!_isActivated)
+        if (!isActivated)
             deactivationCrack.SetActive(true);
     }
 
@@ -34,22 +34,15 @@ public class Crack : MonoBehaviour, IInteractable
         deactivationCrack.SetActive(false);
     }
 
-    public void Interact()
+    public void SetCrack(bool value)
     {
-        if (!_playerInRange) return;
+        if (_currentLimit >= openLimit) return;
+        
+        isActivated = value;
 
-        SetCrack(!_isActivated);
-    }
-
-    private void SetCrack(bool value)
-    {
-        if (_currentLimit >= _openLimit) return;
-
-        _isActivated = value;
-
-        activationCrack.SetActive(_isActivated);
-        deactivationCrack.SetActive(!_isActivated && _playerInRange);
-        closeCrack.SetActive(_isActivated && _playerInRange);
+        activationCrack.SetActive(isActivated);
+        deactivationCrack.SetActive(!isActivated && _playerInRange);
+        closeCrack.SetActive(isActivated && _playerInRange);
     }
 
     public void SetPlayerInRange(bool value)
@@ -57,7 +50,7 @@ public class Crack : MonoBehaviour, IInteractable
         _playerInRange = value;
 
         // 아직 활성화 안 된 상태면 표시 제어
-        if (!_isActivated)
+        if (!isActivated)
         {
             deactivationCrack.SetActive(_playerInRange);
         }

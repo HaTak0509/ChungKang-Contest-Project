@@ -14,7 +14,7 @@ public class Pushing : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (pushingObj == null) return;
+        if (pushingObj == null || !pushingObj.isActive) return;
 
         float playerVelX = playerRb.velocity.x;
 
@@ -44,7 +44,7 @@ public class Pushing : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.TryGetComponent(out PushingObject obj))
         {
@@ -52,7 +52,7 @@ public class Pushing : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.TryGetComponent(out PushingObject obj))
         {
@@ -64,3 +64,4 @@ public class Pushing : MonoBehaviour
         }
     }
 }
+    
