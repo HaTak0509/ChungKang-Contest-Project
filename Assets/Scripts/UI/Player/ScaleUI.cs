@@ -13,26 +13,16 @@ public class ScaleUI : MonoBehaviour
     private Coroutine _ScaleBarRoutine;
     private float _MaxScaleHeight;
 
-    private Vector3 _parentScale;
 
     private void Start()
     {
         _MaxScaleHeight = _ScaleBar.sizeDelta.y;
         Instance = this;
-        _parentScale = transform.parent.lossyScale;
-
     }
 
     private void Update()
     {
-        if (transform.parent != null)
-        {
-            transform.localScale = new Vector3(
-                _parentScale.x / transform.parent.lossyScale.x,
-                _parentScale.y / transform.parent.lossyScale.y,
-                _parentScale.z / transform.parent.lossyScale.z
-            );
-        }
+        
     }
 
     public void CheckScaleBar(float Scale = 0, float MaxScale = 0)

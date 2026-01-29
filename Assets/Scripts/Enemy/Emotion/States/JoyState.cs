@@ -44,6 +44,7 @@ public class JoyState : IEmotionState
         if (hit != null)
         {
             hit.GetComponent<PlayerDash>().dashVitality = true;
+            _animator.SetTrigger("isAction");   
         }
     }
 

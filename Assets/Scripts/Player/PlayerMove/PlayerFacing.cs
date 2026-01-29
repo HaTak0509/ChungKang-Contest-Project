@@ -16,6 +16,6 @@ public class PlayerFacing : MonoBehaviour
 
         bool faceRight = inputX > 0;
         _spriteRenderer.flipX = !faceRight;
-
+        IsFacingRight = faceRight;
     }
 }
