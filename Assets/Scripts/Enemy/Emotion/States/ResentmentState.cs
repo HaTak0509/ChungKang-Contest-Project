@@ -44,7 +44,10 @@ public class ResentmentState : IEmotionState //¿ø¸Á
 
 
     }
+    public void OnAction(Monster monster)
+    {
 
+    }
     public void UpdateState(Monster monster)
     {
 

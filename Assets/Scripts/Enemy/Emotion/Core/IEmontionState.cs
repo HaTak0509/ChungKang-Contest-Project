@@ -11,5 +11,6 @@ public interface IEmotionState//인터페이스 정의
     EmotionType Type { get; }
     void OnEnter(Monster monster);
     void OnExit(Monster monster);
+    void OnAction(Monster monster);
     void UpdateState(Monster monster);
 }

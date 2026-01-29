@@ -13,9 +13,12 @@ public class JoyState : IEmotionState
     private MonsterMovement _movement;
     private DrawSensingRange _lineRenderer;
     private LayerMask _playerLayer = LayerMask.GetMask("Player");
+    private Animator _animator;
 
     public void OnEnter(Monster monster)
     {
+        _animator = monster.GetComponent<Animator>();
+
         if (_movement == null)
             _movement = monster.GetComponent<MonsterMovement>();
 
@@ -43,6 +46,12 @@ public class JoyState : IEmotionState
             hit.GetComponent<PlayerDash>().dashVitality = true;
         }
     }
+
+    public void OnAction(Monster monster)
+    {
+
+    }
+
 
     public void OnExit(Monster monster) 
     {

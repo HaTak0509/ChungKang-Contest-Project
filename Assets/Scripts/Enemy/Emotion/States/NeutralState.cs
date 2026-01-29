@@ -21,8 +21,10 @@ public class NeutralState : IEmotionState
     public void UpdateState(Monster monster)
     {
 
-      
-
+    
+    }
+    public void OnAction(Monster monster)
+    {
 
     }
 

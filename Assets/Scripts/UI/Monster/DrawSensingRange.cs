@@ -24,14 +24,18 @@ public class DrawSensingRange : MonoBehaviour
 
     public void Draw(float radius, Color color)
     {
+        // 부모의 스케일 값을 가져옴 (0 방지)
+        float lossyX = transform.lossyScale.x == 0 ? 1 : transform.lossyScale.x;
+        float lossyY = transform.lossyScale.y == 0 ? 1 : transform.lossyScale.y;
+
         for (int i = 0; i < segments; i++)
         {
             float angle = i * 2 * Mathf.PI / segments;
-            float x = Mathf.Cos(angle) * radius;
-            float y = Mathf.Sin(angle) * radius;
+            // 부모 스케일만큼 나눠서 크기를 상쇄시킴
+            float x = (Mathf.Cos(angle) * radius) / lossyX;
+            float y = (Mathf.Sin(angle) * radius) / lossyY;
+
             lineRenderer.SetPosition(i, new Vector3(x, y, 0));
-            lineRenderer.startColor = color;
-            lineRenderer.endColor = color;
         }
     }
 }

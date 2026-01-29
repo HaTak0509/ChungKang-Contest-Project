@@ -37,7 +37,10 @@ public class TwistResentmentState : IEmotionState //µÚÆ²¸° ¿ø¸Á
             }
         }
     }
+    public void OnAction(Monster monster)
+    {
 
+    }
     public void UpdateState(Monster monster)
     {
         _movement.Move();
