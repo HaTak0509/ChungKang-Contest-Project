@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2020051366662201662}
   - component: {fileID: 6269383028452172761}
   - component: {fileID: 738822406320864247}
-  - component: {fileID: 3824497488645483171}
+  - component: {fileID: 1441963023168795595}
   - component: {fileID: 7188585042341979790}
   - component: {fileID: 8144759593996177475}
   - component: {fileID: 6471121872825735215}
@@ -155,7 +155,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &3824497488645483171
+--- !u!114 &1441963023168795595
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -164,12 +164,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6503615861782942952}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ad56f559b56bba46954763c30e6c120, type: 3}
+  m_Script: {fileID: 11500000, guid: a1ebb7906fd4d6a43927799bfbd2f544, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: 5
-  baseDetectionRange: 3
-  _emotion: 1
+  baseSpeed: 3
+  baseDetectionRange: 5
+  hexColor: 
+  TwistMonster: {fileID: 0}
 --- !u!114 &7188585042341979790
 MonoBehaviour:
   m_ObjectHideFlags: 0

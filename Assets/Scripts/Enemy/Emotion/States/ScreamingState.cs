@@ -1,5 +1,4 @@
-using UnityEngine;
-public class ScreamiingState : IEmotionState
+public class ScreamiingState : Monster
 {
     //*************************************************************
     // [ 코드 설명 ] :
@@ -7,33 +6,19 @@ public class ScreamiingState : IEmotionState
     // 확장성을 챙기기 위해 인터페이스 형식을 사용함
     //*************************************************************
 
-    public EmotionType Type => EmotionType.Screaming;
 
-
-    private MonsterMovement _movement;
-
-    public void OnEnter(Monster monster)
+    public override void OnEnter()
     {
-        if (_movement == null)
-            _movement = monster.GetComponent<MonsterMovement>();
-
         HumidityManager.Instance.UpHumidity();
-
     }
 
-    public void UpdateState(Monster monster)
-    {
-        _movement.Move();
-
-
-    }
-    public void OnAction(Monster monster)
+    public override void UpdateState()
     {
 
     }
-    public void OnExit(Monster monster) 
+    public override void OnExit() 
     {
         HumidityManager.Instance.DownHumidity();
-
     }
+
 }

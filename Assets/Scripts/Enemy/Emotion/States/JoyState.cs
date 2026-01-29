@@ -1,6 +1,5 @@
-using System;
 using UnityEngine;
-public class JoyState : IEmotionState
+public class JoyState : Monster
 {
     //*************************************************************
     // [ 코드 설명 ] :
@@ -8,39 +7,24 @@ public class JoyState : IEmotionState
     // 확장성을 챙기기 위해 인터페이스 형식을 사용함
     //*************************************************************
 
-    public EmotionType Type => EmotionType.Joy;
 
-
-    private MonsterMovement _movement;
-    private DrawSensingRange _lineRenderer;
-    private LayerMask _playerLayer = LayerMask.GetMask("Player");
-    private Animator _animator;
-
-    public void OnEnter(Monster monster)
+    public override void OnEnter()
     {
-        _animator = monster.GetComponent<Animator>();
+        _lineRenderer.OnLine();
 
-        if (_movement == null)
-            _movement = monster.GetComponent<MonsterMovement>();
-
-        if (_lineRenderer == null) //라인렌더러 찾아서, 켜고 색깔 지정하기
+        if (ColorUtility.TryParseHtmlString(hexColor, out Color newColor))
         {
-            _lineRenderer = monster.GetComponent<DrawSensingRange>();
-            _lineRenderer.OnLine();
-
-            if (ColorUtility.TryParseHtmlString(Emotion.Get(monster._CurrentEmotion).hexColor, out Color newColor))
-            {
-                Debug.Log(newColor.ToString());
-                _lineRenderer.Draw(monster.InteractRange, newColor);
-            }
+            Debug.Log(newColor.ToString());
+            _lineRenderer.Draw(InteractRange, newColor);
         }
+
     }
 
-    public void UpdateState(Monster monster)
+    public override void UpdateState()
     {
         _movement.Move();
 
-        Collider2D hit = Physics2D.OverlapCircle(monster.transform.position, monster.InteractRange, _playerLayer);
+        Collider2D hit = Physics2D.OverlapCircle(transform.position, InteractRange, LayerMask.GetMask("Player"));
 
         if (hit != null)
         {
@@ -51,14 +35,10 @@ public class JoyState : IEmotionState
         }
     }
 
-    public void OnAction(Monster monster)
-    {
 
-    }
-
-
-    public void OnExit(Monster monster) 
+    public override void OnExit() 
     {
         _lineRenderer.OffLine();
     }
+
 }
