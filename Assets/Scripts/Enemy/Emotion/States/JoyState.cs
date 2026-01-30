@@ -10,14 +10,6 @@ public class JoyState : Monster
 
     public override void OnEnter()
     {
-        _lineRenderer.OnLine();
-
-        if (ColorUtility.TryParseHtmlString(hexColor, out Color newColor))
-        {
-            Debug.Log(newColor.ToString());
-            _lineRenderer.Draw(InteractRange, newColor);
-        }
-
     }
 
     public override void UpdateState()
@@ -36,9 +28,9 @@ public class JoyState : Monster
     }
 
 
-    public override void OnExit() 
+    public override void OnExit()
     {
-        _lineRenderer.OffLine();
+
     }
 
 }

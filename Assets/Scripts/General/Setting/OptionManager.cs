@@ -44,29 +44,49 @@ public class OptionManager : MonoBehaviour
         SetSFXVolume(bgm);
         SetSFXVolume(sfx);
 
+        // 해상도 리스트 채우기
+        resolutions.Clear();
         foreach (Resolution res in Screen.resolutions)
         {
+            // 60Hz만 넣고 싶다면 이 조건을 유지하되, 만약 하나도 안 잡힐 경우를 대비해야 함
             if (res.refreshRateRatio.numerator == 60)
                 resolutions.Add(res);
         }
-        dropdown.options.Clear();
 
+        // [중요] 만약 60Hz 해상도가 하나도 없다면 모든 해상도를 그냥 다 넣음 (안전장치)
+        if (resolutions.Count == 0)
+        {
+            foreach (Resolution res in Screen.resolutions)
+                resolutions.Add(res);
+        }
+
+        dropdown.options.Clear();
         int optionNum = 0;
+        int currentResIndex = 0;
+
         foreach (Resolution item in resolutions)
         {
             TMP_Dropdown.OptionData optionData = new TMP_Dropdown.OptionData();
-            optionData.text = item.width + "x" + item.height + " " + item.refreshRateRatio + "hz";
+            optionData.text = $"{item.width}x{item.height} {item.refreshRateRatio.numerator}hz";
             dropdown.options.Add(optionData);
 
+            // 현재 스크린 해상도와 일치하는 인덱스 찾기
             if (item.width == Screen.width && item.height == Screen.height)
-                dropdown.value = optionNum;
+            {
+                currentResIndex = optionNum;
+            }
             optionNum++;
         }
+
+        // 드롭다운 값 설정 (이때 DropBoxOptionChange가 호출될 수 있음)
+        dropdown.value = currentResIndex;
+        resolutionNum = currentResIndex; // 현재 인덱스 동기화
         dropdown.RefreshShownValue();
 
-        int temp_fullscreen = PlayerPrefs.GetInt("FullScreen", 0);
-
-        Toggle.isOn = temp_fullscreen == 1 ? true : false;
+        // 풀스크린 토글 설정
+        int temp_fullscreen = PlayerPrefs.GetInt("FullScreen", 1); // 기본값 1(전체화면) 권장
+        screenMode = (temp_fullscreen == 1) ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed;
+        Toggle.isOn = (temp_fullscreen == 1);
 
     }
 
@@ -87,7 +107,18 @@ public class OptionManager : MonoBehaviour
 
     public void OkClick()
     {
-        Screen.SetResolution(resolutions[resolutionNum].width, resolutions[resolutionNum].height, screenMode);
+        // resolutions가 비어있지 않고, index가 0 이상이면서 개수보다 작을 때만 실행
+        if (resolutions != null && resolutionNum >= 0 && resolutionNum < resolutions.Count)
+        {
+            Screen.SetResolution(resolutions[resolutionNum].width,
+                                 resolutions[resolutionNum].height,
+                                 screenMode);
+        }
+        else
+        {
+            Debug.LogError($"해상도 인덱스 오류! 현재 index: {resolutionNum}, " +
+                           $"전체 개수: {(resolutions != null ? resolutions.Count : 0)}");
+        }
     }
 
 

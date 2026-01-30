@@ -42,11 +42,6 @@ public class JealousyState : Monster, IInteractable
             }
 
         }
-        else
-        {
-            _movement.Move();
-        }
-
 
     }
 

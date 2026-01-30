@@ -14,6 +14,12 @@ public class WaterRiseController : MonoBehaviour
     public SpriteRenderer _WaterSprite;
     public SpriteRenderer _BubbleSprite;
 
+    [Header("Status")]
+    [SerializeField] private int _currentStep = 0; // 현재 물의 단계 (0부터 시작)
+    public int CurrentStep => _currentStep; // 외부에서 읽기 전용으로 가져갈 수 있는 프로퍼티v
+
+
+    public static WaterRiseController Instance;
     private float _currentBubbleHeight;
     private float _currentWaterHeight;
     private float _currentWidth;
@@ -21,7 +27,6 @@ public class WaterRiseController : MonoBehaviour
     private float _currentY;
 
     // 제어 플래그
-    private bool _isMoving = false;      // 현재 물리적으로 이동 중인가?
     private bool _shouldContinue = true; // 다음 칸으로 계속 갈 것인가?
     private Coroutine _activeRoutine;
 
@@ -31,6 +36,7 @@ public class WaterRiseController : MonoBehaviour
         _currentWidth = _WaterSprite.size.x;
         _currentY = _WaterSprite.transform.position.y;
         _col = _WaterSprite.GetComponent<BoxCollider2D>();
+        Instance = this;
 
         UpdateVisuals();
 
@@ -65,24 +71,31 @@ public class WaterRiseController : MonoBehaviour
     {
         while (_shouldContinue)
         {
-            float currentTotal = _currentWaterHeight + _currentBubbleHeight;
-            float targetTotal;
-
+            // 1. 목표 단계(Step) 결정
+            int targetStep;
             if (isUpward)
-                targetTotal = Mathf.Min(currentTotal + stepHeight, maxHeight);
+                targetStep = _currentStep + 1; // 무조건 다음 단계로
             else
-                targetTotal = Mathf.Max(currentTotal - stepHeight, 0);
+                targetStep = _currentStep - 1; // 무조건 이전 단계로
 
-            if (Mathf.Approximately(currentTotal, targetTotal)) break;
+            // 2. 최대/최소 단계 제한
+            int maxStepCount = Mathf.FloorToInt(maxHeight / stepHeight);
+            targetStep = Mathf.Clamp(targetStep, 0, maxStepCount);
+
+            // 3. 목표 단계를 바탕으로 실제 목표 높이(targetTotal) 계산
+            float targetTotal = targetStep * stepHeight;
+
+            // 이미 목표 단계라면 종료
+            if (Mathf.Abs((_currentWaterHeight + _currentBubbleHeight) - targetTotal) < 0.001f) break;
 
             // [한 칸 이동 시작]
-            _isMoving = true;
-            while (!Mathf.Approximately(_currentWaterHeight + _currentBubbleHeight, targetTotal))
+            while (Mathf.Abs((_currentWaterHeight + _currentBubbleHeight) - targetTotal) > 0.001f)
             {
                 float step = riseSpeed * Time.deltaTime;
 
                 if (isUpward)
                 {
+                    // 상승 로직 (목표: targetTotal)
                     if (_currentBubbleHeight < bubbleMaxHeight)
                         _currentBubbleHeight = Mathf.MoveTowards(_currentBubbleHeight, bubbleMaxHeight, step);
                     else
@@ -90,30 +103,38 @@ public class WaterRiseController : MonoBehaviour
                 }
                 else
                 {
-                    if (_currentWaterHeight > 0)
+                    // 하강 로직 (목표: targetTotal)
+                    if (_currentWaterHeight > 0.001f)
                     {
+                        // 물부터 줄임 (목표 물 높이 = 목표 전체 높이 - 거품 높이)
                         float targetWater = Mathf.Max(0, targetTotal - _currentBubbleHeight);
                         _currentWaterHeight = Mathf.MoveTowards(_currentWaterHeight, targetWater, step);
                     }
                     else
-                        _currentBubbleHeight = Mathf.MoveTowards(_currentBubbleHeight, 0, step);
+                    {
+                        // 그 다음 거품 줄임
+                        _currentBubbleHeight = Mathf.MoveTowards(_currentBubbleHeight, targetTotal, step);
+                    }
                 }
 
                 UpdateVisuals();
                 yield return null;
             }
-            _isMoving = false;
             // [한 칸 이동 끝]
 
-            // 다음 칸으로 가기 전 대기 (이 사이에 StopMovement가 호출되면 다음 루프에서 while문이 종료됨)
+            // 4. 이동 완료 후 현재 단계 갱신
+            _currentStep = targetStep;
+
+            Debug.Log($"이동 완료! 현재 단계: {_currentStep}, 높이: {targetTotal}");
+
             yield return new WaitForSeconds(waitTime);
 
-            if (isUpward && (_currentWaterHeight + _currentBubbleHeight) >= maxHeight) break;
-            if (!isUpward && (_currentWaterHeight + _currentBubbleHeight) <= 0) break;
+            // 끝에 도달하면 루프 종료
+            if (isUpward && _currentStep >= maxStepCount) break;
+            if (!isUpward && _currentStep <= 0) break;
         }
         _activeRoutine = null;
     }
-
     void UpdateVisuals()
     {
         _WaterSprite.size = new Vector2(_currentWidth, _currentWaterHeight);
