@@ -10,8 +10,7 @@ using UnityEngine;
 public class HumidityManager : MonoBehaviour
 {
     private WaterRiseController _waterRiseController;
-    [SerializeField] private int _Humidity = 0;
-
+    public int _Humidity { get; private set; } = 0;
 
     public static HumidityManager Instance;
 
@@ -20,12 +19,6 @@ public class HumidityManager : MonoBehaviour
     {
         _waterRiseController = GetComponent<WaterRiseController>();
         Instance = this;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
 

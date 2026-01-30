@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class OutrageState : Monster
 {
     //*************************************************************
@@ -6,20 +8,37 @@ public class OutrageState : Monster
     // 확장성을 챙기기 위해 인터페이스 형식을 사용함
     //*************************************************************
 
+    [Header("세부 속성")]
+    public GameObject Fire;
+
     public override void OnEnter()
     {
         HumidityManager.Instance.DownHumidity();
-
     }
+
 
     public override void UpdateState()
     {
         _movement.Move();
+
+        if(HumidityManager.Instance._Humidity < 0 && WaterRiseController.Instance.CurrentStep <= 0)
+        {
+            Fire.SetActive(true);
+        }
+        else
+        {
+            Fire.SetActive(false);
+        }
+
     }
+
 
     public override void OnExit() 
     {
         HumidityManager.Instance.UpHumidity();
-
     }
+
+
+    
+
 }

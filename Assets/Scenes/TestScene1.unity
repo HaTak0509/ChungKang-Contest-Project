@@ -5031,37 +5031,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 553084634}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1585230684
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1585230685}
-  m_Layer: 0
-  m_Name: Fire
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1585230685
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1585230684}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1636512945}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1589927637
 GameObject:
   m_ObjectHideFlags: 0
@@ -5338,13 +5307,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d27c2e2e569a16141b67d212720a308d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  riseSpeed: 8
+  riseSpeed: 0.2
   stepHeight: 1
   waitTime: 1
-  maxHeight: 5
+  maxHeight: 20
   bubbleMaxHeight: 1
   _WaterSprite: {fileID: 1323652886}
   _BubbleSprite: {fileID: 1752353508}
+  _currentStep: 0
 --- !u!4 &1636512945
 Transform:
   m_ObjectHideFlags: 0
@@ -5360,7 +5330,6 @@ Transform:
   m_Children:
   - {fileID: 1323652887}
   - {fileID: 1752353509}
-  - {fileID: 1585230685}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1636512946
@@ -5375,7 +5344,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e5fd7396f1d27646816d55f696dec7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Humidity: 0
 --- !u!1 &1637522998
 GameObject:
   m_ObjectHideFlags: 0
@@ -6354,7 +6322,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6167176492246087643, guid: 8e92fe31b3ff4b344b6628c73861794e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2036103910}
   m_SourcePrefab: {fileID: 100100000, guid: 8e92fe31b3ff4b344b6628c73861794e, type: 3}
 --- !u!1 &1862988261
 GameObject:
@@ -7542,6 +7513,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2033960446}
   m_CullTransparentMesh: 1
+--- !u!1 &2036103891 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6167176492246087643, guid: 8e92fe31b3ff4b344b6628c73861794e, type: 3}
+  m_PrefabInstance: {fileID: 1807779179}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2036103910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2036103891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a736d8253e56bb343bd01c835faa6c30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monster: {fileID: 0}
 --- !u!1 &2046216139
 GameObject:
   m_ObjectHideFlags: 0
