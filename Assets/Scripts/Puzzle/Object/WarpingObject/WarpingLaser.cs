@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 public class WarpingLaser : MonoBehaviour
 {
     public bool active;
     
     private List<SpriteRenderer> puzzleObjects = new List<SpriteRenderer>();
-    private SpriteRenderer player;
+    private PlayerColor player;
 
     private void Awake()
     {
@@ -16,7 +17,7 @@ public class WarpingLaser : MonoBehaviour
 
     private void Update()
     {
-        if (!active) return; 
+        if (!active) return;
 
         foreach (var puzzleSp in puzzleObjects)
         {
@@ -28,19 +29,28 @@ public class WarpingLaser : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("PuzzleObject"))
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            player = collision.GetComponent<PlayerColor>();
+            player.LowerTransparency().Forget();
+        }
+        else if (collision.gameObject.CompareTag("PuzzleObject"))
         {
             puzzleObjects.Add(collision.gameObject.GetComponent<SpriteRenderer>());
-            Debug.Log(123);
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("PuzzleObject"))
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            player.UpperTransparency().Forget();
+            player = null;
+        }
+        else if (collision.gameObject.CompareTag("PuzzleObject"))
         {
             puzzleObjects.Remove(collision.gameObject.GetComponent<SpriteRenderer>());
-            player = null;
+
         }
     }
 }

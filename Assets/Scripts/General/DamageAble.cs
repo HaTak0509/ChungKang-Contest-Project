@@ -6,7 +6,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Damageable : MonoBehaviour
 {
-    [SerializeField] private float knockbackForce = 12f;
+    [SerializeField] private const float knockbackForce = 12f;
     [SerializeField] private float knockbackDuration = 0.25f;
     [SerializeField] private bool startInvincible = false;
 
@@ -34,13 +34,13 @@ public class Damageable : MonoBehaviour
         if (startInvincible) SetInvincible(999f);
     }
 
-    public void TakePushFromPosition(Vector2 attackerPos)
+    public void TakePushFromPosition(Vector2 attackerPos, float AttckForce = knockbackForce)
     {
         Vector2 dir = ((Vector2)transform.position - attackerPos).normalized;
-        ApplyKnockback(dir);
+        ApplyKnockback(dir, AttckForce);
     }
 
-    private void ApplyKnockback(Vector2 dir)
+    private void ApplyKnockback(Vector2 dir, float AttckForce)
     {
         if (_isKnockback) return;
 
@@ -48,7 +48,7 @@ public class Damageable : MonoBehaviour
             dir.y = 0.4f;
 
         rb.velocity = Vector2.zero;
-        rb.AddForce(dir * knockbackForce, ForceMode2D.Impulse);
+        rb.AddForce(dir * AttckForce, ForceMode2D.Impulse);
 
         if (_animator != null)
         {
