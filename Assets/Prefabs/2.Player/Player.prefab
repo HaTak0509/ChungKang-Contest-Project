@@ -559,6 +559,7 @@ MonoBehaviour:
   dashForce: 10
   dashTime: 0.15
   dashCooldown: 0.8
+  upgradeDash: 0
   dashVitality: 1
   dashing: 0
 --- !u!114 &2784434259156198457
@@ -612,7 +613,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07574466d5e05b94e8cac906115a350d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockbackForce: 12
+  knockbackForce: 3
   knockbackDuration: 0.25
   startInvincible: 0
   onInvincibleEnd:

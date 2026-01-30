@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ResentmentState : Monster
@@ -16,31 +15,13 @@ public class ResentmentState : Monster
     public void OnEnter(Monster monster)
     {
 
-        if (monster.GetComponent<CircleCollider2D>() == null)
-        {
-            _circleCollider2D = monster.AddComponent<CircleCollider2D>();
-            _circleCollider2D.radius = monster.InteractRange;
-            _circleCollider2D.isTrigger = true;
-        }
-        else
-        {
-            _circleCollider2D = monster.GetComponent<CircleCollider2D>();
-            _circleCollider2D.enabled = true;
-            _circleCollider2D.isTrigger = true;
-        }
+        _lineRenderer.OnLine();
 
-        if (monster.GetComponent<Flotation>() == null)
+        if (ColorUtility.TryParseHtmlString(hexColor, out Color newColor))
         {
-            _flotation = monster.AddComponent<Flotation>();
+            Debug.Log(newColor.ToString());
+            _lineRenderer.Draw(InteractRange, newColor);
         }
-        else
-        {
-            _flotation = monster.GetComponent<Flotation>();
-            _flotation.enabled = true;
-        }
-
-
-
 
     }
     public void OnAction(Monster monster)
@@ -55,11 +36,7 @@ public class ResentmentState : Monster
 
     public void OnExit(Monster monster)
     {
-
-        _circleCollider2D.enabled = false;
-        _flotation.enabled = false;
-
-
+        _lineRenderer.OffLine();
     }
 
 

@@ -6169,11 +6169,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3502994284037773748, guid: 8e92fe31b3ff4b344b6628c73861794e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.88
+      value: -5.89
       objectReference: {fileID: 0}
     - target: {fileID: 3502994284037773748, guid: 8e92fe31b3ff4b344b6628c73861794e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.23
+      value: -1.55
       objectReference: {fileID: 0}
     - target: {fileID: 3502994284037773748, guid: 8e92fe31b3ff4b344b6628c73861794e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6307,10 +6307,6 @@ PrefabInstance:
       propertyPath: groundCheckDistance
       value: 0.09
       objectReference: {fileID: 0}
-    - target: {fileID: 8437455701824339484, guid: 8e92fe31b3ff4b344b6628c73861794e, type: 3}
-      propertyPath: knockbackForce
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 8484494480834586933, guid: 8e92fe31b3ff4b344b6628c73861794e, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -6322,10 +6318,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6167176492246087643, guid: 8e92fe31b3ff4b344b6628c73861794e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2036103910}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e92fe31b3ff4b344b6628c73861794e, type: 3}
 --- !u!1 &1862988261
 GameObject:
@@ -7513,24 +7506,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2033960446}
   m_CullTransparentMesh: 1
---- !u!1 &2036103891 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6167176492246087643, guid: 8e92fe31b3ff4b344b6628c73861794e, type: 3}
-  m_PrefabInstance: {fileID: 1807779179}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2036103910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2036103891}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a736d8253e56bb343bd01c835faa6c30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  monster: {fileID: 0}
 --- !u!1 &2046216139
 GameObject:
   m_ObjectHideFlags: 0

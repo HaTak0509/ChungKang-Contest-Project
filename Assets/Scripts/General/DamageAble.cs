@@ -6,7 +6,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Damageable : MonoBehaviour
 {
-    [SerializeField] private const float knockbackForce = 12f;
+    [SerializeField] private float knockbackForce = 12f;
     [SerializeField] private float knockbackDuration = 0.25f;
     [SerializeField] private bool startInvincible = false;
 
@@ -34,7 +34,13 @@ public class Damageable : MonoBehaviour
         if (startInvincible) SetInvincible(999f);
     }
 
-    public void TakePushFromPosition(Vector2 attackerPos, float AttckForce = knockbackForce)
+
+    public void TakePushFromPosition(Vector2 attackerPos) //힘을 따로 수정하지 않을 때, 기존 수치 사용
+    {
+        TakePushFromPosition(attackerPos, knockbackForce);
+    }
+
+    public void TakePushFromPosition(Vector2 attackerPos, float AttckForce) //힘을 따로 수정할때 사용 됨
     {
         Vector2 dir = ((Vector2)transform.position - attackerPos).normalized;
         ApplyKnockback(dir, AttckForce);
