@@ -5,6 +5,8 @@ using System.Threading;
 
 public class PlayerColor : MonoBehaviour
 {
+    public Color color;
+
     private SpriteRenderer sprite;
     private CancellationTokenSource cts;
 
@@ -28,7 +30,7 @@ public class PlayerColor : MonoBehaviour
     {
         RestartToken();
 
-        Color color = sprite.color;
+        color = sprite.color;
 
         try
         {
@@ -50,7 +52,7 @@ public class PlayerColor : MonoBehaviour
     {
         RestartToken();
 
-        Color color = sprite.color;
+        color = sprite.color;
 
         try
         {

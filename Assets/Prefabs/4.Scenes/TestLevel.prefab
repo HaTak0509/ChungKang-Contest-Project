@@ -1085,7 +1085,7 @@ GameObject:
   - component: {fileID: 4469572464479449543}
   - component: {fileID: 5432518198418366869}
   - component: {fileID: 8906305938737291050}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Crack Activator
   m_TagString: PuzzleObject
   m_Icon: {fileID: 0}
@@ -1101,7 +1101,7 @@ Transform:
   m_GameObject: {fileID: 710845764364196484}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.12, y: -4.56, z: 0}
+  m_LocalPosition: {x: 2.93, y: -4.12, z: 0}
   m_LocalScale: {x: 0.415625, y: 1.3125, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6071,7 +6071,7 @@ Transform:
   m_GameObject: {fileID: 7344179180194207711}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.26, y: -3.67, z: 0.072329015}
+  m_LocalPosition: {x: 7.48, y: 0.73, z: 0.072329015}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -7547,6 +7547,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Laser
       objectReference: {fileID: 0}
+    - target: {fileID: 9010813440342380151, guid: fda1a6e65f836b8449dfdd59b9f1ebea, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7565,6 +7569,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8351143669756863495}
     m_Modifications:
+    - target: {fileID: 348398188709658558, guid: 8e92fe31b3ff4b344b6628c73861794e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919629146413976029, guid: 8e92fe31b3ff4b344b6628c73861794e, type: 3}
+      propertyPath: m_Name
+      value: Transparency
+      objectReference: {fileID: 0}
     - target: {fileID: 2903830637382213221, guid: 8e92fe31b3ff4b344b6628c73861794e, type: 3}
       propertyPath: jumpForce
       value: 3
@@ -7681,6 +7693,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 2.36
       objectReference: {fileID: 0}
+    - target: {fileID: 5169697592911765029, guid: 8e92fe31b3ff4b344b6628c73861794e, type: 3}
+      propertyPath: m_Name
+      value: TransparencyUI
+      objectReference: {fileID: 0}
     - target: {fileID: 5171612272308217468, guid: 8e92fe31b3ff4b344b6628c73861794e, type: 3}
       propertyPath: pushSpeed
       value: 2
@@ -7717,22 +7733,56 @@ PrefabInstance:
       propertyPath: knockbackForce
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8484494480834586933, guid: 8e92fe31b3ff4b344b6628c73861794e, type: 3}
+      propertyPath: trBar
+      value: 
+      objectReference: {fileID: 5961093899519893397}
+    - target: {fileID: 9100535149151874119, guid: 8e92fe31b3ff4b344b6628c73861794e, type: 3}
+      propertyPath: m_Name
+      value: TransparencyFrame
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6167176492246087643, guid: 8e92fe31b3ff4b344b6628c73861794e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9082668046106875250}
   m_SourcePrefab: {fileID: 100100000, guid: 8e92fe31b3ff4b344b6628c73861794e, type: 3}
 --- !u!4 &4103166972930438169 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3502994284037773748, guid: 8e92fe31b3ff4b344b6628c73861794e, type: 3}
   m_PrefabInstance: {fileID: 606932765965397421}
   m_PrefabAsset: {fileID: 0}
+--- !u!224 &5961093899519893397 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6545504264952230456, guid: 8e92fe31b3ff4b344b6628c73861794e, type: 3}
+  m_PrefabInstance: {fileID: 606932765965397421}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6771853060170717814 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6167176492246087643, guid: 8e92fe31b3ff4b344b6628c73861794e, type: 3}
+  m_PrefabInstance: {fileID: 606932765965397421}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9082668046106875250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6771853060170717814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04467ef21516fe94fa1443f39a4cd078, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &8373211525961172700 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8962125495100959601, guid: 8e92fe31b3ff4b344b6628c73861794e, type: 3}
   m_PrefabInstance: {fileID: 606932765965397421}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 6771853060170717814}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad9893ff3cb884744bf4f8b18077e2e8, type: 3}
@@ -7935,6 +7985,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1744695508881042882, guid: fda1a6e65f836b8449dfdd59b9f1ebea, type: 3}
+      propertyPath: m_Size.x
+      value: 14.69
+      objectReference: {fileID: 0}
     - target: {fileID: 4931618495256408363, guid: fda1a6e65f836b8449dfdd59b9f1ebea, type: 3}
       propertyPath: playerDash
       value: 
@@ -7943,17 +7997,76 @@ PrefabInstance:
       propertyPath: m_Name
       value: WarpingLaser
       objectReference: {fileID: 0}
+    - target: {fileID: 9010813440342380151, guid: fda1a6e65f836b8449dfdd59b9f1ebea, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010813440342380151, guid: fda1a6e65f836b8449dfdd59b9f1ebea, type: 3}
+      propertyPath: m_TagString
+      value: PuzzleObject
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4931618495256408363, guid: fda1a6e65f836b8449dfdd59b9f1ebea, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9010813440342380151, guid: fda1a6e65f836b8449dfdd59b9f1ebea, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 3634333929159663600}
+    - targetCorrespondingSourceObject: {fileID: 9010813440342380151, guid: fda1a6e65f836b8449dfdd59b9f1ebea, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7230346095722452682}
   m_SourcePrefab: {fileID: 100100000, guid: fda1a6e65f836b8449dfdd59b9f1ebea, type: 3}
 --- !u!4 &1042166563652788384 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1521531877154821685, guid: fda1a6e65f836b8449dfdd59b9f1ebea, type: 3}
   m_PrefabInstance: {fileID: 1975696885489301141}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7379080698776467682 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9010813440342380151, guid: fda1a6e65f836b8449dfdd59b9f1ebea, type: 3}
+  m_PrefabInstance: {fileID: 1975696885489301141}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &3634333929159663600
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7379080698776467682}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &7230346095722452682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7379080698776467682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cb2f3b2a9f86ab4ebcd4194729ef7bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  active: 0
 --- !u!1001 &2091766161747546721
 PrefabInstance:
   m_ObjectHideFlags: 0
