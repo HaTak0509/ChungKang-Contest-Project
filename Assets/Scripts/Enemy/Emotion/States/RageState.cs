@@ -38,6 +38,9 @@ public class RageState : Monster
 
     public override void UpdateState()
     {
+        if(!_isDashing && !_isReadying)
+           _movement.Move();
+
         // 1. 플레이어 감지 시 유지 시간 갱신
         if (IsPlayerInRange())
         {
