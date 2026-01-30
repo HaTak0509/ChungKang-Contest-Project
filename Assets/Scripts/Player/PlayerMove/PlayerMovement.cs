@@ -45,7 +45,8 @@ public class PlayerMovement : MonoBehaviour
 
         _animator.SetBool(AnimationStrings.IsPushing, _pushing.pushing);
 
-        if (_pushing.isPushing && Mathf.Sign(_moveInput.x) != Mathf.Sign(_pushing.pushingDirection)) return;
+        if (_pushing.isPushing && _moveInput.x != 0 && Mathf.Sign(_moveInput.x) != Mathf.Sign(_pushing.pushingDirection))
+            return;
 
         float desiredX = 0f;
         

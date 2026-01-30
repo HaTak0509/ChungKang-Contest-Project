@@ -33,18 +33,6 @@ public class Pushing : MonoBehaviour
             return;
         }
 
-        float toBox = pushingObj.transform.position.x - transform.position.x;
-
-        if (toBox > 0)
-        {
-            pushingDirection = 1;
-        }
-        else if (toBox < 0)
-        {
-            pushingDirection = -1;
-        }
-
-
         if (Mathf.Sign(playerVelX) == pushingDirection)
         {
             pushing = true;
@@ -57,23 +45,16 @@ public class Pushing : MonoBehaviour
         }
     }
 
+    public void PushingDirection()
+    {
+        pushingDirection = ((int)Mathf.Sign(pushingObj.transform.position.x - transform.position.x));
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.TryGetComponent(out PushingObject obj))
         {
             pushingObj = obj;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.TryGetComponent(out PushingObject obj))
-        {
-            if (pushingObj == obj)
-            {
-                pushingObj.Stop();
-                pushingObj = null;
-            }
         }
     }
 }

@@ -1,6 +1,6 @@
+using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UIElements.Experimental;
 
 public class PlayerDash : MonoBehaviour
 {
@@ -8,6 +8,7 @@ public class PlayerDash : MonoBehaviour
     [SerializeField] float dashTime = 0.15f;
     [SerializeField] float dashCooldown = 0.8f;
     
+    public bool upgradeDash = false;
     public bool dashVitality = true;
     public bool dashing;
 

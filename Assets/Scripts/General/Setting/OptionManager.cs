@@ -70,7 +70,6 @@ public class OptionManager : MonoBehaviour
 
     }
 
-    // --- 비디오 설정 함수들 ---
     public void DropBoxOptionChange(int index)
     {
         resolutionNum = index;

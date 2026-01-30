@@ -5,6 +5,7 @@ public class PushingObject : MonoBehaviour, IInteractable
     public bool isActive;
 
     private Rigidbody2D rb;
+    private Pushing pushing;
 
     private void Awake()
     {
@@ -14,6 +15,15 @@ public class PushingObject : MonoBehaviour, IInteractable
     public void Interact()
     {
         isActive = !isActive;
+        pushing.PushingDirection();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            pushing = collision.GetComponent<Pushing>();
+        }
     }
 
     // Player의 x velocity를 그대로 복사

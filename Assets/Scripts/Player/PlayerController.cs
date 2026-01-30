@@ -48,12 +48,11 @@ public class PlayerController : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         if (moveLimit) return;
-
         moveInput = context.ReadValue<Vector2>();
 
         if (pushing.isPushing)
         {
-            if (Mathf.Sign(moveInput.x) != Mathf.Sign(pushing.pushingDirection))
+            if (moveInput.x != 0 && Mathf.Sign(moveInput.x) != Mathf.Sign(pushing.pushingDirection))
             {
                 moveInput = Vector2.zero;
             }
