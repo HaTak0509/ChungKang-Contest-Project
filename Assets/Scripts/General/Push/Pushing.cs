@@ -1,4 +1,6 @@
+using UnityEditor.Tilemaps;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Pushing : MonoBehaviour
 {
@@ -8,6 +10,7 @@ public class Pushing : MonoBehaviour
 
     private PushingObject pushingObj;
     private Rigidbody2D playerRb;
+    private BoxCollider2D boxCol;
 
     private void Awake()
     {
@@ -29,6 +32,7 @@ public class Pushing : MonoBehaviour
         if (Mathf.Abs(playerVelX) < 0.01f)
         {
             pushing = false;
+            boxCol.enabled = true;
             pushingObj.Stop();
             return;
         }
@@ -36,11 +40,13 @@ public class Pushing : MonoBehaviour
         if (Mathf.Sign(playerVelX) == pushingDirection)
         {
             pushing = true;
+            boxCol.enabled = false;
             pushingObj.CopyVelocity(playerVelX);
         }
         else
         {
             pushing = false;
+            boxCol.enabled = true;
             pushingObj.Stop();
         }
     }
@@ -55,6 +61,7 @@ public class Pushing : MonoBehaviour
         if (collision.gameObject.TryGetComponent(out PushingObject obj))
         {
             pushingObj = obj;
+            boxCol = collision.GetComponent<BoxCollider2D>();
         }
     }
 }

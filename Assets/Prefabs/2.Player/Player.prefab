@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &9210808427864663045
 RectTransform:
   m_ObjectHideFlags: 0
@@ -115,8 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d23851f207442444bdfb05d442b896f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ScaleBar: {fileID: 6545504264952230456}
-  _ScaleUI: {fileID: 5169697592911765029}
+  trBar: {fileID: 6545504264952230456}
 --- !u!1 &919629146413976029
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,7 +128,7 @@ GameObject:
   - component: {fileID: 1832969421740336680}
   - component: {fileID: 3073995719254554702}
   m_Layer: 7
-  m_Name: Scale
+  m_Name: Transparency
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -202,7 +201,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5580063340596417709}
   m_Layer: 7
-  m_Name: SizeUI
+  m_Name: TransparencyUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -255,6 +254,7 @@ GameObject:
   - component: {fileID: 319888312916262290}
   - component: {fileID: 4880081722138969027}
   - component: {fileID: 895852594745656090}
+  - component: {fileID: 7284838188520216758}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -270,9 +270,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6167176492246087643}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.61, y: 0.86, z: 0.072329015}
-  m_LocalScale: {x: 3.18, y: 3.18, z: 3.18}
+  m_LocalScale: {x: 1.85, y: 1.85, z: 1.85}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5054682459755157137}
@@ -521,8 +521,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.04, y: 0.02}
-  m_Size: {x: 0.23, y: 0.55}
+  m_Offset: {x: -0.07, y: 0.03}
+  m_Size: {x: 0.3, y: 0.84}
   m_Direction: 0
 --- !u!114 &1187001829514437971
 MonoBehaviour:
@@ -586,7 +586,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f771770d13863b4e80af0785dd968d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 4
+  jumpForce: 3
 --- !u!114 &3946258685449152378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -599,8 +599,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c4806d8560220b4bb2d111495d34077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 6
-  pushingSpeed: 4
+  walkSpeed: 4
+  pushingSpeed: 2
 --- !u!114 &8437455701824339484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -649,7 +649,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 320
-  groundCheckDistance: 0.1
+  groundCheckDistance: 0.09
   wallCheckDistance: 0.07
   showDebugRays: 1
 --- !u!114 &3465237533168210923
@@ -702,6 +702,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &895852594745656090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -716,6 +717,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Scale: 100
   _MinScale: 20
+--- !u!114 &7284838188520216758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6167176492246087643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04467ef21516fe94fa1443f39a4cd078, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &6527403618304378543
 GameObject:
   m_ObjectHideFlags: 0
@@ -734,7 +748,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5054682459755157137
 Transform:
   m_ObjectHideFlags: 0
@@ -745,7 +759,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.35, y: 1.35, z: 1.35}
+  m_LocalScale: {x: 2.36, y: 2.36, z: 2.36}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 3502994284037773748}
@@ -861,7 +875,7 @@ GameObject:
   - component: {fileID: 1262933400195941407}
   - component: {fileID: 1955883584813331882}
   m_Layer: 7
-  m_Name: ScaleFrame
+  m_Name: TransparencyFrame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

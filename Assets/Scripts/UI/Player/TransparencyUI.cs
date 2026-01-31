@@ -1,31 +1,47 @@
 using UnityEngine;
 using System.Collections;
 using Cysharp.Threading.Tasks;
+using static UnityEngine.InputSystem.Controls.AxisControl;
 
 public class TransparencyUI : MonoBehaviour
 {
     public static TransparencyUI Instance { get; private set;}
 
-    [Header("Scale_ UI")]
     public RectTransform trBar;
-    public GameObject trUI;
 
+    private float _currentMax;
     private float _MaxTrHeight;
-    private PlayerColor _playerColor;
+    private SpriteRenderer _playerColor;
 
 
     private void Awake()
     {
         Instance = this;
 
-        _playerColor = GetComponent<PlayerColor>();
+        _playerColor = GetComponentInParent<SpriteRenderer>();
 
         _MaxTrHeight = trBar.sizeDelta.y;
         trBar.sizeDelta = new Vector2(trBar.sizeDelta.x, _MaxTrHeight);
+        _currentMax = 1f;
+    }
+
+    private void Update()
+    {
+        if (_playerColor != null)
+        {
+            CheckTransparencyBar();
+        }
     }
 
     public void CheckTransparencyBar()
     {
-        float currentTransparency = _playerColor.color.a;
+        float uiAlpha = Mathf.InverseLerp(0.1f, 1f, _playerColor.color.a);
+
+        // alpha에 따라 최대값이 줄어들게
+        _currentMax = Mathf.Clamp01(uiAlpha);
+
+        // 실제 UI 높이 계산
+        float height = Mathf.Lerp(trBar.sizeDelta.y, _MaxTrHeight * _currentMax, Time.deltaTime);
+        trBar.sizeDelta = new Vector2(trBar.sizeDelta.x, height);
     }
 }

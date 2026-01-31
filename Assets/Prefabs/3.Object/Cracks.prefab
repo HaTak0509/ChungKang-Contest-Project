@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5986185804028345261}
   - component: {fileID: 1187517815998552519}
   - component: {fileID: 4787781100537847342}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Crack1
   m_TagString: Crack
   m_Icon: {fileID: 0}
@@ -96,7 +96,8 @@ MonoBehaviour:
   activationCrack: {fileID: 3039545780698077732}
   deactivationCrack: {fileID: 6806855085974110075}
   closeCrack: {fileID: 8291273296796176940}
-  _openLimit: 5
+  openLimit: 1
+  isActivated: 0
 --- !u!1 &3039545780698077732
 GameObject:
   m_ObjectHideFlags: 0
@@ -190,9 +191,11 @@ GameObject:
   m_Component:
   - component: {fileID: 5655800229052015288}
   - component: {fileID: 3949199053578405471}
+  - component: {fileID: 4565051301980403918}
+  - component: {fileID: 2985832507398943345}
   m_Layer: 9
   m_Name: Deactivation Crack1
-  m_TagString: Untagged
+  m_TagString: PuzzleObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -274,9 +277,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6927848886991996311}
   - component: {fileID: 7089387127711029085}
+  - component: {fileID: 7452233980577324281}
+  - component: {fileID: 875387461473385421}
   m_Layer: 9
   m_Name: CloseCrack1
-  m_TagString: Untagged
+  m_TagString: PuzzleObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -372,7 +377,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8347819550002978213}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.04, y: -3.88, z: 0.07232901}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -435,5 +440,113 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2137952165815561883, guid: 0146a143da60b1e4b95ba2b6fbf5dd35, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4565051301980403918}
+    - targetCorrespondingSourceObject: {fileID: 2137952165815561883, guid: 0146a143da60b1e4b95ba2b6fbf5dd35, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2985832507398943345}
+    - targetCorrespondingSourceObject: {fileID: 3516682020368237516, guid: 0146a143da60b1e4b95ba2b6fbf5dd35, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7452233980577324281}
+    - targetCorrespondingSourceObject: {fileID: 3516682020368237516, guid: 0146a143da60b1e4b95ba2b6fbf5dd35, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 875387461473385421}
   m_SourcePrefab: {fileID: 100100000, guid: 0146a143da60b1e4b95ba2b6fbf5dd35, type: 3}
+--- !u!58 &4565051301980403918
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6806855085974110075}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1
+--- !u!114 &2985832507398943345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6806855085974110075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc41ee092c4c514409658dd0bd59ec98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Crack: {fileID: 4787781100537847342}
+--- !u!58 &7452233980577324281
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8291273296796176940}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!114 &875387461473385421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8291273296796176940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc41ee092c4c514409658dd0bd59ec98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Crack: {fileID: 4787781100537847342}
