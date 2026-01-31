@@ -1,0 +1,78 @@
+using UnityEngine;
+
+public class CameraController : MonoBehaviour
+{
+    [Header("추적 설정")]
+    [SerializeField] private Transform target;      // 따라다닐 플레이어
+    [SerializeField] private float smoothing = 5f;  // 추적 부드러움 정도
+    [SerializeField] private Vector3 offset = new Vector3(0, 0, -10); // 카메라 깊이 유지
+
+    [Header("구역 제한 (Confiner)")]
+    [SerializeField] private Vector2 minBoundary;   // 카메라가 갈 수 있는 최소 X, Y
+    [SerializeField] private Vector2 maxBoundary;   // 카메라가 갈 수 있는 최대 X, Y
+
+    [Header("줌(Zoom) 설정")]
+    [SerializeField] private float normalSize = 5f; // 플레이어 100일 때 크기
+    [SerializeField] private float zoomedSize = 3f; // 플레이어 20일 때 크기
+    [SerializeField] private float zoomSpeed = 5f;
+
+    private Camera _cam;
+
+    void Start()
+    {
+        _cam = GetComponent<Camera>();
+
+        // 타겟이 설정 안 되어 있다면 인스턴스로 찾기
+        if (target == null && PlayerScale.Instance != null)
+            target = PlayerScale.Instance.transform;
+    }
+
+    // 카메라 이동은 모든 Update가 끝난 뒤 LateUpdate에서 처리하는 것이 떨림 방지에 좋습니다.
+    void LateUpdate()
+    {
+        if (target == null) return;
+
+        HandleMovement();
+        HandleZoom();
+    }
+
+    private void HandleMovement()
+    {
+        // 1. 목표 위치 계산
+        Vector3 targetPos = target.position + offset;
+
+        // 2. 구역 제한 (Clamp) 적용
+        // 카메라의 절반 크기(OrthographicSize)를 고려해야 화면 끝이 구역 밖으로 안 나갑니다.
+        float camHeight = _cam.orthographicSize;
+        float camWidth = camHeight * _cam.aspect;
+
+        float clampedX = Mathf.Clamp(targetPos.x, minBoundary.x + camWidth, maxBoundary.x - camWidth);
+        float clampedY = Mathf.Clamp(targetPos.y, minBoundary.y + camHeight, maxBoundary.y - camHeight);
+
+        Vector3 clampedPos = new Vector3(clampedX, clampedY, targetPos.z);
+
+        // 3. 부드러운 이동 (Lerp)
+        transform.position = Vector3.Lerp(transform.position, clampedPos, Time.deltaTime * smoothing);
+    }
+
+    private void HandleZoom()
+    {
+        // PlayerScale 스크립트와 연동 (100 -> 1.0, 20 -> 0.0)
+        float t = (PlayerScale.Instance._Scale - 20f) / (100f - 20f);
+
+        // 비율에 따라 줌 크기 결정
+        float targetSize = Mathf.Lerp(zoomedSize, normalSize, t);
+
+        // 부드럽게 카메라 렌즈 크기 변경
+        _cam.orthographicSize = Mathf.Lerp(_cam.orthographicSize, targetSize, Time.deltaTime * zoomSpeed);
+    }
+
+    // 에디터 뷰에서 제한 구역을 시각적으로 확인하기 위한 기능
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Vector3 center = new Vector3((minBoundary.x + maxBoundary.x) / 2, (minBoundary.y + maxBoundary.y) / 2, 0);
+        Vector3 size = new Vector3(maxBoundary.x - minBoundary.x, maxBoundary.y - minBoundary.y, 1);
+        Gizmos.DrawWireCube(center, size);
+    }
+}
