@@ -4,8 +4,7 @@ using UnityEngine;
 public class PlayerScale : MonoBehaviour
 {
 
-    [Header("디버깅용 표시")]
-    [SerializeField] float _Scale = 100;
+    public float _Scale { get; private set; } = 100;
     private float _MaxScale = 100;
     private bool _isDown = false;
 
