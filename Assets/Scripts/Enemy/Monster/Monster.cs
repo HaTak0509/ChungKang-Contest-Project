@@ -65,6 +65,7 @@ public class Monster : MonoBehaviour
 
     public void TwistMob()
     {
+        if (TwistMonster == null) return;
         OnExit();
         gameObject.SetActive(false);
         TwistMonster.SetActive(true);
