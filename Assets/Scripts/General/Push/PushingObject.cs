@@ -12,6 +12,11 @@ public class PushingObject : MonoBehaviour, IInteractable
         rb = GetComponent<Rigidbody2D>();
     }
 
+    private void Update()
+    {
+        
+    }
+
     public void Interact()
     {
         isActive = !isActive;
