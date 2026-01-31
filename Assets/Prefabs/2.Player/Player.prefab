@@ -557,9 +557,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dashForce: 10
+  upgradeDashForce: 12
   dashTime: 0.15
-  dashCooldown: 0.8
-  upgradeDash: 0
+  dashCooldown: 0.5
+  upgradeDash: 1
   dashVitality: 1
   dashing: 0
 --- !u!114 &2784434259156198457
@@ -715,7 +716,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e68274f667284be449f67b090623bfd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Scale: 100
   _MinScale: 20
 --- !u!114 &7284838188520216758
 MonoBehaviour:
