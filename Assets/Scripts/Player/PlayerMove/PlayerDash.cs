@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerDash : MonoBehaviour
 {
-    [SerializeField] float DashForce = 10f;
+    [SerializeField] float dashForce = 10f;
     [SerializeField] float upgradeDashForce = 12f;
     [SerializeField] float dashTime = 0.15f;
     [SerializeField] float dashCooldown = 0.5f;
@@ -31,8 +31,8 @@ public class PlayerDash : MonoBehaviour
 
     private void Update()
     {
-        if (upgradeDash) DashForce = upgradeDashForce;
-        else DashForce = 10f;
+        if (upgradeDash) dashForce = upgradeDashForce;
+        else dashForce = 10f;
     }
 
     public void TryDash()
