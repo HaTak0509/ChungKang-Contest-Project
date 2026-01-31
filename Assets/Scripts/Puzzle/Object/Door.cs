@@ -18,7 +18,6 @@ public class Door : MonoBehaviour
     {
         currentState = true;
         collider.isTrigger = true;
-        gameObject.tag = "Untagged";
         gameObject.layer = LayerMask.NameToLayer("Default");
     }
 
@@ -26,7 +25,6 @@ public class Door : MonoBehaviour
     {
         currentState = false;
         collider.isTrigger = false;
-        gameObject.tag = "PuzzleObject";
         gameObject.layer = LayerMask.NameToLayer("Ground");
     }
 }

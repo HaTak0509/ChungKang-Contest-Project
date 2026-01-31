@@ -45,7 +45,7 @@ public class Platform : MonoBehaviour
         if (!IsTopCollision(collision)) return;
 
         if (collision.gameObject.CompareTag("Player") ||
-            collision.gameObject.CompareTag("LightBox"))
+            collision.gameObject.layer == LayerMask.NameToLayer("Box"))
         {
             pressCount++;
 
@@ -61,7 +61,7 @@ public class Platform : MonoBehaviour
     void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player") ||
-            collision.gameObject.CompareTag("LightBox"))
+            collision.gameObject.layer == LayerMask.NameToLayer("Box"))
         {
             pressCount = Mathf.Max(pressCount - 1, 0);
 
