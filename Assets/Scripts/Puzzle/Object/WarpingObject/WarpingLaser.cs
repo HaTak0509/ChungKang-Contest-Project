@@ -1,120 +1,152 @@
-using System.Collections.Generic;
-using UnityEngine;
 using Cysharp.Threading.Tasks;
 using System;
+using System.Collections.Generic;
 using System.Threading;
+using UnityEngine;
 
 public class WarpingLaser : MonoBehaviour
 {
     public bool active;
-
-    private List<SpriteRenderer> puzzleObjects = new List<SpriteRenderer>();
-    private PlayerColor player;
+    
+    private List<SpriteRenderer> puzzleObjectSp = new List<SpriteRenderer>();
+    private List<GameObject> puzzleObjects = new List<GameObject>();
     private CancellationTokenSource cts;
+    private PlayerColor currentPlayer;
 
     private void OnEnable()
     {
         cts = new CancellationTokenSource();
     }
 
+    private void OnDisable()
+    {
+        cts?.Cancel();
+        cts?.Dispose();
+        cts = null; 
+        RestoreAllTransparencyAndColliders();
+        currentPlayer = null;
+    }
+
     private void Update()
     {
         if (active)
         {
-            ObjectLowerTransparency();
+            LowerAllTransparencyAndDisableColliders();
             active = false;
         }
     }
 
-    private void OnDisable()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        ObjectUpperTransparency();
-
-        if (player != null)
+        if (other.CompareTag("Player") && active)
         {
-            player.UpperTransparency().Forget();
-            player = null;
+            if (currentPlayer != null) return;
+            currentPlayer = other.GetComponent<PlayerColor>();
+            if (currentPlayer != null)
+                currentPlayer.LowerTransparency().Forget();
         }
-
-        puzzleObjects.Clear();
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
+        else if (other.CompareTag("PuzzleObject"))
         {
-            player = collision.GetComponent<PlayerColor>();
-            player.LowerTransparency().Forget();
-        }
-        else if (collision.gameObject.CompareTag("PuzzleObject"))
-        {
-            puzzleObjects.Add(collision.gameObject.GetComponent<SpriteRenderer>());
+            var ob = other.gameObject;
+            var sp = other.GetComponent<SpriteRenderer>();
+            
+            if (sp != null && ob != null && !puzzleObjectSp.Contains(sp))
+            {
+                puzzleObjectSp.Add(sp);
+                puzzleObjects.Add(ob);
+            }
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D other)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            player.UpperTransparency().Forget();
-            player = null;
-        }
-        else if (collision.gameObject.CompareTag("PuzzleObject"))
-        {
-            ObjectUpperTransparency();
-        }
-    }
-
-    private void ObjectUpperTransparency()
-    {
-        foreach (var puzzleSp in puzzleObjects)
-        {
-            TransparencyUpper(puzzleSp).Forget();
-        }
-
-        puzzleObjects.Clear();
-    }
-
-    private void ObjectLowerTransparency()
-    {
-        foreach (var puzzleSp in puzzleObjects)
-        {
-            TransparencyLower(puzzleSp).Forget();
+            if (currentPlayer != null)
+            {
+                currentPlayer.UpperTransparency().Forget();
+                currentPlayer = null;
+            }
         }
     }
 
-    private async UniTask TransparencyUpper(SpriteRenderer puzzleObjects)
+    private async void LowerAllTransparencyAndDisableColliders()
     {
-        Color color = puzzleObjects.color;
+        if (puzzleObjectSp.Count == 0) return;
 
-        while (puzzleObjects.color.a < 1f)
+        var puzzleSp = puzzleObjectSp.ToArray();
+        var puzzleOb = puzzleObjects.ToArray();
+
+        var tasks = new List<UniTask>();
+        foreach (var sr in puzzleSp)
         {
-            RestartToken();
-            color.a = Mathf.Min(1f, color.a + 0.1f);
-            puzzleObjects.color = color;
+            if (sr != null) tasks.Add(TransparencyLowerInstant(sr));
+        }
 
-            await UniTask.Delay(TimeSpan.FromSeconds(0.03f), cancellationToken: cts.Token);
+        await UniTask.WhenAll(tasks);
+
+        foreach (var ob in puzzleOb)
+        {
+            var allColliders = ob.GetComponents<Collider2D>();           // º»ÀÎ
+
+            foreach (var col in allColliders)
+            {
+                if (col != null) col.enabled = false;
+            }
         }
     }
 
-    private async UniTask TransparencyLower(SpriteRenderer puzzleObjects)
+    private async void RestoreAllTransparencyAndColliders()
     {
-        Color color = puzzleObjects.color;
+        if (puzzleObjectSp.Count == 0) return;
 
-        while (puzzleObjects.color.a > 0.3f)
+        var puzzleSP = puzzleObjectSp.ToArray();
+        var puzzleOb = puzzleObjects.ToArray();
+
+        var tasks = new List<UniTask>();
+
+        foreach (var Ob in puzzleOb)
         {
-            RestartToken();
-            color.a = Mathf.Max(0.3f, color.a - 0.15f);
-            puzzleObjects.color = color;
+            if (Ob != null)
+            {
+                var allColliders = Ob.GetComponents<Collider2D>();
+                foreach (var col in allColliders)
+                {
+                    if (col != null) col.enabled = true;
+                }
+            }
+        }
 
-            await UniTask.Delay(TimeSpan.FromSeconds(0.03f), cancellationToken: cts.Token);
+        foreach (var sr in puzzleSP)
+        {
+            if (sr != null)
+                tasks.Add(TransparencyUpperInstant(sr));
+        }
+
+        await UniTask.WhenAll(tasks);
+    }
+
+    private async UniTask TransparencyLowerInstant(SpriteRenderer sr, CancellationToken token = default)
+    {
+        if (sr == null) return;
+        Color c = sr.color;
+        while (c.a > 0.3f)
+        {
+            c.a = Mathf.Max(0.3f, c.a - 0.15f);
+            sr.color = c;
+            await UniTask.Delay(TimeSpan.FromSeconds(0.03f), cancellationToken: token);
         }
     }
 
-    private void RestartToken()
+    private async UniTask TransparencyUpperInstant(SpriteRenderer sr, CancellationToken token = default)
     {
-        cts.Cancel();
-        cts.Dispose();
-        cts = new CancellationTokenSource();
+        if (sr == null) return;
+        Color c = sr.color;
+        while (c.a < 1f)
+        {
+            c.a = Mathf.Min(1f, c.a + 0.1f);
+            sr.color = c;
+            await UniTask.Delay(TimeSpan.FromSeconds(0.03f), cancellationToken: token);
+        }
     }
 }

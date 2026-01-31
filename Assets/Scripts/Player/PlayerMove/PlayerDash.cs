@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class PlayerDash : MonoBehaviour
 {
-    [SerializeField] float dashForce = 24f;
+    [SerializeField] float DashForce = 10f;
+    [SerializeField] float upgradeDashForce = 12f;
     [SerializeField] float dashTime = 0.15f;
-    [SerializeField] float dashCooldown = 0.8f;
+    [SerializeField] float dashCooldown = 0.5f;
     
     public bool upgradeDash = false;
     public bool dashVitality = true;
@@ -26,6 +27,12 @@ public class PlayerDash : MonoBehaviour
         _pushing = GetComponent<Pushing>();
         _damageable = GetComponent<Damageable>();
         _animator = GetComponent<Animator>();
+    }
+
+    private void Update()
+    {
+        if (upgradeDash) DashForce = upgradeDashForce;
+        else DashForce = 10f;
     }
 
     public void TryDash()
@@ -56,6 +63,8 @@ public class PlayerDash : MonoBehaviour
     {
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
-        dashVitality = false;
+
+        if (upgradeDash) dashVitality = true;
+        else dashVitality = false;
     }
 }
