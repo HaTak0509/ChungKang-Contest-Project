@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Box : MonoBehaviour , IInteractable
+public class Box : MonoBehaviour , IInteractable, WarpingInterface
 {
     [Header("검사 설정")]
     public GameObject _Box;
@@ -16,13 +16,11 @@ public class Box : MonoBehaviour , IInteractable
         _pushingObject = GetComponent<PushingObject>();
         _Player = GameObject.FindWithTag("Player").transform;
 
-        Warping();
     }
 
     public void Warping()
     {
         _isTwist = !_isTwist;
-        _pushingObject.enabled =!_isTwist;
 
     }
 
@@ -35,10 +33,17 @@ public class Box : MonoBehaviour , IInteractable
             _pushingObject.Interact();
             return;
         }
+
+
+
         if(PlayerScale.Instance._Scale <= 30 )
         {
             RelocateToEmptySpace();
+        }else if(PlayerScale.Instance._Scale >= 100)
+        {
+            _pushingObject.Interact();
         }
+
     }
 
     public void RelocateToEmptySpace()
@@ -83,8 +88,6 @@ public class Box : MonoBehaviour , IInteractable
         Vector2 rightTarget = (Vector2)_Box.transform.position + Vector2.right * checkDistance;
         Vector2 leftTarget = (Vector2)_Box.transform.position + Vector2.left * checkDistance;
 
-        rightTarget.y += checkSize.y / 2;
-        leftTarget.y += checkSize.y / 2;
 
         Gizmos.DrawWireCube(rightTarget, checkSize);
         Gizmos.DrawWireCube(leftTarget, checkSize);

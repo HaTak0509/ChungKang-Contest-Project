@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Monster : MonoBehaviour
+public class Monster : MonoBehaviour, WarpingInterface
 {
     //*************************************************************
     // [ 코드 설명 ] :
@@ -63,7 +63,7 @@ public class Monster : MonoBehaviour
         UpdateState();
     }
 
-    public void TwistMob()
+    public void Warping()
     {
         if (TwistMonster == null) return;
         OnExit();
