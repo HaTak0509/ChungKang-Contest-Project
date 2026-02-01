@@ -54,6 +54,7 @@ public class PullPunch : MonoBehaviour
 
                 if (!_isPulling)
                 {
+                    _isPulling = true;
                     await WaitPunch();
                 }
                 
@@ -69,22 +70,25 @@ public class PullPunch : MonoBehaviour
 
     private async UniTask WaitPunch()
     {
+        Debug.Log("ㄱㄷ");
         await UniTask.WaitForSeconds(ReadyTime);
-
+        
         FireThorn();
     }
     
     // 1. 플레이어 인식 시 가시 발사 (Trigger 등으로 호출)
     public async void FireThorn()
     {
-        if (_Niddle != null || _isPulling) return;
+        Debug.Log("가시 쏨");
 
         // 가시 생성
-        _Niddle = Instantiate(_Niddle, firePoint.position, firePoint.rotation);
+
+        _Niddle.transform.position = firePoint.transform.position;
 
         // 가시가 날아갈 목표 지점 (현재 감지된 플레이어의 위치)
         // CheckForTargets에서 찾은 대상을 타겟으로 삼습니다.
         Vector3 targetPos = transform.position + detectionPos;
+        targetPos.x += detectionSize.x / 2;
 
         // [아이디어] 가시가 목표까지 날아가는 과정
         bool hitPlayer = await MoveThornToTarget(_Niddle.transform, targetPos);

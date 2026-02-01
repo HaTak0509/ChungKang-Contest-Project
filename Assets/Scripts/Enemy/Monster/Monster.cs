@@ -31,6 +31,7 @@ public class Monster : MonoBehaviour, WarpingInterface
 
     // 나를 멈추게 하는 원인들
     private HashSet<string> disableReasons = new HashSet<string>();
+    [HideInInspector] public bool _isFirst = false;
 
     public bool IsDisabled => disableReasons.Count > 0;
 
@@ -45,10 +46,13 @@ public class Monster : MonoBehaviour, WarpingInterface
 
         OnEnter();
 
-        if (TwistMonster != null)
+        if (TwistMonster != null && !_isFirst)
         {
             TwistMonster = Instantiate(TwistMonster);
             TwistMonster.SetActive(false);
+            _isFirst = true;
+            TwistMonster.GetComponent<Monster>()._isFirst = true;
+            TwistMonster.GetComponent<Monster>().TwistMonster = gameObject;
         }
     }
 
@@ -67,11 +71,15 @@ public class Monster : MonoBehaviour, WarpingInterface
     {
         if (TwistMonster == null) return;
         OnExit();
-        gameObject.SetActive(false);
+
+        
         TwistMonster.SetActive(true);
 
         TwistMonster.transform.position = transform.position;
         TwistMonster.GetComponent<Monster>().OnEnter();
+
+        gameObject.SetActive(false);
+
     }
 
 
