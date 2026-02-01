@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 6239309316125510590}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.84, y: 0, z: 0}
+  m_LocalPosition: {x: 3.63, y: 2.16, z: 0}
   m_LocalScale: {x: 4.2, y: 4.2, z: 4.2}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -153,14 +153,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 3405897999021675334}
-  detectionPos: {x: 3.56, y: 1.57, z: 0}
+  detectionPos: {x: 3.56, y: -0.01, z: 0}
   detectionSize: {x: 5.86, y: 2.8}
+  hitPos: {x: 3.41, y: 0.57, z: 0}
+  hitSize: {x: 6.14, y: 0.9}
   targetLayer:
     serializedVersion: 2
     m_Bits: 128
   Force: 15
   ReadyTime: 0.5
   CoolTime: 1.5
+  TwistObject: {fileID: 7091756347976374257, guid: 174e809fc2c5d1a4d97e4dfa6f63f048, type: 3}
+  _IsRight: 1
+  _isFirst: 0
 --- !u!61 &2125561393107753925
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -193,7 +198,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.14006639, y: 1.5769764}
+  m_Offset: {x: -0.057985306, y: -0.0074368715}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -204,5 +209,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2764306, y: 2.959152}
+  m_Size: {x: 0.9557762, y: 2.996876}
   m_EdgeRadius: 0
