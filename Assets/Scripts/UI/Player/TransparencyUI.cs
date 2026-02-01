@@ -27,12 +27,13 @@ public class TransparencyUI : MonoBehaviour
 
     private void Update()
     {
-        if (!active)
+        if (!active && _playerColor.color.a == 1f)
         {
             transparencyUI.SetActive(false);
             return;
         }
-        else
+        
+        if (active)
         {
             transparencyUI.SetActive(true);
         }

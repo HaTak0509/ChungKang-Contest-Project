@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Laser : MonoBehaviour, WarpingInterface
@@ -21,7 +19,7 @@ public class Laser : MonoBehaviour, WarpingInterface
 
     public void Warping()
     {
-        if (!_warpingLaser)
+        if (_warpingLaser != null)
         {
             _warpingLaser.SetActive(true);
             gameObject.SetActive(false);

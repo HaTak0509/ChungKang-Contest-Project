@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class WarpingLaser : MonoBehaviour, WarpingInterface
 {
-    public bool objectActive;
 
     [SerializeField] private List<GameObject> _hideObjects = new List<GameObject>();
     [SerializeField] private GameObject laser;
@@ -17,11 +16,13 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
     private TransparencyUI _transparencyUI;
     private PlayerColor _playerColor;
 
+    private bool _objectActive;
     private bool _playerActive;
 
     private void OnEnable()
     {
         _cts = new CancellationTokenSource();
+        _objectActive = true;    
     }
 
     private void OnDisable()
@@ -49,10 +50,10 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
 
     private void Update()
     {
-        if (objectActive)
+        if (_objectActive)
         {
             LowerAllTransparencyAndDisableColliders();
-            objectActive = false;
+            _objectActive = false;
             _playerActive = true;
 
             if (_hideObjects.Count > 0)
@@ -112,8 +113,11 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
 
     public void Warping()
     {
-        laser.SetActive(true);
-        gameObject.SetActive(false);
+        if (laser != null)
+        {
+            laser.SetActive(true);
+            gameObject.SetActive(false);
+        }
     }
 
     private async void LowerAllTransparencyAndDisableColliders()

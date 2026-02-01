@@ -29,6 +29,12 @@ public class LevelReset : MonoBehaviour
             LoadLevel(0);
         }
     }
+
+    public void OnReset()
+    {
+        LoadLevel(_currentLevelIndex);
+    }
+
     public void LoadLevel(int i)
     {
         if (_currentLevel != null)

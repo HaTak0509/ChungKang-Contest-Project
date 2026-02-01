@@ -10,6 +10,7 @@ public class Damageable : MonoBehaviour
     [SerializeField] private float knockbackDuration = 0.25f;
     [SerializeField] private bool startInvincible = false;
 
+    public UnityEvent onDeath;
     public UnityEvent onInvincibleEnd;
 
     private Rigidbody2D rb;
@@ -17,7 +18,6 @@ public class Damageable : MonoBehaviour
     private bool _isInvincible = false;
     private Coroutine _invincibleCoroutine;
     private Animator _animator;
-
 
     public bool IsKnockback => _isKnockback;
     public bool IsInvincible => _isInvincible;
@@ -34,6 +34,10 @@ public class Damageable : MonoBehaviour
         if (startInvincible) SetInvincible(999f);
     }
 
+    public void GameOver()
+    {
+        onDeath.Invoke();
+    }
 
     public void TakePushFromPosition(Vector2 attackerPos) //힘을 따로 수정하지 않을 때, 기존 수치 사용
     {
