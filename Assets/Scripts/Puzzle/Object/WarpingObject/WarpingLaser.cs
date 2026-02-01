@@ -9,7 +9,8 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
     public bool objectActive;
 
     [SerializeField] private List<GameObject> _hideObjects = new List<GameObject>();
-    
+    [SerializeField] private GameObject laser;
+
     private List<SpriteRenderer> _puzzleObjectSp = new List<SpriteRenderer>();
     private List<GameObject> _puzzleObjects = new List<GameObject>();
     private CancellationTokenSource _cts;
@@ -111,6 +112,7 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
 
     public void Warping()
     {
+        laser.SetActive(true);
         gameObject.SetActive(false);
     }
 

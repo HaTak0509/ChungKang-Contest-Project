@@ -1,7 +1,4 @@
 using UnityEngine;
-using System.Collections;
-using Cysharp.Threading.Tasks;
-using static UnityEngine.InputSystem.Controls.AxisControl;
 
 public class TransparencyUI : MonoBehaviour
 {

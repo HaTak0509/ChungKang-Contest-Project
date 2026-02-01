@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ObjectConfinement : MonoBehaviour
@@ -10,15 +7,7 @@ public class ObjectConfinement : MonoBehaviour
 
     private void OnDisable()
     {
-        objectSp.maskInteraction = SpriteMaskInteraction.None;
-        objectSp = null;
-
-        if (stuckObject.TryGetComponent<WarpingInterface>(out var warpInteract))
-        {
-            warpInteract.Warping();
-        }
-
-        stuckObject = null;
+        ReleaseObject();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -37,5 +26,18 @@ public class ObjectConfinement : MonoBehaviour
                 warpInteract.Warping();
             }
         }
+    }
+
+    private void ReleaseObject()
+    {
+        if (objectSp != null)
+            objectSp.maskInteraction = SpriteMaskInteraction.None;
+
+        if (stuckObject != null &&
+            stuckObject.TryGetComponent<WarpingInterface>(out var warpInteract))
+            warpInteract.Warping();
+
+        objectSp = null;
+        stuckObject = null;
     }
 }
