@@ -262,6 +262,10 @@ PrefabInstance:
       propertyPath: upgradeDash
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9066512295701628056, guid: 286b2107874c1c144b6d6dd01a0ef704, type: 3}
+      propertyPath: transparencyUI
+      value: 
+      objectReference: {fileID: 844871935}
     - target: {fileID: 9219970813946731028, guid: 286b2107874c1c144b6d6dd01a0ef704, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -324,6 +328,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &844871935 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5751719805801149320, guid: 286b2107874c1c144b6d6dd01a0ef704, type: 3}
+  m_PrefabInstance: {fileID: 234840408}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &944602125
 GameObject:
   m_ObjectHideFlags: 0

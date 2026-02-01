@@ -12,6 +12,12 @@ public class ObjectConfinement : MonoBehaviour
     {
         objectSp.maskInteraction = SpriteMaskInteraction.None;
         objectSp = null;
+
+        if (stuckObject.TryGetComponent<WarpingInterface>(out var warpInteract))
+        {
+            warpInteract.Warping();
+        }
+
         stuckObject = null;
     }
 
