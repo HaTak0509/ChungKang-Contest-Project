@@ -16,6 +16,10 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float zoomedSize = 3f; // 플레이어 20일 때 크기
     [SerializeField] private float zoomSpeed = 5f;
 
+    [Header("전체 보기 모드 설정")]
+    [SerializeField] private float overviewSmoothSpeed = 2f; // 전체 보기 전환 시 속도
+    private bool _isOverviewMode = false; // R키 토글 상태
+
     private Camera _cam;
 
     void Start()
@@ -26,14 +30,29 @@ public class CameraController : MonoBehaviour
         if (target == null && PlayerScale.Instance != null)
             target = PlayerScale.Instance.transform;
     }
-
+    void Update()
+    {
+        // R키를 누르면 모드 토글
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            _isOverviewMode = !_isOverviewMode;
+            Debug.Log(_isOverviewMode ? "전체 보기 모드" : "추적 모드");
+        }
+    }
     // 카메라 이동은 모든 Update가 끝난 뒤 LateUpdate에서 처리하는 것이 떨림 방지에 좋습니다.
     void LateUpdate()
     {
         if (target == null) return;
 
-        HandleMovement();
-        HandleZoom();
+        if (_isOverviewMode)
+        {
+            ShowFullBoundary();
+        }
+        else
+        {
+            HandleMovement();
+            HandleZoom();
+        }
     }
 
     private void HandleMovement()
@@ -66,7 +85,25 @@ public class CameraController : MonoBehaviour
         // 부드럽게 카메라 렌즈 크기 변경
         _cam.orthographicSize = Mathf.Lerp(_cam.orthographicSize, targetSize, Time.deltaTime * zoomSpeed);
     }
+    private void ShowFullBoundary()
+    {
+        // 1. 구역의 중심점 계산
+        float centerX = (minBoundary.x + maxBoundary.x) / 2f;
+        float centerY = (minBoundary.y + maxBoundary.y) / 2f;
+        Vector3 centerPos = new Vector3(centerX, centerY, offset.z);
 
+        // 2. 전체 구역을 다 담기 위한 Orthographic Size 계산
+        float boundaryHeight = (maxBoundary.y - minBoundary.y) / 2f;
+        float boundaryWidth = (maxBoundary.x - minBoundary.x) / 2f;
+
+        // 화면 가로세로비(Aspect)를 고려하여 폭과 높이 중 더 큰 쪽을 기준으로 사이즈 결정
+        float requiredSizeByWidth = boundaryWidth / _cam.aspect;
+        float targetOverviewSize = Mathf.Max(boundaryHeight, requiredSizeByWidth);
+
+        // 3. 부드럽게 이동 및 줌 적용
+        transform.position = Vector3.Lerp(transform.position, centerPos, Time.deltaTime * overviewSmoothSpeed);
+        _cam.orthographicSize = Mathf.Lerp(_cam.orthographicSize, targetOverviewSize, Time.deltaTime * overviewSmoothSpeed);
+    }
     // 에디터 뷰에서 제한 구역을 시각적으로 확인하기 위한 기능
     private void OnDrawGizmos()
     {

@@ -6,7 +6,6 @@ public class PlayerScale : MonoBehaviour
 
     public float _Scale { get; private set; } = 100;
     private float _MaxScale = 100;
-    private bool _isDown = false;
 
     [Header("최소 크기")] [Range(0f,100f)] public float _MinScale = 20;
 
