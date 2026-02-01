@@ -14,6 +14,7 @@ public class ObjectConfinement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("PuzzleObject") || collision.gameObject.CompareTag("Enemy"))
         {
+            if (!stuckObject.gameObject.activeSelf && stuckObject != null) stuckObject = null;
             if (stuckObject != null) return;
 
             stuckObject = collision.gameObject;
