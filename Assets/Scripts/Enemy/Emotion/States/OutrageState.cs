@@ -13,6 +13,8 @@ public class OutrageState : Monster
 
     public override void OnEnter()
     {
+        base.OnEnter();
+
         HumidityManager.Instance.DownHumidity();
     }
 

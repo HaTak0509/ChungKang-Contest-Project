@@ -12,7 +12,7 @@ public class TwistResentmentState : Monster, IInteractable
 
     public override void OnEnter()
     {
-
+        base.OnEnter();
     }
 
     public override void UpdateState()

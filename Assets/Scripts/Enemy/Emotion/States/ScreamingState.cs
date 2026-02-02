@@ -9,6 +9,8 @@ public class ScreamiingState : Monster
 
     public override void OnEnter()
     {
+        base.OnEnter();
+
         HumidityManager.Instance.UpHumidity();
     }
 
