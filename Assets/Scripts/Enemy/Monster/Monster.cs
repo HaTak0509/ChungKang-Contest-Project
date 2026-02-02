@@ -46,30 +46,32 @@ public class Monster : MonoBehaviour, WarpingInterface
 
     void Start()
     {
-        OnEnter();
 
-        if (TwistMonster != null && !_isFirst)
+
+        if (!_isFirst)
         {
-           
+            OnEnter();
 
             InteractRange = baseDetectionRange;
 
-            TwistMonster = Instantiate(TwistMonster);
-            _isFirst = true;
-         
-            Monster temp = TwistMonster.GetComponent<Monster>();
+            if (TwistMonster != null)
+            {
+                TwistMonster = Instantiate(TwistMonster);
+                _isFirst = true;
 
-            temp._isFirst = true;
-            temp.TwistMonster = gameObject;
-            temp.baseSpeed = baseSpeed;
-            temp.InteractRange = baseDetectionRange;
-            TwistMonster.SetActive(false);
+                Monster temp = TwistMonster.GetComponent<Monster>();
 
-            TwistMonster.GetComponent<MonsterMovement>().pointA = _movement.pointA;
-            TwistMonster.GetComponent<MonsterMovement>().pointB = _movement.pointB;
+                temp._isFirst = true;
+                temp.TwistMonster = gameObject;
+                temp.baseSpeed = baseSpeed;
+                temp.InteractRange = baseDetectionRange;
+                TwistMonster.SetActive(false);
+
+                TwistMonster.GetComponent<MonsterMovement>().pointA = _movement.pointA;
+                TwistMonster.GetComponent<MonsterMovement>().pointB = _movement.pointB;
+            }
         }
     }
-
 
 
     private void FixedUpdate()
