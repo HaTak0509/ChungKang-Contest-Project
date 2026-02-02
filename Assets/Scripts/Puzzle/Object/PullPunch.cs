@@ -151,7 +151,7 @@ public class PullPunch : MonoBehaviour
         // 가시가 날아갈 목표 지점 (현재 감지된 플레이어의 위치)
         // CheckForTargets에서 찾은 대상을 타겟으로 삼습니다.
         Vector3 targetPos = _Niddle.position + detectionPos;
-        targetPos.x += detectionSize.x / 2;
+        targetPos.x += 2.5f;
 
         // [아이디어] 가시가 목표까지 날아가는 과정
         bool hitPlayer = await MoveThornToTarget(_Niddle, targetPos);
