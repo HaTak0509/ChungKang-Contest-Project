@@ -15,6 +15,8 @@ public class OutrageState : Monster
     {
         base.OnEnter();
 
+
+
         HumidityManager.Instance.DownHumidity();
     }
 
@@ -37,6 +39,7 @@ public class OutrageState : Monster
 
     public override void OnExit() 
     {
+
         HumidityManager.Instance.UpHumidity();
     }
 

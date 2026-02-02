@@ -1,7 +1,4 @@
 
-
-using UnityEngine;
-
 public class ScreamiingState : Monster
 {
     //*************************************************************
@@ -15,7 +12,7 @@ public class ScreamiingState : Monster
     {
         base.OnEnter();
 
-        Debug.Log("ø©±‚ »£√‚ µ ?");
+
         HumidityManager.Instance.UpHumidity();
     }
 
@@ -25,6 +22,7 @@ public class ScreamiingState : Monster
     }
     public override void OnExit() 
     {
+
         HumidityManager.Instance.DownHumidity();
     }
 
