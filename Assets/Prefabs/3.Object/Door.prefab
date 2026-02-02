@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4953592738601516190}
   m_Layer: 6
   m_Name: Door
-  m_TagString: PuzzleObject
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 830322806787982838}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.31, y: 0.3, z: 0.07232901}
   m_LocalScale: {x: 0.553125, y: 1.6495312, z: 1}
   m_ConstrainProportionsScale: 0
@@ -193,4 +193,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1e51623067faeb4ba9e240d87c102c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hold: 0
+  currentState: 0
