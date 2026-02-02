@@ -10,6 +10,7 @@ public class TouchingDetection : MonoBehaviour
     [SerializeField] private bool showDebugRays = true;
 
     private CapsuleCollider2D _capsuleCollider;
+    private PlayerMovement _playerMovement;
     private Animator _animator;
 
     // Public 프로퍼티들
@@ -21,10 +22,13 @@ public class TouchingDetection : MonoBehaviour
     {
         _capsuleCollider = GetComponent<CapsuleCollider2D>();
         _animator = GetComponent<Animator>();
+        _playerMovement = GetComponent<PlayerMovement>();
     }
 
-    void FixedUpdate()  // 물리 관련은 FixedUpdate가 더 안정적
+    void FixedUpdate()
     {
+        if (_playerMovement != null && _playerMovement.IsSwimming) return;
+        
         CheckGround();
         CheckWalls();
 
@@ -55,32 +59,45 @@ public class TouchingDetection : MonoBehaviour
         bool centerHit = Physics2D.Raycast(centerOrigin, Vector2.down, rayDistance, groundLayer);
         bool rightHit = Physics2D.Raycast(rightOrigin, Vector2.down, rayDistance, groundLayer);
 
-        IsGround = leftHit || centerHit || rightHit;
+        IsGround = centerHit && (leftHit || rightHit);
     }
 
     private void CheckWalls()
     {
         Bounds bounds = _capsuleCollider.bounds;
+
+        Vector2 size = bounds.size;
         Vector2 center = bounds.center;
-        float halfWidth = bounds.extents.x;
 
-        float rayDistance = halfWidth + wallCheckDistance;
+        float castDistance = wallCheckDistance;
 
-        // 왼쪽 벽 체크
-        bool leftWallHit = Physics2D.Raycast(center, Vector2.left, rayDistance, groundLayer);
+        RaycastHit2D leftHit = Physics2D.CapsuleCast(
+            center,
+            size,
+            _capsuleCollider.direction,
+            0f,
+            Vector2.left,
+            castDistance,
+            groundLayer
+        );
 
-        // 오른쪽 벽 체크
-        bool rightWallHit = Physics2D.Raycast(center, Vector2.right, rayDistance, groundLayer);
+        RaycastHit2D rightHit = Physics2D.CapsuleCast(
+            center,
+            size,
+            _capsuleCollider.direction,
+            0f,
+            Vector2.right,
+            castDistance,
+            groundLayer
+        );
 
-        // 벽에 닿아 있는지 여부
-        IsOnWall = leftWallHit || rightWallHit;
+        IsOnWall = leftHit.collider != null || rightHit.collider != null;
 
-        // 어느 쪽 벽인지 방향 반환 (-1: 왼쪽, 1: 오른쪽, 0: 없음)
-        if (leftWallHit && !rightWallHit)
+        if (leftHit.collider != null && rightHit.collider == null)
             WallDirection = -1;
-        else if (rightWallHit && !leftWallHit)
+        else if (rightHit.collider != null && leftHit.collider == null)
             WallDirection = 1;
         else
-            WallDirection = 0;  // 양쪽 다 닿아 있거나 없음
+            WallDirection = 0;
     }
 }

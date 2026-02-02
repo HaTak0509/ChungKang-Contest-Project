@@ -4,9 +4,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float walkSpeed = 6f;
     [SerializeField] float pushingSpeed = 4f;
-
-    public bool IsPushingButNotActive =>
-    _pushing.isPushing && !_pushing.pushing;
+    [SerializeField] float swimSpeed = 4f;
 
     private Rigidbody2D _rb2D;
     private Damageable _damageable;
@@ -16,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
     private Animator _animator;
 
     private Vector2 _moveInput;
+
+    public bool IsSwimming { get; private set; }
 
     private float CurrentSpeed =>
         (_pushing.pushing) ? pushingSpeed : walkSpeed;
@@ -38,6 +38,11 @@ public class PlayerMovement : MonoBehaviour
             _facing.FaceDirection(input.x);
     }
 
+    public void SetSwimming(bool value)
+    {
+        IsSwimming = value;
+    }
+
     private void FixedUpdate()
     {
         if (_damageable != null && _damageable.IsInvincible)
@@ -45,11 +50,17 @@ public class PlayerMovement : MonoBehaviour
 
         _animator.SetBool(AnimationStrings.IsPushing, _pushing.pushing);
 
+        if (IsSwimming) SwimmingMovement();
+        else GroundMovement();
+    }
+
+    private void GroundMovement()
+    {
         if (_pushing.isPushing && _moveInput.x != 0 && Mathf.Sign(_moveInput.x) != Mathf.Sign(_pushing.pushingDirection))
             return;
 
         float desiredX = 0f;
-        
+
         desiredX = _moveInput.x * CurrentSpeed;
 
         if (_touchingDetection.IsOnWall)
@@ -61,6 +72,12 @@ public class PlayerMovement : MonoBehaviour
         }
 
         ApplyHorizontalVelocity(desiredX);
+    }
+
+    private void SwimmingMovement()
+    {
+        Vector2 swimVelocity = _moveInput * swimSpeed;
+        _rb2D.velocity = swimVelocity;
     }
 
     private void ApplyHorizontalVelocity(float desiredX)
