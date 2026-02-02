@@ -36,7 +36,7 @@ public class Monster : MonoBehaviour, WarpingInterface
     public bool IsDisabled => disableReasons.Count > 0;
 
 
-    void Start()
+    void Awake()
     {
         
 
