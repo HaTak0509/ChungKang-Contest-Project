@@ -10,6 +10,9 @@ public class AnimationStrings
     public static string IsKnockbackParameterName = "IsKnockback";
     public static string IsDeathParameterName = "IsDeath";
 
+    public static string OnButtonParameterName = "OnButton";
+    public static string OnPlatformParameterName = "OnPlatform";
+
     public static int IsGround = Animator.StringToHash(IsGroundParameterName);
     public static int IsMoving = Animator.StringToHash(IsMovingParameterName);
     public static int IsPushing = Animator.StringToHash(IsPushingParameterName);
@@ -17,4 +20,7 @@ public class AnimationStrings
     public static int IsDash = Animator.StringToHash(IsDashParameterName);
     public static int IsKnockback = Animator.StringToHash(IsKnockbackParameterName);
     public static int IsDeath = Animator.StringToHash(IsDeathParameterName);
+
+    public static int OnButton = Animator.StringToHash(OnButtonParameterName);
+    public static int OnPlatform = Animator.StringToHash(OnPlatformParameterName);
 }

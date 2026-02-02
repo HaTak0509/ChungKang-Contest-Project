@@ -103,6 +103,8 @@ public class RageState : Monster
         _isReadying = true;
         _isDashing = false;
         _readyTimer = READY_DURATION;
+
+        _animator.SetBool(AnimationStrings.IsMoving, false);
         Debug.Log("돌진 준비");
 
     }

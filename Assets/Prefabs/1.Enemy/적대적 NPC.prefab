@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 1166666344833788292}
   - component: {fileID: 4106355960804361744}
   - component: {fileID: 2073112145096070349}
-  - component: {fileID: 1075428154172971393}
+  - component: {fileID: 1383715666371287163}
   m_Layer: 8
   m_Name: "\uC801\uB300\uC801 NPC"
   m_TagString: Enemy
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f0386a9ac51792c45ad3f8a29221cc12, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dac800d61c49bf84ca1e18ea09910252, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,7 +99,7 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7329986220666390184}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -121,11 +121,11 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.09}
-  m_Size: {x: 0.34, y: 0.71}
+  m_Offset: {x: 0, y: -0.13433436}
+  m_Size: {x: 0.3399998, y: 0.53857285}
   m_Direction: 0
 --- !u!50 &6588784612312432131
 Rigidbody2D:
@@ -135,7 +135,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7329986220666390184}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -169,7 +169,8 @@ MonoBehaviour:
   baseSpeed: 5
   baseDetectionRange: 3
   hexColor: '#FF0000'
-  TwistMonster: {fileID: 3680077101012953917, guid: a5352b929155a354e841835417cda497, type: 3}
+  TwistMonster: {fileID: 866030250024289710, guid: a5352b929155a354e841835417cda497, type: 3}
+  _isFirst: 0
 --- !u!114 &4093765048133568931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,7 +323,7 @@ MonoBehaviour:
   groundCheckDistance: 0.1
   wallCheckDistance: 0.2
   showDebugRays: 1
---- !u!95 &1075428154172971393
+--- !u!95 &1383715666371287163
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -332,7 +333,7 @@ Animator:
   m_GameObject: {fileID: 7329986220666390184}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 8c48c41812db0344ab2a1278d2570079, type: 2}
+  m_Controller: {fileID: 9100000, guid: 49d6201affe0b9843916bfca30753728, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

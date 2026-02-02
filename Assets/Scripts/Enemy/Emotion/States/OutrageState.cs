@@ -21,7 +21,7 @@ public class OutrageState : Monster
     {
         _movement.Move();
 
-        if(HumidityManager.Instance._Humidity < 0 && WaterRiseController.Instance.CurrentStep <= 0)
+        if(HumidityManager.Instance.Humidity < 0 && WaterRiseController.Instance.CurrentStep <= 0)
         {
             Fire.SetActive(true);
         }

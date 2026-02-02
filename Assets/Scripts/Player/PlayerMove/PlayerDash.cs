@@ -18,6 +18,7 @@ public class PlayerDash : MonoBehaviour
     private Pushing _pushing;
     private Damageable _damageable;
     private Animator _animator;
+    private float prevDashForce;
     private bool canDash = true;
 
     private void Awake()
@@ -27,12 +28,13 @@ public class PlayerDash : MonoBehaviour
         _pushing = GetComponent<Pushing>();
         _damageable = GetComponent<Damageable>();
         _animator = GetComponent<Animator>();
+        prevDashForce = dashForce;
     }
 
     private void Update()
     {
         if (upgradeDash) dashForce = upgradeDashForce;
-        else dashForce = 10f;
+        else dashForce = prevDashForce;
     }
 
     public void TryDash()
