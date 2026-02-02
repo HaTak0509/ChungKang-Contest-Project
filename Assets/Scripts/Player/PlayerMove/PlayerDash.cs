@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using System;
