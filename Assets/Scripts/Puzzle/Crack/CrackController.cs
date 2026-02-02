@@ -7,6 +7,7 @@ public class CrackController : MonoBehaviour, IInteractable
 
     [Header("기본 설정")]
     public float baseDetectionRange = 3f;
+    public bool _IsEnable = false;
 
     public float InteractRange { get; private set; }
     private string hexColor = "#D400FF";
@@ -33,6 +34,9 @@ public class CrackController : MonoBehaviour, IInteractable
         }
 
         SetCrack();
+
+
+        if (_IsEnable) Interact();
     }
 
     public void Interact()
