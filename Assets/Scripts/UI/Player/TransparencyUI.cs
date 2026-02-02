@@ -1,13 +1,13 @@
 using UnityEngine;
-using System.Collections;
-using Cysharp.Threading.Tasks;
-using static UnityEngine.InputSystem.Controls.AxisControl;
 
 public class TransparencyUI : MonoBehaviour
 {
     public static TransparencyUI Instance { get; private set;}
 
+    [SerializeField] private GameObject transparencyUI;
+
     public RectTransform trBar;
+    public bool active;
 
     private float _currentMax;
     private float _MaxTrHeight;
@@ -27,6 +27,17 @@ public class TransparencyUI : MonoBehaviour
 
     private void Update()
     {
+        if (!active && _playerColor.color.a == 1f)
+        {
+            transparencyUI.SetActive(false);
+            return;
+        }
+        
+        if (active)
+        {
+            transparencyUI.SetActive(true);
+        }
+
         if (_playerColor != null)
         {
             CheckTransparencyBar();

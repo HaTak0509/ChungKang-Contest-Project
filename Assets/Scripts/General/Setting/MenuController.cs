@@ -22,7 +22,7 @@ public class MenuController : MonoBehaviour
 
     public void OnReset()
     {
-        LevelReset.Instance.LoadLevel(LevelReset.Instance._currentLevelIndex);
+        LevelReset.Instance.OnReset();
     }
 
     public void OnReturnMainMenu()

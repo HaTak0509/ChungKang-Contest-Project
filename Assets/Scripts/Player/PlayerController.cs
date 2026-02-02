@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public PlayerDash dash;
     public Damageable damageable;
     public bool interaction;
+    public bool allLimit;
     public bool moveLimit;
     public Vector2 moveInput;
 
@@ -47,7 +48,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (moveLimit) return;
+        if (moveLimit || allLimit) return;
         moveInput = context.ReadValue<Vector2>();
 
         if (pushing.isPushing)
@@ -64,23 +65,25 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (moveLimit) return;
+        if (moveLimit || allLimit) return;
         if (context.started) jump.TryJump();
     }
 
     public void OnDash(InputAction.CallbackContext context)
     {
-        if (moveLimit) return;
+        if (moveLimit || allLimit) return;
         if (context.started) dash.TryDash();
     }
 
     public void OnInteraction(InputAction.CallbackContext context)
     {
+        if (allLimit) return;
         if (context.started) interaction = true;
     }
 
     public void OnExploration(InputAction.CallbackContext context)
     {
+        if (allLimit) return;
         if (context.started) explorationRange.SetActive(!explorationRange.activeSelf);
     }
 

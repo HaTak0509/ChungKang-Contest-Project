@@ -4,56 +4,91 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
-public class WarpingLaser : MonoBehaviour
+public class WarpingLaser : MonoBehaviour, WarpingInterface
 {
-    public bool active;
-    
-    private List<SpriteRenderer> puzzleObjectSp = new List<SpriteRenderer>();
-    private List<GameObject> puzzleObjects = new List<GameObject>();
-    private CancellationTokenSource cts;
-    private PlayerColor currentPlayer;
+
+    [SerializeField] private List<GameObject> _hideObjects = new List<GameObject>();
+    [SerializeField] private GameObject laser;
+
+    private List<SpriteRenderer> _puzzleObjectSp = new List<SpriteRenderer>();
+    private List<GameObject> _puzzleObjects = new List<GameObject>();
+    private CancellationTokenSource _cts;
+    private TransparencyUI _transparencyUI;
+    private PlayerColor _playerColor;
+
+    private bool _objectActive;
+    private bool _playerActive;
 
     private void OnEnable()
     {
-        cts = new CancellationTokenSource();
+        _cts = new CancellationTokenSource();
+        _objectActive = true;    
     }
 
     private void OnDisable()
     {
-        cts?.Cancel();
-        cts?.Dispose();
-        cts = null; 
+        _cts?.Cancel();
+        _cts?.Dispose();
+        _cts = null;
         RestoreAllTransparencyAndColliders();
-        currentPlayer = null;
+        _playerColor = null;
+
+        if (_hideObjects.Count > 0)
+        {
+            foreach (var hideOb in _hideObjects)
+            {
+                hideOb.gameObject.SetActive(false);
+            }
+        }
+
+        if (_transparencyUI != null)
+        {
+            _transparencyUI.active = false;
+            _transparencyUI = null;
+        }
     }
 
     private void Update()
     {
-        if (active)
+        if (_objectActive)
         {
             LowerAllTransparencyAndDisableColliders();
-            active = false;
+            _objectActive = false;
+            _playerActive = true;
+
+            if (_hideObjects.Count > 0)
+            {
+                foreach (var hideOb in _hideObjects)
+                {
+                    hideOb.gameObject.SetActive(true);
+                }
+            }
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.CompareTag("Player") && active)
+        if (collision.CompareTag("Player") && _playerActive)
         {
-            if (currentPlayer != null) return;
-            currentPlayer = other.GetComponent<PlayerColor>();
-            if (currentPlayer != null)
-                currentPlayer.LowerTransparency().Forget();
+            if (_playerColor != null) return;
+
+            _transparencyUI = collision.GetComponentInChildren<TransparencyUI>();
+            _playerColor = collision.GetComponent<PlayerColor>();
+
+            if (_playerColor != null)
+                _playerColor.LowerTransparency().Forget();
+
+            _transparencyUI.active = true;
         }
-        else if (other.CompareTag("PuzzleObject"))
+        else if (collision.CompareTag("PuzzleObject"))
         {
-            var ob = other.gameObject;
-            var sp = other.GetComponent<SpriteRenderer>();
-            
-            if (sp != null && ob != null && !puzzleObjectSp.Contains(sp))
+            var ob = collision.gameObject;
+            var sp = collision.GetComponent<SpriteRenderer>();
+
+            if (sp != null && ob != null && !_puzzleObjectSp.Contains(sp))
             {
-                puzzleObjectSp.Add(sp);
-                puzzleObjects.Add(ob);
+                _puzzleObjectSp.Add(sp);
+                _puzzleObjects.Add(ob);
             }
         }
     }
@@ -62,20 +97,35 @@ public class WarpingLaser : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (currentPlayer != null)
+            if (_playerColor != null)
             {
-                currentPlayer.UpperTransparency().Forget();
-                currentPlayer = null;
+                _playerColor.UpperTransparency().Forget();
+                _playerColor = null;
+
+                if (_transparencyUI != null)
+                {
+                    _transparencyUI.active = false;
+                    _transparencyUI = null;
+                }
             }
+        }
+    }
+
+    public void Warping()
+    {
+        if (laser != null)
+        {
+            laser.SetActive(true);
+            gameObject.SetActive(false);
         }
     }
 
     private async void LowerAllTransparencyAndDisableColliders()
     {
-        if (puzzleObjectSp.Count == 0) return;
+        if (_puzzleObjectSp.Count == 0) return;
 
-        var puzzleSp = puzzleObjectSp.ToArray();
-        var puzzleOb = puzzleObjects.ToArray();
+        var puzzleSp = _puzzleObjectSp.ToArray();
+        var puzzleOb = _puzzleObjects.ToArray();
 
         var tasks = new List<UniTask>();
         foreach (var sr in puzzleSp)
@@ -87,7 +137,7 @@ public class WarpingLaser : MonoBehaviour
 
         foreach (var ob in puzzleOb)
         {
-            var allColliders = ob.GetComponents<Collider2D>();           // ∫ª¿Œ
+            var allColliders = ob.GetComponents<Collider2D>();
 
             foreach (var col in allColliders)
             {
@@ -98,10 +148,10 @@ public class WarpingLaser : MonoBehaviour
 
     private async void RestoreAllTransparencyAndColliders()
     {
-        if (puzzleObjectSp.Count == 0) return;
+        if (_puzzleObjectSp.Count == 0) return;
 
-        var puzzleSP = puzzleObjectSp.ToArray();
-        var puzzleOb = puzzleObjects.ToArray();
+        var puzzleSP = _puzzleObjectSp.ToArray();
+        var puzzleOb = _puzzleObjects.ToArray();
 
         var tasks = new List<UniTask>();
 
