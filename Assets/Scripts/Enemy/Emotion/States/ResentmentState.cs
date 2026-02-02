@@ -17,7 +17,6 @@ public class ResentmentState : Monster
 
         if (ColorUtility.TryParseHtmlString(hexColor, out Color newColor))
         {
-            Debug.Log(newColor.ToString());
             _lineRenderer.Draw(InteractRange, newColor);
         }
 

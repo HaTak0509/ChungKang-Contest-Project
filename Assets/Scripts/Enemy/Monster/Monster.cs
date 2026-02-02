@@ -41,7 +41,8 @@ public class Monster : MonoBehaviour, WarpingInterface
         _animator = GetComponent<Animator>();
         _lineRenderer = GetComponent<DrawSensingRange>();
 
-        
+
+        InteractRange = baseDetectionRange;
     }
 
     void Start()
@@ -52,7 +53,6 @@ public class Monster : MonoBehaviour, WarpingInterface
         {
             OnEnter();
 
-            InteractRange = baseDetectionRange;
 
             if (TwistMonster != null)
             {
