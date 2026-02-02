@@ -36,16 +36,20 @@ public class Monster : MonoBehaviour, WarpingInterface
 
     public bool IsDisabled => disableReasons.Count > 0;
 
-
-    void Start()
+    private void Awake()
     {
-        
-
         _movement = GetComponent<MonsterMovement>();
         _animator = GetComponent<Animator>();
         _lineRenderer = GetComponent<DrawSensingRange>();
 
         OnEnter();
+    }
+
+    void Start()
+    {
+        
+
+       
         
 
         if (TwistMonster != null && !_isFirst)
