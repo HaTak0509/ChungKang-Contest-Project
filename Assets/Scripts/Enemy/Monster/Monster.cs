@@ -37,7 +37,7 @@ public class Monster : MonoBehaviour, WarpingInterface
     public bool IsDisabled => disableReasons.Count > 0;
 
 
-    void Awake()
+    void Start()
     {
         
 
@@ -53,15 +53,15 @@ public class Monster : MonoBehaviour, WarpingInterface
             InteractRange = baseDetectionRange;
 
             TwistMonster = Instantiate(TwistMonster);
-            TwistMonster.SetActive(false);
             _isFirst = true;
-
+         
             Monster temp = TwistMonster.GetComponent<Monster>();
 
             temp._isFirst = true;
             temp.TwistMonster = gameObject;
             temp.baseSpeed = baseSpeed;
             temp.InteractRange = baseDetectionRange;
+            TwistMonster.SetActive(false);
 
             TwistMonster.GetComponent<MonsterMovement>().pointA = _movement.pointA;
             TwistMonster.GetComponent<MonsterMovement>().pointB = _movement.pointB;
