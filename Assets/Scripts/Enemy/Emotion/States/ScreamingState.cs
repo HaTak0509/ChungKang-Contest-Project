@@ -1,3 +1,4 @@
+
 public class ScreamiingState : Monster
 {
     //*************************************************************
@@ -11,6 +12,7 @@ public class ScreamiingState : Monster
     {
         base.OnEnter();
 
+
         HumidityManager.Instance.UpHumidity();
     }
 
@@ -20,6 +22,7 @@ public class ScreamiingState : Monster
     }
     public override void OnExit() 
     {
+
         HumidityManager.Instance.DownHumidity();
     }
 
