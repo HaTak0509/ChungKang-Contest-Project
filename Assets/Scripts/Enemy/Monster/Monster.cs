@@ -63,8 +63,6 @@ public class Monster : MonoBehaviour, WarpingInterface
 
             TwistMonster.GetComponent<MonsterMovement>().pointA = _movement.pointA;
             TwistMonster.GetComponent<MonsterMovement>().pointB = _movement.pointB;
-
-
         }
     }
 
