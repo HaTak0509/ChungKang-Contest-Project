@@ -30,6 +30,7 @@ public class Monster : MonoBehaviour, WarpingInterface
 
 
     // 나를 멈추게 하는 원인들
+    private bool _isOnEnter = false;
     private HashSet<string> disableReasons = new HashSet<string>();
     [HideInInspector] public bool _isFirst = false;
 
@@ -45,6 +46,7 @@ public class Monster : MonoBehaviour, WarpingInterface
         _lineRenderer = GetComponent<DrawSensingRange>();
 
         OnEnter();
+        
 
         if (TwistMonster != null && !_isFirst)
         {
@@ -80,6 +82,9 @@ public class Monster : MonoBehaviour, WarpingInterface
     public void Warping()
     {
         if (TwistMonster == null) return;
+     
+        if(!_isOnEnter) OnEnter();
+        
         OnExit();
 
         
@@ -95,7 +100,7 @@ public class Monster : MonoBehaviour, WarpingInterface
 
     public virtual void OnEnter()
     {
-       
+        _isOnEnter = true;
     }
 
     public virtual void UpdateState()

@@ -23,7 +23,7 @@ public class JealousyState : Monster, IInteractable
 
     public override void OnEnter()
     {
-
+        base.OnEnter();
         if (_player == null)
             _player = GameObject.FindWithTag("Player").transform;
 

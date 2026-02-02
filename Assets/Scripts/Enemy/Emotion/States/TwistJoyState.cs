@@ -10,6 +10,7 @@ public class TwistJoyState : Monster
 
     public override void OnEnter()
     {
+        base.OnEnter();
     }
 
     public override void UpdateState()
