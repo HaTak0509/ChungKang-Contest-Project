@@ -10,6 +10,9 @@ public class WaterRiseController : MonoBehaviour
     [SerializeField] private float maxHeight = 15f;
     [SerializeField] private float bubbleMaxHeight = 1f;
 
+
+    [SerializeField] private float WaterSize; 
+
     [Header("References")]
     public SpriteRenderer _WaterSprite;
     public SpriteRenderer _BubbleSprite;
@@ -32,15 +35,19 @@ public class WaterRiseController : MonoBehaviour
 
     void Awake()
     {
+        
         _currentWaterHeight = _WaterSprite.size.y;
+
+        _WaterSprite.size = new Vector2(WaterSize, _WaterSprite.size.y);
+
         _currentWidth = _WaterSprite.size.x;
         _currentY = _WaterSprite.transform.position.y;
         _col = _WaterSprite.GetComponent<BoxCollider2D>();
         Instance = this;
 
-        UpdateVisuals();
 
-       // StartRising();
+
+        UpdateVisuals();
     }
 
     // --- 제어 함수 ---
@@ -153,6 +160,12 @@ public class WaterRiseController : MonoBehaviour
 
         float totalHeight = _currentWaterHeight + _currentBubbleHeight;
         _col.size = new Vector2(_currentWidth, totalHeight);
-        _col.offset = new Vector2(0, totalHeight * 0.5f);
+        _col.offset = new Vector2(0, 0.5f );
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(transform.position + new Vector3(0, maxHeight / 2, 0), new Vector2(WaterSize, maxHeight));
     }
 }
