@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8988092068637363718}
   m_Layer: 6
   m_Name: Platform
-  m_TagString: PuzzleObject
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9058270828616191218}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.39, y: -0.36, z: 0.07232901}
   m_LocalScale: {x: 0.97465426, y: 0.2370703, z: 1}
   m_ConstrainProportionsScale: 0
@@ -172,6 +172,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetDoor: {fileID: 0}
-  targetBridge: {fileID: 0}
   sinkAmount: 0.2
   sinkSpeed: 2
