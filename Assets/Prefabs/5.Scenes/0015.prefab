@@ -3981,6 +3981,7 @@ MonoBehaviour:
   dashForce: 30
   upgradeDashForce: 12
   dashTime: 0.15
+  upgradeDashCoolTime: 20
   dashCooldown: 0.5
   upgradeDash: 0
   dashVitality: 1
@@ -4024,6 +4025,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 4
   pushingSpeed: 2
+  swimSpeed: 4
 --- !u!114 &3344785115876974923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4609,6 +4611,9 @@ MonoBehaviour:
   TwistMonster: {fileID: 0}
   _isFirst: 0
   Ready_DURATION: 5
+  EnemyLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &426965715580916424
 MonoBehaviour:
   m_ObjectHideFlags: 0

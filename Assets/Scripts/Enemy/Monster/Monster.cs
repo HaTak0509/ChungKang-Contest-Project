@@ -46,9 +46,11 @@ public class Monster : MonoBehaviour, WarpingInterface
 
     void Start()
     {
+        OnEnter();
+
         if (TwistMonster != null && !_isFirst)
         {
-            OnEnter();
+           
 
             InteractRange = baseDetectionRange;
 
