@@ -1,14 +1,16 @@
-using System;
 using System.Collections;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
+using System;
 
 public class PlayerDash : MonoBehaviour
 {
     [SerializeField] float dashForce = 10f;
     [SerializeField] float upgradeDashForce = 12f;
     [SerializeField] float dashTime = 0.15f;
+    [SerializeField] float upgradeDashCoolTime = 20f;
     [SerializeField] float dashCooldown = 0.5f;
-    
+
     public bool upgradeDash = false;
     public bool dashVitality = true;
     public bool dashing;
@@ -20,6 +22,8 @@ public class PlayerDash : MonoBehaviour
     private Animator _animator;
     private float prevDashForce;
     private bool canDash = true;
+    private bool prevUpgradeDash;
+    private bool upgradeCoolRunning;
 
     private void Awake()
     {
@@ -33,17 +37,24 @@ public class PlayerDash : MonoBehaviour
 
     private void Update()
     {
-        if (upgradeDash) dashForce = upgradeDashForce;
-        else dashForce = prevDashForce;
+        dashForce = upgradeDash ? upgradeDashForce : prevDashForce;
+
+        if (upgradeDash && !prevUpgradeDash && !upgradeCoolRunning)
+        {
+            UpgradeDashCool().Forget();
+        }
+
+        prevUpgradeDash = upgradeDash;
     }
+
 
     public void TryDash()
     {
         if (!canDash || _damageable.IsKnockback || _pushing.isPushing) return;
-        if (dashVitality) StartCoroutine(DashRoutine());
+        if (dashVitality) DashRoutine().Forget();
     }
 
-    private IEnumerator DashRoutine()
+    private async UniTask DashRoutine()
     {
         dashing = true;
         canDash = false;
@@ -53,20 +64,33 @@ public class PlayerDash : MonoBehaviour
         float dir = facing.IsFacingRight ? 1f : -1f;
         _rb2D.velocity = new Vector2(dashForce * dir, _rb2D.velocity.y); // y 유지
 
-        yield return new WaitForSeconds(dashTime);
-        
+        await UniTask.Delay(TimeSpan.FromSeconds(dashTime));
+
         dashing = false;
 
         // 쿨타임은 별도 코루틴으로
-        StartCoroutine(CooldownRoutine());
+        CooldownRoutine().Forget();
     }
 
-    private IEnumerator CooldownRoutine()
+    private async UniTask CooldownRoutine()
     {
-        yield return new WaitForSeconds(dashCooldown);
+        await UniTask.Delay(TimeSpan.FromSeconds(dashCooldown));
         canDash = true;
 
         if (upgradeDash) dashVitality = true;
         else dashVitality = false;
     }
+
+    private async UniTask UpgradeDashCool()
+    {
+        upgradeCoolRunning = true;
+        dashVitality = true;
+
+        await UniTask.Delay(TimeSpan.FromSeconds(upgradeDashCoolTime));
+
+        dashVitality = false;
+        upgradeCoolRunning = false;
+        upgradeDash = false;
+    }
+
 }
