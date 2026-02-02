@@ -50,6 +50,7 @@ public class JealousyState : Monster, IInteractable
         if (_isTeleporting) return;
 
         Debug.Log("텔포 시작!");
+        _animator.SetTrigger("IsAction");
         _isTeleporting = true;
         _TeleportTimer = Ready_DURATION;
     }

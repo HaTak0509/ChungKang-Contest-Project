@@ -176,7 +176,7 @@ public class MonsterMovement : MonoBehaviour
         Gizmos.DrawLine(new Vector2(pointA.x, transform.position.y), new Vector2(pointB.x, transform.position.y));
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
       
         if (_movementState == MovementState.Dash)
@@ -185,7 +185,10 @@ public class MonsterMovement : MonoBehaviour
             if (collision.transform.CompareTag("Player"))
             {
                 Debug.Log("플레이어와 충돌");
-                collision.transform.GetComponent<Damageable>().TakePushFromPosition(transform.position);
+
+                _animator.SetTrigger("isAction");
+
+                collision.transform.GetComponent<Damageable>().GameOver();
                 _movementState = MovementState.Idle;
             }
             

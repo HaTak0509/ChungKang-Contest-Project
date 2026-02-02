@@ -14,7 +14,7 @@ public class TwistJoyState : Monster
 
     public override void UpdateState()
     {
-        _movement.Move();
+
 
         Collider2D hit = Physics2D.OverlapCircle(transform.position, InteractRange, LayerMask.GetMask("Player"));
 

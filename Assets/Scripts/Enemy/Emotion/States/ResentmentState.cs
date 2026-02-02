@@ -9,12 +9,8 @@ public class ResentmentState : Monster
     //*************************************************************
 
 
-    private CircleCollider2D _circleCollider2D;
-    private Flotation _flotation;
-
-    public void OnEnter(Monster monster)
+    public override void OnEnter()
     {
-
         _lineRenderer.OnLine();
 
         if (ColorUtility.TryParseHtmlString(hexColor, out Color newColor))
@@ -24,17 +20,13 @@ public class ResentmentState : Monster
         }
 
     }
-    public void OnAction(Monster monster)
-    {
-
-    }
-    public void UpdateState(Monster monster)
+    public override void UpdateState()
     {
 
 
     }
 
-    public void OnExit(Monster monster)
+    public override void OnExit()
     {
         _lineRenderer.OffLine();
     }

@@ -10,7 +10,8 @@ using UnityEngine;
 public class HumidityManager : MonoBehaviour
 {
     private WaterRiseController _waterRiseController;
-    public int _Humidity { get; private set; } = 0;
+    [SerializeField] private int _Humidity = 0;
+    public int Humidity => _Humidity;
 
     public static HumidityManager Instance;
 
