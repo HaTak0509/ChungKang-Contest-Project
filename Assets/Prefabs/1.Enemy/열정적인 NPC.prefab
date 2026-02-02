@@ -35,7 +35,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.97, y: -0.4, z: 0}
-  m_LocalScale: {x: 3.83, y: 3.83, z: 3.83}
+  m_LocalScale: {x: 5.5, y: 5.5, z: 5.5}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1057801937439428703}
@@ -125,8 +125,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.09}
-  m_Size: {x: 0.34, y: 0.71}
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.35, y: 0.7}
   m_Direction: 0
 --- !u!50 &2025615199981491894
 Rigidbody2D:
@@ -184,10 +184,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e042093d7e9ec394b8d4b0a97c4d0067, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: 5
+  baseSpeed: 0
   baseDetectionRange: 3
   hexColor: '#FFFFFF'
   TwistMonster: {fileID: 4338590301007142101, guid: bb363c756577b8a4d9f7a89ba831194d, type: 3}
+  _isFirst: 0
   Fire: {fileID: 5183964406526742952}
 --- !u!120 &2270452087663832695
 LineRenderer:
