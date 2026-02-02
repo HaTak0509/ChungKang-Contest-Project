@@ -7,23 +7,25 @@ public class Platform : MonoBehaviour
     [SerializeField] private float sinkAmount = 0.2f;
     [SerializeField] private float sinkSpeed = 2f;
 
-    private Vector3 originalPosition;
-    private Vector3 pressedPosition;
+    private Vector3 _originalPosition;
+    private Vector3 _pressedPosition;
 
-    private int pressCount = 0; // 몇 개가 밟고 있는지
-    private Transform carriedObject; // 플레이어 or 박스
+    private int _pressCount = 0; // 몇 개가 밟고 있는지
+    private Transform _carriedObject; // 플레이어 or 박스
+    private Animator _animator;
 
-    void Start()
+    private void Awake()
     {
-        originalPosition = transform.position;
-        pressedPosition = originalPosition + Vector3.down * sinkAmount;
+        _animator = GetComponent<Animator>();
+        _originalPosition = transform.position;
+        _pressedPosition = _originalPosition + Vector3.down * sinkAmount;
     }
 
     void Update()
     {
         Vector3 prevPos = transform.position;
 
-        Vector3 targetPos = pressCount > 0 ? pressedPosition : originalPosition;
+        Vector3 targetPos = _pressCount > 0 ? _pressedPosition : _originalPosition;
 
         // 정확히 목표 위치까지 이동
         transform.position = Vector3.MoveTowards(
@@ -33,10 +35,10 @@ public class Platform : MonoBehaviour
         );
 
         // 발판 위 오브젝트 같이 이동
-        if (carriedObject != null)
+        if (_carriedObject != null)
         {
             Vector3 delta = transform.position - prevPos;
-            carriedObject.position += delta;
+            _carriedObject.position += delta;
         }
     }
 
@@ -47,11 +49,13 @@ public class Platform : MonoBehaviour
         if (collision.gameObject.CompareTag("Player") ||
             collision.gameObject.layer == LayerMask.NameToLayer("Box"))
         {
-            pressCount++;
+            _pressCount++;
 
-            carriedObject = collision.transform;
+            _carriedObject = collision.transform;
 
-            if (pressCount == 1)
+            _animator.SetBool(AnimationStrings.OnPlatform, true);
+
+            if (_pressCount == 1)
             {
                 if (targetDoor != null) targetDoor.OpenDoor();
             }
@@ -63,11 +67,13 @@ public class Platform : MonoBehaviour
         if (collision.gameObject.CompareTag("Player") ||
             collision.gameObject.layer == LayerMask.NameToLayer("Box"))
         {
-            pressCount = Mathf.Max(pressCount - 1, 0);
+            _pressCount = Mathf.Max(_pressCount - 1, 0);
 
-            if (pressCount == 0)
+            _animator.SetBool(AnimationStrings.OnPlatform, false);
+
+            if (_pressCount == 0)
             {
-                carriedObject = null;
+                _carriedObject = null;
                 if (targetDoor != null) targetDoor.CloseDoor();
             }
         }
