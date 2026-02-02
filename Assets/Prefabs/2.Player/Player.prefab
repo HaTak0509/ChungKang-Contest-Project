@@ -258,6 +258,7 @@ GameObject:
   - component: {fileID: 895852594745656090}
   - component: {fileID: 7284838188520216758}
   - component: {fileID: 3956417180917993650}
+  - component: {fileID: 5269601696947735977}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -563,6 +564,7 @@ MonoBehaviour:
   dashForce: 10
   upgradeDashForce: 12
   dashTime: 0.15
+  upgradeDashCoolTime: 20
   dashCooldown: 0.5
   upgradeDash: 0
   dashVitality: 1
@@ -606,6 +608,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 4
   pushingSpeed: 2
+  swimSpeed: 4
 --- !u!114 &8437455701824339484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -759,6 +762,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0d6bce0d20440874fa263c785d0134ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5269601696947735977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6167176492246087643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4155593e22f38824bab5c14a28a45009, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6527403618304378543

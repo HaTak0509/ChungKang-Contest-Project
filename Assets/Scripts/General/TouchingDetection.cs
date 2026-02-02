@@ -71,25 +71,9 @@ public class TouchingDetection : MonoBehaviour
 
         float castDistance = wallCheckDistance;
 
-        RaycastHit2D leftHit = Physics2D.CapsuleCast(
-            center,
-            size,
-            _capsuleCollider.direction,
-            0f,
-            Vector2.left,
-            castDistance,
-            groundLayer
-        );
+        RaycastHit2D leftHit = Physics2D.CapsuleCast(center, size, _capsuleCollider.direction, 0f, Vector2.left, castDistance, groundLayer);
 
-        RaycastHit2D rightHit = Physics2D.CapsuleCast(
-            center,
-            size,
-            _capsuleCollider.direction,
-            0f,
-            Vector2.right,
-            castDistance,
-            groundLayer
-        );
+        RaycastHit2D rightHit = Physics2D.CapsuleCast(center, size, _capsuleCollider.direction, 0f, Vector2.right, castDistance, groundLayer);
 
         IsOnWall = leftHit.collider != null || rightHit.collider != null;
 
