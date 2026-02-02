@@ -14,12 +14,12 @@ GameObject:
   - component: {fileID: 8668298463553202647}
   - component: {fileID: 3810987924519694895}
   - component: {fileID: 5439473049848709826}
+  - component: {fileID: 5733156016447426898}
   - component: {fileID: 8866709027432228965}
   - component: {fileID: 6815967614570314348}
-  - component: {fileID: 5733156016447426898}
   - component: {fileID: 2143049480604723492}
   - component: {fileID: 4940554376731176760}
-  - component: {fileID: 2801197001851924176}
+  - component: {fileID: 1038280739826468669}
   m_Layer: 8
   m_Name: "\uC815\uC2E0 \uB193\uC740 NPC"
   m_TagString: Enemy
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f0386a9ac51792c45ad3f8a29221cc12, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e49dbe02a41c7234cb7c9e1b4fafe922, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -101,7 +101,7 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6457155481132617030}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -123,7 +123,7 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.09}
@@ -137,7 +137,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6457155481132617030}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -207,37 +207,7 @@ MonoBehaviour:
   baseDetectionRange: 3
   hexColor: '#FF00E5'
   TwistMonster: {fileID: 8989096226389151681, guid: 2de4c1100f85644408f7dd26c0da2f47, type: 3}
---- !u!114 &8866709027432228965
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6457155481132617030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eed9939a525ba5441ab9bc65437e3e62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointA: {x: -7.04, y: -1.75}
-  pointB: {x: 4.94, y: -1.75}
-  collisionLayer:
-    serializedVersion: 2
-    m_Bits: 129
---- !u!114 &6815967614570314348
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6457155481132617030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7b758c5aa5b52e4ba3af1eff6c99dfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flotationForce: 5
-  maxPosition: 2.8
+  _isFirst: 0
 --- !u!120 &5733156016447426898
 LineRenderer:
   serializedVersion: 2
@@ -342,6 +312,37 @@ LineRenderer:
   m_UseWorldSpace: 0
   m_Loop: 1
   m_ApplyActiveColorSpace: 1
+--- !u!114 &8866709027432228965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6457155481132617030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eed9939a525ba5441ab9bc65437e3e62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointA: {x: -7.04, y: -1.75}
+  pointB: {x: 4.94, y: -1.75}
+  collisionLayer:
+    serializedVersion: 2
+    m_Bits: 129
+--- !u!114 &6815967614570314348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6457155481132617030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7b758c5aa5b52e4ba3af1eff6c99dfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flotationForce: 5
+  maxPosition: 2.8
 --- !u!114 &2143049480604723492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -373,7 +374,7 @@ MonoBehaviour:
   groundCheckDistance: 0.1
   wallCheckDistance: 0.2
   showDebugRays: 1
---- !u!95 &2801197001851924176
+--- !u!95 &1038280739826468669
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -383,7 +384,7 @@ Animator:
   m_GameObject: {fileID: 6457155481132617030}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9d9a9f66cdda44b40acee39a460c43d5, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

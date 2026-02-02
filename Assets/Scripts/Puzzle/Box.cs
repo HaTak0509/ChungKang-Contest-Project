@@ -9,6 +9,7 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
     private PushingObject _pushingObject;
 
     private bool _isTwist = false;
+    public bool isTwist => _isTwist;
     private Transform _Player;
 
     private void Start()
@@ -38,7 +39,9 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
 
         if(PlayerScale.Instance._Scale <= 30 )
         {
-            RelocateToEmptySpace();
+            if(_Box.GetComponent<Box>().isTwist)
+                RelocateToEmptySpace();
+    
         }else if(PlayerScale.Instance._Scale >= 100)
         {
             _pushingObject.Interact();
