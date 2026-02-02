@@ -35,27 +35,43 @@ public class Monster : MonoBehaviour, WarpingInterface
 
     public bool IsDisabled => disableReasons.Count > 0;
 
-
-    void Start()
+    private void Awake()
     {
-        InteractRange = baseDetectionRange;
-
         _movement = GetComponent<MonsterMovement>();
         _animator = GetComponent<Animator>();
         _lineRenderer = GetComponent<DrawSensingRange>();
 
-        OnEnter();
 
-        if (TwistMonster != null && !_isFirst)
-        {
-            TwistMonster = Instantiate(TwistMonster);
-            TwistMonster.SetActive(false);
-            _isFirst = true;
-            TwistMonster.GetComponent<Monster>()._isFirst = true;
-            TwistMonster.GetComponent<Monster>().TwistMonster = gameObject;
-        }
+        InteractRange = baseDetectionRange;
     }
 
+    void Start()
+    {
+
+
+        if (!_isFirst)
+        {
+            OnEnter();
+
+
+            if (TwistMonster != null)
+            {
+                TwistMonster = Instantiate(TwistMonster);
+                _isFirst = true;
+
+                Monster temp = TwistMonster.GetComponent<Monster>();
+
+                temp._isFirst = true;
+                temp.TwistMonster = gameObject;
+                temp.baseSpeed = baseSpeed;
+                temp.InteractRange = baseDetectionRange;
+                TwistMonster.SetActive(false);
+
+                TwistMonster.GetComponent<MonsterMovement>().pointA = _movement.pointA;
+                TwistMonster.GetComponent<MonsterMovement>().pointB = _movement.pointB;
+            }
+        }
+    }
 
 
     private void FixedUpdate()
@@ -70,6 +86,8 @@ public class Monster : MonoBehaviour, WarpingInterface
     public void Warping()
     {
         if (TwistMonster == null) return;
+     
+
         OnExit();
 
         
@@ -85,7 +103,7 @@ public class Monster : MonoBehaviour, WarpingInterface
 
     public virtual void OnEnter()
     {
-       
+
     }
 
     public virtual void UpdateState()

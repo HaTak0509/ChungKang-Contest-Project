@@ -18,11 +18,13 @@ public class JealousyState : Monster, IInteractable
     [Header("대기 시간 설정")]
     public float Ready_DURATION = 5f;
     private const float checkRadius = 99f;
-
+    [SerializeField] private LayerMask EnemyLayer;
 
 
     public override void OnEnter()
     {
+        base.OnEnter();
+
 
         if (_player == null)
             _player = GameObject.FindWithTag("Player").transform;
@@ -57,9 +59,12 @@ public class JealousyState : Monster, IInteractable
 
     void Teleport()
     {
+
         _animator.SetTrigger("IsAction");
 
-        Collider2D[] hitAIs = Physics2D.OverlapCircleAll(_player.transform.position, checkRadius, LayerMask.GetMask("Enemy"));
+
+     
+        Collider2D[] hitAIs = Physics2D.OverlapCircleAll(_player.transform.position, checkRadius, EnemyLayer);
 
         if (hitAIs.Length == 0) return; // 3블럭 이내 AI가 없으면 종료
 

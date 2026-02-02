@@ -11,11 +11,12 @@ public class ResentmentState : Monster
 
     public override void OnEnter()
     {
+        base.OnEnter();
+
         _lineRenderer.OnLine();
 
         if (ColorUtility.TryParseHtmlString(hexColor, out Color newColor))
         {
-            Debug.Log(newColor.ToString());
             _lineRenderer.Draw(InteractRange, newColor);
         }
 
