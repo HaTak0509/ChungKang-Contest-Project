@@ -515,6 +515,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e5fd7396f1d27646816d55f696dec7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Humidity: 0
 --- !u!114 &908143048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -532,6 +533,7 @@ MonoBehaviour:
   waitTime: 1
   maxHeight: 20
   bubbleMaxHeight: 1
+  WaterSize: 17.62
   _WaterSprite: {fileID: 515246851}
   _BubbleSprite: {fileID: 928135990}
   _currentStep: 0
