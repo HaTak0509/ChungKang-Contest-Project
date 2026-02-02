@@ -142,6 +142,14 @@ public class MonsterMovement : MonoBehaviour
         {
             Flip();
         }
+
+        // 현재 위치가 설정한 사각형 범위를 벗어났는지 체크 (여유값 0.5f 추가)
+        bool outOfX = transform.position.x < pointA.x - 0.5f || transform.position.x > pointB.x + 0.5f;
+
+        if (outOfX)
+        {
+            StopMove();
+        }
     }
 
     private bool OutBoundaries()
