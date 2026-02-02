@@ -76,7 +76,30 @@ public class PlayerMovement : MonoBehaviour
 
     private void SwimmingMovement()
     {
-        Vector2 swimVelocity = _moveInput * swimSpeed;
+        Vector2 swimVelocity = Vector2.zero;
+
+        bool moveHorizontal = Mathf.Abs(_moveInput.x) > 0.01f;
+        bool moveVertical = Mathf.Abs(_moveInput.y) > 0.01f;
+
+        if (!moveHorizontal && moveVertical)
+        {
+            swimVelocity = new Vector2(0f, _moveInput.y * swimSpeed);
+            _animator.SetBool(AnimationStrings.IsVerticalSwim, true);
+            _animator.SetBool(AnimationStrings.IsHorizontalSwim, false);
+        }
+        else if (moveHorizontal && !moveVertical)
+        {
+            swimVelocity = new Vector2(_moveInput.x * swimSpeed, 0f);
+            _animator.SetBool(AnimationStrings.IsVerticalSwim, false);
+            _animator.SetBool(AnimationStrings.IsHorizontalSwim, true);
+        }
+        else if (moveHorizontal && moveVertical)
+        {
+            swimVelocity = _moveInput.normalized * swimSpeed;
+            _animator.SetBool(AnimationStrings.IsVerticalSwim, false);
+            _animator.SetBool(AnimationStrings.IsHorizontalSwim, true);
+        }
+
         _rb2D.velocity = swimVelocity;
     }
 
