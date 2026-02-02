@@ -16,10 +16,11 @@ public class HumidityManager : MonoBehaviour
     public static HumidityManager Instance;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        _waterRiseController = GetComponent<WaterRiseController>();
         Instance = this;
+        _waterRiseController = GetComponent<WaterRiseController>();
+        
     }
 
 
