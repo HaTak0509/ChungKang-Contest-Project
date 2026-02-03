@@ -140,7 +140,6 @@ public class SpringPunch : MonoBehaviour, WarpingInterface
         TwistObject.SetActive(true);
 
         TwistObject.transform.position = transform.position;
-        TwistObject.GetComponent<Monster>().OnEnter();
 
         gameObject.SetActive(false);
 

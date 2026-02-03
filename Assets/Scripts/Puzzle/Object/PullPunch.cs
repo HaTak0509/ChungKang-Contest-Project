@@ -1,7 +1,7 @@
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 
-public class PullPunch : MonoBehaviour
+public class PullPunch : MonoBehaviour, WarpingInterface
 {
     [Header("감지 설정")]
     [SerializeField] private Vector3 detectionPos = new Vector3(); // 감지할 사각형 위치
@@ -43,6 +43,7 @@ public class PullPunch : MonoBehaviour
     private float _lastResistTime = 0f;
     private Transform _caughtPlayer;
     private float direction;
+        
     private void Start()
     {
         chainLine = GetComponent<LineRenderer>();
@@ -62,6 +63,20 @@ public class PullPunch : MonoBehaviour
             TwistObject.GetComponent<SpringPunch>().TwistObject = gameObject;
         }
     }
+
+    public void Warping()
+    {
+        if (TwistObject == null) return;
+
+
+        TwistObject.SetActive(true);
+
+        TwistObject.transform.position = transform.position;
+
+        gameObject.SetActive(false);
+
+    }
+
 
     void Update()
     {
