@@ -96,7 +96,6 @@ MonoBehaviour:
   activationCrack: {fileID: 3039545780698077732}
   deactivationCrack: {fileID: 6806855085974110075}
   closeCrack: {fileID: 8291273296796176940}
-  openLimit: 1
   isActivated: 0
 --- !u!1 &3039545780698077732
 GameObject:
@@ -365,6 +364,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7751935197314573339}
+  - component: {fileID: 5529022039705206511}
   m_Layer: 0
   m_Name: Cracks
   m_TagString: Untagged
@@ -388,6 +388,20 @@ Transform:
   - {fileID: 5986185804028345261}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5529022039705206511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8347819550002978213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa1ad67ba0a8df4cb2a371aedebb3fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crakLimit: 2
+  currentLimit: 0
 --- !u!1001 &4890142321183199712
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -7,6 +7,12 @@ public class PushingObject : MonoBehaviour, IInteractable
     public bool isActive;
 
     private Pushing _pushing;
+
+    private void Update()
+    {
+        
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
