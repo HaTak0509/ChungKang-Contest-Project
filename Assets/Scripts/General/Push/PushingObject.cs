@@ -6,7 +6,7 @@ public class PushingObject : MonoBehaviour, IInteractable
 
     public bool isActive;
 
-    private Pushing _pushing;
+     private Pushing _pushing;
 
     private void Update()
     {

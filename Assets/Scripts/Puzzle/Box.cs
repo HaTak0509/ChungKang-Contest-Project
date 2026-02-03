@@ -3,9 +3,9 @@ using UnityEngine;
 public class Box : MonoBehaviour , IInteractable, WarpingInterface
 {
     [Header("검사 설정")]
-    public GameObject _Box;
+    public GameObject _BoxTeleport;
+    [SerializeField] private Vector2 checkPos = new Vector2(0.5f, 0.0f); // 검사할 영역의 위치
     [SerializeField] private Vector2 checkSize = new Vector2(1.5f, 3.0f); // 검사할 영역의 크기
-    [SerializeField] private float checkDistance = 1.6f;              // 좌우로 얼마나 떨어진 곳을 검사할지
     private PushingObject _pushingObject;
 
     private bool _isTwist = false;
@@ -16,19 +16,15 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
     {
         _pushingObject = GetComponent<PushingObject>();
         _Player = GameObject.FindWithTag("Player").transform;
-
     }
 
     public void Warping()
     {
         _isTwist = !_isTwist;
-
     }
 
     public void Interact()
     {
-
-
         if (!_isTwist)
         {
             _pushingObject.Interact();
@@ -39,7 +35,7 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
 
         if(PlayerScale.Instance._Scale <= 30 )
         {
-            if(_Box.GetComponent<Box>().isTwist)
+            if(_BoxTeleport.GetComponent<Box>().isTwist)
                 RelocateToEmptySpace();
     
         }else if(PlayerScale.Instance._Scale >= 100)
@@ -52,7 +48,7 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
     public void RelocateToEmptySpace()
     {
         // 1. 오른쪽 확인
-        Vector2 rightTarget = (Vector2)transform.position + Vector2.right * checkDistance;
+        Vector2 rightTarget = (Vector2)_BoxTeleport.transform.position + new Vector2(checkPos.x * 1,checkPos.y);
         if (!IsObstacleAt(rightTarget))
         {
             MoveTo(rightTarget);
@@ -60,7 +56,7 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
         }
 
         // 2. 왼쪽 확인
-        Vector2 leftTarget = (Vector2)transform.position + Vector2.left * checkDistance;
+        Vector2 leftTarget = (Vector2)_BoxTeleport.transform.position + new Vector2(checkPos.x * -1, checkPos.y);
         if (!IsObstacleAt(leftTarget))
         {
             MoveTo(leftTarget);
@@ -88,8 +84,8 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
     {
 
         Gizmos.color = Color.green;
-        Vector2 rightTarget = (Vector2)_Box.transform.position + Vector2.right * checkDistance;
-        Vector2 leftTarget = (Vector2)_Box.transform.position + Vector2.left * checkDistance;
+        Vector2 rightTarget = (Vector2)_BoxTeleport.transform.position + new Vector2(checkPos.x * 1, checkPos.y);
+        Vector2 leftTarget = (Vector2)_BoxTeleport.transform.position + new Vector2(checkPos.x * -1, checkPos.y);
 
 
         Gizmos.DrawWireCube(rightTarget, checkSize);
