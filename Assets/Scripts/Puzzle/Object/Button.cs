@@ -1,7 +1,6 @@
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using System;
-using Unity.VisualScripting;
 
 public class Button : MonoBehaviour, IInteractable
 {
