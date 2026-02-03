@@ -186,7 +186,7 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
     {
         Color c = _tileMap.color;
         _comCOl.isTrigger = true;
-        tileOb.tag = "Defalut";
+        tileOb.tag = "Default";
 
         while (c.a > 0.3f)
         {
