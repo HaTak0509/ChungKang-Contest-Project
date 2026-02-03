@@ -48,7 +48,7 @@ public class HumidityManager : MonoBehaviour
         }
         else
         {
-//            _waterRiseController.StopMovement();
+            _waterRiseController.StopMovement();
         }
 
     }
