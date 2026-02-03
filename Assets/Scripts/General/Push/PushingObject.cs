@@ -2,43 +2,43 @@ using UnityEngine;
 
 public class PushingObject : MonoBehaviour, IInteractable
 {
+    [SerializeField] private Rigidbody2D rb;
+
     public bool isActive;
 
-    private Rigidbody2D rb;
-    private Pushing pushing;
-
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody2D>();
-    }
-
-    private void Update()
-    {
-        
-    }
-
-    public void Interact()
-    {
-        isActive = !isActive;
-        pushing.PushingDirection();
-    }
-
+    private Pushing _pushing;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            pushing = collision.GetComponent<Pushing>();
+            _pushing = collision.GetComponent<Pushing>();
         }
     }
 
-    // Player의 x velocity를 그대로 복사
-    public void CopyVelocity(float playerVelX)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        rb.velocity = new Vector2(playerVelX, rb.velocity.y);
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            _pushing = null;
+        }
+    }
+    public void Interact()
+    {
+        isActive = !isActive;
+
+        if (isActive)
+        {
+            _pushing.PushingDirection();
+        }
+    }
+
+    public void CopyVelocity(float velocity)
+    {
+        rb.velocity = new Vector2(velocity, rb.velocity.y);
     }
 
     public void Stop()
     {
-        rb.velocity = new Vector2(0f, rb.velocity.y);
+        rb.velocity = Vector2.zero;
     }
 }
