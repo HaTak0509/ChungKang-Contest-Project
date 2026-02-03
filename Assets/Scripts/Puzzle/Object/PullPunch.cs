@@ -1,7 +1,5 @@
 using UnityEngine;
-using System.Collections;
 using Cysharp.Threading.Tasks;
-using Unity.VisualScripting;
 
 public class PullPunch : MonoBehaviour
 {
@@ -44,14 +42,15 @@ public class PullPunch : MonoBehaviour
     private int _currentResistCount = 0;
     private float _lastResistTime = 0f;
     private Transform _caughtPlayer;
-
+    private float direction;
     private void Start()
     {
         chainLine = GetComponent<LineRenderer>();
-        OriginHand = _Niddle.position;
 
-        float direction = _IsRight == true ? 1f : -1f;
+        direction = _IsRight == true ? 1f : -1f;
         transform.localScale = new Vector3(transform.localScale.x * direction, transform.localScale.y, transform.localScale.z);
+
+        OriginHand = _Niddle.position;
 
         if (TwistObject != null && !_isFirst)
         {
@@ -85,7 +84,7 @@ public class PullPunch : MonoBehaviour
     private async void CheckForTargets()
     {
         // 현재 위치에서 detectionSize만큼의 사각형 안에 있는 모든 콜라이더를 가져옴
-        Collider2D[] hitTargets = Physics2D.OverlapBoxAll(transform.position + detectionPos, detectionSize, 0f, targetLayer);
+        Collider2D[] hitTargets = Physics2D.OverlapBoxAll(transform.position + new Vector3(detectionPos.x * direction, detectionPos.y, 0), detectionSize, 0f, targetLayer);
 
         if (hitTargets.Length > 0)
         {
@@ -150,8 +149,8 @@ public class PullPunch : MonoBehaviour
 
         // 가시가 날아갈 목표 지점 (현재 감지된 플레이어의 위치)
         // CheckForTargets에서 찾은 대상을 타겟으로 삼습니다.
-        Vector3 targetPos = _Niddle.position + detectionPos;
-        targetPos.x += 2.5f;
+        Vector3 targetPos = _Niddle.position + new Vector3(detectionPos.x * direction, detectionPos.y, 0);
+        targetPos.x += 2.5f * direction;
 
         // [아이디어] 가시가 목표까지 날아가는 과정
         bool hitPlayer = await MoveThornToTarget(_Niddle, targetPos);

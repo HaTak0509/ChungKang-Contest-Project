@@ -326,9 +326,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointA: {x: -7.04, y: -1.75}
   pointB: {x: 4.94, y: -1.75}
-  collisionLayer:
-    serializedVersion: 2
-    m_Bits: 1
 --- !u!114 &6815967614570314348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -370,7 +367,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   groundCheckDistance: 0.1
   wallCheckDistance: 0.2
   showDebugRays: 1

@@ -15,7 +15,6 @@ public class ObjectConfinement : MonoBehaviour
 
     private void OnDisable()
     {
-        if (!_isActive) return;
         ReleaseObject();
     }
 

@@ -290,7 +290,7 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.04}
+  m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.35, y: 0.7}
   m_Direction: 0
 --- !u!50 &2025615199981491894
@@ -334,9 +334,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointA: {x: -7.04, y: -1.75}
   pointB: {x: 4.94, y: -1.75}
-  collisionLayer:
-    serializedVersion: 2
-    m_Bits: 1
 --- !u!114 &7403667431915898058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -486,7 +483,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   groundCheckDistance: 0.1
   wallCheckDistance: 0.2
   showDebugRays: 1

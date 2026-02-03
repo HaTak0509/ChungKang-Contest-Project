@@ -1,4 +1,7 @@
+
+using Cinemachine.Utility;
 using UnityEngine;
+using static MonsterMovement;
 
 public class RageState : Monster
 {
@@ -11,13 +14,14 @@ public class RageState : Monster
     private Transform _player;
 
     // 로직 제어 변수
-    private float _attackStateTimer = 0f;      // 공격 상태 유지 타이머 (3초)
-    private float _readyTimer = 0f;            // 돌격 준비 타이머 (1초)
-    private bool _isDashing = false;           // 현재 돌진 중인지 여부
-    private bool _isReadying = false;          // 현재 준비 중인지 여부
+    [SerializeField] private float DashSpeed = 5f;
+    [SerializeField] private Vector3 _HitPos = new Vector2(0.0f, 0.0f);
+    [SerializeField] private Vector2 _HitCheck = new Vector2(0.5f, 0.5f);
+    [SerializeField] private LayerMask _PlayerLayer;
 
-    private const float ATTACK_DURATION = 3f;
-    private const float READY_DURATION = 1f;
+
+    private bool _isDashing = false;           // 현재 돌진 중인지 여부
+
 
     public override void OnEnter()
     {
@@ -38,25 +42,18 @@ public class RageState : Monster
 
     public override void UpdateState()
     {
-        if(!_isDashing && !_isReadying)
-           _movement.Move();
 
-        // 1. 플레이어 감지 시 유지 시간 갱신
-        if (IsPlayerInRange())
+        if (_isDashing)
         {
-            _attackStateTimer = ATTACK_DURATION;
+            _movement.Dash(DashSpeed);
+            CheckHit();
         }
-
-        // 2. 공격 상태 타이머 체크
-        _attackStateTimer -= Time.deltaTime;
-        if (_attackStateTimer <= 0)
+        else
         {
-            StopDash();
-            return;
+            _movement.Move();
+            if (IsPlayerInRange())
+                _isDashing = true;
         }
-
-        // 3. 내부 동작 로직 (준비 -> 돌진)
-        HandleAttackLogic();
     }
 
     public override void OnExit()
@@ -65,80 +62,33 @@ public class RageState : Monster
         StopDash();
     }
 
-    private void HandleAttackLogic()
-    {
-        if (!_isReadying && !_isDashing)
-        {
-            // 준비 단계 진입
-            StartReady();
-        }
-
-        if (_isReadying)
-        {
-            _readyTimer -= Time.deltaTime;
-            // 준비 시간 동안 플레이어 위치 추적 (목표 갱신)
-
-
-            if (_readyTimer <= 0)
-            {
-                StartDash();
-            }
-        }
-
-        if (_isDashing)
-        {
-            _movement.Dash();
-        }
-        
-
-        if (_isDashing && _movement._movementState != MonsterMovement.MovementState.Dash)
-        {
-            StopDash();
-        }
-
-    }
-
-    private void StartReady()
-    {
-        _isReadying = true;
-        _isDashing = false;
-        _readyTimer = READY_DURATION;
-
-        _animator.SetBool(AnimationStrings.IsMoving, false);
-        Debug.Log("돌진 준비");
-
-    }
-
-    private void StartDash()
-    {
-
-        _isReadying = false;
-        _isDashing = true;
-        _movement.ChangeState(MonsterMovement.MovementState.Dash);
-
-
-        //플레이어 위치 기준 위/ 아래 방향 판단
-        float xDirection = Mathf.Sign(_player.position.x - transform.position.x);
-
-        // ▶ 몬스터가 플레이어 방향을 바라보도록 Flip
-        if (_player.position.x < transform.position.x && _movement._isFacingRight)
-        {
-            _movement.Flip();
-        }
-        else if (_player.position.x > transform.position.x && !_movement._isFacingRight)
-        {
-            _movement.Flip();
-        }
-
-        Debug.Log("돌진");
-    }
 
     private void StopDash()
     {
         Debug.Log("돌진 끝");
         _isDashing = false;
-        _isReadying = false;
         _movement.StopMove();
+    }
+
+    private void CheckHit()
+    {
+        Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position + _HitPos, _HitCheck, 0f, _PlayerLayer);
+        // 플레이어와 접촉 시 밀치기
+
+        foreach (Collider2D hit in hits)
+        {
+            if (hit.transform.CompareTag("Player"))
+            {
+                Debug.Log("플레이어와 충돌");
+
+                _animator.SetTrigger("isAction");
+                _movement.ChangeState(MovementState.Idle);
+                StopDash();
+
+                hit.transform.GetComponent<Damageable>().GameOver();
+
+            }
+        }
     }
 
     private bool IsPlayerInRange()
@@ -147,4 +97,11 @@ public class RageState : Monster
         return dist <= InteractRange;
     }
 
+    private void OnDrawGizmosSelected()
+    {
+
+        Gizmos.color = Color.red;
+
+        Gizmos.DrawWireCube(transform.position + _HitPos, _HitCheck);
+    }
 }

@@ -39,7 +39,7 @@ public class Crack : MonoBehaviour
         if (_currentLimit >= openLimit) return;
         
         isActivated = value;
-
+        Debug.Log(123);
         activationCrack.SetActive(isActivated);
         deactivationCrack.SetActive(!isActivated && _playerInRange);
         closeCrack.SetActive(isActivated && _playerInRange);
