@@ -11,9 +11,8 @@ public class Elevator : MonoBehaviour, IInteractable
     public void Interact()
     {
         if (!_action) return;
-        Debug.Log(123);
 
-        // LevelReset.Instance.LoadLevel(nextLevel);
+        LevelReset.Instance.LoadLevel(nextLevel);
     }
 
     private void OnTriggerStay2D(Collider2D other)
