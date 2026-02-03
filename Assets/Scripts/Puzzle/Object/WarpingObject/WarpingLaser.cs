@@ -9,8 +9,6 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
 {
     [SerializeField] private List<GameObject> _hideObjects = new List<GameObject>();
     [SerializeField] private GameObject laser;
-    [SerializeField] private Tilemap tileMap;
-    [SerializeField] private CompositeCollider2D comCOl;
     [SerializeField] private GameObject tileOb;
 
     private List<SpriteRenderer> _puzzleObjectSp = new List<SpriteRenderer>();
@@ -19,8 +17,17 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
     private TransparencyUI _transparencyUI;
     private PlayerColor _playerColor;
 
+    private Tilemap _tileMap;
+    private TilemapCollider2D _comCOl;
+
     private bool _objectActive;
     private bool _playerActive;
+
+    private void Start()
+    {
+        _tileMap = tileOb.GetComponent<Tilemap>();
+        _comCOl = tileOb.GetComponent<TilemapCollider2D>();
+    }
 
     private void OnEnable()
     {
@@ -116,8 +123,8 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
             if (sr != null)
                 tasks.Add(TransparencyLowerInstant(sr, _cts.Token));
 
-        if (tileMap != null)
-            tasks.Add(TimeMapLower(_cts.Token));
+        if (_tileMap != null)
+            tasks.Add(TileMapLower(_cts.Token));
 
         await UniTask.WhenAll(tasks);
 
@@ -144,8 +151,11 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
             if (sr != null)
                 tasks.Add(TransparencyUpperInstant(sr, _cts.Token));
 
-        if (tileMap != null)
-            tasks.Add(TimeMapUpper(_cts.Token));
+        if (_tileMap != null)
+        {
+            tasks.Add(TileMapUpper(_cts.Token));
+            Debug.Log(123);
+        }
 
         await UniTask.WhenAll(tasks);
     }
@@ -172,30 +182,30 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
         }
     }
 
-    private async UniTask TimeMapLower(CancellationToken token)
+    private async UniTask TileMapLower(CancellationToken token)
     {
-        Color c = tileMap.color;
-        comCOl.isTrigger = true;
+        Color c = _tileMap.color;
+        _comCOl.isTrigger = true;
         tileOb.tag = "Defalut";
 
         while (c.a > 0.3f)
         {
             c.a -= 0.15f;
-            tileMap.color = c;
+            _tileMap.color = c;
             await UniTask.Delay(30, cancellationToken: token);
         }
     }
 
-    private async UniTask TimeMapUpper(CancellationToken token)
+    private async UniTask TileMapUpper(CancellationToken token)
     {
-        Color c = tileMap.color;
-        comCOl.isTrigger = false;
+        Color c = _tileMap.color;
+        _comCOl.isTrigger = false;
         tileOb.tag = "Ground";
 
         while (c.a < 1f)
         {
             c.a += 0.1f;
-            tileMap.color = c;
+            _tileMap.color = c;
             await UniTask.Delay(30, cancellationToken: token);
         }
     }
