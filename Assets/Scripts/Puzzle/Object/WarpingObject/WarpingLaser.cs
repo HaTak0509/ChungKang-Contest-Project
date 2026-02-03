@@ -9,7 +9,8 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
 {
     [SerializeField] private List<GameObject> _hideObjects = new List<GameObject>();
     [SerializeField] private GameObject laser;
-    [SerializeField] private Tilemap timeMap;
+    [SerializeField] private Tilemap tileMap;
+    [SerializeField] private CompositeCollider2D comCOl;
 
     private List<SpriteRenderer> _puzzleObjectSp = new List<SpriteRenderer>();
     private List<GameObject> _puzzleObjects = new List<GameObject>();
@@ -114,7 +115,7 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
             if (sr != null)
                 tasks.Add(TransparencyLowerInstant(sr, _cts.Token));
 
-        if (timeMap != null)
+        if (tileMap != null)
             tasks.Add(TimeMapLower(_cts.Token));
 
         await UniTask.WhenAll(tasks);
@@ -142,7 +143,7 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
             if (sr != null)
                 tasks.Add(TransparencyUpperInstant(sr, _cts.Token));
 
-        if (timeMap != null)
+        if (tileMap != null)
             tasks.Add(TimeMapUpper(_cts.Token));
 
         await UniTask.WhenAll(tasks);
@@ -172,22 +173,26 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
 
     private async UniTask TimeMapLower(CancellationToken token)
     {
-        Color c = timeMap.color;
+        Color c = tileMap.color;
+        comCOl.isTrigger = true;
+
         while (c.a > 0.3f)
         {
             c.a -= 0.15f;
-            timeMap.color = c;
+            tileMap.color = c;
             await UniTask.Delay(30, cancellationToken: token);
         }
     }
 
     private async UniTask TimeMapUpper(CancellationToken token)
     {
-        Color c = timeMap.color;
+        Color c = tileMap.color;
+        comCOl.isTrigger = false;
+        
         while (c.a < 1f)
         {
             c.a += 0.1f;
-            timeMap.color = c;
+            tileMap.color = c;
             await UniTask.Delay(30, cancellationToken: token);
         }
     }
