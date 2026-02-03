@@ -2314,6 +2314,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3502994284037773748, guid: 8e92fe31b3ff4b344b6628c73861794e, type: 3}
   m_PrefabInstance: {fileID: 2613521181651027916}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6348608783705582781 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8962125495100959601, guid: 8e92fe31b3ff4b344b6628c73861794e, type: 3}
+  m_PrefabInstance: {fileID: 2613521181651027916}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad9893ff3cb884744bf4f8b18077e2e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3370277275037703370
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2370,6 +2381,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4931618495256408363, guid: fda1a6e65f836b8449dfdd59b9f1ebea, type: 3}
+      propertyPath: _playerDash
+      value: 
+      objectReference: {fileID: 6348608783705582781}
     - target: {fileID: 9010813440342380151, guid: fda1a6e65f836b8449dfdd59b9f1ebea, type: 3}
       propertyPath: m_Name
       value: Laser
@@ -2457,6 +2472,14 @@ PrefabInstance:
     - target: {fileID: 738828842363638708, guid: 5d7bbeb0af4d37a408f96515c9040210, type: 3}
       propertyPath: m_Name
       value: targer_elevator
+      objectReference: {fileID: 0}
+    - target: {fileID: 2290731701348450930, guid: 5d7bbeb0af4d37a408f96515c9040210, type: 3}
+      propertyPath: clear
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2290731701348450930, guid: 5d7bbeb0af4d37a408f96515c9040210, type: 3}
+      propertyPath: nextLevel
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8763058145724405012, guid: 5d7bbeb0af4d37a408f96515c9040210, type: 3}
       propertyPath: m_LocalPosition.x
