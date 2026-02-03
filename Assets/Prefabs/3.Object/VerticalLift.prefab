@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6233922943480916532}
   - component: {fileID: 4913720627400877840}
   - component: {fileID: 5105014309562677483}
-  - component: {fileID: 2698121096794289357}
+  - component: {fileID: 1489455179137725758}
   m_Layer: 6
   m_Name: VerticalLift
   m_TagString: PuzzleObject
@@ -179,7 +179,7 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
---- !u!114 &2698121096794289357
+--- !u!114 &1489455179137725758
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -188,11 +188,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4413975380570112050}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67775ede6c0ef434babc8a7adaa81864, type: 3}
+  m_Script: {fileID: 11500000, guid: 606a0ff3e4d589842a076d6842c242b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  horizontalX: 5
+  verticalY: -5
   decelerationPosition: 3
   decelerationSpeed: 0.2
-  _isMoving: 0
+  isMoving: 0
