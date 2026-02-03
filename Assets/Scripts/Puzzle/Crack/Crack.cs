@@ -6,11 +6,9 @@ public class Crack : MonoBehaviour
     [SerializeField] private GameObject deactivationCrack;
     [SerializeField] private GameObject closeCrack;
 
-    public int openLimit;
     public bool isActivated;
 
     private bool _playerInRange;
-    private int _currentLimit;
 
     private void Awake()
     {
@@ -36,9 +34,12 @@ public class Crack : MonoBehaviour
 
     public void SetCrack(bool value)
     {
-        if (_currentLimit >= openLimit) return;
-        
-        isActivated = value;
+        if (CrackManager.Instance.currentLimit >= CrackManager.Instance.crakLimit) return;
+
+        if (isActivated) CrackManager.Instance.currentLimit++;
+        else CrackManager.Instance.currentLimit--;
+
+            isActivated = value;
         activationCrack.SetActive(isActivated);
         deactivationCrack.SetActive(!isActivated && _playerInRange);
         closeCrack.SetActive(isActivated && _playerInRange);
