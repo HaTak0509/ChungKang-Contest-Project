@@ -144,7 +144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 618272771475624083, guid: 286b2107874c1c144b6d6dd01a0ef704, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: LightBox
       objectReference: {fileID: 0}
     - target: {fileID: 1721127812683842134, guid: 286b2107874c1c144b6d6dd01a0ef704, type: 3}
       propertyPath: m_LocalScale.x
@@ -212,11 +212,11 @@ PrefabInstance:
       objectReference: {fileID: 1321526493, guid: 40969517788394c4c9153ee3242943dd, type: 3}
     - target: {fileID: 3703022492003860549, guid: 286b2107874c1c144b6d6dd01a0ef704, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.64
+      value: -1.95
       objectReference: {fileID: 0}
     - target: {fileID: 3703022492003860549, guid: 286b2107874c1c144b6d6dd01a0ef704, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.17
+      value: -4.16
       objectReference: {fileID: 0}
     - target: {fileID: 4103166972930438169, guid: 286b2107874c1c144b6d6dd01a0ef704, type: 3}
       propertyPath: m_LocalPosition.x
@@ -876,7 +876,7 @@ GameObject:
   - component: {fileID: 1454194712}
   - component: {fileID: 1454194708}
   - component: {fileID: 1454194711}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Box Range
   m_TagString: PuzzleObject
   m_Icon: {fileID: 0}
@@ -1373,12 +1373,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 1447323529}
     m_Modifications:
     - target: {fileID: 762664456177115448, guid: 3562ffc07a2f8d2449170be1870aa2fa, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 762664456177115448, guid: 3562ffc07a2f8d2449170be1870aa2fa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.04
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 762664456177115448, guid: 3562ffc07a2f8d2449170be1870aa2fa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.78
+      value: -3.8
       objectReference: {fileID: 0}
     - target: {fileID: 762664456177115448, guid: 3562ffc07a2f8d2449170be1870aa2fa, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1410,6 +1414,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 762664456177115448, guid: 3562ffc07a2f8d2449170be1870aa2fa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 762664456177115448, guid: 3562ffc07a2f8d2449170be1870aa2fa, type: 3}
+      propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3517767786676082032, guid: 3562ffc07a2f8d2449170be1870aa2fa, type: 3}
