@@ -22,6 +22,7 @@ public class Monster : MonoBehaviour, WarpingInterface
     protected MonsterMovement _movement;
     protected Animator _animator;
     protected DrawSensingRange _lineRenderer;
+    protected Rigidbody2D _rb;
 
 
     // 현재 실제 적용되는 값
@@ -40,7 +41,7 @@ public class Monster : MonoBehaviour, WarpingInterface
         _movement = GetComponent<MonsterMovement>();
         _animator = GetComponent<Animator>();
         _lineRenderer = GetComponent<DrawSensingRange>();
-
+        _rb = GetComponent<Rigidbody2D>();
 
         InteractRange = baseDetectionRange;
     }

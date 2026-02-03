@@ -25,6 +25,7 @@ public class MonsterMovement : MonoBehaviour
     private Monster _monster;
     private Transform _player;
     private Animator _animator;
+    private SpriteRenderer _spriteRenderer;
 
     public MovementState _movementState { get; private set; } = MovementState.Move;
 
@@ -33,7 +34,6 @@ public class MonsterMovement : MonoBehaviour
 
     public Vector2 pointA;
     public Vector2 pointB;
-    public LayerMask collisionLayer;
 
     private float _direction = 1f; // 1은 오른쪽, -1은 왼쪽
     public bool _isFacingRight { get; private set; } = true;
@@ -43,8 +43,8 @@ public class MonsterMovement : MonoBehaviour
         _touchingDetection = GetComponent<TouchingDetection>();
         _monster = GetComponent<Monster>();
         _rb = GetComponent<Rigidbody2D>();
-        _animator = GetComponent<Animator>();   
-
+        _animator = GetComponent<Animator>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
 
         // 시작 시 A와 B 중 더 오른쪽에 있는 값을 자동으로 정렬 (실수 방지)
         if (pointA.x > pointB.x)
@@ -63,8 +63,6 @@ public class MonsterMovement : MonoBehaviour
         {
             Vector2 nextPosition = _rb.position + new Vector2(_monster.Speed * _direction, 0) * Time.fixedDeltaTime;
 
-      
-
             _rb.MovePosition(nextPosition);
         }
 
@@ -74,7 +72,7 @@ public class MonsterMovement : MonoBehaviour
 
         CheckBoundaries();
 
-        if (IsWallAhead())
+        if (_touchingDetection.WallDirection != 0)
         {
             _movementState = MovementState.Idle;
         }
@@ -84,10 +82,31 @@ public class MonsterMovement : MonoBehaviour
         }
     }
 
-    public void Dash()
+    public void Dash(float Speed)
     {
-        Vector2 nextPosition = _rb.position + new Vector2(_monster.Speed * 2 * _direction, 0) * Time.fixedDeltaTime;
+        _direction = GetDirectionToPlayer();
+
+        _isFacingRight = _direction > 0 ? true : false ;
+        _spriteRenderer.flipX = _direction == 1 ? false : true;
+
+        if (_direction == _touchingDetection.WallDirection)
+        {
+            Speed = 0;
+        }
+
+        Vector2 nextPosition = _rb.position + new Vector2(Speed * _direction, 0) * Time.fixedDeltaTime;
         _rb.MovePosition(nextPosition);
+    }
+
+    public int GetDirectionToPlayer()
+    {
+        if (_player == null) return 0; // 타겟이 없으면 0
+
+        // 플레이어 X - 몬스터 X
+        float diff = _player.position.x - transform.position.x;
+
+        // 양수면 오른쪽(1), 음수면 왼쪽(-1)
+        return diff > 0 ? 1 : -1;
     }
 
     public void ChangeState(MovementState movementState)
@@ -95,21 +114,6 @@ public class MonsterMovement : MonoBehaviour
         _movementState = movementState;
     }
 
-    public bool IsWallAhead()
-    {
-        float dir = _isFacingRight ? 1f : -1f;
-
-        Vector2 origin = transform.position;
-
-        RaycastHit2D hit = Physics2D.Raycast(
-            origin,
-            Vector2.right * dir,
-            0.9f,
-            collisionLayer
-        );
-
-        return hit.collider != null;
-    }
 
     public void Flip()
     {
@@ -120,8 +124,8 @@ public class MonsterMovement : MonoBehaviour
         // 방향 전환 시 속도를 즉시 0으로 해주면 더 깔끔하게 꺾입니다.
         StopMove();
 
-        
-        GetComponent<SpriteRenderer>().flipX = _direction == 1 ? false : true;
+
+        _spriteRenderer.flipX = _direction == 1 ? false : true;
 
     }
 
@@ -152,20 +156,6 @@ public class MonsterMovement : MonoBehaviour
         }
     }
 
-    private bool OutBoundaries()
-    {
-        // 오른쪽으로 가고 있는데 B지점을 넘어섰다면
-        if (_direction > 0 && transform.position.x >= pointB.x)
-        {
-            return true;
-        }
-        // 왼쪽으로 가고 있는데 A지점을 넘어섰다면
-        else if (_direction < 0 && transform.position.x <= pointA.x)
-        {
-            return true;
-        }
-        return false;
-    }
 
     private void OnDrawGizmos()
     {
@@ -176,31 +166,6 @@ public class MonsterMovement : MonoBehaviour
         Gizmos.DrawLine(new Vector2(pointA.x, transform.position.y), new Vector2(pointB.x, transform.position.y));
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-      
-        if (_movementState == MovementState.Dash)
-        {
-            // 플레이어와 접촉 시 밀치기
-            if (collision.transform.CompareTag("Player"))
-            {
-                Debug.Log("플레이어와 충돌");
 
-                _animator.SetTrigger("isAction");
-
-                collision.transform.GetComponent<Damageable>().GameOver();
-                _movementState = MovementState.Idle;
-            }
-            
-            if (_touchingDetection.IsOnWall || OutBoundaries())
-            {
-                StopMove();
-                _movementState = MovementState.Idle;
-            }
-
-        }
-
-
-    }
 
 }

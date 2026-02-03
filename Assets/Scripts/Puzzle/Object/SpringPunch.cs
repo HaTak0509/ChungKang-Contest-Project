@@ -28,13 +28,13 @@ public class SpringPunch : MonoBehaviour, WarpingInterface
     [Header("È¸Àü")]
     public bool _IsRight = true;
 
-
+    float direction;
     private bool _isActive = false;
     [HideInInspector] public bool _isFirst = false;
 
     private void Start()
     {
-        float direction = _IsRight == true ? 1f : -1f;
+        direction = _IsRight == true ? 1f : -1f;
         transform.localScale = new Vector3 (transform.localScale.x * direction, transform.localScale.y,transform.localScale.z);
 
         if (TwistObject != null && !_isFirst)
@@ -98,11 +98,11 @@ public class SpringPunch : MonoBehaviour, WarpingInterface
 
         if (_isActive)
         {
-            hitTargets = Physics2D.OverlapBoxAll(transform.position + hitPos, hitSize, 0f, targetLayer);
+            hitTargets = Physics2D.OverlapBoxAll(transform.position + new Vector3(hitPos.x * direction, hitPos.y, 0), hitSize, 0f, targetLayer);
         }
         else
         {
-            hitTargets = Physics2D.OverlapBoxAll(transform.position + detectionPos, detectionSize, 0f, targetLayer);
+            hitTargets = Physics2D.OverlapBoxAll(transform.position + new Vector3(detectionPos.x * direction, detectionPos.y, 0), detectionSize, 0f, targetLayer);
         }
 
 
@@ -151,7 +151,7 @@ public class SpringPunch : MonoBehaviour, WarpingInterface
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.cyan;
-        float direction = _IsRight == true ? 1f : -1f;
+        direction = _IsRight == true ? 1f : -1f;
         Gizmos.DrawWireCube(transform.position + new Vector3(detectionPos.x * direction, detectionPos.y, 0), detectionSize);
 
 

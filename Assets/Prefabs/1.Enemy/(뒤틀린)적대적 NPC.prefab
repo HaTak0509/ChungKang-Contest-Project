@@ -185,9 +185,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointA: {x: 0, y: 0}
   pointB: {x: 0, y: 0}
-  collisionLayer:
-    serializedVersion: 2
-    m_Bits: 129
 --- !u!120 &969874075458815050
 LineRenderer:
   serializedVersion: 2
@@ -319,7 +316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   groundCheckDistance: 0.1
   wallCheckDistance: 0.2
   showDebugRays: 1

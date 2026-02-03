@@ -171,6 +171,12 @@ MonoBehaviour:
   hexColor: '#FF0000'
   TwistMonster: {fileID: 866030250024289710, guid: a5352b929155a354e841835417cda497, type: 3}
   _isFirst: 0
+  DashSpeed: 8
+  _HitPos: {x: 0, y: -1.16, z: 0}
+  _HitCheck: {x: 3, y: 2}
+  _PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &4093765048133568931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,9 +191,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointA: {x: -7.04, y: -1.75}
   pointB: {x: 4.94, y: -1.75}
-  collisionLayer:
-    serializedVersion: 2
-    m_Bits: 129
 --- !u!120 &1166666344833788292
 LineRenderer:
   serializedVersion: 2
@@ -319,7 +322,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   groundCheckDistance: 0.1
   wallCheckDistance: 0.2
   showDebugRays: 1
