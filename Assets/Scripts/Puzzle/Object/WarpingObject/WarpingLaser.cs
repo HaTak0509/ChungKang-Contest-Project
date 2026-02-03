@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class WarpingLaser : MonoBehaviour, WarpingInterface
 {
-
     [SerializeField] private List<GameObject> _hideObjects = new List<GameObject>();
     [SerializeField] private GameObject laser;
+    [SerializeField] private SpriteRenderer timeMap;
 
     private List<SpriteRenderer> _puzzleObjectSp = new List<SpriteRenderer>();
     private List<GameObject> _puzzleObjects = new List<GameObject>();
@@ -22,7 +22,7 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
     private void OnEnable()
     {
         _cts = new CancellationTokenSource();
-        _objectActive = true;    
+        _objectActive = true;
     }
 
     private void OnDisable()
@@ -30,7 +30,9 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
         _cts?.Cancel();
         _cts?.Dispose();
         _cts = null;
+
         RestoreAllTransparencyAndColliders();
+
         _playerColor = null;
 
         if (_hideObjects.Count > 0)
@@ -122,23 +124,27 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
 
     private async void LowerAllTransparencyAndDisableColliders()
     {
-        if (_puzzleObjectSp.Count == 0) return;
+        if (_puzzleObjectSp.Count == 0 && timeMap == null) return;
 
         var puzzleSp = _puzzleObjectSp.ToArray();
         var puzzleOb = _puzzleObjects.ToArray();
 
         var tasks = new List<UniTask>();
+
         foreach (var sr in puzzleSp)
         {
-            if (sr != null) tasks.Add(TransparencyLowerInstant(sr));
+            if (sr != null)
+                tasks.Add(TransparencyLowerInstant(sr, _cts.Token));
         }
+
+        if (timeMap != null)
+            tasks.Add(TimeMapLower(_cts.Token));
 
         await UniTask.WhenAll(tasks);
 
         foreach (var ob in puzzleOb)
         {
             var allColliders = ob.GetComponents<Collider2D>();
-
             foreach (var col in allColliders)
             {
                 if (col != null) col.enabled = false;
@@ -148,7 +154,7 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
 
     private async void RestoreAllTransparencyAndColliders()
     {
-        if (_puzzleObjectSp.Count == 0) return;
+        if (_puzzleObjectSp.Count == 0 && timeMap == null) return;
 
         var puzzleSP = _puzzleObjectSp.ToArray();
         var puzzleOb = _puzzleObjects.ToArray();
@@ -170,8 +176,11 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
         foreach (var sr in puzzleSP)
         {
             if (sr != null)
-                tasks.Add(TransparencyUpperInstant(sr));
+                tasks.Add(TransparencyUpperInstant(sr, _cts.Token));
         }
+
+        if (timeMap != null)
+            tasks.Add(TimeMapUpper(_cts.Token));
 
         await UniTask.WhenAll(tasks);
     }
@@ -179,6 +188,7 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
     private async UniTask TransparencyLowerInstant(SpriteRenderer sr, CancellationToken token = default)
     {
         if (sr == null) return;
+
         Color c = sr.color;
         while (c.a > 0.3f)
         {
@@ -191,11 +201,38 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
     private async UniTask TransparencyUpperInstant(SpriteRenderer sr, CancellationToken token = default)
     {
         if (sr == null) return;
+
         Color c = sr.color;
         while (c.a < 1f)
         {
             c.a = Mathf.Min(1f, c.a + 0.1f);
             sr.color = c;
+            await UniTask.Delay(TimeSpan.FromSeconds(0.03f), cancellationToken: token);
+        }
+    }
+
+    private async UniTask TimeMapLower(CancellationToken token = default)
+    {
+        if (timeMap == null) return;
+
+        Color c = timeMap.color;
+        while (c.a > 0.3f)
+        {
+            c.a = Mathf.Max(0.3f, c.a - 0.15f);
+            timeMap.color = c;
+            await UniTask.Delay(TimeSpan.FromSeconds(0.03f), cancellationToken: token);
+        }
+    }
+
+    private async UniTask TimeMapUpper(CancellationToken token = default)
+    {
+        if (timeMap == null) return;
+
+        Color c = timeMap.color;
+        while (c.a < 1f)
+        {
+            c.a = Mathf.Min(1f, c.a + 0.1f);
+            timeMap.color = c;
             await UniTask.Delay(TimeSpan.FromSeconds(0.03f), cancellationToken: token);
         }
     }
