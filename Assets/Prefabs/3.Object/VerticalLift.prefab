@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 4314305849922981982}
   - component: {fileID: 6233922943480916532}
   - component: {fileID: 4913720627400877840}
-  - component: {fileID: 5352281302509486210}
+  - component: {fileID: 5105014309562677483}
+  - component: {fileID: 2698121096794289357}
   m_Layer: 6
   m_Name: VerticalLift
   m_TagString: PuzzleObject
@@ -144,9 +145,9 @@ BoxCollider2D:
     serializedVersion: 2
     m_Bits: 4294967295
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.47}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -157,9 +158,28 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 0.05}
   m_EdgeRadius: 0
---- !u!114 &5352281302509486210
+--- !u!251 &5105014309562677483
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4413975380570112050}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 128
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 180
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1
+--- !u!114 &2698121096794289357
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,11 +188,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4413975380570112050}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 606a0ff3e4d589842a076d6842c242b1, type: 3}
+  m_Script: {fileID: 11500000, guid: 67775ede6c0ef434babc8a7adaa81864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
-  verticalY: 4.2
+  speed: 3
+  horizontalX: 5
   decelerationPosition: 3
   decelerationSpeed: 0.2
-  isMoving: 0
+  _isMoving: 0

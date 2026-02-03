@@ -276,7 +276,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.61, y: 0.86, z: 0.072329015}
-  m_LocalScale: {x: 3.5, y: 3.5, z: 3.5}
+  m_LocalScale: {x: 2.52, y: 2.52, z: 2.52}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5054682459755157137}
@@ -567,7 +567,7 @@ MonoBehaviour:
   upgradeDashCoolTime: 20
   dashCooldown: 0.5
   upgradeDash: 0
-  dashVitality: 1
+  dashVitality: 0
   dashing: 0
 --- !u!114 &2784434259156198457
 MonoBehaviour:
@@ -611,6 +611,7 @@ MonoBehaviour:
   swimSpeed: 4
   colliderXSize: {x: 0.85, y: 0.55}
   colliderYSize: {x: 0.55, y: 0.85}
+  moveInput: {x: 0, y: 0}
 --- !u!114 &8437455701824339484
 MonoBehaviour:
   m_ObjectHideFlags: 0
