@@ -37,11 +37,11 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
 
     private void OnDisable()
     {
+        RestoreAllTransparencyAndColliders();
+
         _cts?.Cancel();
         _cts?.Dispose();
         _cts = null;
-
-        RestoreAllTransparencyAndColliders();
 
         _playerColor = null;
 
@@ -186,7 +186,7 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
     {
         Color c = _tileMap.color;
         _comCOl.isTrigger = true;
-        tileOb.tag = "Default";
+        tileOb.layer = LayerMask.NameToLayer("Default");
 
         while (c.a > 0.3f)
         {
@@ -200,7 +200,7 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
     {
         Color c = _tileMap.color;
         _comCOl.isTrigger = false;
-        tileOb.tag = "Ground";
+        tileOb.layer = LayerMask.NameToLayer("Ground");
 
         while (c.a < 1f)
         {
