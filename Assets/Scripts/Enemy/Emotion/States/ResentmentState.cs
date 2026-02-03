@@ -23,7 +23,7 @@ public class ResentmentState : Monster
     }
     public override void UpdateState()
     {
-
+        _movement.Move();
 
     }
 
