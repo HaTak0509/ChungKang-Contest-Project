@@ -1,40 +1,58 @@
 using UnityEngine;
+using Cysharp.Threading.Tasks;
+using System;
 
 public class ObjectConfinement : MonoBehaviour
 {
-    private GameObject stuckObject;
+    private GameObject _stuckObject;
+    private bool _isActive;
+
+    private void OnEnable()
+    {
+        _isActive = true;
+        Cooldown().Forget();
+    }
 
     private void OnDisable()
     {
+        if (!_isActive) return;
         ReleaseObject();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!_isActive) return;
+
         if (!collision.CompareTag("PuzzleObject") &&
             !collision.CompareTag("Enemy"))
             return;
 
-        if (stuckObject != null && !stuckObject.activeSelf)
+        if (_stuckObject != null && !_stuckObject.activeSelf)
         {
-            stuckObject = collision.gameObject;
+            _stuckObject = collision.gameObject;
             return;
         }
 
-        if (stuckObject != null) return;
+        if (_stuckObject != null) return;
 
-        stuckObject = collision.gameObject;
+        _stuckObject = collision.gameObject;
 
-        if (stuckObject.TryGetComponent<WarpingInterface>(out var warpInteract))
+        if (_stuckObject.TryGetComponent<WarpingInterface>(out var warpInteract))
             warpInteract.Warping();
     }
 
     private void ReleaseObject()
     {
-        if (stuckObject != null &&
-            stuckObject.TryGetComponent<WarpingInterface>(out var warpInteract))
+        if (_stuckObject != null &&
+            _stuckObject.TryGetComponent<WarpingInterface>(out var warpInteract))
             warpInteract.Warping();
 
-        stuckObject = null;
+        _stuckObject = null;
+    }
+
+    private async UniTask Cooldown()
+    {
+        await UniTask.Delay(TimeSpan.FromSeconds(0.1f));
+        _isActive = false;
     }
 }
