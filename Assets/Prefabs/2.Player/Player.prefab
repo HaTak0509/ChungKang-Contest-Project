@@ -561,7 +561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad9893ff3cb884744bf4f8b18077e2e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashForce: 10
+  dashForce: 25
   upgradeDashForce: 12
   dashTime: 0.15
   upgradeDashCoolTime: 20
@@ -609,6 +609,8 @@ MonoBehaviour:
   walkSpeed: 4
   pushingSpeed: 2
   swimSpeed: 4
+  colliderXSize: {x: 0.85, y: 0.55}
+  colliderYSize: {x: 0.55, y: 0.85}
 --- !u!114 &8437455701824339484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -671,7 +673,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundLayer:
     serializedVersion: 2
-    m_Bits: 320
+    m_Bits: 64
   groundCheckDistance: 0.09
   wallCheckDistance: 0.07
   showDebugRays: 1
