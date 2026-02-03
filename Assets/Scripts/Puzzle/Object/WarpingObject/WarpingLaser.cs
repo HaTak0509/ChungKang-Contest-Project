@@ -11,6 +11,7 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
     [SerializeField] private GameObject laser;
     [SerializeField] private Tilemap tileMap;
     [SerializeField] private CompositeCollider2D comCOl;
+    [SerializeField] private GameObject tileOb;
 
     private List<SpriteRenderer> _puzzleObjectSp = new List<SpriteRenderer>();
     private List<GameObject> _puzzleObjects = new List<GameObject>();
@@ -175,6 +176,7 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
     {
         Color c = tileMap.color;
         comCOl.isTrigger = true;
+        tileOb.tag = "Defalut";
 
         while (c.a > 0.3f)
         {
@@ -188,7 +190,8 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
     {
         Color c = tileMap.color;
         comCOl.isTrigger = false;
-        
+        tileOb.tag = "Ground";
+
         while (c.a < 1f)
         {
             c.a += 0.1f;
