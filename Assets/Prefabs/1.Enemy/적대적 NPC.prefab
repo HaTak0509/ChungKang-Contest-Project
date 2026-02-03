@@ -166,14 +166,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9d9370b83466d84497bd7f9c37a0c99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: 5
+  baseSpeed: 4
   baseDetectionRange: 3
   hexColor: '#FF0000'
   TwistMonster: {fileID: 866030250024289710, guid: a5352b929155a354e841835417cda497, type: 3}
   _isFirst: 0
-  DashSpeed: 8
-  _HitPos: {x: 0, y: -1.16, z: 0}
-  _HitCheck: {x: 3, y: 2}
+  DashSpeed: 5
+  _HitPos: {x: -0.1, y: -1.16, z: 0}
+  _HitCheck: {x: 2.5, y: 2}
   _PlayerLayer:
     serializedVersion: 2
     m_Bits: 128

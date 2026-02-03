@@ -567,7 +567,7 @@ MonoBehaviour:
   upgradeDashCoolTime: 20
   dashCooldown: 0.5
   upgradeDash: 0
-  dashVitality: 1
+  dashVitality: 0
   dashing: 0
 --- !u!114 &2784434259156198457
 MonoBehaviour:
@@ -611,6 +611,7 @@ MonoBehaviour:
   swimSpeed: 4
   colliderXSize: {x: 0.8, y: 0.55}
   colliderYSize: {x: 0.55, y: 0.8}
+  moveInput: {x: 0, y: 0}
 --- !u!114 &8437455701824339484
 MonoBehaviour:
   m_ObjectHideFlags: 0
