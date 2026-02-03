@@ -130,6 +130,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 659048202422756956, guid: 286b2107874c1c144b6d6dd01a0ef704, type: 3}
+      propertyPath: m_Name
+      value: Crack
+      objectReference: {fileID: 0}
     - target: {fileID: 3703022492003860549, guid: 286b2107874c1c144b6d6dd01a0ef704, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.41
@@ -138,9 +142,21 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.08
       objectReference: {fileID: 0}
+    - target: {fileID: 3974937898312976453, guid: 286b2107874c1c144b6d6dd01a0ef704, type: 3}
+      propertyPath: m_Name
+      value: Activation Crack
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859872865021406490, guid: 286b2107874c1c144b6d6dd01a0ef704, type: 3}
+      propertyPath: m_Name
+      value: Deactivation Crack
+      objectReference: {fileID: 0}
     - target: {fileID: 7522691808574787032, guid: 286b2107874c1c144b6d6dd01a0ef704, type: 3}
       propertyPath: m_Name
       value: Scene1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7933080984223924301, guid: 286b2107874c1c144b6d6dd01a0ef704, type: 3}
+      propertyPath: m_Name
+      value: CloseCrack
       objectReference: {fileID: 0}
     - target: {fileID: 8273757209652621814, guid: 286b2107874c1c144b6d6dd01a0ef704, type: 3}
       propertyPath: m_LocalPosition.y
