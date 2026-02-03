@@ -292,7 +292,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _BoxTeleport: {fileID: 7122205236785630346}
-  checkPos: {x: 1.45, y: 0.03}
+  _LayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  checkPos: {x: 2.51, y: 0.03}
   checkSize: {x: 0.7, y: 0.7}
 --- !u!114 &8702216074395616491
 MonoBehaviour:

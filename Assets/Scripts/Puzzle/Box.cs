@@ -4,6 +4,7 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
 {
     [Header("검사 설정")]
     public GameObject _BoxTeleport;
+    [SerializeField] private LayerMask _LayerMask;
     [SerializeField] private Vector2 checkPos = new Vector2(0.5f, 0.0f); // 검사할 영역의 위치
     [SerializeField] private Vector2 checkSize = new Vector2(1.5f, 3.0f); // 검사할 영역의 크기
     private PushingObject _pushingObject;
@@ -35,8 +36,10 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
 
         if(PlayerScale.Instance._Scale <= 30 )
         {
-            if(_BoxTeleport.GetComponent<Box>().isTwist)
+            if (_BoxTeleport.GetComponent<Box>().isTwist)
                 RelocateToEmptySpace();
+            else
+                Debug.Log("야 이거, 안 뒤틀렸는데?");
     
         }else if(PlayerScale.Instance._Scale >= 100)
         {
@@ -54,6 +57,10 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
             MoveTo(rightTarget);
             return;
         }
+        else
+        {
+            Debug.Log("오른쪽 자리 없음");
+        }
 
         // 2. 왼쪽 확인
         Vector2 leftTarget = (Vector2)_BoxTeleport.transform.position + new Vector2(checkPos.x * -1, checkPos.y);
@@ -61,6 +68,10 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
         {
             MoveTo(leftTarget);
             return;
+        }
+        else
+        {
+            Debug.Log("왼쪽없음ㅡㅡ");
         }
 
         Debug.Log("좌우 모두 비어있지 않습니다!");
@@ -70,7 +81,7 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
     private bool IsObstacleAt(Vector2 targetPos)
     {
         // 지정된 위치에 checkSize만큼의 박스를 그려 충돌체가 있는지 확인
-        Collider2D hit = Physics2D.OverlapBox(targetPos, checkSize, 0f);
+        Collider2D hit = Physics2D.OverlapBox(targetPos, checkSize, 0f,_LayerMask);
         return hit != null;
     }
 

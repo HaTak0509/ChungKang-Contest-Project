@@ -22,14 +22,12 @@ public class WaterRiseController : MonoBehaviour
 
     private float _currentWaterHeight = 0f;
     private float _currentBubbleHeight = 0f;
-    private float _startY; // 시작 높이 저장용
     private bool _shouldContinue = true;
     private Coroutine _activeRoutine;
 
     void Awake()
     {
         Instance = this;
-        _startY = transform.position.y; // 컨트롤러의 시작 Y축 위치
 
         // 초기 사이즈 세팅
         UpdateVisuals();

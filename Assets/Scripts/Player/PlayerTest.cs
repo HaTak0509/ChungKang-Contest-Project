@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class PlayerTest : MonoBehaviour
 {
-    public Monster monster;
+    public Box monster;
+    public Box monste1;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +16,7 @@ public class PlayerTest : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             monster.Warping();
+                  monste1.Warping();
         }
     }
 }
