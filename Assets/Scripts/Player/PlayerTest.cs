@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerTest : MonoBehaviour
 {
-    public Box monster;
+    public Monster monster;
     // Start is called before the first frame update
     void Start()
     {
