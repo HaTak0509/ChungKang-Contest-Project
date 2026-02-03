@@ -35,7 +35,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.84, y: -1.08, z: 0}
-  m_LocalScale: {x: 5.5, y: 5.5, z: 5.5}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -124,7 +124,7 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.03}
   m_Size: {x: 0.35, y: 0.7}
   m_Direction: 0
 --- !u!50 &6588784612312432131
@@ -187,7 +187,7 @@ MonoBehaviour:
   pointB: {x: 4.94, y: -1.75}
   collisionLayer:
     serializedVersion: 2
-    m_Bits: 129
+    m_Bits: 1
 --- !u!120 &1166666344833788292
 LineRenderer:
   serializedVersion: 2
@@ -319,7 +319,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   groundCheckDistance: 0.1
   wallCheckDistance: 0.2
   showDebugRays: 1
