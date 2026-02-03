@@ -35,8 +35,10 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
 
         if(PlayerScale.Instance._Scale <= 30 )
         {
-            if(_BoxTeleport.GetComponent<Box>().isTwist)
+            if (_BoxTeleport.GetComponent<Box>().isTwist)
                 RelocateToEmptySpace();
+            else
+                Debug.Log("야 이거, 안 뒤틀렸는데?");
     
         }else if(PlayerScale.Instance._Scale >= 100)
         {
@@ -54,6 +56,10 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
             MoveTo(rightTarget);
             return;
         }
+        else
+        {
+            Debug.Log("오른쪽 자리 없음");
+        }
 
         // 2. 왼쪽 확인
         Vector2 leftTarget = (Vector2)_BoxTeleport.transform.position + new Vector2(checkPos.x * -1, checkPos.y);
@@ -61,6 +67,10 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
         {
             MoveTo(leftTarget);
             return;
+        }
+        else
+        {
+            Debug.Log("왼쪽없음ㅡㅡ");
         }
 
         Debug.Log("좌우 모두 비어있지 않습니다!");
