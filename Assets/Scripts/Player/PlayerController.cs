@@ -22,11 +22,6 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
         Instance = this;
 
         if (!movement) movement = GetComponent<PlayerMovement>();

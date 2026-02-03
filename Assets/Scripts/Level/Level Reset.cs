@@ -22,12 +22,10 @@ public class LevelReset : MonoBehaviour
 
         LoadLevel(0);
     }
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            LoadLevel(0);
-        }
+
     }
 
     public void OnReset()
