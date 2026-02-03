@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Vector2 colliderXSize = new Vector2(0.85f, 0.55f);
     [SerializeField] private Vector2 colliderYSize = new Vector2(0.55f, 0.85f);
 
+    public Vector2 moveInput;
+    
     private Rigidbody2D _rb2D;
     private Damageable _damageable;
     private PlayerFacing _facing;
@@ -15,8 +17,6 @@ public class PlayerMovement : MonoBehaviour
     private CapsuleCollider2D _collider;
     private Pushing _pushing;
     private Animator _animator;
-
-    private Vector2 _moveInput;
 
     public bool IsSwimming { get; private set; }
 
@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetInput(Vector2 input)
     {
-        _moveInput = input;
+        moveInput = input;
 
         if (input.sqrMagnitude > 0.01f)
             _facing.FaceDirection(input.x);
@@ -65,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void GroundMovement()
     {
-        if (_pushing.isPushing && _moveInput.x != 0 && Mathf.Sign(_moveInput.x) != Mathf.Sign(_pushing.pushingDirection))
+        if (_pushing.isPushing && moveInput.x != 0 && Mathf.Sign(moveInput.x) != Mathf.Sign(_pushing.pushingDirection))
             return;
 
         _collider.direction = CapsuleDirection2D.Vertical;
@@ -73,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
 
         float desiredX = 0f;
 
-        desiredX = _moveInput.x * CurrentSpeed;
+        desiredX = moveInput.x * CurrentSpeed;
 
         if (_touchingDetection.IsOnWall)
         {
@@ -90,12 +90,12 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector2 swimVelocity = Vector2.zero;
 
-        bool moveHorizontal = Mathf.Abs(_moveInput.x) > 0.01f;
-        bool moveVertical = Mathf.Abs(_moveInput.y) > 0.01f;
+        bool moveHorizontal = Mathf.Abs(moveInput.x) > 0.01f;
+        bool moveVertical = Mathf.Abs(moveInput.y) > 0.01f;
 
         if (!moveHorizontal && moveVertical)
         {
-            swimVelocity = new Vector2(0f, _moveInput.y * swimSpeed);
+            swimVelocity = new Vector2(0f, moveInput.y * swimSpeed);
             _collider.direction = CapsuleDirection2D.Vertical;
             _collider.size = colliderYSize;
 
@@ -104,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (moveHorizontal && !moveVertical)
         {
-            swimVelocity = new Vector2(_moveInput.x * swimSpeed, 0f);
+            swimVelocity = new Vector2(moveInput.x * swimSpeed, 0f);
             _collider.direction = CapsuleDirection2D.Horizontal;
             _collider.size = colliderXSize;
 
@@ -113,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (moveHorizontal && moveVertical)
         {
-            swimVelocity = _moveInput.normalized * swimSpeed;
+            swimVelocity = moveInput.normalized * swimSpeed;
             _collider.direction = CapsuleDirection2D.Horizontal;
             _collider.size = colliderXSize;
 

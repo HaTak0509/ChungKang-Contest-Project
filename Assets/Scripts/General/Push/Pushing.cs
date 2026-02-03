@@ -6,6 +6,7 @@ public class Pushing : MonoBehaviour
     public bool pushing;
     public int pushingDirection;
 
+    private PlayerMovement _playrMovement;
     private PushingObject pushingObj;
     private Rigidbody2D playerRb;
     private BoxCollider2D boxCol;
@@ -13,6 +14,7 @@ public class Pushing : MonoBehaviour
     private void Awake()
     {
         playerRb = GetComponent<Rigidbody2D>();
+        _playrMovement = GetComponent<PlayerMovement>();
     }
 
     private void FixedUpdate()
@@ -23,11 +25,11 @@ public class Pushing : MonoBehaviour
             return;
         }
 
-        isPushing = pushingObj.isActive;
+        isPushing = true;
 
-        float playerVelX = playerRb.velocity.x;
+        Vector2 playerVelX = _playrMovement.moveInput;
 
-        if (Mathf.Abs(playerVelX) < 0.01f)
+        if (Mathf.Abs(playerVelX.x) < 0.01f)
         {
             pushing = false;
             boxCol.enabled = true;
@@ -35,11 +37,11 @@ public class Pushing : MonoBehaviour
             return;
         }
 
-        if (Mathf.Sign(playerVelX) == pushingDirection)
+        if (Mathf.Sign(playerVelX.x) == pushingDirection)
         {
             pushing = true;
             boxCol.enabled = false;
-            pushingObj.CopyVelocity(playerVelX);
+            pushingObj.CopyVelocity(playerVelX.x);
         }
         else
         {
@@ -58,8 +60,8 @@ public class Pushing : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent(out PushingObject obj))
         {
-            pushingObj = obj;
-            boxCol = collision.GetComponent<BoxCollider2D>();
+            pushingObj = obj; // Range
+            boxCol = collision.GetComponent<BoxCollider2D>(); // Range
         }
     }
 }

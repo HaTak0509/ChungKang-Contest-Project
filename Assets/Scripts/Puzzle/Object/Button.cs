@@ -5,6 +5,7 @@ using System;
 public class Button : MonoBehaviour, IInteractable
 {
     [SerializeField] private Door targetDoor;
+    [SerializeField] private CrackController crackController;
 
     private bool _active;
     private bool _colldown;
@@ -24,15 +25,22 @@ public class Button : MonoBehaviour, IInteractable
         _animator.SetTrigger(AnimationStrings.OnButton);
         ButtonCollDown().Forget();
         
-        if (targetDoor.currentState)
+        if (crackController != null)
         {
-            targetDoor.CloseDoor();
+            crackController.Interact();
         }
-        else
+
+        if (targetDoor != null)
         {
-            targetDoor.OpenDoor();
+            if (targetDoor.currentState)
+            {
+                targetDoor.CloseDoor();
+            }
+            else
+            {
+                targetDoor.OpenDoor();
+            }
         }
-        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
