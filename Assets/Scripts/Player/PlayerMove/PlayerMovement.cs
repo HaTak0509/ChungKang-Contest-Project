@@ -2,14 +2,17 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] float walkSpeed = 6f;
-    [SerializeField] float pushingSpeed = 4f;
-    [SerializeField] float swimSpeed = 4f;
+    [SerializeField] private float walkSpeed = 6f;
+    [SerializeField] private float pushingSpeed = 4f;
+    [SerializeField] private float swimSpeed = 4f;
+    [SerializeField] private Vector2 colliderXSize = new Vector2(0.85f, 0.55f);
+    [SerializeField] private Vector2 colliderYSize = new Vector2(0.55f, 0.85f);
 
     private Rigidbody2D _rb2D;
     private Damageable _damageable;
     private PlayerFacing _facing;
     private TouchingDetection _touchingDetection;
+    private CapsuleCollider2D _collider;
     private Pushing _pushing;
     private Animator _animator;
 
@@ -26,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
         _damageable = GetComponent<Damageable>();
         _facing = GetComponent<PlayerFacing>();
         _touchingDetection = GetComponent<TouchingDetection>();
+        _collider = GetComponent<CapsuleCollider2D>();
         _pushing = GetComponent<Pushing>();
         _animator = GetComponent<Animator>();
     }
@@ -40,7 +44,12 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetSwimming(bool value)
     {
+        if (IsSwimming == value)
+            return;
+
         IsSwimming = value;
+
+        if (!IsSwimming) EnterGround();
     }
 
     private void FixedUpdate()
@@ -58,6 +67,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_pushing.isPushing && _moveInput.x != 0 && Mathf.Sign(_moveInput.x) != Mathf.Sign(_pushing.pushingDirection))
             return;
+
+        _collider.direction = CapsuleDirection2D.Vertical;
+        _collider.size = colliderYSize;
 
         float desiredX = 0f;
 
@@ -84,18 +96,27 @@ public class PlayerMovement : MonoBehaviour
         if (!moveHorizontal && moveVertical)
         {
             swimVelocity = new Vector2(0f, _moveInput.y * swimSpeed);
+            _collider.direction = CapsuleDirection2D.Vertical;
+            _collider.size = colliderYSize;
+
             _animator.SetBool(AnimationStrings.IsVerticalSwim, true);
             _animator.SetBool(AnimationStrings.IsHorizontalSwim, false);
         }
         else if (moveHorizontal && !moveVertical)
         {
             swimVelocity = new Vector2(_moveInput.x * swimSpeed, 0f);
+            _collider.direction = CapsuleDirection2D.Horizontal;
+            _collider.size = colliderXSize;
+
             _animator.SetBool(AnimationStrings.IsVerticalSwim, false);
             _animator.SetBool(AnimationStrings.IsHorizontalSwim, true);
         }
         else if (moveHorizontal && moveVertical)
         {
             swimVelocity = _moveInput.normalized * swimSpeed;
+            _collider.direction = CapsuleDirection2D.Horizontal;
+            _collider.size = colliderXSize;
+
             _animator.SetBool(AnimationStrings.IsVerticalSwim, false);
             _animator.SetBool(AnimationStrings.IsHorizontalSwim, true);
         }
@@ -107,5 +128,11 @@ public class PlayerMovement : MonoBehaviour
     {
         // 핵심: Y는 절대 건드리지 않는다
         _rb2D.velocity = new Vector2(desiredX, _rb2D.velocity.y);
+    }
+
+    private void EnterGround()
+    {
+        _collider.direction = CapsuleDirection2D.Vertical;
+        _collider.size = colliderYSize;
     }
 }
