@@ -16,12 +16,12 @@ public class SaveDataBase : MonoBehaviour
 
     public void OnLevelSave()
     {
-        PlayerPrefs.SetInt("SaveLevel", LevelReset.Instance._currentLevelIndex);
+        PlayerPrefs.SetInt("SaveLevel", LevelManager.Instance._currentLevelIndex);
         PlayerPrefs.Save();
     }
 
     public void OnLevelLoad()
     {
-        LevelReset.Instance._currentLevelIndex = PlayerPrefs.GetInt("SaveLevel");
+        LevelManager.Instance._currentLevelIndex = PlayerPrefs.GetInt("SaveLevel");
     }
 }

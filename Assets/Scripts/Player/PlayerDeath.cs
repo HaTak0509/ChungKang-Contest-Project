@@ -12,6 +12,6 @@ public class PlayerDeath : MonoBehaviour
     public void OnDeath()
     {
         _animator.SetBool(AnimationStrings.IsDeath, true);
-        LevelReset.Instance.OnReset();
+        LevelManager.Instance.OnReset();
     }
 }

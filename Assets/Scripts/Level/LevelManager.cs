@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class LevelReset : MonoBehaviour
+public class LevelManager : MonoBehaviour
 {
     [SerializeField] LevelDatabase database;
 
-    public static LevelReset Instance { get; private set;}
+    public static LevelManager Instance { get; private set;}
 
     public int _currentLevelIndex;
 

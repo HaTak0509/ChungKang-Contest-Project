@@ -23,10 +23,8 @@ public class StageListUI : MonoBehaviour
             text.text = $"튜토리얼 {i}";
 
             int index = i;
-            btn.onClick.AddListener(() =>
-            {
-                Debug.Log($"Stage {index} 클릭");
-            });
+            btn.onClick.AddListener(() =>{StageCollect.CollectStage(index); });
+
         }
     }
 }
