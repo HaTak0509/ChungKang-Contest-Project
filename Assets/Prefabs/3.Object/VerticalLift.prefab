@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4913720627400877840}
   - component: {fileID: 5105014309562677483}
   - component: {fileID: 1489455179137725758}
+  - component: {fileID: 362841393983467575}
   m_Layer: 6
   m_Name: VerticalLift
   m_TagString: PuzzleObject
@@ -196,3 +197,19 @@ MonoBehaviour:
   decelerationPosition: 3
   decelerationSpeed: 0.2
   isMoving: 0
+--- !u!114 &362841393983467575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4413975380570112050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2845670bf2c617459d8a26bcf764e1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Description: 
+  _gameObject: {fileID: 1633852971879624998, guid: e1e12f816f40a464e99e2b70c406e06d, type: 3}
+  checkPos: {x: 2.7, y: 1.5}
+  checkSize: {x: 2.7, y: 2.7}

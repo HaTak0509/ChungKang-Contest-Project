@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5713862001962051612}
   - component: {fileID: 5926353337589622713}
   - component: {fileID: 9138021645063695164}
+  - component: {fileID: -5989219346052612030}
   m_Layer: 6
   m_Name: Box
   m_TagString: LightBox
@@ -172,6 +173,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd14685e4f877974fad48738c6685e52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-5989219346052612030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829839815473364051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2845670bf2c617459d8a26bcf764e1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Description: 
+  _gameObject: {fileID: 1633852971879624998, guid: e1e12f816f40a464e99e2b70c406e06d, type: 3}
+  checkPos: {x: 2.7, y: 1.5}
+  checkSize: {x: 2.7, y: 2.7}
 --- !u!1 &7122205236785630346
 GameObject:
   m_ObjectHideFlags: 0

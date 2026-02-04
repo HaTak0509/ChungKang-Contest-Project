@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3846873070047637393}
   - component: {fileID: 1744695508881042882}
   - component: {fileID: 4931618495256408363}
+  - component: {fileID: -7817389417567740884}
   m_Layer: 6
   m_Name: Laser
   m_TagString: Enemy
@@ -173,3 +174,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerDash: {fileID: 0}
   _warpingLaser: {fileID: 0}
+--- !u!114 &-7817389417567740884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9010813440342380151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2845670bf2c617459d8a26bcf764e1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Description: 
+  _gameObject: {fileID: 1633852971879624998, guid: e1e12f816f40a464e99e2b70c406e06d, type: 3}
+  checkPos: {x: 2.7, y: 1.5}
+  checkSize: {x: 2.7, y: 2.7}

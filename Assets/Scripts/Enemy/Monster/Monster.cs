@@ -48,8 +48,6 @@ public class Monster : MonoBehaviour, WarpingInterface
 
     void Start()
     {
-
-
         if (!_isFirst)
         {
             OnEnter();
