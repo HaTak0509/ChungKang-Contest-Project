@@ -1,3 +1,4 @@
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class MonsterMovement : MonoBehaviour
@@ -26,6 +27,7 @@ public class MonsterMovement : MonoBehaviour
     private Transform _player;
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
+    private Vector2 _CheckBox = new Vector2(2, 8);
 
     public MovementState _movementState { get; private set; } = MovementState.Move;
 
@@ -64,15 +66,14 @@ public class MonsterMovement : MonoBehaviour
             Vector2 nextPosition = _rb.position + new Vector2(_monster.Speed * _direction, 0) * Time.fixedDeltaTime;
 
             _rb.MovePosition(nextPosition);
-        }
-
-        if (_movementState == MovementState.Move)
+            CheckBoundaries();
             _animator.SetBool(AnimationStrings.IsMoving, true);
+        }
         else _animator.SetBool(AnimationStrings.IsMoving, false);
 
-        CheckBoundaries();
+       
 
-        if (_touchingDetection.WallDirection != 0)
+        if (_direction == _touchingDetection.WallDirection || IsWarPing() || OutBoundaries())
         {
             _movementState = MovementState.Idle;
         }
@@ -86,18 +87,50 @@ public class MonsterMovement : MonoBehaviour
     {
         _direction = GetDirectionToPlayer();
 
-        _isFacingRight = _direction > 0 ? true : false ;
+        _isFacingRight = _direction > 0 ? true : false;
         _spriteRenderer.flipX = _direction == 1 ? false : true;
 
-        if (_direction == _touchingDetection.WallDirection)
+
+        if (_movementState == MovementState.Move)
         {
-            Speed = 0;
+            Vector2 nextPosition = _rb.position + new Vector2(Speed * _direction, 0) * Time.fixedDeltaTime;
+            _rb.MovePosition(nextPosition);
+            _animator.SetBool(AnimationStrings.IsMoving, true);
+        }
+        else _animator.SetBool(AnimationStrings.IsMoving, false);
+
+
+        if (_direction == _touchingDetection.WallDirection || IsWarPing())
+        {
+            _movementState = MovementState.Idle;
+        }
+        else
+        {
+            _movementState = MovementState.Move;
         }
 
-        Vector2 nextPosition = _rb.position + new Vector2(Speed * _direction, 0) * Time.fixedDeltaTime;
-        _rb.MovePosition(nextPosition);
+
+    }
+    
+    private bool IsWarPing()
+    {
+        Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position, _CheckBox,0f, LayerMask.GetMask("PuzzleObject"));
+        foreach (Collider2D hit in hits)
+        {
+            if (hit.CompareTag("ActivationCrack"))
+            {
+                float diffX = Mathf.Abs(transform.position.x - hit.bounds.center.x);
+
+                if (diffX <= 0.1f)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
+    
     public int GetDirectionToPlayer()
     {
         if (_player == null) return 0; // 타겟이 없으면 0
@@ -147,13 +180,18 @@ public class MonsterMovement : MonoBehaviour
             Flip();
         }
 
+       
+    }
+    private bool OutBoundaries()
+    {
         // 현재 위치가 설정한 사각형 범위를 벗어났는지 체크 (여유값 0.5f 추가)
         bool outOfX = transform.position.x < pointA.x - 0.5f || transform.position.x > pointB.x + 0.5f;
 
         if (outOfX)
         {
-            StopMove();
+            return true;
         }
+        return false;
     }
 
 
@@ -164,14 +202,9 @@ public class MonsterMovement : MonoBehaviour
         Gizmos.DrawLine(new Vector2(pointA.x, transform.position.y - 0.5f), new Vector2(pointA.x, transform.position.y + 0.5f));
         Gizmos.DrawLine(new Vector2(pointB.x, transform.position.y - 0.5f), new Vector2(pointB.x, transform.position.y + 0.5f));
         Gizmos.DrawLine(new Vector2(pointA.x, transform.position.y), new Vector2(pointB.x, transform.position.y));
+
+
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.CompareTag("ActivationCrack"))
-        {
-
-        }
-    }
 
 }
