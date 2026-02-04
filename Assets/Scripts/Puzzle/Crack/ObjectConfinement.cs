@@ -5,11 +5,11 @@ using System;
 public class ObjectConfinement : MonoBehaviour
 {
     private GameObject _stuckObject;
-    private bool _isActive;
+    private bool _warpActive;
 
     private void OnEnable()
     {
-        _isActive = true;
+        _warpActive = true;
         Cooldown().Forget();
     }
 
@@ -20,8 +20,6 @@ public class ObjectConfinement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!_isActive) return;
-
         if (!collision.CompareTag("PuzzleObject") &&
             !collision.CompareTag("Enemy"))
             return;
@@ -35,6 +33,8 @@ public class ObjectConfinement : MonoBehaviour
         if (_stuckObject != null) return;
 
         _stuckObject = collision.gameObject;
+
+        if (!_warpActive) return;
 
         if (_stuckObject.TryGetComponent<WarpingInterface>(out var warpInteract))
             warpInteract.Warping();
@@ -52,6 +52,6 @@ public class ObjectConfinement : MonoBehaviour
     private async UniTask Cooldown()
     {
         await UniTask.Delay(TimeSpan.FromSeconds(0.1f));
-        _isActive = false;
+        _warpActive = false;
     }
 }
