@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class HelperManager : MonoBehaviour
 {
@@ -10,10 +11,13 @@ public class HelperManager : MonoBehaviour
     [SerializeField] private List<SpriteRenderer> _HelpList;
 
     private HashSet<Helper> _helpers = new HashSet<Helper>();
+    private PlayerController _player;
 
     void Start()
     {
         _camera = GetComponent<Camera>();
+        if (_player == null)
+            _player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
     }
 
     void Update()
@@ -24,6 +28,7 @@ public class HelperManager : MonoBehaviour
 
             Time.timeScale = _enable ? 0.0f : 1.0f;
             _Dark.gameObject.SetActive(_enable);
+            _player.allLimit = _enable;
 
             foreach (SpriteRenderer sprite in _HelpList)
             {
