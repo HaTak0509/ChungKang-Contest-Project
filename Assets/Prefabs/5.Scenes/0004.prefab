@@ -3253,6 +3253,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2dc2973428988a942a06f9a8ccd8791e, type: 3}
+--- !u!212 &1835940419920094980 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 3506893561303472653, guid: 2dc2973428988a942a06f9a8ccd8791e, type: 3}
+  m_PrefabInstance: {fileID: 3013030233890061577}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8875907810742282075 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5980182343207344722, guid: 2dc2973428988a942a06f9a8ccd8791e, type: 3}
@@ -3315,6 +3320,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d7bbeb0af4d37a408f96515c9040210, type: 3}
+--- !u!212 &3051072542004330543 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 25906512766604668, guid: 5d7bbeb0af4d37a408f96515c9040210, type: 3}
+  m_PrefabInstance: {fileID: 3029690657050416467}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6023350567964786759 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8763058145724405012, guid: 5d7bbeb0af4d37a408f96515c9040210, type: 3}
@@ -3328,6 +3338,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7816088361913951066}
     m_Modifications:
+    - target: {fileID: 1384309255290314172, guid: 8235fb836794060459844b06cefb78ed, type: 3}
+      propertyPath: _HelpList.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1384309255290314172, guid: 8235fb836794060459844b06cefb78ed, type: 3}
+      propertyPath: _HelpList.Array.data[0]
+      value: 
+      objectReference: {fileID: 1835940419920094980}
+    - target: {fileID: 1384309255290314172, guid: 8235fb836794060459844b06cefb78ed, type: 3}
+      propertyPath: _HelpList.Array.data[1]
+      value: 
+      objectReference: {fileID: 3051072542004330543}
     - target: {fileID: 2660450801849927610, guid: 8235fb836794060459844b06cefb78ed, type: 3}
       propertyPath: target
       value: 
