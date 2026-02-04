@@ -41,6 +41,16 @@ public class InteractionSign : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        foreach (var mark in quInsMark.Values)
+        {
+            if (mark != null)
+                Destroy(mark);
+        }
+        quInsMark.Clear();
+    }
+
     private void OnApplicationQuit()
     {
         isQuitting = true;
@@ -106,6 +116,9 @@ public class InteractionSign : MonoBehaviour
 
         GameObject mark = Instantiate(prefab, target.position + Vector3.up * setHeight, Quaternion.identity);
         quInsMark.Add(target, mark);
+
+        Sign sign = mark.GetComponent<Sign>();
+        sign.parent = gameObject;
 
         RefreshMarks(); //  Áß¿ä
         StartCoroutine(ShowQuMark(mark));
