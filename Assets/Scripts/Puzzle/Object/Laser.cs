@@ -5,15 +5,22 @@ public class Laser : MonoBehaviour, WarpingInterface
     [SerializeField] private PlayerDash _playerDash;
     [SerializeField] private GameObject _warpingLaser;
 
+    private BoxCollider2D _boxCollider;
+
+    private void Awake()
+    {
+        _boxCollider = GetComponent<BoxCollider2D>();
+    }
+
     private void Update()
     {
         if (_playerDash.dashing)
         {
-            gameObject.layer = LayerMask.NameToLayer("Default");
+            _boxCollider.isTrigger = true;
         }
         else
         {
-            gameObject.layer = LayerMask.NameToLayer("Ground");
+            _boxCollider.isTrigger = false;
         }
     }
 
