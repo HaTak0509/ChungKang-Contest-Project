@@ -21,7 +21,8 @@ public class ObjectConfinement : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.CompareTag("PuzzleObject") &&
-            !collision.CompareTag("Enemy"))
+            !collision.CompareTag("Enemy") &&
+            !collision.CompareTag("HidingWall"))
             return;
 
         if (_stuckObject != null && !_stuckObject.activeSelf)

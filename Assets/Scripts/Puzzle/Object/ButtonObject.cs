@@ -2,7 +2,7 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using System;
 
-public class Button : MonoBehaviour, IInteractable
+public class ButtonObject : MonoBehaviour, IInteractable
 {
     [SerializeField] private Door targetDoor;
     [SerializeField] private CrackController crackController;
