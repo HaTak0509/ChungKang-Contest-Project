@@ -122,7 +122,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &1745462434
+--- !u!1001 &1262184796
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -130,6 +130,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1052482565639593727, guid: e1cb33048e99731479bb82c138466cf6, type: 3}
+      propertyPath: baseSpeed
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1353250139218802705, guid: e1cb33048e99731479bb82c138466cf6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -170,6 +174,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2049082826735851205, guid: e1cb33048e99731479bb82c138466cf6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2049082826735851205, guid: e1cb33048e99731479bb82c138466cf6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -6.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625300199653906103, guid: e1cb33048e99731479bb82c138466cf6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5694669732068163806, guid: e1cb33048e99731479bb82c138466cf6, type: 3}
+      propertyPath: baseSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6769861709929335012, guid: e1cb33048e99731479bb82c138466cf6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 6769861709929335012, guid: e1cb33048e99731479bb82c138466cf6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -6.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346035361019644054, guid: e1cb33048e99731479bb82c138466cf6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9057476792277849736, guid: e1cb33048e99731479bb82c138466cf6, type: 3}
       propertyPath: m_Name
       value: 0016
@@ -183,4 +215,4 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1745462434}
+  - {fileID: 1262184796}
