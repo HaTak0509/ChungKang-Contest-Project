@@ -166,6 +166,12 @@ public class MonsterMovement : MonoBehaviour
         Gizmos.DrawLine(new Vector2(pointA.x, transform.position.y), new Vector2(pointB.x, transform.position.y));
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("ActivationCrack"))
+        {
 
+        }
+    }
 
 }
