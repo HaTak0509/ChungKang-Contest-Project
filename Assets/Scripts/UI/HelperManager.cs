@@ -1,15 +1,25 @@
+using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class HelperManager : MonoBehaviour
 {
-    private bool _enable = false;
+    [SerializeField] private bool _enable = false;
     [SerializeField] private Transform _Dark;
     private Camera _camera;
+
+    [SerializeField] private List<SpriteRenderer> _HelpList;
+
+    private HashSet<Helper> _helpers = new HashSet<Helper>();
+    private PlayerController _player;
 
     void Start()
     {
         _camera = GetComponent<Camera>();
+        if (_player == null)
+            _player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
     }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab))
@@ -18,14 +28,32 @@ public class HelperManager : MonoBehaviour
 
             Time.timeScale = _enable ? 0.0f : 1.0f;
             _Dark.gameObject.SetActive(_enable);
+            _player.allLimit = _enable;
+
+            foreach (SpriteRenderer sprite in _HelpList)
+            {
+                sprite.sortingOrder = _enable ? 17 : 0;
+            }
+
+
+            if (!_enable)
+            {
+                foreach (Helper helper in _helpers)
+                    helper.Remove();
+                _helpers.Clear();
+                return;
+            }
+
+            FullScreen();
+
+
         }
-
-        if(!_enable) return;
-
-        FullScreen();
 
         if (Input.GetMouseButtonDown(0)) // 마우스 왼쪽 클릭
         {
+            if (!_enable) return;
+
+            Debug.Log("누름");
             // 1. 마우스 위치를 월드 좌표로 변환
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -36,13 +64,17 @@ public class HelperManager : MonoBehaviour
             {
                 Debug.Log($"감지된 오브젝트: {hit.collider.name}");
 
+
                 // 예: 몬스터인지 확인하고 기능 실행
                 if (hit.collider.GetComponent<Helper>() != null)
                 {
-                   
+                    _helpers.Add(hit.collider.GetComponent<Helper>());
+                    hit.collider.GetComponent<Helper>().ToggleLore();
                 }
             }
         }
+
+
     }
     void FullScreen()
     {
@@ -70,6 +102,4 @@ public class HelperManager : MonoBehaviour
         // 카메라 정중앙으로 배치
         _Dark.position = new Vector3(transform.position.x, transform.position.y, 0);
     }
-
-
 }

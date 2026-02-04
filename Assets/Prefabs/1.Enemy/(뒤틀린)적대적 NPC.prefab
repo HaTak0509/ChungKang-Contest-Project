@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 6846817993116632350}
   - component: {fileID: 8167074942388202007}
   - component: {fileID: 7075982459140114787}
+  - component: {fileID: -8063965591352928661}
   m_Layer: 8
   m_Name: "(\uB4A4\uD2C0\uB9B0)\uC801\uB300\uC801 NPC"
   m_TagString: Enemy
@@ -341,3 +342,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-8063965591352928661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 866030250024289710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2845670bf2c617459d8a26bcf764e1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Description: 
+  _gameObject: {fileID: 1633852971879624998, guid: e1e12f816f40a464e99e2b70c406e06d, type: 3}
+  checkPos: {x: 2.7, y: 1.5}
+  checkSize: {x: 2.7, y: 2.7}
