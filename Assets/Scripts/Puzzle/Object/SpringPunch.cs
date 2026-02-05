@@ -40,6 +40,7 @@ public class SpringPunch : MonoBehaviour, WarpingInterface
         if (TwistObject != null && !_isFirst)
         {
             TwistObject = Instantiate(TwistObject);
+            TwistObject.transform.SetParent(transform.parent);
             TwistObject.SetActive(false);
             _isFirst = true;
             TwistObject.GetComponent<PullPunch>()._isFirst = true;

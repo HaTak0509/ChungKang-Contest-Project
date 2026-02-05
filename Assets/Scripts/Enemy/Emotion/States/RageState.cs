@@ -11,7 +11,7 @@ public class RageState : Monster
 
     //*************************************************************
 
-    private Transform _player;
+    public Transform _player;
 
     // 로직 제어 변수
     [SerializeField] private float DashSpeed = 5f;
@@ -25,11 +25,7 @@ public class RageState : Monster
 
     public override void OnEnter()
     {
-
-        if (_player == null)
-            _player = GameObject.FindWithTag("Player").transform;
-
-
+        _movement._player = _player;
         _lineRenderer.OnLine();
 
         if (ColorUtility.TryParseHtmlString(hexColor, out Color newColor))
@@ -62,12 +58,6 @@ public class RageState : Monster
         StopDash();
     }
 
-    private void OnEnable()
-    {
-        if (_player == null)
-            _player = GameObject.FindWithTag("Player").transform;
-
-    }
 
     private void StopDash()
     {

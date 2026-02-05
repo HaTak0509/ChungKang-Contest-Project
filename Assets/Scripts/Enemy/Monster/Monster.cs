@@ -56,6 +56,7 @@ public class Monster : MonoBehaviour, WarpingInterface
             if (TwistMonster != null)
             {
                 TwistMonster = Instantiate(TwistMonster);
+                TwistMonster.transform.SetParent(transform.parent);
                 _isFirst = true;
 
                 Monster temp = TwistMonster.GetComponent<Monster>();

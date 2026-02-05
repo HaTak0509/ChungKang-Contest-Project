@@ -24,7 +24,7 @@ public class MonsterMovement : MonoBehaviour
     private Rigidbody2D _rb;
     private TouchingDetection _touchingDetection;
     private Monster _monster;
-    private Transform _player;
+    [HideInInspector] public Transform _player;
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
     private Vector2 _CheckBox = new Vector2(2, 8);
@@ -100,7 +100,7 @@ public class MonsterMovement : MonoBehaviour
         else _animator.SetBool(AnimationStrings.IsMoving, false);
 
 
-        if (_direction == _touchingDetection.WallDirection || IsWarPing())
+        if (_direction == _touchingDetection.WallDirection || IsWarPing() || IsPlayerInRange())
         {
             _movementState = MovementState.Idle;
         }
@@ -140,6 +140,16 @@ public class MonsterMovement : MonoBehaviour
 
         // 양수면 오른쪽(1), 음수면 왼쪽(-1)
         return diff > 0 ? 1 : -1;
+    }
+    private bool IsPlayerInRange()
+    {
+        float diffX = Mathf.Abs(transform.position.x - _player.position.x);
+
+        if (diffX <= 0.2f)
+        {
+            return true;
+        }
+        return false ;
     }
 
     public void ChangeState(MovementState movementState)
