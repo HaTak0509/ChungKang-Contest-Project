@@ -371,7 +371,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 4
-      m_TileSpriteIndex: 2
+      m_TileSpriteIndex: 10
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -381,7 +381,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 1
-      m_TileSpriteIndex: 0
+      m_TileSpriteIndex: 3
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2822,14 +2822,14 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 53934ea2343914c47b24806ce71a0f17, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 1
-    m_Data: {fileID: -1691467467, guid: 89dce17ac235db045b456678b2058580, type: 3}
-  - m_RefCount: 38
-    m_Data: {fileID: 1797389750, guid: 89dce17ac235db045b456678b2058580, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 627472755, guid: 89dce17ac235db045b456678b2058580, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
+  - m_RefCount: 38
+    m_Data: {fileID: 1797389750, guid: 89dce17ac235db045b456678b2058580, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: -1691467467, guid: 89dce17ac235db045b456678b2058580, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -70349902, guid: 89dce17ac235db045b456678b2058580, type: 3}
   - m_RefCount: 1
@@ -2842,8 +2842,8 @@ Tilemap:
     m_Data: {fileID: 1412903354, guid: 89dce17ac235db045b456678b2058580, type: 3}
   - m_RefCount: 38
     m_Data: {fileID: -775844067, guid: 89dce17ac235db045b456678b2058580, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 627472755, guid: 89dce17ac235db045b456678b2058580, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 2021169938, guid: 89dce17ac235db045b456678b2058580, type: 3}
   - m_RefCount: 1
@@ -3233,6 +3233,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9047806753477185013}
     m_Modifications:
+    - target: {fileID: 1067389180342014145, guid: 7c647306f3cea3443969d69b22c7007f, type: 3}
+      propertyPath: _player
+      value: 
+      objectReference: {fileID: 6305091506862573010}
     - target: {fileID: 2027963872013277435, guid: 7c647306f3cea3443969d69b22c7007f, type: 3}
       propertyPath: m_LocalScale.x
       value: 4

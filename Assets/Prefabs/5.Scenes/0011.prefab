@@ -215,7 +215,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 10
-      m_TileSpriteIndex: 4
+      m_TileSpriteIndex: 8
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -225,7 +225,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 4
-      m_TileSpriteIndex: 0
+      m_TileSpriteIndex: 5
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -1695,7 +1695,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 8
-      m_TileSpriteIndex: 3
+      m_TileSpriteIndex: 4
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -3070,24 +3070,24 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 7df5dcf757bcc6647b6f0c0474487e36, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 1
-    m_Data: {fileID: -1691467467, guid: 89dce17ac235db045b456678b2058580, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 38
     m_Data: {fileID: 1797389750, guid: 89dce17ac235db045b456678b2058580, type: 3}
   - m_RefCount: 38
     m_Data: {fileID: -1275678256, guid: 89dce17ac235db045b456678b2058580, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: 1683067792, guid: ef9e5270994f28d4ea94605e49e8b612, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: 627472755, guid: 89dce17ac235db045b456678b2058580, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+    m_Data: {fileID: -1691467467, guid: 89dce17ac235db045b456678b2058580, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -1297871310, guid: ef9e5270994f28d4ea94605e49e8b612, type: 3}
   - m_RefCount: 38
     m_Data: {fileID: 1830197829, guid: 89dce17ac235db045b456678b2058580, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 627472755, guid: 89dce17ac235db045b456678b2058580, type: 3}
   - m_RefCount: 38
     m_Data: {fileID: -775844067, guid: 89dce17ac235db045b456678b2058580, type: 3}
   - m_RefCount: 3
@@ -4014,6 +4014,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 741421555686813100}
     m_Modifications:
+    - target: {fileID: 1067389180342014145, guid: 7c647306f3cea3443969d69b22c7007f, type: 3}
+      propertyPath: _player
+      value: 
+      objectReference: {fileID: 6699929644767267462}
     - target: {fileID: 2027963872013277435, guid: 7c647306f3cea3443969d69b22c7007f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.0028203
