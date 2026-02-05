@@ -62,6 +62,12 @@ public class RageState : Monster
         StopDash();
     }
 
+    private void OnEnable()
+    {
+        if (_player == null)
+            _player = GameObject.FindWithTag("Player").transform;
+
+    }
 
     private void StopDash()
     {
