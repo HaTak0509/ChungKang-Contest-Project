@@ -24,7 +24,6 @@ public class StageListUI : MonoBehaviour
 
             int index = i;
             btn.onClick.AddListener(() =>{StageCollect.CollectStage(index); });
-
         }
     }
 }
