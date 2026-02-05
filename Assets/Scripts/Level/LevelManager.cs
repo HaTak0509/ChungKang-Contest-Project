@@ -6,7 +6,8 @@ public class LevelManager : MonoBehaviour
 
     public static LevelManager Instance { get; private set;}
 
-    public int _currentLevelIndex;
+    public int currentLevelIndex;
+    public int saveMaxLevel;
 
     private GameObject _currentLevel;
     private int _index;
@@ -20,17 +21,14 @@ public class LevelManager : MonoBehaviour
         }
         Instance = this;
 
+        saveMaxLevel = SaveLevelManager.Instance.LoadLevel();
         LoadLevel(0);
     }
 
-    private void Update()
-    {
-
-    }
 
     public void OnReset()
     {
-        LoadLevel(_currentLevelIndex);
+        LoadLevel(currentLevelIndex);
     }
 
     public void LoadLevel(int i)
@@ -39,8 +37,15 @@ public class LevelManager : MonoBehaviour
             Destroy(_currentLevel);
 
         _index = i;
-        _currentLevelIndex = i;
+        currentLevelIndex = i;
         _currentLevel = Instantiate(database.levels[_index]);
-        // 여기서 레벨 저장
+
+        if (currentLevelIndex > saveMaxLevel)
+        {
+            Debug.Log(saveMaxLevel);
+            saveMaxLevel = currentLevelIndex;
+            SaveLevelManager.Instance.SaveLevel(saveMaxLevel);
+        }
+
     }
 }
