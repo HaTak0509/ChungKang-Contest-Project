@@ -42,10 +42,8 @@ public class LevelManager : MonoBehaviour
 
         if (currentLevelIndex > saveMaxLevel)
         {
-            Debug.Log(saveMaxLevel);
             saveMaxLevel = currentLevelIndex;
             SaveLevelManager.Instance.SaveLevel(saveMaxLevel);
         }
-
     }
 }
