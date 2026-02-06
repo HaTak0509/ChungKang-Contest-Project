@@ -57,7 +57,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 7fc5911bb15826e4a8a948ac173fec9c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -315,6 +315,8 @@ MonoBehaviour:
     m_Bits: 64
   checkPos: {x: 2.32, y: -1.37}
   checkSize: {x: 0.85, y: 0.85}
+  _Cooltime: 0.3
+  _BoxOpenTime: 0.7
   _SpriteRenderer: {fileID: 8843486152912655854}
   _Open: {fileID: 1940799315, guid: c117e39c59a2e5849aeef9e9526e6f4d, type: 3}
   _Close: {fileID: 1944040982, guid: c117e39c59a2e5849aeef9e9526e6f4d, type: 3}

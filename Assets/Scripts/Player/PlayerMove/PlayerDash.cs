@@ -14,6 +14,7 @@ public class PlayerDash : MonoBehaviour
     public bool dashVitality = true;
     public bool dashing;
 
+    private Material _mat;
     private Rigidbody2D _rb2D;
     private PlayerFacing facing;
     private Pushing _pushing;
@@ -32,10 +33,13 @@ public class PlayerDash : MonoBehaviour
         _damageable = GetComponent<Damageable>();
         _animator = GetComponent<Animator>();
         prevDashForce = dashForce;
+        _mat = GetComponent<SpriteRenderer>().material;
     }
 
     private void Update()
     {
+        _mat.SetFloat("_OutlineWidth", dashVitality ? 1 : 0);
+
         dashForce = upgradeDash ? upgradeDashForce : prevDashForce;
 
         if (upgradeDash && !prevUpgradeDash && !upgradeCoolRunning)
