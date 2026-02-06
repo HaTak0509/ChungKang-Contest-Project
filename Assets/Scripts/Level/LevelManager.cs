@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField] LevelDatabase database;
-
     public static LevelManager Instance { get; private set;}
+
+    [SerializeField] private LevelDatabase database;
+    [SerializeField] private FadeInFadeOut fadeInOut;
 
     public int currentLevelIndex;
     public int saveMaxLevel;

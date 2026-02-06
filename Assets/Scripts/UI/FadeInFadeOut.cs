@@ -24,11 +24,16 @@ public class FadeInFadeOut : MonoBehaviour
         Color color = _image.color;
         color.a = 0f;
         _image.color = color;
+
+        color = _textMeshPro.color;
+        color.a = 0f;
         _textMeshPro.color = color;
     }
 
-    public async UniTask StageClear()
+    public async UniTask StageClear(string stageName)
     {
+        _textMeshPro.text = stageName;
+        
         await FadeInImage();
 
         await TextFadeIn();
@@ -38,6 +43,8 @@ public class FadeInFadeOut : MonoBehaviour
         await TextFadeOut();
 
         await FadeOutImage();
+
+        _textMeshPro.text = "";
     }
 
     public void FadeIn()
@@ -113,7 +120,7 @@ public class FadeInFadeOut : MonoBehaviour
             await UniTask.Yield();
         }
 
-        color.a = 0f;
+        color.a = 1f;
         _textMeshPro.color = color;
     }
 
@@ -135,7 +142,7 @@ public class FadeInFadeOut : MonoBehaviour
             await UniTask.Yield();
         }
 
-        color.a = 1f;
+        color.a = 0f;
         _textMeshPro.color = color;
     }
 }
