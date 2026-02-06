@@ -39,6 +39,9 @@ public class HelperManager : MonoBehaviour
             {
                 sprite.sortingOrder = _enable ? 17 : 0;
 
+
+                if (sprite.CompareTag("Player")) continue;
+
                 MaterialPropertyBlock _mpb = new MaterialPropertyBlock();
                 sprite.GetPropertyBlock(_mpb);
 
