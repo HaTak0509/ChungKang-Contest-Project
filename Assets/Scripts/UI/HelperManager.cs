@@ -43,6 +43,7 @@ public class HelperManager : MonoBehaviour
                 sprite.GetPropertyBlock(_mpb);
 
                 _mpb.SetFloat(_OutlineWidthID, _enable ? 1 : 0);
+                Debug.Log(123);
                 
                 sprite.SetPropertyBlock(_mpb);
 
