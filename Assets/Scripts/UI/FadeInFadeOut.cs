@@ -14,12 +14,12 @@ public class FadeInFadeOut : MonoBehaviour
     [SerializeField] private GameObject textGameObject;
 
     private Image _image;
-    private TextMeshPro _textMeshPro;
+    private TextMeshProUGUI _textMeshPro;
 
     private void Awake()
     {
         _image = fadeGameObject.GetComponent<Image>();
-        _textMeshPro = fadeGameObject.GetComponent<TextMeshPro>();
+        _textMeshPro = textGameObject.GetComponent<TextMeshProUGUI>();
 
         Color color = _image.color;
         color.a = 0f;
