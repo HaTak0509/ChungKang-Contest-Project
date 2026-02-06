@@ -7,7 +7,7 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
 {
     [SerializeField] private List<GameObject> _hideObjects = new();
     [SerializeField] private GameObject laser;
-    [SerializeField] private GameObject tileOb;
+    [SerializeField] private GameObject hidingTile;
 
     private List<SpriteRenderer> _puzzleObjectSp = new();
     private List<GameObject> _puzzleObjects = new();
@@ -23,8 +23,8 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
 
     private void Start()
     {
-        _tileMap = tileOb.GetComponent<Tilemap>();
-        _tileCol = tileOb.GetComponent<TilemapCollider2D>();
+        _tileMap = hidingTile.GetComponent<Tilemap>();
+        _tileCol = hidingTile.GetComponent<TilemapCollider2D>();
     }
 
     private void OnEnable()
@@ -110,8 +110,8 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
     {
         // Tilemap 상태
         _tileCol.isTrigger = false;
-        tileOb.layer = LayerMask.NameToLayer("Ground");
-        tileOb.tag = "PuzzleObject";
+        hidingTile.layer = LayerMask.NameToLayer("Ground");
+        hidingTile.tag = "PuzzleObject";
         _tileMap.color = Color.white;
 
         // 퍼즐 오브젝트
@@ -144,8 +144,8 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
         }
 
         _tileCol.isTrigger = true;
-        tileOb.layer = LayerMask.NameToLayer("Default");
-        tileOb.tag = "Untagged";
+        hidingTile.layer = LayerMask.NameToLayer("Default");
+        hidingTile.tag = "Untagged";
     }
 
     private async UniTask FadeSprite(SpriteRenderer sr, float target)

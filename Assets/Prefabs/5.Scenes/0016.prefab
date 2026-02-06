@@ -4384,13 +4384,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4639567241232608019, guid: 29bdd138ac2438d4999cf920ddc089f4, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f14d3662127188d4ab1ff9185306e9ae, type: 3}
+    - target: {fileID: 4639567241232608019, guid: 29bdd138ac2438d4999cf920ddc089f4, type: 3}
+      propertyPath: m_FrontSortingOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4753127907805510233, guid: 29bdd138ac2438d4999cf920ddc089f4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 4753127907805510233, guid: 29bdd138ac2438d4999cf920ddc089f4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.75
+      value: 0.94
       objectReference: {fileID: 0}
     - target: {fileID: 8731499169096427704, guid: 29bdd138ac2438d4999cf920ddc089f4, type: 3}
       propertyPath: m_Name
@@ -4487,6 +4495,11 @@ SpriteRenderer:
 --- !u!4 &4526655860040980928 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1521531877154821685, guid: fda1a6e65f836b8449dfdd59b9f1ebea, type: 3}
+  m_PrefabInstance: {fileID: 3156030115554643957}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6251189513821716866 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9010813440342380151, guid: fda1a6e65f836b8449dfdd59b9f1ebea, type: 3}
   m_PrefabInstance: {fileID: 3156030115554643957}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3552255244904887836
@@ -4889,17 +4902,21 @@ PrefabInstance:
     m_TransformParent: {fileID: 8851780764086011252}
     m_Modifications:
     - target: {fileID: 4036644522035167994, guid: 41096232eb209bb47863ca1dbd109074, type: 3}
+      propertyPath: laser
+      value: 
+      objectReference: {fileID: 6251189513821716866}
+    - target: {fileID: 4036644522035167994, guid: 41096232eb209bb47863ca1dbd109074, type: 3}
       propertyPath: tileOb
       value: 
       objectReference: {fileID: 1351062820550910535}
     - target: {fileID: 4036644522035167994, guid: 41096232eb209bb47863ca1dbd109074, type: 3}
       propertyPath: _hideObjects.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4036644522035167994, guid: 41096232eb209bb47863ca1dbd109074, type: 3}
       propertyPath: _hideObjects.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1351062820550910535}
     - target: {fileID: 4194418562368449746, guid: 41096232eb209bb47863ca1dbd109074, type: 3}
       propertyPath: m_Name
       value: WarpingLaser
