@@ -12,7 +12,7 @@ public class ItemPopup : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.C))
         {
-            itemPopup.SetActive(!itemPopup);
+            itemPopup.SetActive(!itemPopup.activeSelf);
         }
     }
 }
