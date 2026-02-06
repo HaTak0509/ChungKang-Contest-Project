@@ -10,6 +10,8 @@ public class Fire : MonoBehaviour
         {
             //삭제
             Debug.Log("어!? 불에 닿았네!??!? 죽어 그럼");
+
+            collision.transform.GetComponent<Damageable>().GameOver();
         }
     }
 }

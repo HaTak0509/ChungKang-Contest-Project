@@ -7,7 +7,9 @@ public class Helper : MonoBehaviour
     public GameObject _gameObject;
 
     private GameObject _container;
-    private bool _isEnable = false;
+    [HideInInspector] public bool _isEnable = false;
+
+    [SerializeField] private Vector2 checkPivot = new Vector2(0f,0f); // 검사할 영역의 위치
     [SerializeField] private Vector2 checkPos = new Vector2(2.7f, 1.5f); // 검사할 영역의 위치
     [SerializeField] private Vector2 checkSize = new Vector2(2.7f, 2.7f); // 검사할 영역의 크기
 
@@ -18,18 +20,18 @@ public class Helper : MonoBehaviour
 
         if (_isEnable)
         {
-            if (!IsOutsideScreen((Vector2)transform.position + new Vector2(checkPos.x * -1, checkPos.y)))
+            if (!IsOutsideScreen((Vector2)transform.position + checkPivot + new Vector2(checkPos.x * -1, checkPos.y)))
             {
                 _container = Instantiate(_gameObject);
-                _container.transform.position = (Vector2)transform.position + new Vector2(checkPos.x * -1, checkPos.y);
+                _container.transform.position = (Vector2)transform.position + checkPivot + new Vector2(checkPos.x * -1, checkPos.y);
                 _container.GetComponent<Lore>().SetText(_Description);
                 return;
             }
 
-            if (!IsOutsideScreen((Vector2)transform.position + new Vector2(checkPos.x * 1, checkPos.y)))
+            if (!IsOutsideScreen((Vector2)transform.position + checkPivot + new Vector2(checkPos.x * 1, checkPos.y)))
             {
                 _container = Instantiate(_gameObject);
-                _container.transform.position = (Vector2)transform.position + new Vector2(checkPos.x * 1, checkPos.y);
+                _container.transform.position = (Vector2)transform.position + checkPivot + new Vector2(checkPos.x * 1, checkPos.y);
                 _container.GetComponent<Lore>().SetText(_Description);
                 return;
             }
@@ -65,8 +67,8 @@ public class Helper : MonoBehaviour
     {
 
         Gizmos.color = Color.magenta;
-        Vector2 rightTarget = (Vector2)transform.position + new Vector2(checkPos.x * 1, checkPos.y);
-        Vector2 leftTarget = (Vector2)transform.position + new Vector2(checkPos.x * -1, checkPos.y);
+        Vector2 rightTarget = (Vector2)transform.position + checkPivot + new Vector2(checkPos.x * 1, checkPos.y);
+        Vector2 leftTarget = (Vector2)transform.position + checkPivot + new Vector2(checkPos.x * -1, checkPos.y);
 
 
         Gizmos.DrawWireCube(rightTarget, checkSize);

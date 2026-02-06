@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
+
+
 
 public class HelperManager : MonoBehaviour
 {
@@ -9,15 +10,19 @@ public class HelperManager : MonoBehaviour
     private Camera _camera;
 
     [SerializeField] private List<SpriteRenderer> _HelpList;
+    private List<Material> _HelpList2;
 
     private HashSet<Helper> _helpers = new HashSet<Helper>();
     private PlayerController _player;
+    private static readonly int _OutlineWidthID = Shader.PropertyToID("_OutlineWidth");
 
     void Start()
     {
         _camera = GetComponent<Camera>();
         if (_player == null)
             _player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+        
+
     }
 
     void Update()
@@ -33,13 +38,28 @@ public class HelperManager : MonoBehaviour
             foreach (SpriteRenderer sprite in _HelpList)
             {
                 sprite.sortingOrder = _enable ? 17 : 0;
+
+
+                if (sprite.CompareTag("Player")) continue;
+
+                MaterialPropertyBlock _mpb = new MaterialPropertyBlock();
+                sprite.GetPropertyBlock(_mpb);
+
+                _mpb.SetFloat(_OutlineWidthID, _enable ? 1 : 0);
+                Debug.Log(123);
+                
+                sprite.SetPropertyBlock(_mpb);
+
             }
 
 
             if (!_enable)
             {
                 foreach (Helper helper in _helpers)
+                {
                     helper.Remove();
+                    helper._isEnable = false;
+                }
                 _helpers.Clear();
                 return;
             }
