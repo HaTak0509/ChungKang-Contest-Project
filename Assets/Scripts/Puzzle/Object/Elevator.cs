@@ -1,29 +1,40 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class Elevator : MonoBehaviour, IInteractable
 {
     [SerializeField] private int nextLevel;
-
-    public bool clear;
-
+    
+    private FadeInFadeOut _fadeInFadeOut;
     private bool _action;
+
+    private void Awake()
+    {
+        _fadeInFadeOut = FindAnyObjectByType<FadeInFadeOut>();
+    }
 
     public void Interact()
     {
         if (!_action) return;
 
-        LevelManager.Instance.LoadLevel(nextLevel);
+        RunStageClearAsync().Forget();
     }
 
-    private void OnTriggerStay2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player") && clear)
+        if (other.gameObject.CompareTag("Player"))
             _action = true;
     }
 
-    private void OnTriggerExitD(Collider2D other)
+    private void OnTriggerExit2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))
             _action = false;
+    }
+
+    private async UniTask RunStageClearAsync()
+    {
+        await _fadeInFadeOut.StageClear($"Stage {nextLevel}");
+        LevelManager.Instance.LoadLevel(nextLevel);
     }
 }

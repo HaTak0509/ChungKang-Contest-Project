@@ -22,11 +22,6 @@ public class ItemManager : MonoBehaviour
         {
             itemPopup.SetActive(!itemPopup.activeSelf);
         }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            itemPopup.SetActive(false);
-        }
     }
 
     public void OnItemClicked(Items clickedItem)
