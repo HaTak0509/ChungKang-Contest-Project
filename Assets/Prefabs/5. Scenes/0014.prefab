@@ -4967,7 +4967,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3162089338479147714, guid: 90f172f453ef38747ac8a59647adf244, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000007513252
+      value: 0.000025377554
       objectReference: {fileID: 0}
     - target: {fileID: 3580347330702329804, guid: 90f172f453ef38747ac8a59647adf244, type: 3}
       propertyPath: m_AnchorMax.x
@@ -5259,6 +5259,10 @@ PrefabInstance:
     - target: {fileID: 738828842363638708, guid: 5d7bbeb0af4d37a408f96515c9040210, type: 3}
       propertyPath: m_Name
       value: targer_Elevator
+      objectReference: {fileID: 0}
+    - target: {fileID: 2290731701348450930, guid: 5d7bbeb0af4d37a408f96515c9040210, type: 3}
+      propertyPath: nextLevel
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8763058145724405012, guid: 5d7bbeb0af4d37a408f96515c9040210, type: 3}
       propertyPath: m_LocalPosition.x
