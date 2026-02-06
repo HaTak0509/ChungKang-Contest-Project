@@ -174,7 +174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hideObjects: []
   laser: {fileID: 0}
-  tileOb: {fileID: 0}
+  hidingTile: {fileID: 0}
 --- !u!114 &4753450619152105570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,7 +187,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2845670bf2c617459d8a26bcf764e1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Description: 
+  _Description: "\uD22C\uBA85\uD55C \uAC83\uC744 \uC120\uBA85\uD558\uAC8C \uD558\uACE0,
+    \uC120\uBA85\uD55C \uAC83\uC744 \uD22C\uBA85\uD558\uAC8C \uD569\uB2C8\uB2E4.\n\uC644\uC804\uD788
+    \uD22C\uBA85\uD574\uC9C0\uBA74 \uC0AC\uB9DD\uD569\uB2C8\uB2E4."
   _gameObject: {fileID: 1633852971879624998, guid: e1e12f816f40a464e99e2b70c406e06d, type: 3}
   checkPos: {x: 2.7, y: 1}
   checkSize: {x: 2.7, y: 2.7}
