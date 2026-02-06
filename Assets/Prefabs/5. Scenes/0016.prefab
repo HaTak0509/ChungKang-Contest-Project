@@ -4305,13 +4305,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4639567241232608019, guid: 29bdd138ac2438d4999cf920ddc089f4, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f14d3662127188d4ab1ff9185306e9ae, type: 3}
+    - target: {fileID: 4639567241232608019, guid: 29bdd138ac2438d4999cf920ddc089f4, type: 3}
+      propertyPath: m_FrontSortingOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4753127907805510233, guid: 29bdd138ac2438d4999cf920ddc089f4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 4753127907805510233, guid: 29bdd138ac2438d4999cf920ddc089f4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.75
+      value: 0.94
       objectReference: {fileID: 0}
     - target: {fileID: 8731499169096427704, guid: 29bdd138ac2438d4999cf920ddc089f4, type: 3}
       propertyPath: m_Name
@@ -4902,12 +4910,12 @@ PrefabInstance:
       objectReference: {fileID: 1351062820550910535}
     - target: {fileID: 4036644522035167994, guid: 41096232eb209bb47863ca1dbd109074, type: 3}
       propertyPath: _hideObjects.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4036644522035167994, guid: 41096232eb209bb47863ca1dbd109074, type: 3}
       propertyPath: _hideObjects.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1351062820550910535}
     - target: {fileID: 4194418562368449746, guid: 41096232eb209bb47863ca1dbd109074, type: 3}
       propertyPath: m_Name
       value: WarpingLaser
