@@ -65,10 +65,14 @@ public class Monster : MonoBehaviour, WarpingInterface
                 temp.TwistMonster = gameObject;
                 temp.baseSpeed = baseSpeed;
                 temp.InteractRange = baseDetectionRange;
-                TwistMonster.SetActive(false);
+                
+
+
 
                 TwistMonster.GetComponent<MonsterMovement>().pointA = _movement.pointA;
                 TwistMonster.GetComponent<MonsterMovement>().pointB = _movement.pointB;
+
+                TwistMonster.SetActive(false);
             }
         }
     }
@@ -92,6 +96,8 @@ public class Monster : MonoBehaviour, WarpingInterface
 
         
         TwistMonster.SetActive(true);
+        if (_movement._isFacingRight != TwistMonster.GetComponent<MonsterMovement>()._isFacingRight)
+            TwistMonster.GetComponent<MonsterMovement>().Flip();
 
         TwistMonster.transform.position = transform.position;
         TwistMonster.GetComponent<Monster>().OnEnter();

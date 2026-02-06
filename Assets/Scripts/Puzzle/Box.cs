@@ -1,13 +1,26 @@
+using Cysharp.Threading.Tasks;
+using System;
 using UnityEngine;
 
 public class Box : MonoBehaviour , IInteractable, WarpingInterface
 {
-    [Header("검사 설정")]
+    [Header("박스 설정")]
     public GameObject _BoxTeleport;
     [SerializeField] private LayerMask _LayerMask;
     [SerializeField] private Vector2 checkPos = new Vector2(0.5f, 0.0f); // 검사할 영역의 위치
     [SerializeField] private Vector2 checkSize = new Vector2(1.5f, 3.0f); // 검사할 영역의 크기
+    [SerializeField] private float _Cooltime = 0.3f;
+    [SerializeField] private float _BoxOpenTime = 0.7f;
+
+
+    [Header("필수 연결")]
+    [SerializeField] private SpriteRenderer _SpriteRenderer;
+    [SerializeField] private Sprite _Open;
+    [SerializeField] private Sprite _Close;
+
+
     private PushingObject _pushingObject;
+    private bool _isCool = false;
 
     private bool _isTwist = false;
     public bool isTwist => _isTwist;
@@ -36,7 +49,7 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
 
         if(PlayerScale.Instance._Scale <= 30 )
         {
-            if (_BoxTeleport.GetComponent<Box>().isTwist)
+            if (_BoxTeleport.GetComponent<Box>().isTwist && !_isCool)
                 RelocateToEmptySpace();
             else
                 Debug.Log("야 이거, 안 뒤틀렸는데?");
@@ -50,6 +63,7 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
 
     public void RelocateToEmptySpace()
     {
+        StartFlash();
         // 1. 오른쪽 확인
         Vector2 rightTarget = (Vector2)_BoxTeleport.transform.position + new Vector2(checkPos.x * 1,checkPos.y);
         if (!IsObstacleAt(rightTarget))
@@ -88,9 +102,54 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
     private void MoveTo(Vector2 newPos)
     {
         _Player.position = new Vector3(newPos.x, newPos.y + checkSize.y / 2, _Player.position.z);
+        _BoxTeleport.GetComponent<Box>().StartFlash();
     }
 
-    // 에디터 뷰에서 검사 영역 시각화
+    public void StartFlash()
+    {
+        // UniTask는 Forget()을 호출하여 비동기로 실행하거나, 
+        // 다른 async 함수 내에서 await으로 기다릴 수 있습니다.
+        SetCoolTime().Forget();
+        FlashRoutine().Forget();
+        
+    }
+    private async UniTaskVoid FlashRoutine()
+    {
+        if (_SpriteRenderer == null) return;
+
+        try
+        {
+            // 1. 스프라이트 변경
+            _SpriteRenderer.sprite = _Open;
+
+            // 2. 0.2초 대기 (Time.timeScale의 영향을 받음)
+            // 만약 일시정지 중에도 돌아가야 한다면 PlayerLoopTiming.Update 사용
+            await UniTask.Delay(TimeSpan.FromSeconds(_BoxOpenTime), delayTiming: PlayerLoopTiming.Update, cancellationToken: this.GetCancellationTokenOnDestroy());
+
+            // 3. 원본으로 복구
+            _SpriteRenderer.sprite = _Close;
+        }
+        catch (OperationCanceledException)
+        {
+            // 오브젝트가 파괴되어 작업이 취소되었을 때 처리 (선택 사항)
+        }
+        finally
+        {
+            // 혹시라도 에러가 나거나 취소되어도 원본 스프라이트는 유지하고 싶을 때 안전장치
+            if (_SpriteRenderer != null)
+                _SpriteRenderer.sprite = _Close;
+        }
+    }
+    private async UniTask SetCoolTime()
+    {
+        _isCool = true;
+
+        // 오브젝트가 파괴되면 대기를 즉시 중단함 (에러 방지)
+        await UniTask.Delay(TimeSpan.FromSeconds(_Cooltime), cancellationToken: this.GetCancellationTokenOnDestroy());
+
+        _isCool = false;
+    }
+
     private void OnDrawGizmosSelected()
     {
 
