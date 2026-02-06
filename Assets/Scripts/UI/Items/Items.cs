@@ -1,25 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Items : MonoBehaviour
+public class Items : MonoBehaviour, IPointerClickHandler
 {
-    [SerializeField] private TextMeshProUGUI itemNameText;
-    [SerializeField] private TextMeshProUGUI itemContentText;
+    [SerializeField] private ItemManager itemManager;
 
     [Header("이름 Text")]
-    [SerializeField] private TextMeshProUGUI nameText;
+    [SerializeField, TextArea(3, 10)] private string nameText;
 
     [Header("설명 Text")]
-    [SerializeField] private TextMeshProUGUI contentText;
+    [SerializeField, TextArea(3, 10)] private string contentText;
 
-    private void Update()
+    public string NameText => nameText;
+    public string ContentText => contentText;
+
+    public void OnPointerClick(PointerEventData eventData)
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            itemNameText.text = nameText.text;
-            itemContentText.text = contentText.text;
-        }
+        itemManager.OnItemClicked(this);
     }
 }
