@@ -31,15 +31,7 @@ public class SoundManager : MonoBehaviour
 
     void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(this.gameObject);
-            return;
-        }
+        Instance = this;
 
         // ≈¨∏≥ µÒº≈≥ ∏Æ √ ±‚»≠
         sfxDictionary = new Dictionary<string, AudioClip>();

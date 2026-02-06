@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
@@ -18,16 +16,27 @@ public class FadeInFadeOut : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
+
         _image = fadeGameObject.GetComponent<Image>();
         _textMeshPro = textGameObject.GetComponent<TextMeshProUGUI>();
 
-        Color color = _image.color;
-        color.a = 0f;
-        _image.color = color;
+        SetAlpha(_image, 0f);
+        SetAlpha(_textMeshPro, 0f);
+    }
 
-        color = _textMeshPro.color;
-        color.a = 0f;
-        _textMeshPro.color = color;
+    private void SetAlpha(Image img, float a)
+    {
+        var c = img.color;
+        c.a = a;
+        img.color = c;
+    }
+
+    private void SetAlpha(TextMeshProUGUI tmp, float a)
+    {
+        var c = tmp.color;
+        c.a = a;
+        tmp.color = c;
     }
 
     public async UniTask StageClear(string stageName)
