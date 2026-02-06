@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: -1576819046, guid: c117e39c59a2e5849aeef9e9526e6f4d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -173,7 +173,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextLevel: 0
-  clear: 1
 --- !u!114 &-7365935765780582338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,5 +189,6 @@ MonoBehaviour:
     \uC704\uD55C \uBAA9\uC801\uC9C0\uC785\uB2C8\uB2E4."
   _gameObject: {fileID: 1633852971879624998, guid: e1e12f816f40a464e99e2b70c406e06d, type: 3}
   _isEnable: 0
+  checkPivot: {x: 0, y: 0}
   checkPos: {x: 4.37, y: -2}
   checkSize: {x: 2.7, y: 2.7}
