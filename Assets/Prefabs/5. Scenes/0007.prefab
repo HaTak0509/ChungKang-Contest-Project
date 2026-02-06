@@ -3156,15 +3156,15 @@ PrefabInstance:
       objectReference: {fileID: 6305091506862573010}
     - target: {fileID: 2027963872013277435, guid: 7c647306f3cea3443969d69b22c7007f, type: 3}
       propertyPath: m_LocalScale.x
-      value: 4
+      value: 5.5
       objectReference: {fileID: 0}
     - target: {fileID: 2027963872013277435, guid: 7c647306f3cea3443969d69b22c7007f, type: 3}
       propertyPath: m_LocalScale.y
-      value: 4
+      value: 5.5
       objectReference: {fileID: 0}
     - target: {fileID: 2027963872013277435, guid: 7c647306f3cea3443969d69b22c7007f, type: 3}
       propertyPath: m_LocalScale.z
-      value: 4
+      value: 5.5
       objectReference: {fileID: 0}
     - target: {fileID: 2027963872013277435, guid: 7c647306f3cea3443969d69b22c7007f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3172,7 +3172,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2027963872013277435, guid: 7c647306f3cea3443969d69b22c7007f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.5
+      value: -6.75
       objectReference: {fileID: 0}
     - target: {fileID: 2027963872013277435, guid: 7c647306f3cea3443969d69b22c7007f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3236,6 +3236,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7399209103895904750}
     m_Modifications:
+    - target: {fileID: 3162089338479147714, guid: 90f172f453ef38747ac8a59647adf244, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.0010007935
+      objectReference: {fileID: 0}
+    - target: {fileID: 4090433439425658639, guid: 90f172f453ef38747ac8a59647adf244, type: 3}
+      propertyPath: m_Size
+      value: 0.999997
+      objectReference: {fileID: 0}
     - target: {fileID: 7522691808574787032, guid: 90f172f453ef38747ac8a59647adf244, type: 3}
       propertyPath: m_Name
       value: Canvas

@@ -5797,7 +5797,29 @@ MonoBehaviour:
   SFXGroup: {fileID: -6919880498732849953, guid: b16894704a019094396904236a11d842, type: 2}
   UIGroup: {fileID: -1116388949737780957, guid: b16894704a019094396904236a11d842, type: 2}
   BGMGroup: {fileID: 8632898394320934241, guid: b16894704a019094396904236a11d842, type: 2}
-  sfxClips: []
+  sfxClips:
+  - name: player_swim
+    clip: {fileID: 8300000, guid: 09803ad783ce2184fbaf87e979580d29, type: 3}
+  - name: fire
+    clip: {fileID: 8300000, guid: f0e7ac65064719c4ba46a5694b18bba0, type: 3}
+  - name: player_dash
+    clip: {fileID: 8300000, guid: 32ed317495c652e4bae43b58da279fe4, type: 3}
+  - name: laser
+    clip: {fileID: 8300000, guid: f4e1879802a32564197bbb168a6e9dd1, type: 3}
+  - name: lift
+    clip: {fileID: 8300000, guid: bc707a0a8cd3d5a42834e736037e84b3, type: 3}
+  - name: player_move
+    clip: {fileID: 8300000, guid: 99d34a3706686d544a9a658c317b5782, type: 3}
+  - name: player_jump
+    clip: {fileID: 8300000, guid: 7d15f8e5c0a899c458402aaf346b1ee7, type: 3}
+  - name: water_creation
+    clip: {fileID: 8300000, guid: da7f6a7887f5d0c45bdef8581b27430d, type: 3}
+  - name: object_button
+    clip: {fileID: 8300000, guid: 5edae3b3dc6e5cf4f8b14d42ea5b4d56, type: 3}
+  - name: jealous_NPC
+    clip: {fileID: 8300000, guid: c6089766b527ee2438c687735e0dae5b, type: 3}
+  - name: agressive_NPC
+    clip: {fileID: 8300000, guid: cd30ac7dc3046794189004a0680db864, type: 3}
 --- !u!1 &7522691808574787032
 GameObject:
   m_ObjectHideFlags: 0

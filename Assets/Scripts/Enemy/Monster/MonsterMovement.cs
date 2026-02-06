@@ -27,7 +27,7 @@ public class MonsterMovement : MonoBehaviour
     [HideInInspector] public Transform _player;
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
-    private Vector2 _CheckBox = new Vector2(2, 8);
+    [SerializeField] private Vector2 _WarpCheckBox = new Vector2(2, 2);
 
     public MovementState _movementState { get; private set; } = MovementState.Move;
 
@@ -114,7 +114,7 @@ public class MonsterMovement : MonoBehaviour
     
     private bool IsWarPing()
     {
-        Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position, _CheckBox,0f, LayerMask.GetMask("PuzzleObject"));
+        Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position, _WarpCheckBox, 0f, LayerMask.GetMask("PuzzleObject"));
         foreach (Collider2D hit in hits)
         {
             if (hit.CompareTag("ActivationCrack"))
@@ -213,7 +213,8 @@ public class MonsterMovement : MonoBehaviour
         Gizmos.DrawLine(new Vector2(pointB.x, transform.position.y - 0.5f), new Vector2(pointB.x, transform.position.y + 0.5f));
         Gizmos.DrawLine(new Vector2(pointA.x, transform.position.y), new Vector2(pointB.x, transform.position.y));
 
-
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(transform.position, _WarpCheckBox);
     }
 
 

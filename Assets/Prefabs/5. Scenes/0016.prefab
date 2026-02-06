@@ -4045,6 +4045,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 130894586281815976}
     - target: {fileID: 1067389180342014145, guid: 7c647306f3cea3443969d69b22c7007f, type: 3}
+      propertyPath: DashSpeed
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1067389180342014145, guid: 7c647306f3cea3443969d69b22c7007f, type: 3}
       propertyPath: baseSpeed
       value: 4
       objectReference: {fileID: 0}
@@ -4133,7 +4137,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8937473472762292131, guid: 835d4b88b7183b44aa316eef3fb919e1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.060000002
+      value: -3.94
       objectReference: {fileID: 0}
     - target: {fileID: 8937473472762292131, guid: 835d4b88b7183b44aa316eef3fb919e1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4319,7 +4323,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4753127907805510233, guid: 29bdd138ac2438d4999cf920ddc089f4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.94
+      value: 5.94
       objectReference: {fileID: 0}
     - target: {fileID: 8731499169096427704, guid: 29bdd138ac2438d4999cf920ddc089f4, type: 3}
       propertyPath: m_Name
@@ -4579,6 +4583,10 @@ PrefabInstance:
       propertyPath: _player
       value: 
       objectReference: {fileID: 130894586281815976}
+    - target: {fileID: 1067389180342014145, guid: 7c647306f3cea3443969d69b22c7007f, type: 3}
+      propertyPath: DashSpeed
+      value: 4.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1067389180342014145, guid: 7c647306f3cea3443969d69b22c7007f, type: 3}
       propertyPath: baseSpeed
       value: 4
@@ -4909,6 +4917,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1351062820550910535}
     - target: {fileID: 4036644522035167994, guid: 41096232eb209bb47863ca1dbd109074, type: 3}
+      propertyPath: hidingTile
+      value: 
+      objectReference: {fileID: 4895588763612084040}
+    - target: {fileID: 4036644522035167994, guid: 41096232eb209bb47863ca1dbd109074, type: 3}
       propertyPath: _hideObjects.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -4922,7 +4934,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4194418562368449746, guid: 41096232eb209bb47863ca1dbd109074, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5919092543594034320, guid: 41096232eb209bb47863ca1dbd109074, type: 3}
       propertyPath: m_LocalScale.y
@@ -5000,6 +5012,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1353250139218802705}
     m_Modifications:
+    - target: {fileID: 3162089338479147714, guid: 90f172f453ef38747ac8a59647adf244, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.000014543533
+      objectReference: {fileID: 0}
+    - target: {fileID: 4090433439425658639, guid: 90f172f453ef38747ac8a59647adf244, type: 3}
+      propertyPath: m_Value
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7522691808574787032, guid: 90f172f453ef38747ac8a59647adf244, type: 3}
       propertyPath: m_Name
       value: Canvas
