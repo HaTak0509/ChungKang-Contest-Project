@@ -35,7 +35,7 @@ Transform:
   m_GameObject: {fileID: 7329986220666390184}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.84, y: -1.08, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5.5, y: 5.5, z: 5.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -174,8 +174,8 @@ MonoBehaviour:
   _isFirst: 0
   _player: {fileID: 0}
   DashSpeed: 5
-  _HitPos: {x: -0.1, y: -1.16, z: 0}
-  _HitCheck: {x: 2.5, y: 2}
+  _HitPos: {x: -0.18, y: -0.63, z: 0}
+  _HitCheck: {x: 2, y: 2}
   _PlayerLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -364,5 +364,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Description: "\uD50C\uB808\uC774\uC5B4\uB97C \uCD94\uACA9\uD558\uC5EC \uC0B4\uD574\uD569\uB2C8\uB2E4."
   _gameObject: {fileID: 1633852971879624998, guid: e1e12f816f40a464e99e2b70c406e06d, type: 3}
-  checkPos: {x: 2.7, y: 1.5}
+  checkPos: {x: 2.7, y: 0.2}
   checkSize: {x: 2.7, y: 2.7}
