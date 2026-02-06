@@ -36,7 +36,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5.5, y: 5.5, z: 5.5}
+  m_LocalScale: {x: 3.5, y: 3.5, z: 3.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -366,5 +366,6 @@ MonoBehaviour:
   _Description: "\uD50C\uB808\uC774\uC5B4\uB97C \uCD94\uACA9\uD558\uC5EC \uC0B4\uD574\uD569\uB2C8\uB2E4."
   _gameObject: {fileID: 1633852971879624998, guid: e1e12f816f40a464e99e2b70c406e06d, type: 3}
   _isEnable: 0
+  checkPivot: {x: 0, y: 0}
   checkPos: {x: 2.7, y: 0.2}
   checkSize: {x: 2.7, y: 2.7}
