@@ -227,7 +227,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: 7fc5911bb15826e4a8a948ac173fec9c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -333,6 +333,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eed9939a525ba5441ab9bc65437e3e62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _player: {fileID: 0}
+  _WarpCheckBox: {x: 2, y: 2}
   pointA: {x: -7.04, y: -1.75}
   pointB: {x: 4.94, y: -1.75}
 --- !u!114 &7403667431915898058
@@ -524,5 +526,6 @@ MonoBehaviour:
   _Description: "\uB2FF\uC744 \uC2DC, \uD50C\uB808\uC774\uC5B4\uB97C \uC0AC\uB9DD\uC2DC\uD0A4\uB294
     \uBD88\uC744 \uBC1C\uCE58\uC5D0 \uC810\uD654\uC2DC\uD0B5\uB2C8\uB2E4."
   _gameObject: {fileID: 1633852971879624998, guid: e1e12f816f40a464e99e2b70c406e06d, type: 3}
+  _isEnable: 0
   checkPos: {x: 2.7, y: 1.5}
   checkSize: {x: 2.7, y: 2.7}
