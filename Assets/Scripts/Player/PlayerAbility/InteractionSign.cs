@@ -13,8 +13,8 @@ public class InteractionSign : MonoBehaviour
 
     private Dictionary<Transform, GameObject> quInsMark = new();
     private InteractionSequence sequence;
-
     private bool isQuitting = false;
+    private Transform _currentTop;
 
     private void Awake()
     {
@@ -24,24 +24,44 @@ public class InteractionSign : MonoBehaviour
     private void Update()
     {
         if (isQuitting) return;
+        if (sequence == null || quInsMark.Count == 0) return;
 
+        // null이거나 태그가 맞지 않는 대상 정리
         List<Transform> toRemove = new();
-
         foreach (var target in quInsMark.Keys)
         {
             if (target == null || !target.CompareTag("PuzzleObject"))
-            {
                 toRemove.Add(target);
-            }
         }
 
         foreach (var t in toRemove)
-        {
             RemoveQuMark(t);
+
+        // 최우선 대상 갱신
+        Transform newTop = sequence.GetTopPriority(quInsMark.Keys);
+        if (newTop != _currentTop)
+        {
+            _currentTop = newTop;
+            RefreshMarks();
         }
     }
 
     private void OnDestroy()
+    {
+        ClearAllMarks();
+    }
+
+    private void OnApplicationQuit()
+    {
+        isQuitting = true;
+    }
+
+    private void OnDisable()
+    {
+        ClearAllMarks();
+    }
+
+    private void ClearAllMarks()
     {
         foreach (var mark in quInsMark.Values)
         {
@@ -49,11 +69,6 @@ public class InteractionSign : MonoBehaviour
                 Destroy(mark);
         }
         quInsMark.Clear();
-    }
-
-    private void OnApplicationQuit()
-    {
-        isQuitting = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -77,7 +92,8 @@ public class InteractionSign : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (isQuitting) return;
-        if (collision.gameObject.CompareTag("PuzzleObject") && collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (collision.gameObject.CompareTag("PuzzleObject") && 
+            collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             CreateMark(collision.transform);
         }
@@ -86,8 +102,10 @@ public class InteractionSign : MonoBehaviour
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (isQuitting) return;
-        if (collision.gameObject.CompareTag("PuzzleObject") && collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (collision.gameObject.CompareTag("PuzzleObject") && 
+            collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
+            // 이미 존재하면 CreateMark에서 return되므로 중복 생성 방지됨
             CreateMark(collision.transform);
         }
     }
@@ -95,7 +113,8 @@ public class InteractionSign : MonoBehaviour
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (isQuitting) return;
-        if (collision.gameObject.CompareTag("PuzzleObject") && collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (collision.gameObject.CompareTag("PuzzleObject") && 
+            collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             RemoveQuMark(collision.transform);
         }
@@ -105,22 +124,23 @@ public class InteractionSign : MonoBehaviour
     {
         if (quInsMark.ContainsKey(target)) return;
 
-        GameObject prefab = questionMark;
+        // 현재 + 새 대상 중에서 누가 top인지 미리 계산
+        var allTargets = quInsMark.Keys.Append(target);
+        Transform top = sequence.GetTopPriority(allTargets);
 
-        // 현재 대상들 중 최우선인지 확인
-        Transform top = sequence.GetTopPriority(quInsMark.Keys.Append(target));
-        if (top == target)
-        {
-            prefab = exclamationMark;
-        }
+        GameObject prefab = (top == target) ? exclamationMark : questionMark;
 
         GameObject mark = Instantiate(prefab, target.position + Vector3.up * setHeight, Quaternion.identity);
         quInsMark.Add(target, mark);
 
         Sign sign = mark.GetComponent<Sign>();
-        sign.parent = gameObject;
+        if (sign != null)
+        {
+            sign.parent = gameObject;
+            sign.signType = (prefab == exclamationMark) ? Sign.Type.Exclamation : Sign.Type.Question;
+        }
 
-        RefreshMarks(); //  중요
+        RefreshMarks();
         StartCoroutine(ShowQuMark(mark));
     }
 
@@ -128,12 +148,8 @@ public class InteractionSign : MonoBehaviour
     {
         if (!quInsMark.TryGetValue(target, out GameObject mark)) return;
 
-        // 먼저 Dictionary에서 제거
         quInsMark.Remove(target);
-
-        // 애니메이션은 오브젝트만 관리
         StartCoroutine(HideQuMark(mark));
-
         RefreshMarks();
     }
 
@@ -142,30 +158,40 @@ public class InteractionSign : MonoBehaviour
         if (sequence == null || quInsMark.Count == 0) return;
 
         Transform top = sequence.GetTopPriority(quInsMark.Keys);
-
-        // 키 목록 복사
         List<Transform> targets = new List<Transform>(quInsMark.Keys);
 
         foreach (Transform target in targets)
         {
             if (!quInsMark.TryGetValue(target, out GameObject mark)) continue;
 
-            bool isTop = target == top;
-            GameObject correctPrefab = isTop ? exclamationMark : questionMark;
+            bool shouldBeExclamation = (target == top);
+            Sign.Type desiredType = shouldBeExclamation ? Sign.Type.Exclamation : Sign.Type.Question;
 
-            // 이미 맞는 타입이면 패스
-            if (mark != null && mark.name.Contains(correctPrefab.name))
+            Sign currentSign = mark.GetComponent<Sign>();
+            if (currentSign == null) continue;
+
+            if (currentSign.signType == desiredType)
                 continue;
 
+            // 타입이 다르면 교체
             Destroy(mark);
 
+            GameObject newPrefab = shouldBeExclamation ? exclamationMark : questionMark;
             GameObject newMark = Instantiate(
-                correctPrefab,
+                newPrefab,
                 target.position + Vector3.up * setHeight,
                 Quaternion.identity
             );
 
             quInsMark[target] = newMark;
+
+            Sign newSign = newMark.GetComponent<Sign>();
+            if (newSign != null)
+            {
+                newSign.parent = gameObject;
+                newSign.signType = desiredType;
+            }
+
             StartCoroutine(ShowQuMark(newMark));
         }
     }
@@ -180,6 +206,8 @@ public class InteractionSign : MonoBehaviour
 
     private IEnumerator ShowQuMark(GameObject mark)
     {
+        if (mark == null) yield break;
+
         float t = 0f;
         SpriteRenderer sr = mark.GetComponent<SpriteRenderer>();
         if (sr == null) yield break;
@@ -194,23 +222,26 @@ public class InteractionSign : MonoBehaviour
         while (t < duration)
         {
             if (mark == null || isQuitting) yield break;
-
             t += Time.deltaTime;
             float n = t / duration;
-
             c.a = Mathf.Lerp(0f, 1f, n);
             sr.color = c;
             mark.transform.position = Vector3.Lerp(startPos, endPos, n);
-
             yield return null;
         }
     }
 
     private IEnumerator HideQuMark(GameObject mark)
     {
+        if (mark == null) yield break;
+
         float t = 0f;
         SpriteRenderer sr = mark.GetComponent<SpriteRenderer>();
-        if (sr == null) yield break;
+        if (sr == null)
+        {
+            Destroy(mark);
+            yield break;
+        }
 
         Color c = sr.color;
         Vector3 startPos = mark.transform.position;
@@ -219,28 +250,15 @@ public class InteractionSign : MonoBehaviour
         while (t < duration)
         {
             if (mark == null || isQuitting) yield break;
-
             t += Time.deltaTime;
             float n = t / duration;
-
             c.a = Mathf.Lerp(1f, 0f, n);
             sr.color = c;
             mark.transform.position = Vector3.Lerp(startPos, endPos, n);
-
             yield return null;
         }
 
-        Destroy(mark);
-    }
-
-    private void OnDisable()
-    {
-        // 모든 마크 즉시 제거 (안전)
-        foreach (var mark in quInsMark.Values)
-        {
-            if (mark != null)
-                Destroy(mark);
-        }
-        quInsMark.Clear();
+        if (mark != null)
+            Destroy(mark);
     }
 }
