@@ -56,6 +56,13 @@ public class FadeInFadeOut : MonoBehaviour
         _textMeshPro.text = "";
     }
 
+    public async UniTask StageReset()
+    {
+        
+        await FadeInImage();
+        LevelManager.Instance.LoadLevel(LevelManager.Instance.currentLevelIndex);
+    }
+
     public void FadeIn()
     {
         FadeInImage().Forget();

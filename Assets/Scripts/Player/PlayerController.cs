@@ -43,7 +43,11 @@ public class PlayerController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (moveLimit || allLimit) return;
+        if (moveLimit || allLimit)
+        {
+            return;
+        }
+
         moveInput = context.ReadValue<Vector2>();
 
         if (pushing.isPushing)
