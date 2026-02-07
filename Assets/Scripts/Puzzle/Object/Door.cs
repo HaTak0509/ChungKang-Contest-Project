@@ -4,14 +4,19 @@ public class Door : MonoBehaviour
 {
     public bool currentState;
 
-    private Animator animator;
+    [Header("문 애니메이션 설정")]
+    public GameObject OpenOBJ;
+    public Sprite _Open;
+    public Sprite _Close;
+
+    private SpriteRenderer _spriteRenderer;
     private new Collider2D collider;
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
         collider = GetComponent<Collider2D>();
         collider.isTrigger = false;
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void OpenDoor()
@@ -19,6 +24,10 @@ public class Door : MonoBehaviour
         currentState = true;
         collider.isTrigger = true;
         gameObject.layer = LayerMask.NameToLayer("Default");
+
+        
+        _spriteRenderer.sprite = _Open;
+        OpenOBJ.SetActive(true);
     }
 
     public void CloseDoor()
@@ -26,5 +35,8 @@ public class Door : MonoBehaviour
         currentState = false;
         collider.isTrigger = false;
         gameObject.layer = LayerMask.NameToLayer("Ground");
+
+        _spriteRenderer.sprite = _Close;
+        OpenOBJ.SetActive(false);
     }
 }
