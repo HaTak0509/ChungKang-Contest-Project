@@ -8,22 +8,46 @@ public class MenuController : MonoBehaviour
     [SerializeField] private GameObject ResetButton;
     [SerializeField] private GameObject ReturnMainMenuButton;
 
-    public void OnMenu()
+    private bool _IsOpen = false;   
+    private void Update()
     {
-        menu.SetActive(true);
-        menuButton.SetActive(false);
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+
+            _IsOpen = !_IsOpen;
+
+            if (_IsOpen)
+            {
+                OnMenu();
+            }
+            else
+            {
+                OnBack();
+            }
+
+        }   
     }
 
-    public void OnBack()
+    public void OnMenu()
     {
-        menu.SetActive(false);
-        menuButton.SetActive(true);
+        _IsOpen = true;
+        menu.SetActive(true);
+        menuButton.SetActive(false);
     }
 
     public void OnReset()
     {
         LevelManager.Instance.OnReset();
+        OnBack();
     }
+
+    public void OnBack()
+    {
+        _IsOpen = false;
+        menu.SetActive(false);
+        menuButton.SetActive(true);
+    }
+
 
     public void OnReturnMainMenu()
     {

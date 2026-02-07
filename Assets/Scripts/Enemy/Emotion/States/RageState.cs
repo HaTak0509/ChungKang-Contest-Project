@@ -1,5 +1,3 @@
-
-using Cinemachine.Utility;
 using UnityEngine;
 using static MonsterMovement;
 
@@ -19,7 +17,7 @@ public class RageState : Monster
     [SerializeField] private Vector2 _HitCheck = new Vector2(0.5f, 0.5f);
     [SerializeField] private LayerMask _PlayerLayer;
 
-
+    private bool _IsHit = false;
     private bool _isDashing = false;           // 현재 돌진 중인지 여부
 
 
@@ -38,6 +36,11 @@ public class RageState : Monster
 
     public override void UpdateState()
     {
+        if (_IsHit)
+        {
+            _movement.StopMove();
+            return;
+        }
 
         if (_isDashing)
         {
@@ -80,9 +83,11 @@ public class RageState : Monster
                 _animator.SetTrigger("isAction");
                 _movement.ChangeState(MovementState.Idle);
                 StopDash();
+                _IsHit = true;
+                _animator.SetBool(AnimationStrings.IsMoving, false);
 
                 hit.transform.GetComponent<Damageable>().GameOver();
-
+                
             }
         }
     }

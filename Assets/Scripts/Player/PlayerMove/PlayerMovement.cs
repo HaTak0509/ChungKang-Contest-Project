@@ -135,4 +135,9 @@ public class PlayerMovement : MonoBehaviour
         _collider.direction = CapsuleDirection2D.Vertical;
         _collider.size = colliderYSize;
     }
+
+    public void StopMove()
+    {
+        _rb2D.velocity = new Vector2(0,0);
+    }
 }
