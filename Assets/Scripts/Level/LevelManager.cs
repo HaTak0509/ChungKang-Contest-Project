@@ -27,10 +27,12 @@ public class LevelManager : MonoBehaviour
     }
 
 
-    public void OnReset()
+    public async void OnReset()
     {
-        LoadLevel(currentLevelIndex);
+
+        await FadeInFadeOut.instance.StageReset();
     }
+
 
     public void LoadLevel(int i)
     {
@@ -40,6 +42,9 @@ public class LevelManager : MonoBehaviour
         _index = i;
         currentLevelIndex = i;
         _currentLevel = Instantiate(database.levels[_index]);
+
+        if(currentLevelIndex != 0)
+        FadeInFadeOut.instance.FadeOut(); //이거 자연스러운 맵 전환을 위해 추가함
 
         if (currentLevelIndex > saveMaxLevel)
         {

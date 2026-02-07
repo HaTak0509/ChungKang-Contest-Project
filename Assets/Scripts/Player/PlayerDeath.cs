@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerDeath : MonoBehaviour
 {
     private Animator _animator;
+    private bool _Death = false;
 
     private void Awake()
     {
@@ -11,7 +12,12 @@ public class PlayerDeath : MonoBehaviour
 
     public void OnDeath()
     {
-        _animator.SetBool(AnimationStrings.IsDeath, true);
+        if(_Death)return;
+
+        _Death = true;
+        _animator.SetTrigger(AnimationStrings.IsDeath);
+
+        GetComponent<PlayerController>().allLimit = true;
         LevelManager.Instance.OnReset();
     }
 }
