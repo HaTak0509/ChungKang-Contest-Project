@@ -4,42 +4,16 @@ public class Platform : MonoBehaviour
 {
     [SerializeField] private Door targetDoor;
 
-    [SerializeField] private float sinkAmount = 0.2f;
-    [SerializeField] private float sinkSpeed = 2f;
-
-    private Vector3 _originalPosition;
-    private Vector3 _pressedPosition;
-
     private int _pressCount = 0; // 몇 개가 밟고 있는지
-    private Transform _carriedObject; // 플레이어 or 박스
     private Animator _animator;
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
-        _originalPosition = transform.position;
-        _pressedPosition = _originalPosition + Vector3.down * sinkAmount;
     }
 
     void Update()
     {
-        Vector3 prevPos = transform.position;
-
-        Vector3 targetPos = _pressCount > 0 ? _pressedPosition : _originalPosition;
-
-        // 정확히 목표 위치까지 이동
-        transform.position = Vector3.MoveTowards(
-            transform.position,
-            targetPos,
-            sinkSpeed * Time.deltaTime
-        );
-
-        // 발판 위 오브젝트 같이 이동
-        if (_carriedObject != null)
-        {
-            Vector3 delta = transform.position - prevPos;
-            _carriedObject.position += delta;
-        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -49,8 +23,6 @@ public class Platform : MonoBehaviour
         if (collision.gameObject.CompareTag("LightBox"))
         {
             _pressCount++;
-
-            _carriedObject = collision.transform;
 
             _animator.SetBool(AnimationStrings.OnPlatform, true);
 
@@ -71,7 +43,6 @@ public class Platform : MonoBehaviour
 
             if (_pressCount == 0)
             {
-                _carriedObject = null;
                 if (targetDoor != null) targetDoor.CloseDoor();
             }
         }
