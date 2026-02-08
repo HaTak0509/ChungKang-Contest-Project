@@ -49,6 +49,10 @@ public class FadeInFadeOut : MonoBehaviour
 
         await UniTask.Delay(TimeSpan.FromSeconds(1f));
         
+    }
+
+    public async UniTask StageClear2() //이거 페이드인 페이드 아웃 문제로 분리함
+    {
         await TextFadeOut();
 
         await FadeOutImage();
@@ -61,6 +65,9 @@ public class FadeInFadeOut : MonoBehaviour
         
         await FadeInImage();
         LevelManager.Instance.LoadLevel(LevelManager.Instance.currentLevelIndex);
+        
+        await FadeOutImage(); //이거 자연스러운 맵 전환을 위해 추가함
+
     }
 
     public void FadeIn()
