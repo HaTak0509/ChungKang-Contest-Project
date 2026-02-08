@@ -1,5 +1,4 @@
 using Cysharp.Threading.Tasks;
-using System;
 using UnityEngine;
 
 public class Elevator : MonoBehaviour, IInteractable
@@ -41,6 +40,10 @@ public class Elevator : MonoBehaviour, IInteractable
         await UniTask.NextFrame();       // 또는 await UniTask.DelayFrame(2);
         await UniTask.NextFrame();       // 2프레임 정도가 안전
 
+  
         LevelManager.Instance.LoadLevel(nextLevel);
+
+        await _fadeInFadeOut.StageClear2();
+
     }
 }
