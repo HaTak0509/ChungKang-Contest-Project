@@ -150,4 +150,16 @@ public class PlayerMovement : MonoBehaviour
     {
         _rb2D.velocity = new Vector2(0,0);
     }
+
+    public void WalkSound()
+    {
+        SoundManager.Instance.PlaySFX("player_move", SoundManager.SoundOutput.SFX, 1, Random.Range(0.9f,1.1f));
+    }
+
+    public void SwimSound()
+    {
+        SoundManager.Instance.PlaySFX("player_swim", SoundManager.SoundOutput.SFX, 1, Random.Range(0.9f, 1.1f));
+
+    }
+    
 }

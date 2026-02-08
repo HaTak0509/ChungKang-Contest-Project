@@ -52,7 +52,7 @@ public class SoundManager : MonoBehaviour
 
 
 
-    public void PlaySFX(string name, SoundOutput soundOutput , float volum = 1)
+    public void PlaySFX(string name, SoundOutput soundOutput , float volum = 1,float pitch = 1)
     {
         if (sfxDictionary.TryGetValue(name, out AudioClip clip) && clip != null)
         {
@@ -75,8 +75,10 @@ public class SoundManager : MonoBehaviour
 
             }
 
-            source.Play();
             source.volume = volum;
+            source.pitch = pitch;
+
+            source.Play();
             Destroy(soundObj, clip.length);
 
         }
