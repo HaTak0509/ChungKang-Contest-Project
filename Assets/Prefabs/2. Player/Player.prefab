@@ -116,6 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transparencyUI: {fileID: 5169697592911765029}
+  damageable: {fileID: 8437455701824339484}
   trBar: {fileID: 6545504264952230456}
   active: 0
 --- !u!1 &919629146413976029
@@ -396,7 +397,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: dd75f98e-0746-4730-87da-692faefc3d6e
-    m_ActionName: PlayerInput/PlayerMove[/Keyboard/a,/Keyboard/d]
+    m_ActionName: PlayerInput/PlayerMove[/Keyboard/a,/Keyboard/d,/Keyboard/s,/Keyboard/w]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1187001829514437971}
@@ -428,7 +429,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 495b6559-fb12-4dfb-98cf-a399511558ec
-    m_ActionName: PlayerInput/Dash[/Mouse/rightButton]
+    m_ActionName: PlayerInput/Dash[/Keyboard/shift]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1187001829514437971}
@@ -444,7 +445,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 8cd736b3-bf6a-48cd-ab09-c13db46c5817
-    m_ActionName: PlayerInput/Interaction[/Keyboard/e]
+    m_ActionName: PlayerInput/Exploration[/Keyboard/e]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1187001829514437971}

@@ -31,21 +31,39 @@ public class ObjectConfinement : MonoBehaviour
             return;
         }
 
-        if (_stuckObject != null) return;
+        if (_stuckObject == null)
+        {
+            _stuckObject = collision.gameObject;
+        }
+        else
+        {
+            float currentDist =
+                (transform.position - _stuckObject.transform.position).sqrMagnitude;
 
-        _stuckObject = collision.gameObject;
+            float newDist =
+                (transform.position - collision.transform.position).sqrMagnitude;
+
+            if (newDist < currentDist)
+            {
+                _stuckObject = collision.gameObject;
+            }
+        }
 
         if (!_warpActive) return;
 
         if (_stuckObject.TryGetComponent<WarpingInterface>(out var warpInteract))
+        {
             warpInteract.Warping();
+        }
     }
 
     private void ReleaseObject()
     {
         if (_stuckObject != null &&
             _stuckObject.TryGetComponent<WarpingInterface>(out var warpInteract))
+        {
             warpInteract.Warping();
+        }
 
         _stuckObject = null;
     }
