@@ -37,7 +37,7 @@ Transform:
   m_GameObject: {fileID: 6457155481132617030}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.94, y: -0.4, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3.5, y: 3.5, z: 3.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -129,7 +129,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.575
+  m_Radius: 1
 --- !u!70 &6523793724733184618
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -341,8 +341,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7b758c5aa5b52e4ba3af1eff6c99dfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flotationForce: 9
-  maxPosition: 2.8
+  flotationForce: 7
+  maxPosition: 4.2
 --- !u!114 &2143049480604723492
 MonoBehaviour:
   m_ObjectHideFlags: 0
