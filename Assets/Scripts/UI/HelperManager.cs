@@ -10,7 +10,6 @@ public class HelperManager : MonoBehaviour
     private Camera _camera;
 
     [SerializeField] private List<SpriteRenderer> _HelpList;
-    private List<Material> _HelpList2;
 
     private HashSet<Helper> _helpers = new HashSet<Helper>();
     private PlayerController _player;
