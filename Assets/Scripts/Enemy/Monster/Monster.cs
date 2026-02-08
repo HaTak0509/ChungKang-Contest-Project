@@ -98,10 +98,8 @@ public class Monster : MonoBehaviour, WarpingInterface
 
     public void Warping()
     {
-        Debug.Log(123);
         if (TwistMonster == null) return;
 
-        Debug.Log(1234);
         OnExit();
 
         

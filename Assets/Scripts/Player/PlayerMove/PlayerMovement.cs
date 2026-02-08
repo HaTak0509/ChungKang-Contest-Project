@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private Damageable _damageable;
     private PlayerFacing _facing;
     private TouchingDetection _touchingDetection;
+    private SpriteRenderer _spriteRenderer;
     private CapsuleCollider2D _collider;
     private Pushing _pushing;
     private Animator _animator;
@@ -30,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
         _damageable = GetComponent<Damageable>();
         _facing = GetComponent<PlayerFacing>();
         _touchingDetection = GetComponent<TouchingDetection>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
         _collider = GetComponent<CapsuleCollider2D>();
         _pushing = GetComponent<Pushing>();
         _animator = GetComponent<Animator>();
@@ -52,6 +54,28 @@ public class PlayerMovement : MonoBehaviour
         IsSwimming = value;
 
         if (!IsSwimming) EnterGround();
+    }
+
+    private void Update()
+    {
+        if (!IsSwimming)
+        {
+            _spriteRenderer.flipY = false;
+            return;
+        }
+
+        float swimY = 0f;
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            swimY = 1f;
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            swimY = -1f;
+        }
+
+        moveInput.y = swimY;
     }
 
     private void FixedUpdate()
@@ -103,35 +127,49 @@ public class PlayerMovement : MonoBehaviour
         bool moveHorizontal = Mathf.Abs(moveInput.x) > 0.01f;
         bool moveVertical = Mathf.Abs(moveInput.y) > 0.01f;
 
-        if (!moveHorizontal && moveVertical)
+        if (!moveHorizontal && moveVertical) // 수직
         {
-            swimVelocity = new Vector2(0f, moveInput.y * swimSpeed);
-            _collider.direction = CapsuleDirection2D.Vertical;
-            _collider.size = colliderYSize;
-
             _animator.SetBool(AnimationStrings.IsVerticalSwim, true);
             _animator.SetBool(AnimationStrings.IsHorizontalSwim, false);
+
+            if (moveInput.y > 0f)
+            {
+                _spriteRenderer.flipY = false;
+            }
+            else if (moveInput.y < 0f)
+            {
+                _spriteRenderer.flipY = true;
+            }
+
+            swimVelocity = new Vector2(0f, moveInput.y * swimSpeed);
+
+            _collider.direction = CapsuleDirection2D.Vertical;
+            _collider.size = colliderYSize;
         }
-        else if (moveHorizontal && !moveVertical)
+        else if (moveHorizontal && !moveVertical) // 수평
         {
+            _animator.SetBool(AnimationStrings.IsVerticalSwim, false);
+            _animator.SetBool(AnimationStrings.IsHorizontalSwim, true);
+
+            _spriteRenderer.flipY = false;
+
             swimVelocity = new Vector2(moveInput.x * swimSpeed, 0f);
             _collider.direction = CapsuleDirection2D.Horizontal;
             _collider.size = colliderXSize;
-
+        }
+        else if (moveHorizontal && moveVertical) // 대각선
+        {
             _animator.SetBool(AnimationStrings.IsVerticalSwim, false);
             _animator.SetBool(AnimationStrings.IsHorizontalSwim, true);
-        }
-        else if (moveHorizontal && moveVertical)
-        {
+
+            _spriteRenderer.flipY = false;
+
             swimVelocity = moveInput.normalized * swimSpeed;
             _collider.direction = CapsuleDirection2D.Horizontal;
             _collider.size = colliderXSize;
-
-            _animator.SetBool(AnimationStrings.IsVerticalSwim, false);
-            _animator.SetBool(AnimationStrings.IsHorizontalSwim, true);
         }
 
-        _rb2D.velocity = swimVelocity;
+            _rb2D.velocity = swimVelocity;
     }
 
     private void ApplyHorizontalVelocity(float desiredX)
