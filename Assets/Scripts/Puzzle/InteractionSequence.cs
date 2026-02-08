@@ -4,8 +4,14 @@ using UnityEngine;
 public class InteractionSequence : MonoBehaviour
 {
     public List<GameObject> sequence = new List<GameObject>();
-
+    public static InteractionSequence instance;
     // 두 대상 중 우선순위가 더 높은 쪽 반환
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     public Transform GetHigherPriority(Transform a, Transform b)
     {
         int indexA = sequence.IndexOf(a.gameObject);
