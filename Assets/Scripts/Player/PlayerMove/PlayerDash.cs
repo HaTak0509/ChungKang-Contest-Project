@@ -63,6 +63,7 @@ public class PlayerDash : MonoBehaviour
         canDash = false;
         _damageable.SetInvincible(dashTime);
         _animator.SetTrigger(AnimationStrings.IsDash);
+        SoundManager.Instance.PlaySFX("player_dash", SoundManager.SoundOutput.SFX);
 
         float dir = facing.IsFacingRight ? 1f : -1f;
         _rb2D.velocity = new Vector2(dashForce * dir, _rb2D.velocity.y); // y À¯Áö

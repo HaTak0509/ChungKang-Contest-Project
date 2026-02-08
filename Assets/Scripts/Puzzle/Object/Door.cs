@@ -5,7 +5,6 @@ public class Door : MonoBehaviour
     public bool currentState;
 
     [Header("문 애니메이션 설정")]
-    public GameObject OpenOBJ;
     public Sprite _Open;
     public Sprite _Close;
 
@@ -27,7 +26,6 @@ public class Door : MonoBehaviour
 
         
         _spriteRenderer.sprite = _Open;
-        OpenOBJ.SetActive(true);
     }
 
     public void CloseDoor()
@@ -37,6 +35,5 @@ public class Door : MonoBehaviour
         gameObject.layer = LayerMask.NameToLayer("Ground");
 
         _spriteRenderer.sprite = _Close;
-        OpenOBJ.SetActive(false);
     }
 }
