@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
+    [SerializeField] private bool isOpen;
+    
     public bool currentState;
 
     [Header("문 애니메이션 설정")]
@@ -18,12 +20,23 @@ public class Door : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
+    private void Update()
+    {
+        if (isOpen)
+        {
+            OpenDoor();
+        }
+        else
+        {
+            CloseDoor();
+        }
+    }
+
     public void OpenDoor()
     {
         currentState = true;
         collider.isTrigger = true;
         gameObject.layer = LayerMask.NameToLayer("Default");
-
         
         _spriteRenderer.sprite = _Open;
     }

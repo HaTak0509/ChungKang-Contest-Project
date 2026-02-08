@@ -65,7 +65,17 @@ public class Monster : MonoBehaviour, WarpingInterface
                 temp.TwistMonster = gameObject;
                 temp.baseSpeed = baseSpeed;
                 temp.InteractRange = baseDetectionRange;
-                
+
+                var targetList = InteractionSequence.instance.sequence;
+
+                if(targetList != null && targetList.Contains(gameObject))
+                {
+
+
+                    int myIndex = targetList.IndexOf(gameObject);
+
+                    targetList.Insert(myIndex + 1,TwistMonster);
+                }
 
 
 
@@ -77,6 +87,13 @@ public class Monster : MonoBehaviour, WarpingInterface
         }
     }
 
+    public void CheckSelf()
+    {
+
+
+
+
+    }
 
     private void FixedUpdate()
     {

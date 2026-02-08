@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private CapsuleCollider2D _collider;
     private Pushing _pushing;
     private Animator _animator;
+    private PlayerController _playerController;
 
     public bool IsSwimming { get; private set; }
 
@@ -32,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
         _collider = GetComponent<CapsuleCollider2D>();
         _pushing = GetComponent<Pushing>();
         _animator = GetComponent<Animator>();
+        _playerController = GetComponent<PlayerController>();
     }
 
     public void SetInput(Vector2 input)
@@ -54,8 +56,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_playerController.allLimit || _playerController.moveLimit)
+        {
+            moveInput = new Vector2(0f, _rb2D.velocity.y);
+            _rb2D.velocity = new Vector2(0f, _rb2D.velocity.y);
+            return;
+        }
+
         if (_damageable != null && _damageable.IsInvincible)
             return;
+        
 
         _animator.SetBool(AnimationStrings.IsPushing, _pushing.pushing);
 

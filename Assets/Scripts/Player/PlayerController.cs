@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour
     {
         if (moveLimit || allLimit)
         {
+            moveInput = Vector2.zero;
             return;
         }
 
