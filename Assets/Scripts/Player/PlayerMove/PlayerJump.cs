@@ -25,5 +25,6 @@ public class PlayerJump : MonoBehaviour
 
         _rb2D.velocity = new Vector2(_rb2D.velocity.x, jumpForce);
         _animator.SetTrigger(AnimationStrings.IsJump);
+        SoundManager.Instance.PlaySFX("player_jump", SoundManager.SoundOutput.SFX, 1);
     }
 }
