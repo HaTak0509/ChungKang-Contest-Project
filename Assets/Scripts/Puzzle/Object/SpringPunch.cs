@@ -46,6 +46,17 @@ public class SpringPunch : MonoBehaviour, WarpingInterface
             TwistObject.GetComponent<PullPunch>()._isFirst = true;
             TwistObject.GetComponent<PullPunch>()._IsRight = _IsRight;
             TwistObject.GetComponent<PullPunch>().TwistObject = gameObject;
+
+            var targetList = InteractionSequence.instance.sequence;
+
+            if (targetList != null && targetList.Contains(gameObject))
+            {
+
+
+                int myIndex = targetList.IndexOf(gameObject);
+
+                targetList.Insert(myIndex, TwistObject);
+            }
         }
 
     }
