@@ -58,6 +58,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        _animator.SetFloat(AnimationStrings.Land, _rb2D.velocity.y);
+
         if (!IsSwimming)
         {
             _spriteRenderer.flipY = false;
