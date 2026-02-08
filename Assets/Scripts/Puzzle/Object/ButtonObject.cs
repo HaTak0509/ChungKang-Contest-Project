@@ -9,11 +9,9 @@ public class ButtonObject : MonoBehaviour, IInteractable
 
     private bool _active;
     private bool _colldown;
-    private Animator _animator;
 
     private void Awake()
     {
-        _animator = GetComponent<Animator>();
         _colldown = true;
     }
 
@@ -22,7 +20,6 @@ public class ButtonObject : MonoBehaviour, IInteractable
         if (_active && !_colldown) return;
         _colldown = false;
 
-        _animator.SetTrigger(AnimationStrings.OnButton);
         ButtonCollDown().Forget();
         
         if (crackController != null)

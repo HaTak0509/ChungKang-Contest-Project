@@ -46,8 +46,7 @@ public class Platform : MonoBehaviour
     {
         if (!IsTopCollision(collision)) return;
 
-        if (collision.gameObject.CompareTag("Player") ||
-            collision.gameObject.CompareTag("LightBox"))
+        if (collision.gameObject.CompareTag("LightBox"))
         {
             _pressCount++;
 
@@ -64,8 +63,7 @@ public class Platform : MonoBehaviour
 
     void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") ||
-            collision.gameObject.CompareTag("LightBox"))
+        if (collision.gameObject.CompareTag("LightBox"))
         {
             _pressCount = Mathf.Max(_pressCount - 1, 0);
 
