@@ -69,7 +69,7 @@ public class PlayerDash : MonoBehaviour
         _rb2D.velocity = new Vector2(dashForce * dir, _rb2D.velocity.y); // y 유지
 
         await UniTask.Delay(TimeSpan.FromSeconds(dashTime));
-
+        Debug.Log(123);
         dashing = false;
 
         // 쿨타임은 별도 코루틴으로
