@@ -1,10 +1,12 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ItemManager : MonoBehaviour
 {
     [SerializeField] private GameObject itemPopup;
+    [SerializeField] private Image itemImage;
     [SerializeField] private TextMeshProUGUI itemNameText;
     [SerializeField] private TextMeshProUGUI itemContentText;
 
@@ -33,6 +35,7 @@ public class ItemManager : MonoBehaviour
         }
 
         currentItem = clickedItem;
+        itemImage = clickedItem.ItemImage;
         itemNameText.text = clickedItem.NameText;
         itemContentText.text = clickedItem.ContentText;
     }
@@ -40,6 +43,7 @@ public class ItemManager : MonoBehaviour
     private void Clear()
     {
         currentItem = null;
+        itemImage = default;
         itemNameText.text = DefaultName;
         itemContentText.text = DefaultContent;
     }
