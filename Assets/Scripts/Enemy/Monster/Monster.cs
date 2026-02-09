@@ -18,7 +18,8 @@ public class Monster : MonoBehaviour, WarpingInterface
     public float baseDetectionRange = 3f;
     public string hexColor = "#FFFFFF";
     public GameObject TwistMonster;
-    
+    private GameObject twist;
+
     protected MonsterMovement _movement;
     protected Animator _animator;
     protected DrawSensingRange _lineRenderer;
@@ -55,34 +56,34 @@ public class Monster : MonoBehaviour, WarpingInterface
 
             if (TwistMonster != null)
             {
-                TwistMonster = Instantiate(TwistMonster);
-                TwistMonster.transform.SetParent(transform.parent);
+                twist = Instantiate(TwistMonster);
+                twist.transform.SetParent(transform.parent);
                 _isFirst = true;
 
-                Monster temp = TwistMonster.GetComponent<Monster>();
+                Monster temp = twist.GetComponent<Monster>();
 
                 temp._isFirst = true;
-                temp.TwistMonster = gameObject;
+                temp.twist = gameObject;
                 temp.baseSpeed = baseSpeed;
                 temp.InteractRange = baseDetectionRange;
 
                 var targetList = InteractionSequence.instance.sequence;
 
-                if(targetList != null && targetList.Contains(gameObject))
+                if (targetList != null && targetList.Contains(gameObject))
                 {
 
 
                     int myIndex = targetList.IndexOf(gameObject);
 
-                    targetList.Insert(myIndex + 1,TwistMonster);
+                    targetList.Insert(myIndex + 1, twist);
                 }
 
 
 
-                TwistMonster.GetComponent<MonsterMovement>().pointA = _movement.pointA;
-                TwistMonster.GetComponent<MonsterMovement>().pointB = _movement.pointB;
+                twist.GetComponent<MonsterMovement>().pointA = _movement.pointA;
+                twist.GetComponent<MonsterMovement>().pointB = _movement.pointB;
 
-                TwistMonster.SetActive(false);
+                twist.SetActive(false);
             }
         }
     }
@@ -98,16 +99,21 @@ public class Monster : MonoBehaviour, WarpingInterface
 
     public void Warping()
     {
-        if (TwistMonster == null) return;
+        if (twist == null)
+        {
+            Debug.Log("이새끼 범인임ㅇㅇ");
+            return;
+        }
 
         OnExit();
 
-        TwistMonster.SetActive(true);
-        if (_movement._isFacingRight != TwistMonster.GetComponent<MonsterMovement>()._isFacingRight)
-            TwistMonster.GetComponent<MonsterMovement>().Flip();
 
-        TwistMonster.transform.position = transform.position;
-        TwistMonster.GetComponent<Monster>().OnEnter();
+        twist.SetActive(true);
+        if (_movement._isFacingRight != twist.GetComponent<MonsterMovement>()._isFacingRight)
+            twist.GetComponent<MonsterMovement>().Flip();
+
+        twist.transform.position = transform.position;
+        twist.GetComponent<Monster>().OnEnter();
 
         gameObject.SetActive(false);
 
@@ -121,7 +127,7 @@ public class Monster : MonoBehaviour, WarpingInterface
 
     public virtual void UpdateState()
     {
-       
+
     }
     public virtual void OnExit()
     {
