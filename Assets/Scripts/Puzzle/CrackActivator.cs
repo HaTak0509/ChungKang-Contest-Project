@@ -6,7 +6,6 @@ public class CrackActivator : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        Debug.Log(123);
         Crack.SetCrack(!Crack.isActivated);
     }
 }
