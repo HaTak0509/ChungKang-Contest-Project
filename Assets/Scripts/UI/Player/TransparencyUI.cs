@@ -5,6 +5,7 @@ public class TransparencyUI : MonoBehaviour
     public static TransparencyUI Instance { get; private set;}
 
     [SerializeField] private GameObject transparencyUI;
+    [SerializeField] private Damageable damageable;
 
     public RectTransform trBar;
     public bool active;
@@ -27,6 +28,11 @@ public class TransparencyUI : MonoBehaviour
 
     private void Update()
     {
+        if (_playerColor.color.a == 0.1f)
+        {
+            damageable.GameOver();
+        }
+
         if (!active && _playerColor.color.a == 1f)
         {
             transparencyUI.SetActive(false);

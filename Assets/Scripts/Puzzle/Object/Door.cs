@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
+    [SerializeField] private bool active;
     [SerializeField] private bool isOpen;
-    
+
     public bool currentState;
 
     [Header("문 애니메이션 설정")]
@@ -22,7 +23,7 @@ public class Door : MonoBehaviour
 
     private void Update()
     {
-        if (isOpen)
+        if (isOpen && !active)
         {
             OpenDoor();
         }

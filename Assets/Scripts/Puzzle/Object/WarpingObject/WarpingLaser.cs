@@ -23,6 +23,7 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
 
     private void Start()
     {
+        if (hidingTile == null) return;
         _tileMap = hidingTile.GetComponent<Tilemap>();
         _tileCol = hidingTile.GetComponent<TilemapCollider2D>();
     }
@@ -109,10 +110,13 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
     private void RestoreImmediately()
     {
         // Tilemap 상태
-        _tileCol.isTrigger = false;
-        hidingTile.layer = LayerMask.NameToLayer("Ground");
-        hidingTile.tag = "PuzzleObject";
-        _tileMap.color = Color.white;
+        if (hidingTile != null)
+        {
+            _tileCol.isTrigger = false;
+            hidingTile.layer = LayerMask.NameToLayer("Ground");
+            hidingTile.tag = "PuzzleObject";
+            _tileMap.color = Color.white;
+        }
 
         // 퍼즐 오브젝트
         foreach (var ob in _puzzleObjects)
@@ -143,9 +147,12 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
                 col.enabled = false;
         }
 
-        _tileCol.isTrigger = true;
-        hidingTile.layer = LayerMask.NameToLayer("Default");
-        hidingTile.tag = "Untagged";
+        if (hidingTile != null)
+        {
+            _tileCol.isTrigger = true;
+            hidingTile.layer = LayerMask.NameToLayer("Default");
+            hidingTile.tag = "Untagged";
+        }
     }
 
     private async UniTask FadeSprite(SpriteRenderer sr, float target)

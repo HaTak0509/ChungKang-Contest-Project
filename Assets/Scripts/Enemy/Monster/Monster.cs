@@ -87,14 +87,6 @@ public class Monster : MonoBehaviour, WarpingInterface
         }
     }
 
-    public void CheckSelf()
-    {
-
-
-
-
-    }
-
     private void FixedUpdate()
     {
 
@@ -107,7 +99,6 @@ public class Monster : MonoBehaviour, WarpingInterface
     public void Warping()
     {
         if (TwistMonster == null) return;
-     
 
         OnExit();
 

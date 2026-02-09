@@ -38,6 +38,8 @@ public class ButtonObject : MonoBehaviour, IInteractable
                 targetDoor.OpenDoor();
             }
         }
+
+        SoundManager.Instance.PlaySFX("button_click", SoundManager.SoundOutput.SFX);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

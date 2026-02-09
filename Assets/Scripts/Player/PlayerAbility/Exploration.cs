@@ -4,7 +4,7 @@ public class Exploration : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Crack")) return;
+        if (!collision.CompareTag("Crack") && collision.gameObject.layer != LayerMask.NameToLayer("Crack")) return;
 
         Crack crack = collision.GetComponent<Crack>();
         if (crack != null)
@@ -15,7 +15,7 @@ public class Exploration : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Crack")) return;
+        if (!collision.CompareTag("Crack") && collision.gameObject.layer != LayerMask.NameToLayer("Crack")) return;
 
         Crack crack = collision.GetComponent<Crack>();
         if (crack != null)

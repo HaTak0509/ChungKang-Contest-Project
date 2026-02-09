@@ -16,6 +16,11 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float zoomedSize = 3f; // 플레이어 20일 때 크기
     [SerializeField] private float zoomSpeed = 5f;
 
+    // 현재 실제로 적용 중인 경계값 (동적으로 변경됨)
+    private Vector2 _currentMin;
+    private Vector2 _currentMax;
+
+
     [Header("전체 보기 모드 설정")]
     [SerializeField] private float overviewSmoothSpeed = 2f; // 전체 보기 전환 시 속도
     private bool _isOverviewMode = false; // R키 토글 상태
@@ -25,11 +30,27 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         _cam = GetComponent<Camera>();
+        ResetBoundary();
 
         // 타겟이 설정 안 되어 있다면 인스턴스로 찾기
         if (target == null && PlayerScale.Instance != null)
             target = PlayerScale.Instance.transform;
     }
+
+    // 외부(Trigger)에서 경계를 변경하기 위한 함수
+    public void SetBoundary(Vector2 newMin, Vector2 newMax)
+    {
+        _currentMin = newMin;
+        _currentMax = newMax;
+    }
+
+    // 다시 전체 맵 경계로 되돌리는 함수
+    public void ResetBoundary()
+    {
+        _currentMin = minBoundary;
+        _currentMax = maxBoundary;
+    }
+
     void Update()
     {
         // R키를 누르면 모드 토글
@@ -57,20 +78,16 @@ public class CameraController : MonoBehaviour
 
     private void HandleMovement()
     {
-        // 1. 목표 위치 계산
         Vector3 targetPos = target.position + offset;
 
-        // 2. 구역 제한 (Clamp) 적용
-        // 카메라의 절반 크기(OrthographicSize)를 고려해야 화면 끝이 구역 밖으로 안 나갑니다.
         float camHeight = _cam.orthographicSize;
         float camWidth = camHeight * _cam.aspect;
 
-        float clampedX = Mathf.Clamp(targetPos.x, minBoundary.x + camWidth, maxBoundary.x - camWidth);
-        float clampedY = Mathf.Clamp(targetPos.y, minBoundary.y + camHeight, maxBoundary.y - camHeight);
+        // minBoundary 대신 실시간으로 변하는 _currentMin/Max를 사용
+        float clampedX = Mathf.Clamp(targetPos.x, _currentMin.x + camWidth, _currentMax.x - camWidth);
+        float clampedY = Mathf.Clamp(targetPos.y, _currentMin.y + camHeight, _currentMax.y - camHeight);
 
         Vector3 clampedPos = new Vector3(clampedX, clampedY, targetPos.z);
-
-        // 3. 부드러운 이동 (Lerp)
         transform.position = Vector3.Lerp(transform.position, clampedPos, Time.deltaTime * smoothing);
     }
 

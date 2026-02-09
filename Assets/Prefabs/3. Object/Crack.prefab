@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 948631162358831378}
   - component: {fileID: 1111279526505909208}
   - component: {fileID: 749068191763120252}
-  - component: {fileID: 7001020019908699976}
   - component: {fileID: 6570708953693844228}
+  - component: {fileID: 7001020019908699976}
   m_Layer: 9
   m_Name: CloseCrack1
   m_TagString: PuzzleObject
@@ -122,19 +122,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &7001020019908699976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2170202843993738921}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc41ee092c4c514409658dd0bd59ec98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Crack: {fileID: 3422457901910770347}
 --- !u!95 &6570708953693844228
 Animator:
   serializedVersion: 5
@@ -156,6 +143,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7001020019908699976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2170202843993738921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc41ee092c4c514409658dd0bd59ec98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Crack: {fileID: 3422457901910770347}
 --- !u!1 &3708802793305400318
 GameObject:
   m_ObjectHideFlags: 0
@@ -167,8 +167,8 @@ GameObject:
   - component: {fileID: 2554647685102190141}
   - component: {fileID: 6611496746187250394}
   - component: {fileID: 5932594378014205003}
-  - component: {fileID: 4927307462269087476}
   - component: {fileID: 8587010786716780938}
+  - component: {fileID: 4927307462269087476}
   m_Layer: 9
   m_Name: Deactivation Crack1
   m_TagString: PuzzleObject
@@ -278,19 +278,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1
---- !u!114 &4927307462269087476
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3708802793305400318}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc41ee092c4c514409658dd0bd59ec98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Crack: {fileID: 3422457901910770347}
 --- !u!95 &8587010786716780938
 Animator:
   serializedVersion: 5
@@ -312,6 +299,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4927307462269087476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3708802793305400318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc41ee092c4c514409658dd0bd59ec98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Crack: {fileID: 3422457901910770347}
 --- !u!1 &5125162449337976481
 GameObject:
   m_ObjectHideFlags: 0

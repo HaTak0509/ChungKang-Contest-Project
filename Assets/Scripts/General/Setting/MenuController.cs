@@ -53,4 +53,9 @@ public class MenuController : MonoBehaviour
     {
         LevelManager.Instance.LoadLevel(0);
     }
+
+    public void OnButtonSound()
+    {
+        SoundManager.Instance.PlaySFX("button_click", SoundManager.SoundOutput.UI);
+    }
 }

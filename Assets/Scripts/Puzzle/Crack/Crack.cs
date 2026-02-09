@@ -12,9 +12,13 @@ public class Crack : MonoBehaviour
 
     private void Awake()
     {
-        SetCrack(false);
+        isActivated = false;
+
+        activationCrack.SetActive(false);
         deactivationCrack.SetActive(false);
+        closeCrack.SetActive(false);
     }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -34,12 +38,24 @@ public class Crack : MonoBehaviour
 
     public void SetCrack(bool value)
     {
-        if (CrackManager.Instance.currentLimit >= CrackManager.Instance.crakLimit) return;
+        if (isActivated == value) return; // 상태 변화 없으면 무시
 
-        if (isActivated) CrackManager.Instance.currentLimit++;
-        else CrackManager.Instance.currentLimit--;
+        if (CrackManager.Instance == null) return;
 
-            isActivated = value;
+        if (value) // false → true
+        {
+            if (CrackManager.Instance.currentLimit >= CrackManager.Instance.crakLimit)
+                return;
+
+            CrackManager.Instance.currentLimit++;
+        }
+        else // true → false
+        {
+            CrackManager.Instance.currentLimit--;
+        }
+
+        isActivated = value;
+
         activationCrack.SetActive(isActivated);
         deactivationCrack.SetActive(!isActivated && _playerInRange);
         closeCrack.SetActive(isActivated && _playerInRange);
