@@ -2810,6 +2810,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1e51623067faeb4ba9e240d87c102c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  active: 0
   isOpen: 0
   currentState: 0
   _Open: {fileID: 2043629778, guid: c117e39c59a2e5849aeef9e9526e6f4d, type: 3}
@@ -3334,6 +3335,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetDoor: {fileID: 4953592738601516190}
+  targetCrackController: {fileID: 0}
 --- !u!114 &7330781208237512646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5651,7 +5653,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7542b772e10df7541bf72b742e660d68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _BoxTeleport: {fileID: 0}
+  _BoxTeleport: {fileID: 7122205236785630346}
   _LayerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -6698,6 +6700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transparencyUI: {fileID: 6982235880055192992}
+  damageable: {fileID: 0}
   trBar: {fileID: 9047128479490347453}
   active: 0
 --- !u!1 &2636855854110862990
@@ -13752,6 +13755,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1e51623067faeb4ba9e240d87c102c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  active: 0
   isOpen: 0
   currentState: 0
   _Open: {fileID: 2043629778, guid: c117e39c59a2e5849aeef9e9526e6f4d, type: 3}
@@ -17007,7 +17011,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7542b772e10df7541bf72b742e660d68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _BoxTeleport: {fileID: 0}
+  _BoxTeleport: {fileID: 1988977027491912126}
   _LayerMask:
     serializedVersion: 2
     m_Bits: 64
