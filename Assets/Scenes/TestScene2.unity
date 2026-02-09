@@ -170,18 +170,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7636519761770011925, guid: 354b22dc80e62f949a967d020ad557f7, type: 3}
-      propertyPath: m_MaskInteraction
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8092193197162661057, guid: 354b22dc80e62f949a967d020ad557f7, type: 3}
-      propertyPath: hidingTile
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 8640029496413238695, guid: 354b22dc80e62f949a967d020ad557f7, type: 3}
       propertyPath: m_Name
       value: 0008
       objectReference: {fileID: 0}
+    - target: {fileID: 9053642653836863982, guid: 354b22dc80e62f949a967d020ad557f7, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9053642653836863982, guid: 354b22dc80e62f949a967d020ad557f7, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9053642653836863982, guid: 354b22dc80e62f949a967d020ad557f7, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9053642653836863982, guid: 354b22dc80e62f949a967d020ad557f7, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9053642653836863982, guid: 354b22dc80e62f949a967d020ad557f7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a1ee37f4796573c48887c867d3f57f40, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
