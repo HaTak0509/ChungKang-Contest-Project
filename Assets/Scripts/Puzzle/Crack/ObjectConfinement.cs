@@ -10,6 +10,7 @@ public class ObjectConfinement : MonoBehaviour
     private void OnEnable()
     {
         _warpActive = true;
+        TryWarpOverlappingObjects();
         Cooldown().Forget();
     }
 
@@ -67,10 +68,35 @@ public class ObjectConfinement : MonoBehaviour
 
         _stuckObject = null;
     }
+    private void TryWarpOverlappingObjects()
+    {
+        Collider2D[] results = new Collider2D[8];
+        int count = Physics2D.OverlapCollider(
+            GetComponent<Collider2D>(),
+            new ContactFilter2D().NoFilter(),
+            results
+        );
+
+        for (int i = 0; i < count; i++)
+        {
+            var col = results[i];
+
+            if (!col.CompareTag("PuzzleObject") &&
+                !col.CompareTag("Enemy") &&
+                !col.CompareTag("HidingWall"))
+                continue;
+
+            if (col.TryGetComponent<WarpingInterface>(out var warp))
+            {
+                warp.Warping();
+                break; // 1È¸¸¸
+            }
+        }
+    }
 
     private async UniTask Cooldown()
     {
-        await UniTask.Delay(TimeSpan.FromSeconds(0.1f));
+        await UniTask.Yield(PlayerLoopTiming.LastPostLateUpdate);
         _warpActive = false;
     }
 }
