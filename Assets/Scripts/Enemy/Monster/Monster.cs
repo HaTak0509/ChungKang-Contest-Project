@@ -102,7 +102,6 @@ public class Monster : MonoBehaviour, WarpingInterface
 
         OnExit();
 
-        
         TwistMonster.SetActive(true);
         if (_movement._isFacingRight != TwistMonster.GetComponent<MonsterMovement>()._isFacingRight)
             TwistMonster.GetComponent<MonsterMovement>().Flip();
