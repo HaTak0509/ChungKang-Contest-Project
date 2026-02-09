@@ -24,7 +24,7 @@ public class ButtonObject : MonoBehaviour, IInteractable
         
         if (crackController != null)
         {
-            crackController.Interact();
+            crackController.CrackActive();
         }
 
         if (targetDoor != null)
