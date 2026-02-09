@@ -5080,6 +5080,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4016084788610345276}
     m_Modifications:
+    - target: {fileID: 3257906652342431414, guid: 276a8517aac0056489b9bc0e013a5683, type: 3}
+      propertyPath: Force
+      value: 45
+      objectReference: {fileID: 0}
     - target: {fileID: 7594678784031923338, guid: 276a8517aac0056489b9bc0e013a5683, type: 3}
       propertyPath: m_Name
       value: SpringPunch
@@ -5468,15 +5472,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3162089338479147714, guid: 90f172f453ef38747ac8a59647adf244, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.0009765094
+      value: 0.0000022814902
       objectReference: {fileID: 0}
     - target: {fileID: 4090433439425658639, guid: 90f172f453ef38747ac8a59647adf244, type: 3}
       propertyPath: m_Size
-      value: 0.67193913
+      value: 0.6719391
       objectReference: {fileID: 0}
     - target: {fileID: 4090433439425658639, guid: 90f172f453ef38747ac8a59647adf244, type: 3}
       propertyPath: m_Value
-      value: 1.0000052
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6684866249225654701, guid: 90f172f453ef38747ac8a59647adf244, type: 3}
       propertyPath: m_ScrollSensitivity
