@@ -78,6 +78,9 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
         else if (collision.CompareTag("PuzzleObject"))
         {
             var sr = collision.GetComponent<SpriteRenderer>();
+
+            if (sr.GetComponent<CrackActivator>()) return;
+
             if (sr != null && !_puzzleObjectSp.Contains(sr))
             {
                 _puzzleObjectSp.Add(sr);

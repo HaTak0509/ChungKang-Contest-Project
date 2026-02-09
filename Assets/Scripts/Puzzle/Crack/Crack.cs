@@ -65,7 +65,6 @@ public class Crack : MonoBehaviour
     {
         _playerInRange = value;
 
-        // 아직 활성화 안 된 상태면 표시 제어
         if (!isActivated)
         {
             deactivationCrack.SetActive(_playerInRange);
