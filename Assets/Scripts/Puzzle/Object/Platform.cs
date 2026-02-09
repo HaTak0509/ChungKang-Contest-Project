@@ -3,6 +3,7 @@ using UnityEngine;
 public class Platform : MonoBehaviour
 {
     [SerializeField] private Door targetDoor;
+    [SerializeField] private CrackController targetCrackController;
 
     private int _pressCount = 0; // 몇 개가 밟고 있는지
     private Animator _animator;
@@ -29,6 +30,7 @@ public class Platform : MonoBehaviour
             if (_pressCount == 1)
             {
                 if (targetDoor != null) targetDoor.OpenDoor();
+                if (targetCrackController != null) targetCrackController.CrackActive();
             }
         }
     }
@@ -44,6 +46,7 @@ public class Platform : MonoBehaviour
             if (_pressCount == 0)
             {
                 if (targetDoor != null) targetDoor.CloseDoor();
+                if (targetCrackController != null) targetCrackController.CrackActive();
             }
         }
     }
