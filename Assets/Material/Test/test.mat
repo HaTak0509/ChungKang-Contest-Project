@@ -21,8 +21,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: test
-  m_Shader: {fileID: -6465566751694194690, guid: 412906790e8b9484491f5dbb66994138, type: 3}
-  m_Parent: {fileID: -876546973899608171, guid: 412906790e8b9484491f5dbb66994138, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 19982985d8c67ce49b7b16be2c4f4ed8, type: 3}
+  m_Parent: {fileID: -876546973899608171, guid: 19982985d8c67ce49b7b16be2c4f4ed8, type: 3}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -36,11 +36,16 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _Test:
+        m_Texture: {fileID: 2800000, guid: 5a10e876d87de1843b448b706bdb641f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Texture2D:
-        m_Texture: {fileID: 2800000, guid: ed71007ab9b77e842aa1803c0c97ee2b, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2b0540881f2ea1840ac93708f05c937a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _QueueControl: 0
     m_Colors: []
   m_BuildTextureStacks: []

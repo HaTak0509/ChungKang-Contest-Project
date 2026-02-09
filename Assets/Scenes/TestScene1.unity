@@ -570,7 +570,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3407915940745246746, guid: 4af8d23b292f89848b4491f490d01154, type: 3}
       propertyPath: m_Color.a
-      value: 0.7372549
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3407915940745246746, guid: 4af8d23b292f89848b4491f490d01154, type: 3}
       propertyPath: m_Color.b
@@ -585,15 +585,23 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3407915940745246746, guid: 4af8d23b292f89848b4491f490d01154, type: 3}
+      propertyPath: m_DrawMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3407915940745246746, guid: 4af8d23b292f89848b4491f490d01154, type: 3}
       propertyPath: m_SortingLayer
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3407915940745246746, guid: 4af8d23b292f89848b4491f490d01154, type: 3}
       propertyPath: m_SortingOrder
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3407915940745246746, guid: 4af8d23b292f89848b4491f490d01154, type: 3}
       propertyPath: m_SortingLayerID
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3407915940745246746, guid: 4af8d23b292f89848b4491f490d01154, type: 3}
+      propertyPath: m_MaskInteraction
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3407915940745246746, guid: 4af8d23b292f89848b4491f490d01154, type: 3}
