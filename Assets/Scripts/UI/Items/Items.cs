@@ -1,8 +1,6 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class Items : MonoBehaviour, IPointerClickHandler
+public class Items : MonoBehaviour
 {
     [SerializeField] private ItemManager itemManager;
 
@@ -15,7 +13,7 @@ public class Items : MonoBehaviour, IPointerClickHandler
     public string NameText => nameText;
     public string ContentText => contentText;
 
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnButtonClick()
     {
         itemManager.OnItemClicked(this);
     }

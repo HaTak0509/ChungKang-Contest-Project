@@ -41,13 +41,7 @@ public class CrackController : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        _enabled = !_enabled;
-        if (_enabled)
-            _animator.SetTrigger("ON");
-        else
-            _animator.SetTrigger("OFF");
-
-        ToggleCrack();
+        CrackActive();
     }
 
     void SetCrack()
@@ -69,9 +63,18 @@ public class CrackController : MonoBehaviour, IInteractable
         {
             crack.SetCrack(!crack.isActivated);
         }
-
     }
 
+    public void CrackActive()
+    {
+        _enabled = !_enabled;
+        if (_enabled)
+            _animator.SetTrigger("ON");
+        else
+            _animator.SetTrigger("OFF");
+
+        ToggleCrack();
+    }
 
 
     void Update()
