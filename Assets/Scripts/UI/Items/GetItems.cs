@@ -23,7 +23,7 @@ public class GetItems : MonoBehaviour
             text.text = $"¾ÆÀÌÅÛ{i}";
 
             int index = i;
-            btn.onClick.AddListener(() => { ItemCollect.CollectItem(index); });
+            btn.onClick.AddListener(() => { Items.Instance.OnButtonClick(); });
         }
     }
 }
