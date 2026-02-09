@@ -2810,6 +2810,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1e51623067faeb4ba9e240d87c102c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  active: 0
   isOpen: 0
   currentState: 0
   _Open: {fileID: 2043629778, guid: c117e39c59a2e5849aeef9e9526e6f4d, type: 3}
@@ -3334,6 +3335,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetDoor: {fileID: 4953592738601516190}
+  targetCrackController: {fileID: 0}
 --- !u!114 &7330781208237512646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6698,6 +6700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transparencyUI: {fileID: 6982235880055192992}
+  damageable: {fileID: 0}
   trBar: {fileID: 9047128479490347453}
   active: 0
 --- !u!1 &2636855854110862990
@@ -9317,8 +9320,8 @@ Transform:
   m_GameObject: {fileID: 4194418562368449746}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6, y: 4.37, z: -0.037670985}
-  m_LocalScale: {x: 0.5, y: 1, z: 1}
+  m_LocalPosition: {x: 4, y: 3.87, z: -0.037670985}
+  m_LocalScale: {x: 0.5, y: 6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3430148423674982574}
@@ -9434,7 +9437,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 2.0030658, y: 0.26252306}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -9445,7 +9448,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 12.31, y: 9.19}
+  m_Size: {x: 15.85911, y: 1.5250461}
   m_EdgeRadius: 0
 --- !u!114 &4036644522035167994
 MonoBehaviour:
@@ -9460,8 +9463,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hideObjects: []
-  laser: {fileID: 0}
-  hidingTile: {fileID: 0}
+  laser: {fileID: 9010813440342380151}
+  hidingTile: {fileID: 1338774452942562043}
 --- !u!114 &4753450619152105570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13752,6 +13755,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1e51623067faeb4ba9e240d87c102c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  active: 0
   isOpen: 0
   currentState: 0
   _Open: {fileID: 2043629778, guid: c117e39c59a2e5849aeef9e9526e6f4d, type: 3}
@@ -25548,7 +25552,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerDash: {fileID: 6558450243533883636}
-  _warpingLaser: {fileID: 0}
+  _warpingLaser: {fileID: 4194418562368449746}
 --- !u!114 &-7817389417567740884
 MonoBehaviour:
   m_ObjectHideFlags: 0
