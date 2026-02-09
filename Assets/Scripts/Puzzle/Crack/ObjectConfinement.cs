@@ -7,7 +7,7 @@ public class ObjectConfinement : MonoBehaviour
     private GameObject _stuckObject;
     private bool _warpActive;
 
-    private void OnEnable()
+    private void Start()
     {
         _warpActive = true;
         TryWarpOverlappingObjects();
@@ -89,7 +89,6 @@ public class ObjectConfinement : MonoBehaviour
             if (col.TryGetComponent<WarpingInterface>(out var warp))
             {
                 warp.Warping();
-                Debug.Log(col);
                 break; // 1È¸¸¸
             }
         }
