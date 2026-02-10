@@ -9,6 +9,7 @@ public class PlayerDash : MonoBehaviour
     [SerializeField] float dashTime = 0.15f;
     [SerializeField] float upgradeDashCoolTime = 20f;
     [SerializeField] float dashCooldown = 0.5f;
+    [SerializeField] float upgradeDashCooldown = 0.1f;
 
     public bool upgradeDash = false;
     public bool dashVitality = true;
@@ -77,7 +78,10 @@ public class PlayerDash : MonoBehaviour
 
     private async UniTask CooldownRoutine()
     {
-        await UniTask.Delay(TimeSpan.FromSeconds(dashCooldown));
+        if (upgradeDash)
+            await UniTask.Delay(TimeSpan.FromSeconds(upgradeDashCooldown)); 
+        else await UniTask.Delay(TimeSpan.FromSeconds(dashCooldown));
+
         canDash = true;
 
         if (upgradeDash) dashVitality = true;
