@@ -13,30 +13,86 @@ public class ItemBase : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
         Instance = this;
+    }
+
+    private void Start()
+    {
+        LoadInventory();
     }
 
     public void AddItem(ItemData data)
     {
         inventory.Add(data);
-        CreateItemButton(data);
+        inventory.Sort((a, b) => int.Parse(a.itemID).CompareTo(int.Parse(b.itemID)));
+        RefreshUI();
+        SaveInventory();
     }
 
     private void CreateItemButton(ItemData data)
     {
         GameObject obj = Instantiate(itemButtonPrefab, content);
 
-        Button btn = obj.GetComponent<Button>();
         Image iconImage = obj.GetComponentInChildren<Image>();
-
         iconImage.sprite = data.icon;
 
-        btn.onClick.AddListener(() => { FindObjectOfType<ItemManager>().OnItemClicked(data); });
+        obj.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            FindObjectOfType<ItemManager>().OnItemClicked(data);
+        });
+    }
+
+    private void RefreshUI()
+    {
+        foreach (Transform child in content)
+        {
+            Destroy(child.gameObject);
+        }
+
+        foreach (var item in inventory)
+        {
+            CreateItemButton(item);
+        }
+    }
+
+
+    private void SaveInventory()
+    {
+        List<string> ids = new List<string>();
+
+        foreach (var item in inventory)
+        {
+            ids.Add(item.itemID);
+        }
+
+        string json = JsonUtility.ToJson(new IDList(ids));
+        PlayerPrefs.SetString("Inventory", json);
+        PlayerPrefs.Save();
+    }
+
+    private void LoadInventory()
+    {
+        if (!PlayerPrefs.HasKey("Inventory")) return;
+
+        string json = PlayerPrefs.GetString("Inventory");
+        IDList loaded = JsonUtility.FromJson<IDList>(json);
+
+        foreach (string id in loaded.ids)
+        {
+            ItemData data = ItemDatabase.Instance.GetItem(id);
+
+            if (data != null)
+            {
+                inventory.Add(data);
+                CreateItemButton(data);
+            }
+        }
+    }
+
+    [System.Serializable]
+    private class IDList
+    {
+        public List<string> ids;
+        public IDList(List<string> ids) { this.ids = ids; }
     }
 }
