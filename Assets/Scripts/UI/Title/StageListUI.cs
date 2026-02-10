@@ -4,23 +4,24 @@ using TMPro;
 
 public class StageListUI : MonoBehaviour
 {
-    [SerializeField] GameObject _stageButtonPrefab;
-    [SerializeField] ScrollRect _scrollRect;
-    [SerializeField] Transform _content;
+    [SerializeField] GameObject stageButtonPrefab;
+    [SerializeField] ScrollRect scrollRect;
+    [SerializeField] StageData stageData;
+    [SerializeField] Transform content;
     [SerializeField] int stage;
 
     void Start()
     {
-        _scrollRect.verticalNormalizedPosition = 1f;
+        scrollRect.verticalNormalizedPosition = 1f;
 
         for (int i = 1; i <= stage; i++)
         {
-            GameObject obj = Instantiate(_stageButtonPrefab, _content);
+            GameObject obj = Instantiate(stageButtonPrefab, content);
 
             Button btn = obj.GetComponent<Button>();
             TMP_Text text = obj.GetComponentInChildren<TMP_Text>();
 
-            text.text = $"Æ©Åä¸®¾ó {i}";
+            text.text = stageData.stageName;
 
             int index = i;
             btn.onClick.AddListener(() =>{StageCollect.CollectStage(index); });
