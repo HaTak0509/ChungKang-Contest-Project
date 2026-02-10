@@ -32,8 +32,6 @@ public class ItemManager : MonoBehaviour
         itemImage.sprite = data.icon;
         itemNameText.text = data.itemName;
         itemContentText.text = data.description;
-
-        itemPopup.SetActive(true);
     }
 
     private void Clear()
@@ -43,7 +41,5 @@ public class ItemManager : MonoBehaviour
         itemImage.sprite = null;
         itemNameText.text = "아이템 이름";
         itemContentText.text = "아이템 설명";
-
-        itemPopup.SetActive(false);
     }
 }
