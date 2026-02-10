@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ItemManager : MonoBehaviour
@@ -10,41 +9,41 @@ public class ItemManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI itemNameText;
     [SerializeField] private TextMeshProUGUI itemContentText;
 
-    private const string DefaultName = "아이템 이름";
-    private const string DefaultContent = "아이템 내용";
-
-    public bool itemActive;
-    public Items currentItem;
+    private ItemData currentItem;
 
     private void Update()
     {
-        if (itemPopup == null) return;
-
         if (Input.GetKeyDown(KeyCode.C))
         {
             itemPopup.SetActive(!itemPopup.activeSelf);
         }
     }
 
-    public void OnItemClicked(Items clickedItem)
+    public void OnItemClicked(ItemData data)
     {
-        if (currentItem == clickedItem)
+        if (currentItem == data)
         {
             Clear();
             return;
         }
 
-        currentItem = clickedItem;
-        itemImage = clickedItem.ItemImage;
-        itemNameText.text = clickedItem.NameText;
-        itemContentText.text = clickedItem.ContentText;
+        currentItem = data;
+
+        itemImage.sprite = data.icon;
+        itemNameText.text = data.itemName;
+        itemContentText.text = data.description;
+
+        itemPopup.SetActive(true);
     }
 
     private void Clear()
     {
         currentItem = null;
-        itemImage = default;
-        itemNameText.text = DefaultName;
-        itemContentText.text = DefaultContent;
+
+        itemImage.sprite = null;
+        itemNameText.text = "아이템 이름";
+        itemContentText.text = "아이템 설명";
+
+        itemPopup.SetActive(false);
     }
 }

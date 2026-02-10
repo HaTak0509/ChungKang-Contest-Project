@@ -1,44 +1,42 @@
-using TMPro;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ItemBase : MonoBehaviour
 {
-    public static ItemBase Instance {get; private set;}
+    public static ItemBase Instance { get; private set; }
 
-    [SerializeField] private GameObject itemButtons;
+    [SerializeField] private GameObject itemButtonPrefab;
     [SerializeField] private Transform content;
 
-    public int items;
+    private List<ItemData> inventory = new List<ItemData>();
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         Instance = this;
     }
 
-    private void Start()
+    public void AddItem(ItemData data)
     {
-        for (int i = 0; i < items; i++)
-        {
-            CreateItemButton(i);
-        }
+        inventory.Add(data);
+        CreateItemButton(data);
     }
 
-    private void CreateItemButton(int index)
+    private void CreateItemButton(ItemData data)
     {
-        GameObject obj = Instantiate(itemButtons, content);
+        GameObject obj = Instantiate(itemButtonPrefab, content);
 
         Button btn = obj.GetComponent<Button>();
-        TMP_Text text = obj.GetComponentInChildren<TMP_Text>();
+        Image iconImage = obj.GetComponentInChildren<Image>();
 
-        text.text = $"¾ÆÀÌÅÛ{index}";
+        iconImage.sprite = data.icon;
 
-        btn.onClick.AddListener(() => { Items.Instance.OnButtonClick(); });
+        btn.onClick.AddListener(() => { FindObjectOfType<ItemManager>().OnItemClicked(data); });
     }
-
-    public void AddItem()
-    {
-        CreateItemButton(items);
-        items++;
-    } 
 }
