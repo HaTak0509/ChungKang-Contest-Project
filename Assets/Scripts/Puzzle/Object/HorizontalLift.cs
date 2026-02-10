@@ -8,8 +8,6 @@ public class HorizontalLift : MonoBehaviour, IInteractable
     [SerializeField] private float decelerationPosition = 3f;
     [SerializeField] private float decelerationSpeed = 0.2f;
 
-    public bool _isMoving = false;
-
     private bool _atGoal = false;
     private bool _playerOnLift = false;
 
@@ -25,7 +23,6 @@ public class HorizontalLift : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        if (_isMoving) return;
         if (!_playerOnLift) return;
 
         StartLift();
@@ -33,8 +30,6 @@ public class HorizontalLift : MonoBehaviour, IInteractable
 
     public void CallFromRemote()
     {
-        if (_isMoving) return;
-
         StartLift();
     }
 
@@ -76,8 +71,6 @@ public class HorizontalLift : MonoBehaviour, IInteractable
 
     IEnumerator MoveTo(Vector2 target)
     {
-        _isMoving = true;
-
         while (Vector2.Distance(_rb2D.position, target) > 0.01f)
         {
             Vector2 newPos = Vector2.MoveTowards(
@@ -100,6 +93,5 @@ public class HorizontalLift : MonoBehaviour, IInteractable
 
         _rb2D.MovePosition(target);
         gameObject.tag = "PuzzleObject";
-        _isMoving = false;
     }
 }
