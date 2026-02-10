@@ -8,8 +8,6 @@ public class VerticalLift : MonoBehaviour, IInteractable
     [SerializeField] private float decelerationPosition = 3f;
     [SerializeField] private float decelerationSpeed = 0.2f;
 
-    public  bool isMoving = false;
-    
     private bool _atBottom = false;
     private bool _playerOnLift = false;
     private bool _isStart = false;
@@ -26,7 +24,6 @@ public class VerticalLift : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        if (isMoving) return;
         if (!_playerOnLift) return;
 
         StartLift();
@@ -34,8 +31,6 @@ public class VerticalLift : MonoBehaviour, IInteractable
 
     public void CallFromRemote()
     {
-        if (isMoving) return;
-
         StartLift();
     }
 
@@ -78,8 +73,6 @@ public class VerticalLift : MonoBehaviour, IInteractable
 
     IEnumerator MoveTo(Vector2 target)
     {
-        isMoving = true;
-
         while (Vector2.Distance(_rb2D.position, target) > decelerationPosition)
         {
             _rb2D.MovePosition(
@@ -105,7 +98,6 @@ public class VerticalLift : MonoBehaviour, IInteractable
 
         _rb2D.MovePosition(target);
         gameObject.tag = "PuzzleObject";
-        isMoving = false;
     }
 
     private void HandlePlayerGravity()
