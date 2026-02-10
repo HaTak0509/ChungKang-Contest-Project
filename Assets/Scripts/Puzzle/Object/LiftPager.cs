@@ -22,7 +22,7 @@ public class LiftPager : MonoBehaviour, IInteractable
             {
                 verticalLift.CallFromRemote();
             }
-            else if (verticalLift != null && horizontalLift != null && (!verticalLift.isMoving))
+            else if (verticalLift != null && horizontalLift != null && (!horizontalLift._isMoving) && (!verticalLift.isMoving))
             {
                 horizontalLift.CallFromRemote();
                 verticalLift.CallFromRemote();
