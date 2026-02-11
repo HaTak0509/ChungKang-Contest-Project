@@ -25,7 +25,6 @@ public class Monster : MonoBehaviour, WarpingInterface
     protected DrawSensingRange _lineRenderer;
     protected Rigidbody2D _rb;
 
-
     // 현재 실제 적용되는 값
     public float Speed { get; private set; }
     public float InteractRange { get; private set; }
@@ -43,6 +42,7 @@ public class Monster : MonoBehaviour, WarpingInterface
         _animator = GetComponent<Animator>();
         _lineRenderer = GetComponent<DrawSensingRange>();
         _rb = GetComponent<Rigidbody2D>();
+        
 
         InteractRange = baseDetectionRange;
     }
@@ -65,6 +65,8 @@ public class Monster : MonoBehaviour, WarpingInterface
                 temp._isFirst = true;
                 temp.twist = gameObject;
                 temp.baseSpeed = baseSpeed;
+                temp.Speed = baseSpeed;
+                temp.baseDetectionRange = baseDetectionRange;
                 temp.InteractRange = baseDetectionRange;
 
                 var targetList = InteractionSequence.instance.sequence;
@@ -82,6 +84,16 @@ public class Monster : MonoBehaviour, WarpingInterface
 
                 twist.GetComponent<MonsterMovement>().pointA = _movement.pointA;
                 twist.GetComponent<MonsterMovement>().pointB = _movement.pointB;
+
+
+                if (twist.GetComponent<CircleCollider2D>() != null)
+                {
+                    // 부모의 스케일 값 중 가장 큰 값을 가져와서 나눕니다.
+                    float currentScale = transform.lossyScale.x;
+
+                    if (currentScale != 0) twist.GetComponent<CircleCollider2D>().radius = InteractRange / currentScale;
+                    // 실제 반지름 = 원하는 거리 / 현재 스케일
+                }
 
                 twist.SetActive(false);
             }
