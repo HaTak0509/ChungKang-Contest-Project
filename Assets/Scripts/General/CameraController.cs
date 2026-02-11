@@ -6,6 +6,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Transform target;      // 따라다닐 플레이어
     [SerializeField] private float smoothing = 5f;  // 추적 부드러움 정도
     [SerializeField] private Vector3 offset = new Vector3(0, 0, -10); // 카메라 깊이 유지
+    [SerializeField] private Camera _layercamera; //레이어 마스크
 
     [Header("구역 제한 (Confiner)")]
     [SerializeField] private Vector2 minBoundary;   // 카메라가 갈 수 있는 최소 X, Y
@@ -74,6 +75,10 @@ public class CameraController : MonoBehaviour
             HandleMovement();
             HandleZoom();
         }
+
+
+        _layercamera.orthographicSize = _cam.orthographicSize;
+
     }
 
     private void HandleMovement()
