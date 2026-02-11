@@ -11215,6 +11215,7 @@ MonoBehaviour:
   target: {fileID: 1713255332434950705}
   smoothing: 2
   offset: {x: 0, y: 0, z: -10}
+  _layercamera: {fileID: 0}
   minBoundary: {x: -19, y: -13}
   maxBoundary: {x: 21, y: 15}
   normalSize: 5
@@ -25209,7 +25210,7 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
