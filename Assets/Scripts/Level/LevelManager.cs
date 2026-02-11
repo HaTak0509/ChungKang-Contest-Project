@@ -29,7 +29,6 @@ public class LevelManager : MonoBehaviour
 
     public async void OnReset()
     {
-
         await FadeInFadeOut.instance.StageReset();
     }
 
