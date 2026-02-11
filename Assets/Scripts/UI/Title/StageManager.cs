@@ -10,26 +10,27 @@ public class StageManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI stageDescription;
     [SerializeField] private Image image;
 
+    public int currentLevel;
+
     private LevelManager _levelManager;
-    private int _currentLevel;
 
     private void Awake()
     {
         _levelManager = LevelManager.Instance;
-        _currentLevel = _levelManager.saveMaxLevel - 1;
+        currentLevel = _levelManager.saveMaxLevel - 1;
     }
 
     private void Start()
     {
         if (_levelManager == null) return;
-        if (_currentLevel < 0 || _currentLevel > stageData.Count) return;
+        if (currentLevel < 0 || currentLevel > stageData.Count) return;
 
         ShowLevel();
     }
 
     public void ShowLevel()
     {
-        StageData data = stageData[_currentLevel];
+        StageData data = stageData[currentLevel];
 
         stageName.text = data.stageName;
         stageDescription.text = data.description;
@@ -41,10 +42,10 @@ public class StageManager : MonoBehaviour
         if (newLevel < 0 || newLevel >= stageData.Count)
             return;
 
-        if (_currentLevel == newLevel)
+        if (currentLevel == newLevel)
             return;
 
-        _currentLevel = newLevel;
+        currentLevel = newLevel;
         ShowLevel();
     }
 

@@ -1197,6 +1197,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4008538132743341682}
+  - component: {fileID: 6169069059606127211}
   m_Layer: 5
   m_Name: State
   m_TagString: Untagged
@@ -1226,6 +1227,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6169069059606127211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3211622033210959269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 263d9773d8596634e8fbaed3a46cd334, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageManager: {fileID: 4144228641843406853}
+  upNone: {fileID: 7033007055551179978}
+  collect: {fileID: 2836030055785931220}
+  downNone: {fileID: 4159941738767859157}
 --- !u!1 &3275335562949547089
 GameObject:
   m_ObjectHideFlags: 0
@@ -2247,9 +2264,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageData:
   - {fileID: 11400000, guid: d41bb28cc48194c459801de6d6759aeb, type: 2}
+  - {fileID: 11400000, guid: 47c1e9bb8986a4e43989f6e4d6df85cf, type: 2}
+  - {fileID: 11400000, guid: b6517ec4f6904a942a0c0247b107d16c, type: 2}
+  - {fileID: 11400000, guid: 55d58ea4ba3d28446a91cb06b0f9710c, type: 2}
+  - {fileID: 11400000, guid: f60da72d388a7a343bbe44499b1e5398, type: 2}
+  - {fileID: 11400000, guid: 1234775f2b6388f40ac820858f86b22a, type: 2}
+  - {fileID: 11400000, guid: 3246c0292e09197439c453610edffac3, type: 2}
+  - {fileID: 11400000, guid: ba396ad4411fb784aab5989252a12977, type: 2}
   stageName: {fileID: 1547370481758709035}
   stageDescription: {fileID: 3953326669105987916}
   image: {fileID: 5031444426908217305}
+  currentLevel: 0
 --- !u!1 &6932736378043496980
 GameObject:
   m_ObjectHideFlags: 0
