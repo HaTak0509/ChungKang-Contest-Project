@@ -255,7 +255,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &640529339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,7 +299,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &640928514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -597,14 +597,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 426746115489713894, guid: 78feeda0103fb1145a55fa9c288a41c8, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 426746115489713894, guid: 78feeda0103fb1145a55fa9c288a41c8, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3405043939776655079, guid: 78feeda0103fb1145a55fa9c288a41c8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1180.7842
@@ -645,6 +637,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4144228641843406853, guid: 78feeda0103fb1145a55fa9c288a41c8, type: 3}
+      propertyPath: _levelManager
+      value: 
+      objectReference: {fileID: 640928514}
     - target: {fileID: 5057097374528635749, guid: 78feeda0103fb1145a55fa9c288a41c8, type: 3}
       propertyPath: m_Size
       value: 1
@@ -659,11 +655,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5548805952939906980, guid: 78feeda0103fb1145a55fa9c288a41c8, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6362860012165587400, guid: 78feeda0103fb1145a55fa9c288a41c8, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00068856013
+      value: -0.0005329964
       objectReference: {fileID: 0}
     - target: {fileID: 6666777892845547899, guid: 78feeda0103fb1145a55fa9c288a41c8, type: 3}
       propertyPath: m_AnchorMax.x
