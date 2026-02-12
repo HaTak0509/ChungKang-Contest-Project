@@ -1,8 +1,19 @@
-public static class StageCollect
+using UnityEngine;
+
+public class StageCollect : MonoBehaviour
 {
-    public static void CollectStage(int stageIndex)
+    private LevelManager _levelManager;
+
+    private void Awake()
     {
-        if (stageIndex <= LevelManager.Instance.saveMaxLevel)
-            LevelManager.Instance.LoadLevel(stageIndex);
+        _levelManager = LevelManager.Instance;
+    }
+
+    public void CollectStage()
+    {
+        if (_levelManager.currentLevelIndex <= _levelManager.saveMaxLevel)
+        {
+            _levelManager.LoadLevel(_levelManager.currentLevelIndex + 1);
+        }
     }
 }
