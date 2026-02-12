@@ -28033,7 +28033,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1384309255290314172, guid: 8235fb836794060459844b06cefb78ed, type: 3}
       propertyPath: _HelpList.Array.size
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1384309255290314172, guid: 8235fb836794060459844b06cefb78ed, type: 3}
       propertyPath: _HelpList.Array.data[0]
@@ -28063,6 +28063,10 @@ PrefabInstance:
       propertyPath: _HelpList.Array.data[6]
       value: 
       objectReference: {fileID: 3575021666022300270}
+    - target: {fileID: 1384309255290314172, guid: 8235fb836794060459844b06cefb78ed, type: 3}
+      propertyPath: _HelpList.Array.data[7]
+      value: 
+      objectReference: {fileID: 4108447013010815396}
     - target: {fileID: 2660450801849927610, guid: 8235fb836794060459844b06cefb78ed, type: 3}
       propertyPath: target
       value: 
@@ -28268,6 +28272,11 @@ PrefabInstance:
 --- !u!1 &3681960935765933932 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 738828842363638708, guid: 5d7bbeb0af4d37a408f96515c9040210, type: 3}
+  m_PrefabInstance: {fileID: 4132100059516153048}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &4108447013010815396 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 25906512766604668, guid: 5d7bbeb0af4d37a408f96515c9040210, type: 3}
   m_PrefabInstance: {fileID: 4132100059516153048}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &4667006743625841100 stripped
