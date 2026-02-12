@@ -5999,7 +5999,7 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
@@ -16614,7 +16614,8 @@ PrefabInstance:
     - target: {fileID: 2708034253610860858, guid: 23618263b9338c1458f851217b4923ea, type: 3}
       propertyPath: _Description
       value: "\uC774\uAC74 \uAE30\uC05C NPC\uC785\uB2C8\uB2E4. \n\uC8FC\uBCC0 \uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C
-        \uC77C\uD68C\uC131 \uB300\uC26C\uB97C \uBD80\uC5EC\uD569\uB2C8\uB2E4."
+        \uC77C\uD68C\uC131 \uB300\uC26C\uB97C \uBD80\uC5EC\uD569\uB2C8\uB2E4.\nshift\uB97C
+        \uB20C\uB7EC \uB300\uC26C\uB97C \uC0AC\uC6A9\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
       objectReference: {fileID: 0}
     - target: {fileID: 2708034253610860858, guid: 23618263b9338c1458f851217b4923ea, type: 3}
       propertyPath: _spriteRenderers.Array.size
@@ -18181,8 +18182,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 5586525892745995563}
     m_Modifications:
     - target: {fileID: 2708034253610860858, guid: 23618263b9338c1458f851217b4923ea, type: 3}
-      propertyPath: checkPos.y
+      propertyPath: checkPos.x
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2708034253610860858, guid: 23618263b9338c1458f851217b4923ea, type: 3}
+      propertyPath: checkPos.y
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 2708034253610860858, guid: 23618263b9338c1458f851217b4923ea, type: 3}
       propertyPath: _Description
