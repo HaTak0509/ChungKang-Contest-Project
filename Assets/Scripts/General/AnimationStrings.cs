@@ -13,6 +13,7 @@ public class AnimationStrings
     public static string IsHorizontalSwimParameterName = "IsHorizontalSwim";
     public static string IsVerticalSwimParameterName = "IsVerticalSwim";
     public static string LandParameterName = "Land";
+    public static string IsSkyParameyterName = "IsSky";
 
     public static string OnButtonParameterName = "OnButton";
     public static string OnPlatformParameterName = "OnPlatform";
@@ -28,6 +29,7 @@ public class AnimationStrings
     public static int IsHorizontalSwim = Animator.StringToHash(IsHorizontalSwimParameterName);
     public static int IsVerticalSwim = Animator.StringToHash(IsVerticalSwimParameterName);
     public static int Land = Animator.StringToHash(LandParameterName);
+    public static int IsSky = Animator.StringToHash(IsSkyParameyterName);
 
     public static int OnButton = Animator.StringToHash(OnButtonParameterName);
     public static int OnPlatform = Animator.StringToHash(OnPlatformParameterName);

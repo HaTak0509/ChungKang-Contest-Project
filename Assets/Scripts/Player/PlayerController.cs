@@ -51,14 +51,6 @@ public class PlayerController : MonoBehaviour
 
         moveInput = context.ReadValue<Vector2>();
 
-        if (pushing.isPushing)
-        {
-            if (moveInput.x != 0 && Mathf.Sign(moveInput.x) != Mathf.Sign(pushing.pushingDirection))
-            {
-                moveInput = Vector2.zero;
-            }
-        }
-
         animator.SetBool(AnimationStrings.IsMoving, moveInput != Vector2.zero);
         movement.SetInput(moveInput);
     }
