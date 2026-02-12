@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: UIMovement
+  m_Name: PlayerHurtUI
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,21 +21,23 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: 277f8677f874b164793a78575b13fcbe, type: 3}
+      value: {fileID: 21300000, guid: c533499000b89704f9f6ee92d3f43965, type: 3}
     - time: 0.083333336
-      value: {fileID: 21300000, guid: ecc995ab86f1e944f858a45384c46c02, type: 3}
+      value: {fileID: 21300000, guid: 6bb92adfb39008e47b742ca231c24625, type: 3}
     - time: 0.16666667
-      value: {fileID: 21300000, guid: 16acbb361a0c92b44b49f5d5c3a2c68b, type: 3}
+      value: {fileID: 21300000, guid: 08a62fd6f3cfe82419d395a66489f669, type: 3}
     - time: 0.25
-      value: {fileID: 21300000, guid: eb644ed7c40827d47b546617b09a9512, type: 3}
+      value: {fileID: 21300000, guid: c533499000b89704f9f6ee92d3f43965, type: 3}
     - time: 0.33333334
-      value: {fileID: 21300000, guid: 277f8677f874b164793a78575b13fcbe, type: 3}
+      value: {fileID: 21300000, guid: 6bb92adfb39008e47b742ca231c24625, type: 3}
+    - time: 0.4
+      value: {fileID: 21300000, guid: 08a62fd6f3cfe82419d395a66489f669, type: 3}
     attribute: m_Sprite
     path: 
     classID: 114
     script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
     flags: 2
-  m_SampleRate: 12
+  m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -52,11 +54,12 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 277f8677f874b164793a78575b13fcbe, type: 3}
-    - {fileID: 21300000, guid: ecc995ab86f1e944f858a45384c46c02, type: 3}
-    - {fileID: 21300000, guid: 16acbb361a0c92b44b49f5d5c3a2c68b, type: 3}
-    - {fileID: 21300000, guid: eb644ed7c40827d47b546617b09a9512, type: 3}
-    - {fileID: 21300000, guid: 277f8677f874b164793a78575b13fcbe, type: 3}
+    - {fileID: 21300000, guid: c533499000b89704f9f6ee92d3f43965, type: 3}
+    - {fileID: 21300000, guid: 6bb92adfb39008e47b742ca231c24625, type: 3}
+    - {fileID: 21300000, guid: 08a62fd6f3cfe82419d395a66489f669, type: 3}
+    - {fileID: 21300000, guid: c533499000b89704f9f6ee92d3f43965, type: 3}
+    - {fileID: 21300000, guid: 6bb92adfb39008e47b742ca231c24625, type: 3}
+    - {fileID: 21300000, guid: 08a62fd6f3cfe82419d395a66489f669, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -81,11 +84,4 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events:
-  - time: 0.16666667
-    functionName: WalkSound
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
+  m_Events: []
