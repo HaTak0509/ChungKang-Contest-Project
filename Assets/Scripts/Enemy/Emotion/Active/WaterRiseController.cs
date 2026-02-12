@@ -7,6 +7,7 @@ public class WaterRiseController : MonoBehaviour
     [SerializeField] private float riseSpeed = 8.0f;
     [SerializeField] private float stepHeight = 1.0f;
     [SerializeField] private float waitTime = 1.0f;
+    [SerializeField] private float _breathConsumptionSpeed = 0.1f; // 초당 소모량 (0.1이면 10초 버팀)
 
     [SerializeField] private Vector2 WaterSize = new Vector2(20,10);
 
@@ -20,6 +21,8 @@ public class WaterRiseController : MonoBehaviour
 
     public static WaterRiseController Instance;
 
+    private bool _isFuel = false;
+    private WaterUI _WaterUI;
     private float _currentWaterHeight = 0f;
     private float _currentBubbleHeight = 0f;
     private bool _shouldContinue = true;
@@ -29,8 +32,30 @@ public class WaterRiseController : MonoBehaviour
     {
         Instance = this;
 
+        _WaterUI = GameObject.FindWithTag("Player").GetComponent<PlayerSwim>()._WaterUI;
         // 초기 사이즈 세팅
         UpdateVisuals();
+    }
+
+    private void Update()
+    {
+        if (_isFuel)
+        {
+            _WaterUI._currentWater -= _breathConsumptionSpeed * Time.deltaTime;
+
+            // 0 아래로 내려가지 않도록 제한
+            _WaterUI._currentWater = Mathf.Max(0, _WaterUI._currentWater);
+
+        }else
+        {
+            _WaterUI._currentWater += _breathConsumptionSpeed * Time.deltaTime;
+
+            // 0 아래로 내려가지 않도록 제한
+            _WaterUI._currentWater = Mathf.Max(_WaterUI._currentWater,1);
+
+        }
+
+
     }
 
     public void StartRising()
@@ -90,10 +115,20 @@ public class WaterRiseController : MonoBehaviour
             }
 
             _currentStep = targetStep;
+
+
+            if (isUpward && _currentStep >= maxStepCount)
+            {
+                _isFuel = true;
+            }
+            else
+            {
+                _isFuel = false;
+            }
+
+
             yield return new WaitForSeconds(waitTime);
 
-            if (isUpward && _currentStep >= maxStepCount) break;
-            if (!isUpward && _currentStep <= 0) break;
         }
         _activeRoutine = null;
     }
