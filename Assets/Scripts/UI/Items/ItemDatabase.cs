@@ -17,7 +17,14 @@ public class ItemDatabase : MonoBehaviour
 
         foreach (var item in items)
         {
-            itemDict.Add(item.itemID, item);
+            if (!itemDict.ContainsKey(item.itemID)) 
+            {
+                itemDict.Add(item.itemID, item);
+            }
+            else
+            {
+                Debug.LogError($"중복된 itemID 발견: {item.itemID}");
+            }
         }
     }
 
