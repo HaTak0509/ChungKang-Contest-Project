@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class LongBackgroundRightStart : MonoBehaviour
+public class LongBackgroundUIPlayer : MonoBehaviour
 {
     [Header("대상 설정")]
-    [SerializeField] private Transform playerTransform;
+    [SerializeField] private RectTransform playerRect; // 이제 Transform이 아닌 RectTransform입니다.
     private RectTransform targetUI;
 
     [Header("패럴랙스 설정")]
@@ -15,7 +15,6 @@ public class LongBackgroundRightStart : MonoBehaviour
     private Vector2 currentVelocity;
     private float playerStartPosX;
 
-    // 이동 가능한 범위
     private float minX;
     private float maxX;
 
@@ -23,63 +22,75 @@ public class LongBackgroundRightStart : MonoBehaviour
     {
         targetUI = GetComponent<RectTransform>();
 
-        // 1. 현재 우측 끝에 맞춰진 위치를 시작 위치로 저장
+        // 1. 초기 위치 저장
         startAnchoredPos = targetUI.anchoredPosition;
 
-        if (playerTransform == null)
-            playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        if (playerRect == null)
+        {
+            // 태그로 찾을 경우 RectTransform으로 가져옵니다.
+            var playerObj = GameObject.FindGameObjectWithTag("Player");
+            if (playerObj != null) playerRect = playerObj.GetComponent<RectTransform>();
+        }
 
-        playerStartPosX = playerTransform.position.x;
+        if (playerRect != null)
+        {
+            // 플레이어의 anchoredPosition.x를 시작점으로 저장
+            playerStartPosX = playerRect.anchoredPosition.x;
+        }
 
         CalculateBoundaries();
     }
 
     void CalculateBoundaries()
     {
-        float canvasWidth = transform.parent.GetComponent<RectTransform>().rect.width;
+        // 부모(Canvas) 너비와 배경 너비 차이 계산
+        RectTransform parentRect = transform.parent.GetComponent<RectTransform>();
+        float canvasWidth = parentRect.rect.width;
         float bgWidth = targetUI.rect.width;
 
-        // 배경과 캔버스의 너비 차이 (배경이 움직일 수 있는 총 거리)
         float diff = bgWidth - canvasWidth;
 
-        // 우측 끝에서 시작하므로, 현재 위치가 maxX(가장 오른쪽)가 됩니다.
-        // 거기서 너비 차이만큼 뺀 곳이 minX(가장 왼쪽)가 됩니다.
-        maxX = startAnchoredPos.x;
-        minX = startAnchoredPos.x - diff;
-
-        // 만약 피벗이 중앙(0.5)이고 우측 끝에 배치했다면 
-        // 배경이 오른쪽으로 더 밀려나야 왼쪽 면이 보이므로 
-        // 실제로는 더 큰 X값으로 이동하게 됩니다.
-        // 상황에 따라 maxX와 minX의 방향을 자동 감지하도록 보정합니다.
+        // 우측 끝 시작 기준: 플레이어가 왼쪽으로 갈 때 배경이 오른쪽으로 밀리는 범위
         if (diff > 0)
         {
-            // 우측 끝에 배치된 상태에서 왼쪽 면을 보려면 X값이 커져야 함 (오른쪽으로 이동)
             minX = startAnchoredPos.x;
             maxX = startAnchoredPos.x + diff;
+        }
+        else
+        {
+            minX = maxX = startAnchoredPos.x;
         }
     }
 
     void Update()
     {
-        if (targetUI == null || playerTransform == null) return;
+        if (targetUI == null || playerRect == null) return;
 
-        // 2. 플레이어의 이동량 (플레이어가 왼쪽으로 가면 -값이 나옴)
-        float deltaX = playerTransform.position.x - playerStartPosX;
+        // 2. 플레이어의 이동량 (픽셀 단위로 직접 계산)
+        // 플레이어와 배경이 같은 Canvas 공간에 있으므로 별도의 단위 변환(100f 등)이 필요 없습니다.
+        float deltaX = playerRect.anchoredPosition.x - playerStartPosX;
 
-        // 3. 타겟 X 계산: 플레이어가 왼쪽(-)으로 가면 배경은 오른쪽(+)으로 이동
-        // 100f는 월드 단위와 UI 단위의 차이를 메우기 위한 보정치입니다.
-        float targetX = startAnchoredPos.x - (deltaX * parallaxFactor * 15f);
+        // 3. 타겟 X 계산
+        // 플레이어 이동량(픽셀) * 패럴랙스 계수
+        float targetX = startAnchoredPos.x - (deltaX * parallaxFactor);
 
-        // 4. 계산된 범위 내에서 제한
+        // 4. 범위 제한
         float clampedX = Mathf.Clamp(targetX, minX, maxX);
 
         Vector2 targetPos = new Vector2(clampedX, startAnchoredPos.y);
 
+        // 5. 부드러운 이동
         targetUI.anchoredPosition = Vector2.SmoothDamp(
             targetUI.anchoredPosition,
             targetPos,
             ref currentVelocity,
             smoothTime
         );
+    }
+
+    // 해상도 변경 대응
+    private void OnRectTransformDimensionsChange()
+    {
+        if (targetUI != null) CalculateBoundaries();
     }
 }
