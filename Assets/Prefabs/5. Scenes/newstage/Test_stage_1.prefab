@@ -17954,9 +17954,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6537967678354345293}
     m_Modifications:
+    - target: {fileID: 3810987924519694895, guid: 20d178570fd73a1429bed8ad69d30e2f, type: 3}
+      propertyPath: m_Radius
+      value: 1.15
+      objectReference: {fileID: 0}
     - target: {fileID: 4692289330534001563, guid: 20d178570fd73a1429bed8ad69d30e2f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.996
+      value: -7.4960003
       objectReference: {fileID: 0}
     - target: {fileID: 4692289330534001563, guid: 20d178570fd73a1429bed8ad69d30e2f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -17998,13 +18002,17 @@ PrefabInstance:
       propertyPath: baseSpeed
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 5439473049848709826, guid: 20d178570fd73a1429bed8ad69d30e2f, type: 3}
+      propertyPath: baseDetectionRange
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6457155481132617030, guid: 20d178570fd73a1429bed8ad69d30e2f, type: 3}
       propertyPath: m_Name
       value: "\uC815\uC2E0 \uB193\uC740 NPC"
       objectReference: {fileID: 0}
     - target: {fileID: 6815967614570314348, guid: 20d178570fd73a1429bed8ad69d30e2f, type: 3}
       propertyPath: maxPosition
-      value: 5
+      value: 6.5
       objectReference: {fileID: 0}
     - target: {fileID: 6815967614570314348, guid: 20d178570fd73a1429bed8ad69d30e2f, type: 3}
       propertyPath: flotationForce
@@ -18012,7 +18020,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8866709027432228965, guid: 20d178570fd73a1429bed8ad69d30e2f, type: 3}
       propertyPath: pointA.x
-      value: -6
+      value: -7
       objectReference: {fileID: 0}
     - target: {fileID: 8866709027432228965, guid: 20d178570fd73a1429bed8ad69d30e2f, type: 3}
       propertyPath: pointB.x
