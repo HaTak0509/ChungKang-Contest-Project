@@ -9,7 +9,8 @@ public class GetItem : MonoBehaviour
 
     private void Start()
     {
-        // 이미 먹은 아이템이면 제거
+        if (itemData == null) return;
+        
         if (PlayerPrefs.GetInt(itemData.itemID, 0) == 1)
         {
             Destroy(gameObject);
