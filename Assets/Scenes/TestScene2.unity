@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &566769073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,7 +255,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &640529339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,7 +299,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &640928514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -662,6 +662,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3950182454781814039, guid: 5d08b7a9e6587d54c8ef6ac6e3912ac2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.00013297182
+      objectReference: {fileID: 0}
     - target: {fileID: 4752787526925586040, guid: 5d08b7a9e6587d54c8ef6ac6e3912ac2, type: 3}
       propertyPath: m_ScrollSensitivity
       value: 20
@@ -672,7 +676,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6224323116755571008, guid: 5d08b7a9e6587d54c8ef6ac6e3912ac2, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8357569709470314955, guid: 5d08b7a9e6587d54c8ef6ac6e3912ac2, type: 3}
       propertyPath: m_LocalPosition.x
