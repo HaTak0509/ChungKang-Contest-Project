@@ -2,18 +2,10 @@ using UnityEngine;
 
 public class StageCollect : MonoBehaviour
 {
-    private LevelManager _levelManager;
-
-    private void Awake()
-    {
-        _levelManager = LevelManager.Instance;
-    }
-
     public void CollectStage()
     {
-        if (_levelManager.currentLevelIndex <= _levelManager.saveMaxLevel)
-        {
-            _levelManager.LoadLevel(_levelManager.currentLevelIndex + 1);
-        }
+        if (StageManager.Instance == null) return;
+
+        LevelManager.Instance.LoadLevel(StageManager.Instance.currentLevel + 1);
     }
 }
