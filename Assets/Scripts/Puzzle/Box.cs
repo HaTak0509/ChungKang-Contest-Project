@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Box : MonoBehaviour , IInteractable, WarpingInterface
@@ -34,13 +35,23 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
 
     private void Update()
     {
-        if(_isTwist && PlayerScale.Instance._Scale <= 30 && _BoxTeleport.GetComponent<Box>().isTwist)
+        if(_isTwist)
         {
-            _SpriteRenderer.sprite = _Open;
+            _SpriteRenderer.gameObject.layer = LayerMask.NameToLayer("Mask");
+
+            if (PlayerScale.Instance._Scale <= 30 && _BoxTeleport.GetComponent<Box>().isTwist)
+            {
+                _SpriteRenderer.sprite = _Open;
+            }
+            else
+            {
+                _SpriteRenderer.sprite = _Close;
+            }
         }
         else
         {
             _SpriteRenderer.sprite = _Close;
+            _SpriteRenderer.gameObject.layer = LayerMask.NameToLayer("Default");
         }
 
     }
@@ -52,7 +63,7 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
 
     public void Interact()
     {
-        if (!_isTwist)
+        if (!_isTwist || PlayerScale.Instance._Scale > 30)
         {
             _pushingObject.Interact();
             return;

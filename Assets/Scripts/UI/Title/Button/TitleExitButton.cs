@@ -2,15 +2,14 @@ using UnityEngine;
 
 public class TitleExitButton : MonoBehaviour
 {
-    [SerializeField] private GameObject title;
+    [SerializeField] private GameObject firstScene;
     [SerializeField] private GameObject ChapterCollect;
-    [SerializeField] private GameObject buttons;
-
+    [SerializeField] private GameObject title;
 
     public void OnExit()
     {
-        buttons.SetActive(!buttons.activeSelf);
-        title.SetActive(!title.activeSelf);
+        title.SetActive(true);
+        firstScene.SetActive(!firstScene.activeSelf);
         ChapterCollect.SetActive(!ChapterCollect.activeSelf);
     }
 }

@@ -79,6 +79,8 @@ public class PlayerController : MonoBehaviour
     {
         if (allLimit) return;
         if (context.started) interaction = true;
+
+        SoundManager.Instance.PlaySFX("player_detaction", SoundManager.SoundOutput.SFX, 1);
     }
 
     public void OnExploration(InputAction.CallbackContext context)

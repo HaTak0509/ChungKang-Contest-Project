@@ -51,7 +51,12 @@ public class RageState : Monster
         {
             _movement.Move();
             if (IsPlayerInRange())
+            {
+                if (!_isDashing)
+                    SoundManager.Instance.PlaySFX("agressive_NPC", SoundManager.SoundOutput.SFX, 1);
                 _isDashing = true;
+
+            }
         }
     }
 

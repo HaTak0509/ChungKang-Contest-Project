@@ -1,5 +1,4 @@
 using Cysharp.Threading.Tasks;
-using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 public class ChapterCollectButton : MonoBehaviour
@@ -7,12 +6,13 @@ public class ChapterCollectButton : MonoBehaviour
     [SerializeField] GameObject title;
     [SerializeField] GameObject chaptercollect;
     [SerializeField] GameObject exit;
+    [SerializeField] GameObject Player;
     [SerializeField] Animator _animator;
     public async void OnchapterChange()
     {
 
         exit.SetActive(!exit.activeSelf);
-
+        Player.SetActive(!Player.activeSelf);
         PlayAndExecute("SelectChapter").Forget();
     }
 
