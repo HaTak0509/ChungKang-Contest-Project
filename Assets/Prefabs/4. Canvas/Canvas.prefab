@@ -1792,6 +1792,7 @@ MonoBehaviour:
   _Chat: {fileID: 5608824123843557480}
   _Text: {fileID: 3257725139016414637}
   delayPerChar: 0.05
+  delayNextChar: 1
 --- !u!1 &1909042924340604963
 GameObject:
   m_ObjectHideFlags: 0
@@ -6300,18 +6301,30 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 32ed317495c652e4bae43b58da279fe4, type: 3}
   - name: player_jump
     clip: {fileID: 8300000, guid: 7d15f8e5c0a899c458402aaf346b1ee7, type: 3}
+  - name: button_click
+    clip: {fileID: 8300000, guid: 5edae3b3dc6e5cf4f8b14d42ea5b4d56, type: 3}
   - name: laser
     clip: {fileID: 8300000, guid: f4e1879802a32564197bbb168a6e9dd1, type: 3}
   - name: lift
     clip: {fileID: 8300000, guid: bc707a0a8cd3d5a42834e736037e84b3, type: 3}
-  - name: button_click
-    clip: {fileID: 8300000, guid: 5edae3b3dc6e5cf4f8b14d42ea5b4d56, type: 3}
   - name: water_creation
     clip: {fileID: 8300000, guid: da7f6a7887f5d0c45bdef8581b27430d, type: 3}
   - name: jealous_NPC
     clip: {fileID: 8300000, guid: c6089766b527ee2438c687735e0dae5b, type: 3}
   - name: agressive_NPC
     clip: {fileID: 8300000, guid: cd30ac7dc3046794189004a0680db864, type: 3}
+  - name: player_detaction
+    clip: {fileID: 8300000, guid: fc4c83bbed4f3934a8f23dfada4a423c, type: 3}
+  - name: CrackActivator
+    clip: {fileID: 8300000, guid: c3fcbcac924cb0240a42cee77d1dbb0b, type: 3}
+  - name: Hacking
+    clip: {fileID: 8300000, guid: 96c082ae976239f41a6e4de4838c7501, type: 3}
+  - name: UI
+    clip: {fileID: 8300000, guid: 3a8ba461f30390f40905e1d6469b83a2, type: 3}
+  - name: Item_get
+    clip: {fileID: 8300000, guid: 8148abb3faa1ce944af41e447eeb3ce7, type: 3}
+  - name: Death
+    clip: {fileID: 8300000, guid: 67fd70b0f0a8d7845bf3c9c191f26d32, type: 3}
 --- !u!1 &7522691808574787032
 GameObject:
   m_ObjectHideFlags: 0

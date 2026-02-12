@@ -22,6 +22,8 @@ public class LevelManager : MonoBehaviour
         }
         Instance = this;
 
+        DontDestroyOnLoad(gameObject);
+
         saveMaxLevel = SaveLevelManager.Instance.LoadLevel();
         LoadLevel(0);
     }
@@ -41,7 +43,6 @@ public class LevelManager : MonoBehaviour
         _index = i;
         currentLevelIndex = i;
         _currentLevel = Instantiate(database.levels[_index]);
-
 
         if (currentLevelIndex > saveMaxLevel)
         {

@@ -41,17 +41,18 @@ public class ClearSceneManager : MonoBehaviour
 
         _Player.Play("PlayerHackingUI");
 
-
+        SoundManager.Instance.PlaySFX("Hacking", SoundManager.SoundOutput.SFX, 1);
         await UniTask.Yield();
 
         await UniTask.WaitUntil(() => _Player.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
 
        
-        _Player.Play("PlayerIdleUI");
+        _Player.Play("PlayerHurtUI");
        
-        await UniTask.Delay(TimeSpan.FromSeconds(1f));
+        await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
 
         _Player.Play("PlayerDieUI");
+        SoundManager.Instance.PlaySFX("Death", SoundManager.SoundOutput.SFX, 1);
 
     }
 
