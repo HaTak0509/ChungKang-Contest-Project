@@ -25,6 +25,11 @@ public class FadeInFadeOut : MonoBehaviour
         SetAlpha(_textMeshPro, 0f);
     }
 
+    private void Start()
+    {
+        transform.SetAsLastSibling();
+    }
+
     private void SetAlpha(Image img, float a)
     {
         var c = img.color;
@@ -80,7 +85,7 @@ public class FadeInFadeOut : MonoBehaviour
         FadeOutImage().Forget();
     }
 
-    private async UniTask FadeInImage()
+    public async UniTask FadeInImage()
     {
         float duration = 1f;
         float time = 0f;
@@ -103,7 +108,7 @@ public class FadeInFadeOut : MonoBehaviour
     }
 
 
-    private async UniTask FadeOutImage()
+    public async UniTask FadeOutImage()
     {
         float duration = 1f;
         float time = 0f;

@@ -27,11 +27,16 @@ public class ChapterCollectButton : MonoBehaviour
 
         await UniTask.Delay(System.TimeSpan.FromSeconds(stateInfo.length));
 
+        await FadeInFadeOut.instance.FadeInImage();
 
         ExecuteNextLogic();
+
+        await FadeInFadeOut.instance.FadeOutImage();
+
     }
     public void ExecuteNextLogic()
     {
+        Player.SetActive(false);
         title.SetActive(!title.activeSelf);
 
         chaptercollect.SetActive(!chaptercollect.activeSelf);
