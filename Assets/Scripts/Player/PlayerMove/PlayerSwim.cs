@@ -2,9 +2,11 @@ using UnityEngine;
 
 public class PlayerSwim : MonoBehaviour
 {
+    [Header("당신의 호흡이 딸리는 수치")]
     private PlayerMovement _playerMovement;
     private Rigidbody2D _rb;
     private Animator _animator;
+    public WaterUI _WaterUI;
 
     private void Awake()
     {
@@ -20,8 +22,12 @@ public class PlayerSwim : MonoBehaviour
             _rb.gravityScale = 0;
             _playerMovement.SetSwimming(true);
             _animator.SetBool(AnimationStrings.IsSwim, true);
+            _WaterUI.active = true; 
         }
     }
+
+
+
 
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -32,6 +38,13 @@ public class PlayerSwim : MonoBehaviour
             _animator.SetBool(AnimationStrings.IsSwim, false);
             _animator.SetBool(AnimationStrings.IsVerticalSwim, false);
             _animator.SetBool(AnimationStrings.IsHorizontalSwim, false);
+
+            if (_WaterUI.active)
+            {
+                _WaterUI._currentWater = 1;
+                _WaterUI.CheckTransparencyBar();
+                _WaterUI.active = false;
+            }
         }
     }
 
