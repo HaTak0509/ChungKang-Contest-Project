@@ -103,4 +103,9 @@ public class PlayerController : MonoBehaviour
             interactable.Interact();
         }
     }
+
+    public void StopAnim()//이거 계속 걷는 문제 고치려고 넣기
+    {
+        animator.SetBool(AnimationStrings.IsMoving, false);
+    }
 }

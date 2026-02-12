@@ -28,6 +28,7 @@ public class DialogueManager : MonoBehaviour
             if (Input.GetKeyUp((KeyCode)_keyCode))
             {
                 _animator.Play("Off");
+                PlayerController.Instance.allLimit = false;
             }
         }
     }
@@ -36,10 +37,11 @@ public class DialogueManager : MonoBehaviour
     {
         if (_Text == null) return;
 
-        // {test} 부분을 keyName 변수값으로 교체
-        string result = templateText.Replace("{condition}", templateCode.ToString());
+        // {key} 부분을 keyName 변수값으로 교체
+        string result = templateText.Replace("{key}", templateCode.ToString());
 
         PlayerController.Instance.allLimit = true;
+        PlayerController.Instance.StopAnim();
         _animator.Play("On");
         _keyCode = templateCode;
         PlayTyping(result).Forget();
