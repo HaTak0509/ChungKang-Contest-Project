@@ -1,3 +1,5 @@
+using Cysharp.Threading.Tasks;
+using System;
 using UnityEngine;
 public class ClearSceneManager : MonoBehaviour
 {
@@ -30,7 +32,27 @@ public class ClearSceneManager : MonoBehaviour
 
     public void EndWalk()
     {
-        Debug.Log("asdasd");
-        _Player.Play("idleUI");
+        _Player.Play("PlayerIdleUI");
+        WaitHacking().Forget();
     }
+    public async UniTask WaitHacking()
+    {
+        await UniTask.Delay(TimeSpan.FromSeconds(1.5f));
+
+        _Player.Play("PlayerHackingUI");
+
+
+        await UniTask.Yield();
+
+        await UniTask.WaitUntil(() => _Player.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+
+       
+        _Player.Play("PlayerIdleUI");
+       
+        await UniTask.Delay(TimeSpan.FromSeconds(1f));
+
+        _Player.Play("PlayerDieUI");
+
+    }
+
 }
