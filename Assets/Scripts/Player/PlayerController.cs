@@ -79,6 +79,8 @@ public class PlayerController : MonoBehaviour
     {
         if (allLimit) return;
         if (context.started) interaction = true;
+
+        SoundManager.Instance.PlaySFX("player_detaction", SoundManager.SoundOutput.SFX, 1);
     }
 
     public void OnExploration(InputAction.CallbackContext context)
@@ -102,5 +104,10 @@ public class PlayerController : MonoBehaviour
         {
             interactable.Interact();
         }
+    }
+
+    public void StopAnim()//이거 계속 걷는 문제 고치려고 넣기
+    {
+        animator.SetBool(AnimationStrings.IsMoving, false);
     }
 }

@@ -7,5 +7,6 @@ public class CrackActivator : MonoBehaviour, IInteractable
     public void Interact()
     {
         Crack.SetCrack(!Crack.isActivated);
+        SoundManager.Instance.PlaySFX("CrackActivator", SoundManager.SoundOutput.SFX, 1);
     }
 }

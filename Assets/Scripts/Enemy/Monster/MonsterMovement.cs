@@ -1,4 +1,3 @@
-using UnityEditor.Rendering;
 using UnityEngine;
 
 public class MonsterMovement : MonoBehaviour
@@ -114,7 +113,7 @@ public class MonsterMovement : MonoBehaviour
     
     private bool IsWarPing()
     {
-        Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position, _WarpCheckBox, 0f, LayerMask.GetMask("PuzzleObject"));
+        Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position, _WarpCheckBox, 0f, LayerMask.GetMask("Mask"));
         foreach (Collider2D hit in hits)
         {
             if (hit.CompareTag("ActivationCrack"))

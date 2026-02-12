@@ -14,6 +14,8 @@ public class PlayerDeath : MonoBehaviour
     {
         if(_Death)return;
 
+        SoundManager.Instance.PlaySFX("Death", SoundManager.SoundOutput.SFX, 0.7f);
+
         _Death = true;
         _animator.SetTrigger(AnimationStrings.IsDeath);
 
