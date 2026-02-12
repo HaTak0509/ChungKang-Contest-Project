@@ -31,13 +31,13 @@ public class WaterUI : MonoBehaviour
             damageable.GameOver();
         }
 
-        if (!active && _currentWater == 1f)
+        if (!active && _currentWater >= 1f)
         {
             transparencyUI.SetActive(false);
             return;
         }
         
-        if (active)
+        if (active) 
         {
             transparencyUI.SetActive(true);
             CheckTransparencyBar();

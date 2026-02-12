@@ -1,6 +1,5 @@
 using Cysharp.Threading.Tasks;
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Box : MonoBehaviour , IInteractable, WarpingInterface
@@ -63,7 +62,7 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
 
     public void Interact()
     {
-        if (!_isTwist || PlayerScale.Instance._Scale > 30)
+        if (!_isTwist || PlayerScale.Instance._Scale > 30 || !IsWarPing())
         {
             _pushingObject.Interact();
             return;
@@ -80,7 +79,8 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
     
         }else if(PlayerScale.Instance._Scale >= 100)
         {
-            _pushingObject.Interact();
+            if(!IsWarPing())
+                _pushingObject.Interact();
         }
 
     }
@@ -119,7 +119,7 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
     private bool IsObstacleAt(Vector2 targetPos)
     {
         // 지정된 위치에 checkSize만큼의 박스를 그려 충돌체가 있는지 확인
-        Collider2D hit = Physics2D.OverlapBox(targetPos, checkSize, 0f,_LayerMask);
+        Collider2D hit = Physics2D.OverlapBox(targetPos, checkSize, 0f, _LayerMask);
         return hit != null;
     }
 
@@ -136,6 +136,25 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
         SetCoolTime().Forget();
         
     }
+
+    private bool IsWarPing()
+    {
+        Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position, new Vector2(1f,1f), 0f, LayerMask.GetMask("Mask"));
+        foreach (Collider2D hit in hits)
+        {
+            if (hit.CompareTag("ActivationCrack"))
+            {
+                float diffX = Mathf.Abs(transform.position.x - hit.bounds.center.x);
+
+                if (diffX <= 0.1f)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 
     private async UniTask SetCoolTime()
     {
