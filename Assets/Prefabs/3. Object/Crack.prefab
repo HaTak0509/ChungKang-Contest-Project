@@ -561,6 +561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a1ca1e663007b4f94e00a79ff06cf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  disable: 0
 --- !u!1 &8731499169096427704
 GameObject:
   m_ObjectHideFlags: 0
@@ -657,4 +658,5 @@ MonoBehaviour:
   activationCrack: {fileID: 5125162449337976481}
   deactivationCrack: {fileID: 3708802793305400318}
   closeCrack: {fileID: 2170202843993738921}
+  confinement: {fileID: 7461923014779307404}
   isActivated: 0

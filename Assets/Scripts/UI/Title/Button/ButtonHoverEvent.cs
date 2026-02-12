@@ -27,10 +27,16 @@ public class ButtonHoverEvent : MonoBehaviour, IPointerEnterHandler, IPointerExi
     // 마우스가 버튼 영역 밖으로 나갔을 때 실행
     public void OnPointerExit(PointerEventData eventData)
     {
+       SetLeave();
+    }
+
+    public void SetLeave()
+    {
         Color color = _Image.color;
         color.a = 0;
         _Image.color = color;
 
         _Text.color = Color.white;
     }
+
 }

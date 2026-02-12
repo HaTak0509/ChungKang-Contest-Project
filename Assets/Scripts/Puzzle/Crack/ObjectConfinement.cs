@@ -7,8 +7,15 @@ public class ObjectConfinement : MonoBehaviour
     private GameObject _stuckObject;
     private bool _warpActive;
 
-    private void Start()
+    private void OnEnable()
     {
+        DelayedStart().Forget();
+    }
+
+    private async UniTaskVoid DelayedStart()
+    {
+        await UniTask.Yield(); // 한 프레임 대기
+
         _warpActive = true;
         TryWarpOverlappingObjects();
         Cooldown().Forget();
@@ -23,7 +30,8 @@ public class ObjectConfinement : MonoBehaviour
     {
         if (!collision.CompareTag("PuzzleObject") &&
             !collision.CompareTag("Enemy") &&
-            !collision.CompareTag("HidingWall"))
+            !collision.CompareTag("HidingWall") ||
+            collision.gameObject.layer == LayerMask.NameToLayer("Crack"))
             return;
 
         if (_stuckObject != null && !_stuckObject.activeSelf)
@@ -60,6 +68,7 @@ public class ObjectConfinement : MonoBehaviour
 
     private void ReleaseObject()
     {
+        Debug.Log(_stuckObject.gameObject.name);
         if (_stuckObject != null &&
             _stuckObject.TryGetComponent<WarpingInterface>(out var warpInteract))
         {
@@ -68,6 +77,7 @@ public class ObjectConfinement : MonoBehaviour
 
         _stuckObject = null;
     }
+
     private void TryWarpOverlappingObjects()
     {
         Collider2D[] results = new Collider2D[8];
@@ -88,6 +98,7 @@ public class ObjectConfinement : MonoBehaviour
 
             if (col.TryGetComponent<WarpingInterface>(out var warp))
             {
+                Debug.Log(col.gameObject.name);
                 warp.Warping();
                 break; // 1회만
             }
