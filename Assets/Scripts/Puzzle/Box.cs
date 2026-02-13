@@ -13,7 +13,7 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
     [SerializeField] private float _BoxOpenTime = 0.7f;
 
 
-    [Header("필수 연결")]
+    [Header("필수 연결")]   
     [SerializeField] private SpriteRenderer _SpriteRenderer;
     [SerializeField] private Sprite _Open;
     [SerializeField] private Sprite _Close;
@@ -28,7 +28,7 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
     [SerializeField] private bool _isStuck = false;
 
     public bool isTwist => _isTwist;
-    private Transform _Player;
+    [SerializeField] private Transform _Player;
 
     private void Start()
     {
@@ -70,6 +70,7 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
     public void Warping()
     {
         _isTwist = !_isTwist;
+        _Player = GameObject.FindWithTag("Player").transform;
     }
 
     public void Interact()
