@@ -3,11 +3,21 @@ using UnityEngine;
 public class PlayerDeath : MonoBehaviour
 {
     private Animator _animator;
+    private SpriteRenderer _spriteRenderer;
     private bool _Death = false;
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    private void Update()
+    {
+        if (_Death)
+        {
+            _spriteRenderer.flipY = false;
+        }
     }
 
     public void OnDeath()

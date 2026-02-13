@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     public Vector2 moveInput;
 
     private InteractionSign interactionSign;
+    private Rigidbody2D rb;
     private Pushing pushing;
     private Animator animator;
 
@@ -30,6 +31,7 @@ public class PlayerController : MonoBehaviour
         if (!damageable) damageable = GetComponent<Damageable>();
 
         interactionSign = GetComponent<InteractionSign>();
+        rb = GetComponent<Rigidbody2D>();
         pushing = GetComponent<Pushing>();
         animator = GetComponent<Animator>();
 
@@ -45,19 +47,11 @@ public class PlayerController : MonoBehaviour
     {
         if (moveLimit || allLimit)
         {
-            moveInput = Vector2.zero;
+            moveInput = new Vector2(0, rb.velocity.y);
             return;
         }
 
         moveInput = context.ReadValue<Vector2>();
-
-        if (pushing.isPushing)
-        {
-            if (moveInput.x != 0 && Mathf.Sign(moveInput.x) != Mathf.Sign(pushing.pushingDirection))
-            {
-                moveInput = Vector2.zero;
-            }
-        }
 
         animator.SetBool(AnimationStrings.IsMoving, moveInput != Vector2.zero);
         movement.SetInput(moveInput);

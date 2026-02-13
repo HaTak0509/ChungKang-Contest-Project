@@ -45,13 +45,19 @@ public class WaterRiseController : MonoBehaviour
 
             // 0 아래로 내려가지 않도록 제한
             _WaterUI._currentWater = Mathf.Max(0, _WaterUI._currentWater);
+            _WaterUI.active = true;
 
-        }else
+        }
+        else
         {
-            _WaterUI._currentWater += _breathConsumptionSpeed * Time.deltaTime;
 
-            // 0 아래로 내려가지 않도록 제한
-            _WaterUI._currentWater = Mathf.Max(_WaterUI._currentWater,1);
+            if (_WaterUI._currentWater < 1)
+                _WaterUI._currentWater += _breathConsumptionSpeed * Time.deltaTime;
+            else
+            {
+                _WaterUI._currentWater = 1;
+                _WaterUI.active = false;
+            }
 
         }
 
