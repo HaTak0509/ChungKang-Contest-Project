@@ -98,7 +98,6 @@ public class ObjectConfinement : MonoBehaviour
 
             if (col.TryGetComponent<WarpingInterface>(out var warp))
             {
-                Debug.Log(col.gameObject.name);
                 warp.Warping();
                 break; // 1È¸¸¸
             }

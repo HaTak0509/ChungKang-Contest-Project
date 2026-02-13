@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -9,8 +10,8 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
     [SerializeField] private GameObject laser;
     [SerializeField] private GameObject hidingTile;
 
-    private List<SpriteRenderer> _puzzleObjectSp = new();
-    private List<GameObject> _puzzleObjects = new();
+    private readonly List<SpriteRenderer> _puzzleObjectSp = new();
+    private readonly List<GameObject> _puzzleObjects = new();
 
     private TransparencyUI _transparencyUI;
     private PlayerColor _playerColor;
@@ -18,37 +19,30 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
     private Tilemap _tileMap;
     private TilemapCollider2D _tileCol;
 
-    private bool _objectActive;
     private bool _playerActive;
+    private bool _fadeStarted;
+
+    private CancellationTokenSource _cts;
 
     private void Start()
     {
         if (hidingTile == null) return;
+
         _tileMap = hidingTile.GetComponent<Tilemap>();
         _tileCol = hidingTile.GetComponent<TilemapCollider2D>();
     }
 
     private void OnEnable()
     {
-        _objectActive = true;
-    }
-
-    private void Update()
-    {
-        if (!_objectActive) return;
-
-        _objectActive = false;
-        _playerActive = true;
-
-        LowerAllTransparencyAndDisableColliders().Forget();
-
-        foreach (var hideOb in _hideObjects)
-            hideOb.SetActive(true);
+        _cts = new CancellationTokenSource();
+        _fadeStarted = false;
     }
 
     private void OnDisable()
     {
-        RestoreImmediately();
+        _cts?.Cancel();
+        _cts?.Dispose();
+        _cts = null;
 
         _playerColor = null;
 
@@ -64,27 +58,37 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && _playerActive)
+        if (collision.CompareTag("Player"))
         {
             if (_playerColor != null) return;
+
+            _playerActive = true;
 
             _transparencyUI = collision.GetComponentInChildren<TransparencyUI>();
             _playerColor = collision.GetComponent<PlayerColor>();
 
             _playerColor?.LowerTransparency().Forget();
+
             if (_transparencyUI != null)
                 _transparencyUI.active = true;
         }
-        else if (collision.CompareTag("PuzzleObject"))
-        {
-            var sr = collision.GetComponent<SpriteRenderer>();
 
+        if (collision.CompareTag("PuzzleObject"))
+        {
+            var sr = collision.GetComponentInChildren<SpriteRenderer>();
+            if (sr == null) return;
             if (sr.GetComponent<CrackActivator>()) return;
 
-            if (sr != null && !_puzzleObjectSp.Contains(sr))
+            if (!_puzzleObjectSp.Contains(sr))
             {
                 _puzzleObjectSp.Add(sr);
                 _puzzleObjects.Add(collision.gameObject);
+            }
+
+            if (!_fadeStarted)
+            {
+                _fadeStarted = true;
+                StartFadeDown().Forget();
             }
         }
     }
@@ -92,6 +96,8 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
     private void OnTriggerExit2D(Collider2D other)
     {
         if (!other.CompareTag("Player") || _playerColor == null) return;
+
+        _playerActive = false;
 
         _playerColor.UpperTransparency().Forget();
         _playerColor = null;
@@ -103,43 +109,34 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
         }
     }
 
-    public void Warping()
+    public async void Warping()
     {
-        RestoreImmediately();
+        if (_cts == null) return;
+
+        await FadeUpAll(_cts.Token);
+
+        RestoreCollidersAndTile();
+
         laser?.SetActive(true);
         gameObject.SetActive(false);
     }
 
-    private void RestoreImmediately()
+    private async UniTaskVoid StartFadeDown()
     {
-        // Tilemap 상태
-        if (hidingTile != null)
-        {
-            _tileCol.isTrigger = false;
-            hidingTile.layer = LayerMask.NameToLayer("Ground");
-            hidingTile.tag = "PuzzleObject";
-            _tileMap.color = Color.white;
-        }
-
-        // 퍼즐 오브젝트
-        foreach (var ob in _puzzleObjects)
-        {
-            if (ob == null) continue;
-            foreach (var col in ob.GetComponents<Collider2D>())
-                col.enabled = true;
-        }
+        if (_cts == null) return;
+        await LowerAllTransparencyAndDisableColliders(_cts.Token);
     }
 
-    private async UniTaskVoid LowerAllTransparencyAndDisableColliders()
+    private async UniTask LowerAllTransparencyAndDisableColliders(CancellationToken token)
     {
         var tasks = new List<UniTask>();
 
         foreach (var sr in _puzzleObjectSp)
             if (sr != null)
-                tasks.Add(FadeSprite(sr, 0.3f));
+                tasks.Add(FadeSprite(sr, 0.3f, token));
 
         if (_tileMap != null)
-            tasks.Add(FadeTilemap(0.3f));
+            tasks.Add(FadeTilemap(0.3f, token));
 
         await UniTask.WhenAll(tasks);
 
@@ -156,27 +153,67 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
             hidingTile.layer = LayerMask.NameToLayer("Default");
             hidingTile.tag = "Untagged";
         }
+
+        foreach (var hideOb in _hideObjects)
+            hideOb.SetActive(true);
     }
 
-    private async UniTask FadeSprite(SpriteRenderer sr, float target)
+    private async UniTask FadeUpAll(CancellationToken token)
     {
-        Color c = sr.color;
-        while (!Mathf.Approximately(c.a, target))
+        var tasks = new List<UniTask>();
+
+        foreach (var sr in _puzzleObjectSp)
+            if (sr != null)
+                tasks.Add(FadeSprite(sr, 1f, token));
+
+        if (_tileMap != null)
+            tasks.Add(FadeTilemap(1f, token));
+
+        await UniTask.WhenAll(tasks);
+    }
+
+    private void RestoreCollidersAndTile()
+    {
+        foreach (var ob in _puzzleObjects)
         {
-            c.a = Mathf.MoveTowards(c.a, target, 0.15f);
-            sr.color = c;
-            await UniTask.Delay(30);
+            if (ob == null) continue;
+            foreach (var col in ob.GetComponents<Collider2D>())
+                col.enabled = true;
+        }
+
+        if (hidingTile != null)
+        {
+            _tileCol.isTrigger = false;
+            hidingTile.layer = LayerMask.NameToLayer("Ground");
+            hidingTile.tag = "PuzzleObject";
         }
     }
 
-    private async UniTask FadeTilemap(float target)
+    private async UniTask FadeSprite(SpriteRenderer sr, float target, CancellationToken token)
     {
-        Color c = _tileMap.color;
-        while (!Mathf.Approximately(c.a, target))
+        while (!Mathf.Approximately(sr.color.a, target))
         {
+            token.ThrowIfCancellationRequested();
+
+            var c = sr.color;
+            c.a = Mathf.MoveTowards(c.a, target, 0.15f);
+            sr.color = c;
+
+            await UniTask.Delay(30, cancellationToken: token);
+        }
+    }
+
+    private async UniTask FadeTilemap(float target, CancellationToken token)
+    {
+        while (!Mathf.Approximately(_tileMap.color.a, target))
+        {
+            token.ThrowIfCancellationRequested();
+
+            var c = _tileMap.color;
             c.a = Mathf.MoveTowards(c.a, target, 0.15f);
             _tileMap.color = c;
-            await UniTask.Delay(30);
+
+            await UniTask.Delay(30, cancellationToken: token);
         }
     }
 }
