@@ -35,7 +35,9 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
 
         foreach (var hideOb in _hideObjects)
             if (hideOb != null)
+            {
                 hideOb.SetActive(true);
+            }
 
         StartFadeDown().Forget();
     }
@@ -127,8 +129,12 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
     private async UniTaskVoid StartFadeDown()
     {
         if (_cts == null) return;
+
+        if (_puzzleObjectSp.Count == 0 && _tileMap == null) return;
+
         await LowerAllTransparencyAndDisableColliders(_cts.Token);
     }
+
 
     private async UniTask LowerAllTransparencyAndDisableColliders(CancellationToken token)
     {
@@ -205,7 +211,6 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
 
     private async UniTask FadeTilemap(float target, CancellationToken token)
     {
-            Debug.Log("Current alpha: " + _tileMap.color.a);
         while (!Mathf.Approximately(_tileMap.color.a, target))
         {
             token.ThrowIfCancellationRequested();

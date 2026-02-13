@@ -51,6 +51,7 @@ public class JealousyState : Monster, IInteractable
     {
         if (_isTeleporting) return;
 
+        _player = GameObject.FindWithTag("Player").transform;
         Debug.Log("텔포 시작!");
         SoundManager.Instance.PlaySFX("jealous_NPC", SoundManager.SoundOutput.SFX, 1);
         _animator.SetTrigger("IsAction");
