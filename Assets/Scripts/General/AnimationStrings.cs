@@ -6,6 +6,7 @@ public class AnimationStrings
     public static string IsMovingParameterName = "IsMoving";
     public static string IsPushingParameterName = "IsPushing";
     public static string IsJumpParameterName = "IsJump";
+    public static string DashParameterName = "Dash";
     public static string IsDashParameterName = "IsDash";
     public static string IsKnockbackParameterName = "IsKnockback";
     public static string IsDeathParameterName = "IsDeath";
@@ -23,6 +24,7 @@ public class AnimationStrings
     public static int IsMoving = Animator.StringToHash(IsMovingParameterName);
     public static int IsPushing = Animator.StringToHash(IsPushingParameterName);
     public static int IsJump = Animator.StringToHash(IsJumpParameterName);
+    public static int Dash = Animator.StringToHash(DashParameterName);
     public static int IsDash = Animator.StringToHash(IsDashParameterName);
     public static int IsDeathBool = Animator.StringToHash(IsDeathBoolParameterName);
     public static int IsKnockback = Animator.StringToHash(IsKnockbackParameterName);

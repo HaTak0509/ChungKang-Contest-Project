@@ -61,6 +61,7 @@ public class PlayerDash : MonoBehaviour
     private async UniTask DashRoutine()
     {
         dashing = true;
+        _animator.SetBool(AnimationStrings.Dash, dashing);
         canDash = false;
         _damageable.SetInvincible(dashTime);
         _animator.SetTrigger(AnimationStrings.IsDash);
@@ -71,6 +72,7 @@ public class PlayerDash : MonoBehaviour
 
         await UniTask.Delay(TimeSpan.FromSeconds(dashTime));
         dashing = false;
+        _animator.SetBool(AnimationStrings.Dash, dashing);
 
         // 쿨타임은 별도 코루틴으로
         CooldownRoutine().Forget();
