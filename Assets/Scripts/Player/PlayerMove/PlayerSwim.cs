@@ -22,7 +22,6 @@ public class PlayerSwim : MonoBehaviour
             _rb.gravityScale = 0;
             _playerMovement.SetSwimming(true);
             _animator.SetBool(AnimationStrings.IsSwim, true);
-            _WaterUI.active = true; 
         }
     }
 
@@ -39,12 +38,7 @@ public class PlayerSwim : MonoBehaviour
             _animator.SetBool(AnimationStrings.IsVerticalSwim, false);
             _animator.SetBool(AnimationStrings.IsHorizontalSwim, false);
 
-            if (_WaterUI.active)
-            {
-                _WaterUI._currentWater = 1;
-                _WaterUI.CheckTransparencyBar();
-                _WaterUI.active = false;
-            }
+
         }
     }
 
