@@ -8651,7 +8651,7 @@ PrefabInstance:
     - target: {fileID: 7136956026552186988, guid: 26127942cc5665048abf53a79334518a, type: 3}
       propertyPath: _BoxTeleport
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 188527510606633890}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8660,6 +8660,11 @@ PrefabInstance:
 --- !u!4 &3335525885863229133 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2491520866732616837, guid: 26127942cc5665048abf53a79334518a, type: 3}
+  m_PrefabInstance: {fileID: 925914246480222792}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7930458463348823746 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7122205236785630346, guid: 26127942cc5665048abf53a79334518a, type: 3}
   m_PrefabInstance: {fileID: 925914246480222792}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1283158138521040996
@@ -37541,12 +37546,17 @@ PrefabInstance:
     - target: {fileID: 7136956026552186988, guid: 26127942cc5665048abf53a79334518a, type: 3}
       propertyPath: _BoxTeleport
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7930458463348823746}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26127942cc5665048abf53a79334518a, type: 3}
+--- !u!1 &188527510606633890 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7122205236785630346, guid: 26127942cc5665048abf53a79334518a, type: 3}
+  m_PrefabInstance: {fileID: 6938621131533326120}
+  m_PrefabAsset: {fileID: 0}
 --- !u!212 &1941245936997089990 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 8843486152912655854, guid: 26127942cc5665048abf53a79334518a, type: 3}
