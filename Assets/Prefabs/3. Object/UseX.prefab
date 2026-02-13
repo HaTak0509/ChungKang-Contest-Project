@@ -340,8 +340,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetDoor: {fileID: 0}
-  sinkAmount: 0
-  sinkSpeed: 2
+  targetCrackController: {fileID: 0}
 --- !u!114 &1298790902630615337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,9 +353,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2845670bf2c617459d8a26bcf764e1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Description: "\uAC11\uC555\uD310\uC785\uB2C8\uB2E4. \n\uAC00\uBCBC\uC6B4 \uC0C1\uC790\uB098
-    \uD50C\uB808\uC774\uC5B4\uB85C \uB20C\uB7EC \uC5F0\uACB0\uB41C \uC624\uBE0C\uC81D\uD2B8\uB97C
-    \uB044\uACE0 \uD0AC \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+  _Description: "\uD50C\uB808\uC774\uC5B4 \uB610\uB294 \uAC00\uBCBC\uC6B4 \uC0C1\uC790
+    \uC811\uCD09 \uC2DC \uC5F0\uACB0\uB41C \uC624\uBE0C\uC81D\uD2B8 \uD65C\uC131
+    / \uBE44\uD65C\uC131"
   _gameObject: {fileID: 1633852971879624998, guid: e1e12f816f40a464e99e2b70c406e06d, type: 3}
   _isEnable: 0
   checkPivot: {x: 0, y: 0}
