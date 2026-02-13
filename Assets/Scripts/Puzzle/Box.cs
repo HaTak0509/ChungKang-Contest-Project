@@ -57,7 +57,7 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
             _SpriteRenderer.gameObject.layer = LayerMask.NameToLayer("Default");
         }
 
-        if (_pushing.isPushing && IsWarPing())
+        if (_pushing.pushing && IsWarPing())
         {
             _pushing.Release();
         }
