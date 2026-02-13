@@ -33,9 +33,11 @@ public class ItemBase : MonoBehaviour
     {
         GameObject obj = Instantiate(itemButtonPrefab, content);
 
+        Button button = obj.GetComponent<Button>();
+
         obj.GetComponent<Button>().onClick.AddListener(() =>
         {
-            FindObjectOfType<ItemManager>().OnItemClicked(data);
+            FindObjectOfType<ItemManager>().OnItemClicked(data, button);
         });
     }
 
