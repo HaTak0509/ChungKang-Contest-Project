@@ -7,10 +7,22 @@ public class PushingObject : MonoBehaviour, IInteractable
     public bool isActive;
 
     private Pushing _pushing;
+    private float _prevPosition;
+
+    private void Start()
+    {
+        _prevPosition = transform.position.y;
+    }
 
     private void FixedUpdate()
     {
         if (_pushing == null) return;
+
+        if (_prevPosition > transform.position.y)
+        {
+            _pushing.Release();
+            _pushing = null;
+        }
 
         if (rb.velocity.y < -0.01f)
         {
