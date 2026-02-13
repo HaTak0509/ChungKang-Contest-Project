@@ -32,7 +32,10 @@ public class MenuController : MonoBehaviour
     {
         _IsOpen = true;
         menu.SetActive(true);
-        menuButton.SetActive(false);
+        if (menuButton != null)
+        {
+            menuButton.SetActive(false);
+        }
     }
 
     public void OnReset()
@@ -45,7 +48,10 @@ public class MenuController : MonoBehaviour
     {
         _IsOpen = false;
         menu.SetActive(false);
-        menuButton.SetActive(true);
+        if (menuButton  != null)
+        {
+            menuButton.SetActive(true);
+        }
     }
 
 
