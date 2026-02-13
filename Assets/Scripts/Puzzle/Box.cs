@@ -20,9 +20,12 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
 
     private Pushing _pushing;
     private PushingObject _pushingObject;
-    private bool _isCool = false;
 
-    private bool _isTwist = false;
+
+    [Header("디버깅")]
+    [SerializeField] private bool _isTwist = false;
+    [SerializeField] private bool _isCool = false;
+
     public bool isTwist => _isTwist;
     private Transform _Player;
 
@@ -77,7 +80,7 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
 
         //여기서부터는 뒤틀림!
 
-        if(PlayerScale.Instance._Scale <= 30 )
+        if(PlayerScale.Instance._Scale <= 30 && _isTwist)
         {
             if (_BoxTeleport.GetComponent<Box>().isTwist && !_isCool)
                 RelocateToEmptySpace();
