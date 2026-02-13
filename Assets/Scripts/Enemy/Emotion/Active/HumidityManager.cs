@@ -9,8 +9,10 @@ using UnityEngine;
 
 public class HumidityManager : MonoBehaviour
 {
+    [SerializeField] AudioSource m_AudioSource;
     private WaterRiseController _waterRiseController;
     [SerializeField] private int _Humidity = 0;
+    [SerializeField] private float _maxTargetValue = 0.1f;
     public int Humidity => _Humidity;
 
     public static HumidityManager Instance;
@@ -22,6 +24,15 @@ public class HumidityManager : MonoBehaviour
         _waterRiseController = GetComponent<WaterRiseController>();
         
     }
+
+    private void Update()
+    {
+        float target = (_Humidity != 0 && _waterRiseController.CurrentStep >= 1) ? _maxTargetValue : 0f;
+
+        m_AudioSource.volume = Mathf.MoveTowards(m_AudioSource.volume, target, 1 * Time.deltaTime);
+    }
+
+
 
 
     public void UpHumidity()

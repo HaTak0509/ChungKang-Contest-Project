@@ -22,7 +22,7 @@ public class GetItem : MonoBehaviour
         if (_active && Input.GetKeyDown(KeyCode.F))
         {
             ItemBase.Instance.AddItem(itemData);
-
+            SoundManager.Instance.PlaySFX("Item_get", SoundManager.SoundOutput.SFX, 1);
             PlayerPrefs.SetInt(itemData.itemID, 1);
             PlayerPrefs.Save();
 
