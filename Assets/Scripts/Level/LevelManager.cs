@@ -6,6 +6,8 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField] private LevelDatabase database;
     [SerializeField] private FadeInFadeOut fadeInOut;
+    [SerializeField] private AudioSource TitleBGM;
+    [SerializeField] private AudioSource GameBGM;
 
     public int currentLevelIndex;
     public int saveMaxLevel;
@@ -37,6 +39,8 @@ public class LevelManager : MonoBehaviour
 
     public void LoadLevel(int i)
     {
+        CheckBGM();
+
         if (_currentLevel != null)
             Destroy(_currentLevel);
 
@@ -48,6 +52,24 @@ public class LevelManager : MonoBehaviour
         {
             saveMaxLevel = currentLevelIndex;
             SaveLevelManager.Instance.SaveLevel(saveMaxLevel);
+        }
+    }
+
+    private void CheckBGM()
+    {
+        Debug.Log("이거 진짜에요?");
+        if(currentLevelIndex == 0)
+        {
+            if(!TitleBGM.isPlaying) 
+                TitleBGM.Play();
+            GameBGM.Stop();
+        }
+        else
+        {
+
+            TitleBGM.Stop();
+            if (!GameBGM.isPlaying)
+                GameBGM.Play();
         }
     }
 }

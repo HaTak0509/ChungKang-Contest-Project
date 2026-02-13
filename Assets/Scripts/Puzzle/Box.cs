@@ -137,6 +137,8 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
     {
         _Player.position = new Vector3(newPos.x, newPos.y + checkSize.y / 2, _Player.position.z);
         _BoxTeleport.GetComponent<Box>().StartFlash();
+
+        SoundManager.Instance.PlaySFX("teleport", SoundManager.SoundOutput.SFX, 1);
     }
 
     public void StartFlash()

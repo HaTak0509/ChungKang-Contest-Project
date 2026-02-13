@@ -170,6 +170,7 @@ public class PullPunch : MonoBehaviour, WarpingInterface
 
     public async void FireThorn()
     {
+        SoundManager.Instance.PlaySFX("spring", SoundManager.SoundOutput.SFX, 1);
         // 가시 생성
         Hand.sprite = OpenHand;
         _Niddle.position = OriginHand;

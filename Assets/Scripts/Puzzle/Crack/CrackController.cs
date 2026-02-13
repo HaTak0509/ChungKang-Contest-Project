@@ -72,9 +72,9 @@ public class CrackController : MonoBehaviour, IInteractable
             _animator.SetTrigger("ON");
         else
             _animator.SetTrigger("OFF");
-
+        
+        SoundManager.Instance.PlaySFX("button_click", SoundManager.SoundOutput.SFX);
         ToggleCrack();
-        Debug.Log(123);
     }
 
 

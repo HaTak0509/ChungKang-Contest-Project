@@ -6,6 +6,8 @@ public class Pushing : MonoBehaviour
     public bool pushing; //밀다
     public int pushingDirection;
 
+    [SerializeField] AudioClip _audioSource;
+    private GameObject _pushingAudio;
     private PlayerMovement _playrMovement;
     private PushingObject pushingObj;
     private TouchingDetection touchingDetection;
@@ -21,6 +23,28 @@ public class Pushing : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (pushing)
+        {
+            if (_pushingAudio == null)
+            {
+                _pushingAudio = new GameObject("Pushing");
+                AudioSource source = _pushingAudio.AddComponent<AudioSource>(); // 원하는 스크립트나 컴포넌트 즉시 추가
+                source.clip = _audioSource;
+                source.loop = true;
+                source.volume = 1f;
+                source.outputAudioMixerGroup = SoundManager.Instance.SFXGroup;
+                source.Play();
+
+            }
+
+        }
+        else {
+            Destroy( _pushingAudio );
+        }
+        
+
+
+
         if (pushingObj == null || !pushingObj.isActive)
         {
             isPushing = false;

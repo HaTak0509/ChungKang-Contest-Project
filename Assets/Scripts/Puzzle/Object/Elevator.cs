@@ -16,7 +16,7 @@ public class Elevator : MonoBehaviour, IInteractable
     public void Interact()
     {
         if (!_action) return;
-
+        SoundManager.Instance.PlaySFX("elavator", SoundManager.SoundOutput.SFX, 0.7f);
         RunStageClearAsync().Forget();
     }
 
