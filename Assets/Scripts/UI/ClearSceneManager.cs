@@ -19,6 +19,7 @@ public class ClearSceneManager : MonoBehaviour
         if (!_IsPlaying)
         {
             _IsPlaying = true;
+            _Player.Play("UIMovement");
             _SceneAnimator.Play("StartCutScene");
         }
 

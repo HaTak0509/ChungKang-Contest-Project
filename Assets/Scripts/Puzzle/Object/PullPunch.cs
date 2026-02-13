@@ -282,7 +282,7 @@ public class PullPunch : MonoBehaviour, WarpingInterface
 
         if(_caughtPlayer != null)
         {
-            Debug.Log("³Í ÀÌ¹Ì Á×¾îÀÖ´Ù!");
+            _caughtPlayer.GetComponent<Damageable>().GameOver();
         }
     }
 
