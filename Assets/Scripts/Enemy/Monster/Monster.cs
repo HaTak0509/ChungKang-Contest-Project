@@ -60,6 +60,8 @@ public class Monster : MonoBehaviour, WarpingInterface
                 twist.transform.SetParent(transform.parent);
                 _isFirst = true;
 
+                twist.SetActive(false);
+
                 Monster temp = twist.GetComponent<Monster>();
 
                 temp._isFirst = true;
@@ -95,7 +97,6 @@ public class Monster : MonoBehaviour, WarpingInterface
                     // 실제 반지름 = 원하는 거리 / 현재 스케일
                 }
 
-                twist.SetActive(false);
             }
         }
     }
@@ -109,6 +110,24 @@ public class Monster : MonoBehaviour, WarpingInterface
         UpdateState();
     }
 
+    private void OnEnable()
+    {
+        if (_isFirst)
+        {
+            OnEnter();
+
+            Debug.Log(gameObject.name + " " + "실행");
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (_isFirst)
+        {
+            OnExit();
+        }
+    }
+
     public void Warping()
     {
         if (twist == null)
@@ -117,17 +136,16 @@ public class Monster : MonoBehaviour, WarpingInterface
             return;
         }
 
-        OnExit();
+        Transform _temp = transform;    
+        gameObject.SetActive(false);
 
 
         twist.SetActive(true);
         if (_movement._isFacingRight != twist.GetComponent<MonsterMovement>()._isFacingRight)
             twist.GetComponent<MonsterMovement>().Flip();
 
-        twist.transform.position = transform.position;
-        twist.GetComponent<Monster>().OnEnter();
+        twist.transform.position = _temp.position;
 
-        gameObject.SetActive(false);
 
     }
 

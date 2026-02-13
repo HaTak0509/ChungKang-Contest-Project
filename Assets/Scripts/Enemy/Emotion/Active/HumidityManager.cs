@@ -1,3 +1,6 @@
+using Cysharp.Threading.Tasks;
+using System;
+using TMPro;
 using UnityEngine;
 
 
@@ -22,7 +25,7 @@ public class HumidityManager : MonoBehaviour
     {
         Instance = this;
         _waterRiseController = GetComponent<WaterRiseController>();
-        
+        StageClear().Forget();
     }
 
     private void Update()
@@ -31,18 +34,49 @@ public class HumidityManager : MonoBehaviour
 
         m_AudioSource.volume = Mathf.MoveTowards(m_AudioSource.volume, target, 1 * Time.deltaTime);
     }
+    public async UniTask StageClear()
+    {
+        await UniTask.Delay(TimeSpan.FromSeconds(1f));
+
+        FindEnemiesInArea();
+    }
 
 
+    public void FindEnemiesInArea()
+    {
+        _Humidity = 0;
+        int layerMask = LayerMask.GetMask("Enemy");
 
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(Vector2.zero, 100f, layerMask);
+
+        foreach (var enemyCollider in hitEnemies)
+        {
+            if(enemyCollider.GetComponent<ScreamiingState>() != null)
+            {
+                _Humidity += 1;
+                Debug.Log(enemyCollider.name + " UP");
+            }
+
+            if (enemyCollider.GetComponent<OutrageState>() != null)
+            {
+                _Humidity -= 1;
+                Debug.Log(enemyCollider.name + " DOWN");
+            }
+        }
+        Debug.Log("---");
+        CheckHumidity();
+    }
 
     public void UpHumidity()
     {
+        Debug.Log("증가");
         _Humidity += 1;
         CheckHumidity();
     }
 
     public void DownHumidity()
     {
+        Debug.Log("감소");
         _Humidity -= 1;
         CheckHumidity();
     }
@@ -56,10 +90,6 @@ public class HumidityManager : MonoBehaviour
         else if (_Humidity < 0)
         {
             _waterRiseController.StartFalling();
-        }
-        else
-        {
-//            _waterRiseController.StopMovement();
         }
 
     }
