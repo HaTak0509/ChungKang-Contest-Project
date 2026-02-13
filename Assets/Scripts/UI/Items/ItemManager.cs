@@ -28,9 +28,12 @@ public class ItemManager : MonoBehaviour
             return;
         }
 
+        TextMeshProUGUI textMeshProUGUI = GetComponentInChildren<TextMeshProUGUI>();
+
         currentItem = data;
 
         itemImage.sprite = data.icon;
+        textMeshProUGUI.text = data.itemName;
         itemNameText.text = data.itemName;
         itemContentText.text = data.description;
     }
