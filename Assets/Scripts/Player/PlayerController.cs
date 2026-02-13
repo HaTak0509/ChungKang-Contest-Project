@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     public Vector2 moveInput;
 
     private InteractionSign interactionSign;
+    private Rigidbody2D rb;
     private Pushing pushing;
     private Animator animator;
 
@@ -30,6 +31,7 @@ public class PlayerController : MonoBehaviour
         if (!damageable) damageable = GetComponent<Damageable>();
 
         interactionSign = GetComponent<InteractionSign>();
+        rb = GetComponent<Rigidbody2D>();
         pushing = GetComponent<Pushing>();
         animator = GetComponent<Animator>();
 
@@ -45,7 +47,7 @@ public class PlayerController : MonoBehaviour
     {
         if (moveLimit || allLimit)
         {
-            moveInput = Vector2.zero;
+            moveInput = new Vector2(0, rb.velocity.y);
             return;
         }
 
