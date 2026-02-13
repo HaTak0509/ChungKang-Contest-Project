@@ -87,7 +87,7 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
             else
                 Debug.Log("야 이거, 안 뒤틀렸는데? // 쿨타임ㅡㅡ");
     
-        }else if(PlayerScale.Instance._Scale >= 100)
+        }else if(PlayerScale.Instance._Scale > 30)
         {
             if(!IsWarPing())
                 _pushingObject.Interact();
