@@ -19,24 +19,27 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
     private Tilemap _tileMap;
     private TilemapCollider2D _tileCol;
 
-    private bool _playerActive;
     private bool _fadeStarted;
-
     private CancellationTokenSource _cts;
-
-    private void Start()
-    {
-        if (hidingTile == null) return;
-
-        _tileMap = hidingTile.GetComponent<Tilemap>();
-        _tileCol = hidingTile.GetComponent<TilemapCollider2D>();
-    }
 
     private void OnEnable()
     {
         _cts = new CancellationTokenSource();
         _fadeStarted = false;
+
+        if (hidingTile != null)
+        {
+            _tileMap = hidingTile.GetComponentInChildren<Tilemap>();
+            _tileCol = hidingTile.GetComponentInChildren<TilemapCollider2D>();
+        }
+
+        foreach (var hideOb in _hideObjects)
+            if (hideOb != null)
+                hideOb.SetActive(true);
+
+        StartFadeDown().Forget();
     }
+
 
     private void OnDisable()
     {
@@ -47,7 +50,8 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
         _playerColor = null;
 
         foreach (var hideOb in _hideObjects)
-            hideOb.SetActive(false);
+            if (hideOb != null)
+                hideOb.SetActive(false);
 
         if (_transparencyUI != null)
         {
@@ -60,10 +64,6 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
     {
         if (collision.CompareTag("Player"))
         {
-            if (_playerColor != null) return;
-
-            _playerActive = true;
-
             _transparencyUI = collision.GetComponentInChildren<TransparencyUI>();
             _playerColor = collision.GetComponent<PlayerColor>();
 
@@ -97,8 +97,6 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
     {
         if (!other.CompareTag("Player") || _playerColor == null) return;
 
-        _playerActive = false;
-
         _playerColor.UpperTransparency().Forget();
         _playerColor = null;
 
@@ -114,13 +112,14 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
         if (_cts == null) return;
 
         await FadeUpAll(_cts.Token);
-
         RestoreCollidersAndTile();
 
+        foreach (var hideOb in _hideObjects)
+            if (hideOb != null)
+                hideOb.SetActive(false);
+
         if (laser != null)
-        {
-            laser?.SetActive(true);
-        }
+            laser.SetActive(true);
 
         gameObject.SetActive(false);
     }
@@ -151,15 +150,12 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
                 col.enabled = false;
         }
 
-        if (hidingTile != null)
+        if (_tileCol != null)
         {
             _tileCol.isTrigger = true;
             hidingTile.layer = LayerMask.NameToLayer("Default");
             hidingTile.tag = "Untagged";
         }
-
-        foreach (var hideOb in _hideObjects)
-            hideOb.SetActive(true);
     }
 
     private async UniTask FadeUpAll(CancellationToken token)
@@ -185,7 +181,7 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
                 col.enabled = true;
         }
 
-        if (hidingTile != null)
+        if (_tileCol != null)
         {
             _tileCol.isTrigger = false;
             hidingTile.layer = LayerMask.NameToLayer("Ground");
@@ -209,6 +205,7 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
 
     private async UniTask FadeTilemap(float target, CancellationToken token)
     {
+            Debug.Log("Current alpha: " + _tileMap.color.a);
         while (!Mathf.Approximately(_tileMap.color.a, target))
         {
             token.ThrowIfCancellationRequested();
