@@ -37,9 +37,20 @@ public class WaterRiseController : MonoBehaviour
         UpdateVisuals();
     }
 
+    private void Start()
+    {
+        _WaterUI = GameObject.FindWithTag("Player").GetComponent<PlayerSwim>()._WaterUI;
+
+    }
+
     private void Update()
     {
-        if (_isFuel)
+        if (_WaterUI == null)
+        {
+            _WaterUI = GameObject.FindWithTag("Player").GetComponent<PlayerSwim>()._WaterUI;
+        }
+
+            if (_isFuel)
         {
             _WaterUI._currentWater -= _breathConsumptionSpeed * Time.deltaTime;
 

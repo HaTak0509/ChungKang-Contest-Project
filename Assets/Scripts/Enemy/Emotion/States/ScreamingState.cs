@@ -12,8 +12,8 @@ public class ScreamiingState : Monster
     {
         base.OnEnter();
 
-
-        HumidityManager.Instance.UpHumidity();
+        HumidityManager.Instance.FindEnemiesInArea();
+        //HumidityManager.Instance.UpHumidity();
     }
 
     public override void UpdateState()
@@ -23,7 +23,7 @@ public class ScreamiingState : Monster
     public override void OnExit() 
     {
 
-        HumidityManager.Instance.DownHumidity();
+        //HumidityManager.Instance.DownHumidity();
     }
 
 }
