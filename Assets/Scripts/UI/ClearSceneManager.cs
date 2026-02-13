@@ -42,7 +42,7 @@ public class ClearSceneManager : MonoBehaviour
 
         _Player.Play("PlayerHackingUI");
 
-        SoundManager.Instance.PlaySFX("Hacking", SoundManager.SoundOutput.SFX, 1);
+        SoundManager.Instance.PlaySFX("Hacking", SoundManager.SoundOutput.SFX, 0.9f);
         await UniTask.Yield();
 
         await UniTask.WaitUntil(() => _Player.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
@@ -50,11 +50,15 @@ public class ClearSceneManager : MonoBehaviour
        
         _Player.Play("PlayerHurtUI");
        
-        await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
+        await UniTask.Delay(TimeSpan.FromSeconds(0.2f));
+
+        FadeInFadeOut.instance.FadeIn();
 
         _Player.Play("PlayerDieUI");
         SoundManager.Instance.PlaySFX("Death", SoundManager.SoundOutput.SFX, 1);
+        await UniTask.Delay(TimeSpan.FromSeconds(3f));
 
+        LevelManager.Instance.LoadLevel(0);
     }
 
 }
