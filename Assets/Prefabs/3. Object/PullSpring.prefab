@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7566802402613498687}
   - component: {fileID: 392258781211369876}
   - component: {fileID: 9127354192504767686}
+  - component: {fileID: -2442897877646367765}
   m_Layer: 6
   m_Name: PullSpring
   m_TagString: PuzzleObject
@@ -219,6 +220,25 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.92455196, y: 3.0371027}
   m_EdgeRadius: 0
+--- !u!114 &-2442897877646367765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7091756347976374257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2845670bf2c617459d8a26bcf764e1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Description: "\uD50C\uB808\uC774\uC5B4\uB97C \uB2F9\uAE30\uB294 \uC624\uBE0C\uC81D\uD2B8\n\uB05D\uAE4C\uC9C0
+    \uB04C\uB824\uAC08 \uACBD\uC6B0 \uD50C\uB808\uC774\uC5B4 \uC0AC\uB9DD"
+  _gameObject: {fileID: 1633852971879624998, guid: e1e12f816f40a464e99e2b70c406e06d, type: 3}
+  _isEnable: 0
+  checkPivot: {x: 0, y: 0}
+  checkPos: {x: 2.7, y: 1.5}
+  checkSize: {x: 2.7, y: 2.7}
 --- !u!1 &7201636465192403339
 GameObject:
   m_ObjectHideFlags: 0

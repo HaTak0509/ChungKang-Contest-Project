@@ -18,11 +18,14 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
     [SerializeField] private Sprite _Open;
     [SerializeField] private Sprite _Close;
 
-
+    private Pushing _pushing;
     private PushingObject _pushingObject;
-    private bool _isCool = false;
 
-    private bool _isTwist = false;
+
+    [Header("디버깅")]
+    [SerializeField] private bool _isTwist = false;
+    [SerializeField] private bool _isCool = false;
+
     public bool isTwist => _isTwist;
     private Transform _Player;
 
@@ -30,6 +33,7 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
     {
         _pushingObject = GetComponent<PushingObject>();
         _Player = GameObject.FindWithTag("Player").transform;
+        _pushing = _Player.GetComponent<Pushing>();
     }
 
     private void Update()
@@ -53,6 +57,10 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
             _SpriteRenderer.gameObject.layer = LayerMask.NameToLayer("Default");
         }
 
+        if (_pushing.isPushing && IsWarPing())
+        {
+            _pushing.Release();
+        }
     }
 
     public void Warping()
@@ -62,20 +70,22 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
 
     public void Interact()
     {
-        if (!_isTwist || PlayerScale.Instance._Scale > 30 || !IsWarPing())
+        
+
+        if (!_isTwist && PlayerScale.Instance._Scale > 30 && !IsWarPing())
         {
             _pushingObject.Interact();
             return;
         }
 
+        //여기서부터는 뒤틀림!
 
-
-        if(PlayerScale.Instance._Scale <= 30 )
+        if(PlayerScale.Instance._Scale <= 30 && _isTwist)
         {
             if (_BoxTeleport.GetComponent<Box>().isTwist && !_isCool)
                 RelocateToEmptySpace();
             else
-                Debug.Log("야 이거, 안 뒤틀렸는데?");
+                Debug.Log("야 이거, 안 뒤틀렸는데? // 쿨타임ㅡㅡ");
     
         }else if(PlayerScale.Instance._Scale >= 100)
         {

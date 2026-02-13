@@ -80,8 +80,8 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_DrawMode: 2
+  m_Size: {x: 0.94, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -124,9 +124,9 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
+    newSize: {x: 0.94, y: 1}
     adaptiveTilingThreshold: 0.5
-    drawMode: 0
+    drawMode: 2
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
@@ -158,8 +158,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2845670bf2c617459d8a26bcf764e1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Description: "\uB9AC\uD504\uD2B8\uC640 \uC6D0\uACA9\uC73C\uB85C \uC0C1\uD638\uC791\uC6A9\uD558\uB294
-    \uB3C4\uAD6C\uC785\uB2C8\uB2E4."
+  _Description: "[ \uC0C1\uD638\uC791\uC6A9 :  F ]\n\n\uB9AC\uD504\uD2B8 \uC6D0\uACA9
+    \uC870\uC885 \uC624\uBE0C\uC81D\uD2B8"
   _gameObject: {fileID: 1633852971879624998, guid: e1e12f816f40a464e99e2b70c406e06d, type: 3}
   _isEnable: 0
   checkPivot: {x: 0, y: 0}

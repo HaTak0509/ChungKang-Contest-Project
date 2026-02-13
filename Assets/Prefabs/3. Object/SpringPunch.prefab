@@ -182,6 +182,7 @@ GameObject:
   - component: {fileID: 8410375744279511217}
   - component: {fileID: 3257906652342431414}
   - component: {fileID: 2125561393107753925}
+  - component: {fileID: 4918291075780695424}
   m_Layer: 6
   m_Name: SpringPunch
   m_TagString: PuzzleObject
@@ -276,3 +277,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9557762, y: 2.996876}
   m_EdgeRadius: 0
+--- !u!114 &4918291075780695424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7594678784031923338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2845670bf2c617459d8a26bcf764e1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Description: "\uC811\uADFC \uC2DC \uD50C\uB808\uC774\uC5B4 \uBC00\uC5B4\uB0B4\uB294
+    \uC624\uBE0C\uC81D\uD2B8"
+  _gameObject: {fileID: 1633852971879624998, guid: e1e12f816f40a464e99e2b70c406e06d, type: 3}
+  _isEnable: 0
+  checkPivot: {x: 0, y: 0}
+  checkPos: {x: 2.7, y: 1.5}
+  checkSize: {x: 2.7, y: 2.7}

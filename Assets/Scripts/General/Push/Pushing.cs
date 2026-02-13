@@ -3,7 +3,7 @@ using UnityEngine;
 public class Pushing : MonoBehaviour
 {
     public bool isPushing;
-    public bool pushing;
+    public bool pushing; //¹Ð´Ù
     public int pushingDirection;
 
     private PlayerMovement _playrMovement;
@@ -87,7 +87,7 @@ public class Pushing : MonoBehaviour
         }
     }
 
-    private void Release()
+    public void Release()
     {
         pushing = false;
         isPushing = false;

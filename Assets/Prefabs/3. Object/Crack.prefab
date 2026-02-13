@@ -561,7 +561,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a1ca1e663007b4f94e00a79ff06cf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disable: 0
 --- !u!1 &8731499169096427704
 GameObject:
   m_ObjectHideFlags: 0
@@ -573,6 +572,7 @@ GameObject:
   - component: {fileID: 4475921185919837992}
   - component: {fileID: 9039982250803283266}
   - component: {fileID: 3422457901910770347}
+  - component: {fileID: -4576357212113106206}
   m_Layer: 11
   m_Name: Crack
   m_TagString: Crack
@@ -658,5 +658,24 @@ MonoBehaviour:
   activationCrack: {fileID: 5125162449337976481}
   deactivationCrack: {fileID: 3708802793305400318}
   closeCrack: {fileID: 2170202843993738921}
-  confinement: {fileID: 7461923014779307404}
   isActivated: 0
+--- !u!114 &-4576357212113106206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8731499169096427704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2845670bf2c617459d8a26bcf764e1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Description: "[ \uC0C1\uD638\uC791\uC6A9 :  F ]\n\n\uADE0\uC5F4 \uC0DD\uC131 \uC624\uBE0C\uC81D\uD2B8\n\uC0C1\uD638
+    \uC791\uC6A9 \uC2DC \uD2B9\uC815 \uC7A5\uC18C\uC5D0 \uADE0\uC5F4 \uC0DD\uC131\n\uADE0\uC5F4\uC740
+    \uCD5C\uB300 2\uAC1C \uC0DD\uC131 \uAC00\uB2A5"
+  _gameObject: {fileID: 1633852971879624998, guid: e1e12f816f40a464e99e2b70c406e06d, type: 3}
+  _isEnable: 0
+  checkPivot: {x: 0, y: 0}
+  checkPos: {x: 2.7, y: 1.5}
+  checkSize: {x: 2.7, y: 2.7}

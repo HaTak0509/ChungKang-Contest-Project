@@ -8,12 +8,13 @@ public class ItemManager : MonoBehaviour
     [SerializeField] private Image itemImage;
     [SerializeField] private TextMeshProUGUI itemNameText;
     [SerializeField] private TextMeshProUGUI itemContentText;
-
+    [SerializeField] private bool isTitle;
+ 
     private ItemData currentItem;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C) && !isTitle)
         {
             itemPopup.SetActive(!itemPopup.activeSelf);
         }
