@@ -320,7 +320,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5614769312803018934
 Transform:
   m_ObjectHideFlags: 0
@@ -7215,6 +7215,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 618898082660942684, guid: a67a84bcff0eaaa499f90c78eeff59ea, type: 3}
   m_PrefabInstance: {fileID: 503675422893278954}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7583649645387022122 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8053530202735212992, guid: a67a84bcff0eaaa499f90c78eeff59ea, type: 3}
+  m_PrefabInstance: {fileID: 503675422893278954}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &649804241137532153
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7434,6 +7439,11 @@ PrefabInstance:
 --- !u!4 &522082298598125515 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 618898082660942684, guid: a67a84bcff0eaaa499f90c78eeff59ea, type: 3}
+  m_PrefabInstance: {fileID: 1128164434495728791}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6947902622559999319 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8053530202735212992, guid: a67a84bcff0eaaa499f90c78eeff59ea, type: 3}
   m_PrefabInstance: {fileID: 1128164434495728791}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1561357179878928087
@@ -31112,14 +31122,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4880081722138969027, guid: 8e92fe31b3ff4b344b6628c73861794e, type: 3}
       propertyPath: sequence.Array.size
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4880081722138969027, guid: 8e92fe31b3ff4b344b6628c73861794e, type: 3}
       propertyPath: sequence.Array.data[0]
       value: 
-      objectReference: {fileID: 3681960935765933932}
+      objectReference: {fileID: 6947902622559999319}
     - target: {fileID: 4880081722138969027, guid: 8e92fe31b3ff4b344b6628c73861794e, type: 3}
       propertyPath: sequence.Array.data[1]
+      value: 
+      objectReference: {fileID: 7583649645387022122}
+    - target: {fileID: 4880081722138969027, guid: 8e92fe31b3ff4b344b6628c73861794e, type: 3}
+      propertyPath: sequence.Array.data[2]
+      value: 
+      objectReference: {fileID: 3681960935765933932}
+    - target: {fileID: 4880081722138969027, guid: 8e92fe31b3ff4b344b6628c73861794e, type: 3}
+      propertyPath: sequence.Array.data[3]
       value: 
       objectReference: {fileID: 1660302364514928521}
     - target: {fileID: 6167176492246087643, guid: 8e92fe31b3ff4b344b6628c73861794e, type: 3}
