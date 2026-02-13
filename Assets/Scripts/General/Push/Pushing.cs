@@ -12,7 +12,7 @@ public class Pushing : MonoBehaviour
     private PushingObject pushingObj;
     private TouchingDetection touchingDetection;
     private SpriteRenderer spr;
-    private BoxCollider2D boxCol;
+    public BoxCollider2D boxCol;
 
     private void Awake()
     {
@@ -113,7 +113,6 @@ public class Pushing : MonoBehaviour
 
     public void Release()
     {
-        Debug.Log(123);
         pushing = false;
         isPushing = false;
 

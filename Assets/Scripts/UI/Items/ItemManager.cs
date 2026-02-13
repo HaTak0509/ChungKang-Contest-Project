@@ -20,7 +20,7 @@ public class ItemManager : MonoBehaviour
         }
     }
 
-    public void OnItemClicked(ItemData data)
+    public void OnItemClicked(ItemData data, Button clickedButton)
     {
         if (currentItem == data)
         {
@@ -33,6 +33,11 @@ public class ItemManager : MonoBehaviour
         itemImage.sprite = data.icon;
         itemNameText.text = data.itemName;
         itemContentText.text = data.description;
+
+        TextMeshProUGUI text =
+            clickedButton.GetComponentInChildren<TextMeshProUGUI>();
+
+        text.text = data.itemName;
     }
 
     private void Clear()
