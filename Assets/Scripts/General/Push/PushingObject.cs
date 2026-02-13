@@ -20,12 +20,7 @@ public class PushingObject : MonoBehaviour, IInteractable
 
         if (_prevPosition > transform.position.y)
         {
-            _pushing.Release();
-            _pushing = null;
-        }
-
-        if (rb.velocity.y < -0.01f)
-        {
+            Debug.Log(123);
             _pushing.Release();
             _pushing = null;
         }
