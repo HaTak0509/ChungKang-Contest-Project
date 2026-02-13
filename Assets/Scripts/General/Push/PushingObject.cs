@@ -8,9 +8,15 @@ public class PushingObject : MonoBehaviour, IInteractable
 
     private Pushing _pushing;
 
-    private void Update()
+    private void FixedUpdate()
     {
-        
+        if (_pushing == null) return;
+
+        if (rb.velocity.y < -0.01f)
+        {
+            _pushing.Release();
+            _pushing = null;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -47,4 +53,5 @@ public class PushingObject : MonoBehaviour, IInteractable
     {
         rb.velocity = Vector2.zero;
     }
+
 }
