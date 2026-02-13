@@ -137,10 +137,6 @@ public class SpringPunch : MonoBehaviour, WarpingInterface
 
             }
         }
-        else
-        {
-            Debug.Log("범위 내에 아무도 없습니다.");
-        }
     }
 
 

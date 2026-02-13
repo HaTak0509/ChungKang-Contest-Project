@@ -7,7 +7,7 @@ public class ObjectConfinement : MonoBehaviour
     private GameObject _stuckObject;
     private bool _warpActive;
 
-    private void OnEnable()
+    private void Start()
     {
         DelayedStart().Forget();
     }
@@ -80,26 +80,28 @@ public class ObjectConfinement : MonoBehaviour
 
     private void TryWarpOverlappingObjects()
     {
-        Collider2D[] results = new Collider2D[8];
+        Collider2D[] results = new Collider2D[20];
+        var filter = new ContactFilter2D().NoFilter();
+        filter.useTriggers = true;  // trigger도 포함
+
         int count = Physics2D.OverlapCollider(
             GetComponent<Collider2D>(),
-            new ContactFilter2D().NoFilter(),
+            filter,
             results
         );
 
+        Debug.Log($"Overlap count: {count}");
+
         for (int i = 0; i < count; i++)
         {
-            var col = results[i];
+            if (results[i] == null) continue;
+            Debug.Log($"Detected: {results[i].gameObject.name} / layer:{LayerMask.LayerToName(results[i].gameObject.layer)} / trigger:{results[i].isTrigger}");
 
-            if (!col.CompareTag("PuzzleObject") &&
-                !col.CompareTag("Enemy") &&
-                !col.CompareTag("HidingWall"))
-                continue;
-
-            if (col.TryGetComponent<WarpingInterface>(out var warp))
+            if (results[i].TryGetComponent<WarpingInterface>(out var warp))
             {
+                Debug.Log($"Warping: {results[i].gameObject.name}");
                 warp.Warping();
-                break; // 1회만
+                break;
             }
         }
     }

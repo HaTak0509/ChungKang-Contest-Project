@@ -29,7 +29,6 @@ public class CrackController : MonoBehaviour, IInteractable
 
         if (ColorUtility.TryParseHtmlString(hexColor, out Color newColor))
         {
-            Debug.Log(newColor.ToString());
             _lineRenderer.Draw(InteractRange, newColor);
         }
 
