@@ -6,7 +6,7 @@ public class DrawSensingRange : MonoBehaviour
     public int segments = 50; // 원을 구성하는 선의 개수
 
 
-    void Start()
+    void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = segments;
