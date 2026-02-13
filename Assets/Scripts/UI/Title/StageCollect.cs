@@ -8,7 +8,7 @@ public class StageCollect : MonoBehaviour
     {
         if (StageManager.Instance == null) return;
 
-        PlayAndExecute("StartChapter").Forget();
+        PlayAndExecute("EndChapter").Forget();
     }
 
 

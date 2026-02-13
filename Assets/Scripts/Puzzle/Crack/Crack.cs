@@ -42,6 +42,8 @@ public class Crack : MonoBehaviour
 
         if (CrackManager.Instance == null) return;
 
+        SoundManager.Instance.PlaySFX("crack_create", SoundManager.SoundOutput.SFX, 1);
+
         if (value) // false ¡æ true
         {
             if (CrackManager.Instance.currentLimit >= CrackManager.Instance.crakLimit)

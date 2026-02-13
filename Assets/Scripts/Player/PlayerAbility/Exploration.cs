@@ -23,4 +23,8 @@ public class Exploration : MonoBehaviour
             crack.SetPlayerInRange(false);
         }
     }
+    private void OnEnable()
+    {
+        SoundManager.Instance.PlaySFX("player_detaction", SoundManager.SoundOutput.SFX, 1);
+    }
 }

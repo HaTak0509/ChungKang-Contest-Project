@@ -35,6 +35,8 @@ public class HorizontalLift : MonoBehaviour, IInteractable
 
     private void StartLift()
     {
+        SoundManager.Instance.PlaySFX("lift", SoundManager.SoundOutput.SFX, 0.7f);
+
         gameObject.tag = "Wall";
 
         Vector2 target;

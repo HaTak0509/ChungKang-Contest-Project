@@ -36,6 +36,8 @@ public class VerticalLift : MonoBehaviour, IInteractable
 
     private void StartLift()
     {
+        SoundManager.Instance.PlaySFX("lift", SoundManager.SoundOutput.SFX, 0.7f);
+
         gameObject.tag = "Wall";
         _isStart = false;
 
