@@ -33,9 +33,6 @@ public class ItemBase : MonoBehaviour
     {
         GameObject obj = Instantiate(itemButtonPrefab, content);
 
-        Image iconImage = obj.GetComponentInChildren<Image>();
-        iconImage.sprite = data.icon;
-
         obj.GetComponent<Button>().onClick.AddListener(() =>
         {
             FindObjectOfType<ItemManager>().OnItemClicked(data);
