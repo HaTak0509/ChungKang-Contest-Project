@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ChapterCollectButton : MonoBehaviour
@@ -12,13 +13,13 @@ public class ChapterCollectButton : MonoBehaviour
     {
 
         exit.SetActive(!exit.activeSelf);
-        Player.SetActive(!Player.activeSelf);
         PlayAndExecute("SelectChapter").Forget();
     }
 
     public async UniTaskVoid PlayAndExecute(string animName)
     {
 
+        Player.GetComponent<Animator>().Play("UIMovement");
         _animator.Play(animName);
 
         await UniTask.Yield(PlayerLoopTiming.Update);
@@ -36,7 +37,9 @@ public class ChapterCollectButton : MonoBehaviour
     }
     public void ExecuteNextLogic()
     {
-        Player.SetActive(false);
+        Player.GetComponent<RectTransform>().anchoredPosition = new Vector3(-82.222168f, -432.146545f, 0);
+        Player.GetComponent<Animator>().Play("PlayerIdleUI");
+
         title.SetActive(!title.activeSelf);
 
         chaptercollect.SetActive(!chaptercollect.activeSelf);
