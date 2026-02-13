@@ -106,6 +106,7 @@ public class PlayerMovement : MonoBehaviour
 
         float desiredX = 0f;
 
+        Debug.Log(CurrentSpeed);
         desiredX = moveInput.x * CurrentSpeed;
 
         if (_touchingDetection.IsOnWall)
