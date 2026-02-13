@@ -1714,7 +1714,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e5fd7396f1d27646816d55f696dec7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_AudioSource: {fileID: 0}
   _Humidity: 0
+  _maxTargetValue: 0.1
 --- !u!1 &2331792554818738086
 GameObject:
   m_ObjectHideFlags: 0
@@ -35821,7 +35823,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2491520866732616837, guid: 26127942cc5665048abf53a79334518a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.792
+      value: 2.759
       objectReference: {fileID: 0}
     - target: {fileID: 2491520866732616837, guid: 26127942cc5665048abf53a79334518a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -36200,7 +36202,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2491520866732616837, guid: 26127942cc5665048abf53a79334518a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.215
+      value: -7.241
       objectReference: {fileID: 0}
     - target: {fileID: 2491520866732616837, guid: 26127942cc5665048abf53a79334518a, type: 3}
       propertyPath: m_LocalPosition.z
