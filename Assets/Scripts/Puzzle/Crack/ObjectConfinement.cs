@@ -31,7 +31,8 @@ public class ObjectConfinement : MonoBehaviour
         if (!collision.CompareTag("PuzzleObject") &&
             !collision.CompareTag("Enemy") &&
             !collision.CompareTag("HidingWall") ||
-            collision.gameObject.layer == LayerMask.NameToLayer("Crack"))
+            collision.gameObject.layer == LayerMask.NameToLayer("Crack") || 
+            collision.gameObject.layer == LayerMask.NameToLayer("CrackActivator"))
             return;
 
         if (_stuckObject != null && !_stuckObject.activeSelf)
@@ -68,7 +69,6 @@ public class ObjectConfinement : MonoBehaviour
 
     private void ReleaseObject()
     {
-        Debug.Log(_stuckObject.gameObject.name);
         if (_stuckObject != null &&
             _stuckObject.TryGetComponent<WarpingInterface>(out var warpInteract))
         {

@@ -74,6 +74,7 @@ public class CrackController : MonoBehaviour, IInteractable
             _animator.SetTrigger("OFF");
 
         ToggleCrack();
+        Debug.Log(123);
     }
 
 

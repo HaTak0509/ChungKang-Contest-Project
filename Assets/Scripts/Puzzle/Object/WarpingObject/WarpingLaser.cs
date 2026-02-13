@@ -83,6 +83,7 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
             {
                 _puzzleObjectSp.Add(sr);
                 _puzzleObjects.Add(collision.gameObject);
+                Debug.Log(sr);
             }
 
             if (!_fadeStarted)
