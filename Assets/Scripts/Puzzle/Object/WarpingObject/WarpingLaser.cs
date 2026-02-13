@@ -117,7 +117,11 @@ public class WarpingLaser : MonoBehaviour, WarpingInterface
 
         RestoreCollidersAndTile();
 
-        laser?.SetActive(true);
+        if (laser != null)
+        {
+            laser?.SetActive(true);
+        }
+
         gameObject.SetActive(false);
     }
 
