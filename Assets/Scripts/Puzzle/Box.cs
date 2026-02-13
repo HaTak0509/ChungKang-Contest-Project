@@ -20,11 +20,12 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
 
     private Pushing _pushing;
     private PushingObject _pushingObject;
-
+    private BoxCollider2D _boxCollider;
 
     [Header("µð¹ö±ë")]
     [SerializeField] private bool _isTwist = false;
     [SerializeField] private bool _isCool = false;
+    [SerializeField] private bool _isStuck = false;
 
     public bool isTwist => _isTwist;
     private Transform _Player;
@@ -34,6 +35,7 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
         _pushingObject = GetComponent<PushingObject>();
         _Player = GameObject.FindWithTag("Player").transform;
         _pushing = _Player.GetComponent<Pushing>();
+        _boxCollider = GetComponentInParent<BoxCollider2D>();
     }
 
     private void Update()
@@ -57,9 +59,11 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
             _SpriteRenderer.gameObject.layer = LayerMask.NameToLayer("Default");
         }
 
-        if (_pushing.pushing && IsWarPing())
+        _isStuck = IsWarPing();
+
+        if (_pushing.pushing && _isStuck && _pushing.boxCol == _boxCollider)
         {
-            //_pushing.Release();
+            _pushing.Release();
         }
     }
 
@@ -72,7 +76,7 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
     {
         
 
-        if (!_isTwist && PlayerScale.Instance._Scale > 30 && !IsWarPing())
+        if (!_isTwist && PlayerScale.Instance._Scale > 30 && !_isStuck)
         {
             _pushingObject.Interact();
             return;
@@ -89,7 +93,7 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
     
         }else if(PlayerScale.Instance._Scale > 30)
         {
-            if(!IsWarPing())
+            if(!_isStuck)
                 _pushingObject.Interact();
         }
 
@@ -157,6 +161,7 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
             if (hit.CompareTag("ActivationCrack"))
             {
                 float diffX = Mathf.Abs(transform.position.x - hit.bounds.center.x);
+
 
                 if (diffX <= 0.1f)
                 {
