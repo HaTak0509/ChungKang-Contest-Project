@@ -59,6 +59,7 @@ public class ClearSceneManager : MonoBehaviour
         await UniTask.Delay(TimeSpan.FromSeconds(3f));
 
         LevelManager.Instance.LoadLevel(0);
+        FadeInFadeOut.instance.FadeOut();
     }
 
 }
