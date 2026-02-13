@@ -101,14 +101,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void GroundMovement()
     {
-        if (_pushing.isPushing && moveInput.x != 0 && Mathf.Sign(moveInput.x) != Mathf.Sign(_pushing.pushingDirection))
-            return;
-
         _collider.direction = CapsuleDirection2D.Vertical;
         _collider.size = colliderYSize;
 
         float desiredX = 0f;
 
+        Debug.Log(CurrentSpeed);
         desiredX = moveInput.x * CurrentSpeed;
 
         if (_touchingDetection.IsOnWall)

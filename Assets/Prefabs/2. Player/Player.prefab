@@ -778,7 +778,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 4
-  pushingSpeed: 2
+  pushingSpeed: 1
   swimSpeed: 4
   colliderXSize: {x: 0.8, y: 0.55}
   colliderYSize: {x: 0.55, y: 0.8}
@@ -950,7 +950,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4155593e22f38824bab5c14a28a45009, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _breathConsumptionSpeed: 0.1
   _WaterUI: {fileID: 3225841654660343033}
 --- !u!1 &6527403618304378543
 GameObject:
