@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,9 +34,14 @@ public class ItemBase : MonoBehaviour
     {
         GameObject obj = Instantiate(itemButtonPrefab, content);
 
+        Button button = obj.GetComponent<Button>();
+        TextMeshProUGUI text = button.GetComponentInChildren<TextMeshProUGUI>();
+
+        text.text = data.itemName;
+
         obj.GetComponent<Button>().onClick.AddListener(() =>
         {
-            FindObjectOfType<ItemManager>().OnItemClicked(data);
+            FindObjectOfType<ItemManager>().OnItemClicked(data, button);
         });
     }
 
