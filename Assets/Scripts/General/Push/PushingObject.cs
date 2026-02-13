@@ -22,6 +22,7 @@ public class PushingObject : MonoBehaviour, IInteractable
         {
             _pushing.Release();
             _pushing = null;
+            _prevPosition = transform.position.y;
         }
     }
 

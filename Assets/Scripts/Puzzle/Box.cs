@@ -59,7 +59,7 @@ public class Box : MonoBehaviour , IInteractable, WarpingInterface
 
         if (_pushing.pushing && IsWarPing())
         {
-            _pushing.Release();
+            //_pushing.Release();
         }
     }
 
