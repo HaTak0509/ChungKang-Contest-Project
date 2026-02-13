@@ -113,6 +113,7 @@ public class Pushing : MonoBehaviour
 
     public void Release()
     {
+        Debug.Log(123);
         pushing = false;
         isPushing = false;
 
