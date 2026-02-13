@@ -62,9 +62,10 @@ public class JealousyState : Monster, IInteractable
     {
 
         _animator.SetTrigger("IsAction");
+        SoundManager.Instance.PlaySFX("teleport", SoundManager.SoundOutput.SFX, 1);
 
 
-        
+
         Collider2D[] hitAIs = Physics2D.OverlapCircleAll(_player.transform.position, checkRadius, EnemyLayer);
 
         if (hitAIs.Length == 0) return; // 3블럭 이내 AI가 없으면 종료

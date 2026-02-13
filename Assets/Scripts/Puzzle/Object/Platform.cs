@@ -26,7 +26,7 @@ public class Platform : MonoBehaviour
             _pressCount++;
 
             _animator.SetBool(AnimationStrings.OnPlatform, true);
-
+            SoundManager.Instance.PlaySFX("button_click", SoundManager.SoundOutput.SFX);
             if (_pressCount == 1)
             {
                 if (targetDoor != null) targetDoor.OpenDoor();
