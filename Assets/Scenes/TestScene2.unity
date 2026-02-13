@@ -122,7 +122,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &528145219
+--- !u!1001 &266714388
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -133,6 +133,10 @@ PrefabInstance:
     - target: {fileID: 1450473068548374059, guid: 6babb337ca1ee4145a0d16978e11afc5, type: 3}
       propertyPath: m_Name
       value: Test_stage_2_re
+      objectReference: {fileID: 0}
+    - target: {fileID: 1450473068548374059, guid: 6babb337ca1ee4145a0d16978e11afc5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5439060906093038950, guid: 6babb337ca1ee4145a0d16978e11afc5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -312,7 +316,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &640529339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -358,7 +362,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &640928514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -956,4 +960,4 @@ SceneRoots:
   - {fileID: 1950251178}
   - {fileID: 566769076}
   - {fileID: 715569674}
-  - {fileID: 528145219}
+  - {fileID: 266714388}

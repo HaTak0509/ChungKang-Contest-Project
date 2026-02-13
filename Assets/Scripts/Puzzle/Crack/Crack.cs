@@ -42,6 +42,7 @@ public class Crack : MonoBehaviour
 
         if (CrackManager.Instance == null) return;
 
+        Debug.Log(123);
         SoundManager.Instance.PlaySFX("crack_create", SoundManager.SoundOutput.SFX, 1);
 
         if (value) // false ¡æ true
@@ -58,9 +59,15 @@ public class Crack : MonoBehaviour
 
         isActivated = value;
 
-        activationCrack.SetActive(isActivated);
-        deactivationCrack.SetActive(!isActivated && _playerInRange);
-        closeCrack.SetActive(isActivated && _playerInRange);
+        if (activationCrack != null)
+            activationCrack.SetActive(isActivated);
+
+        if (deactivationCrack != null)
+            deactivationCrack.SetActive(!isActivated && _playerInRange);
+
+        if (closeCrack != null)
+            closeCrack.SetActive(isActivated && _playerInRange);
+
     }
 
     public void SetPlayerInRange(bool value)
