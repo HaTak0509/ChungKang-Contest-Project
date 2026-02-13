@@ -12,6 +12,7 @@ public class LevelManager : MonoBehaviour
     public int currentLevelIndex;
     public int saveMaxLevel;
 
+    private int _curLever = -1;
     private GameObject _currentLevel;
     private int _index;
 
@@ -36,11 +37,19 @@ public class LevelManager : MonoBehaviour
         await FadeInFadeOut.instance.StageReset();
     }
 
+    private void Update()
+    {
+        if (_curLever != currentLevelIndex)
+        {
+            _curLever = currentLevelIndex;
+            CheckBGM();
+        }
+
+    }
 
     public void LoadLevel(int i)
     {
-        CheckBGM();
-
+        
         if (_currentLevel != null)
             Destroy(_currentLevel);
 
@@ -57,8 +66,10 @@ public class LevelManager : MonoBehaviour
 
     private void CheckBGM()
     {
+
+
         Debug.Log("이거 진짜에요?");
-        if(currentLevelIndex == 0)
+        if(_curLever == 0)
         {
             if(!TitleBGM.isPlaying) 
                 TitleBGM.Play();
@@ -67,9 +78,14 @@ public class LevelManager : MonoBehaviour
         else
         {
 
-            TitleBGM.Stop();
             if (!GameBGM.isPlaying)
                 GameBGM.Play();
+            TitleBGM.Stop();
+        }
+        if (currentLevelIndex >= 9)
+        {
+            GameBGM.Stop();
+            TitleBGM.Stop();
         }
     }
 }

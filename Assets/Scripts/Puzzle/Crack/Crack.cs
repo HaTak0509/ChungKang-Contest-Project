@@ -42,7 +42,6 @@ public class Crack : MonoBehaviour
 
         if (CrackManager.Instance == null) return;
 
-        Debug.Log(123);
         SoundManager.Instance.PlaySFX("crack_create", SoundManager.SoundOutput.SFX, 1);
 
         if (value) // false ¡æ true

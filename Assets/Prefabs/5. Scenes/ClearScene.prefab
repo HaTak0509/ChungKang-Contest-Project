@@ -74,10 +74,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -302,7 +302,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2296239004727910550
 RectTransform:
   m_ObjectHideFlags: 0
@@ -360,7 +360,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16777215
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -1144,12 +1144,12 @@ MonoBehaviour:
   - "\uC790\uC728 \uD310\uB2E8 \uB2A5\uB825 \uC131\uACF5\uC728 132%"
   - "\uC0C1\uC0C1 \uB2A5\uB825 \uD615\uC131 \uC131\uACF5\uC728 67%"
   - "\uBE44\uACE0 : \uC778\uAC04\uC801 \uC815\uC11C \uBAA8\uB4C8\uACFC \uAE30\uACC4\uC801
-    \uC5F0\uC0B0 \uCCB4\uACC4 \uAC04\uC758 \uCDA9\uB3CC\uB85C "
+    \uC5F0\uC0B0 \uCCB4\uACC4 \uCDA9\uB3CC"
   - "\uC608\uCE21 \uBC94\uC704\uB97C \uCD08\uACFC\uD558\uB294 < \uB4A4\uD2C0\uB9BC
-    \uD615\uC0C1 >\uC774 \uBC1C\uC0DD"
+    \uD615\uC0C1 > \uBC1C\uC0DD"
   - "\uC2E4\uD5D8 \uAC00\uCE58 \uC0C1\uC2B9 \uC694\uC18C\uB85C \uD310\uB2E8"
   - "\uC6B4\uD589 \uC9C0\uC18D \uC2B9\uC778"
-  - "\uC2DC\uB098\uB9AC\uC624 \uC77C\uCE58\uC728 100%"
+  - "\uC2DC\uB098\uB9AC\uC624 \uB2EC\uC131\uB3C4 100%"
   - "\uBAA9\uD45C \uB2EC\uC131"
   - ....
   - ....
@@ -2033,15 +2033,15 @@ RectTransform:
   m_GameObject: {fileID: 9028402294226377448}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.45104167, y: 0.45104167, z: 0.45104167}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2296239004727910550}
   m_Father: {fileID: 8255477381269631624}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.000015258789}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1580040663720468179
