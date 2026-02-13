@@ -28,6 +28,8 @@ public class PlayerDeath : MonoBehaviour
 
         _Death = true;
         _animator.SetTrigger(AnimationStrings.IsDeath);
+        _animator.SetBool(AnimationStrings.IsDeathBool,true);
+
 
         GetComponent<PlayerController>().allLimit = true;
         LevelManager.Instance.OnReset();
