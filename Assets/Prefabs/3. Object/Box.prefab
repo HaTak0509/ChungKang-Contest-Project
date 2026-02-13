@@ -324,6 +324,8 @@ MonoBehaviour:
   _SpriteRenderer: {fileID: 8408972475229877824}
   _Open: {fileID: 1940799315, guid: c117e39c59a2e5849aeef9e9526e6f4d, type: 3}
   _Close: {fileID: 1944040982, guid: c117e39c59a2e5849aeef9e9526e6f4d, type: 3}
+  _isTwist: 0
+  _isCool: 0
 --- !u!114 &8702216074395616491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,6 +339,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 5713862001962051612}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  groundCheckDistance: 0.05
   isActive: 0
 --- !u!1 &8159585158597382295
 GameObject:
