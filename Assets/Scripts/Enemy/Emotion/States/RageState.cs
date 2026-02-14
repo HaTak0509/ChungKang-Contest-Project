@@ -28,7 +28,6 @@ public class RageState : Monster
 
         if (ColorUtility.TryParseHtmlString(hexColor, out Color newColor))
         {
-            Debug.Log(newColor.ToString());
             _lineRenderer.Draw(InteractRange, newColor);
         }
 
@@ -69,7 +68,6 @@ public class RageState : Monster
 
     private void StopDash()
     {
-        Debug.Log("µ¹Áø ³¡");
         _isDashing = false;
         _movement.StopMove();
     }

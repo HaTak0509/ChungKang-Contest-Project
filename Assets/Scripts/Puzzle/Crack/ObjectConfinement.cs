@@ -7,7 +7,7 @@ public class ObjectConfinement : MonoBehaviour
     private GameObject _stuckObject;
     private bool _warpActive;
 
-    private void Start()
+    private void OnEnable()
     {
         DelayedStart().Forget();
     }
@@ -34,7 +34,7 @@ public class ObjectConfinement : MonoBehaviour
             collision.gameObject.layer == LayerMask.NameToLayer("Crack") || 
             collision.gameObject.layer == LayerMask.NameToLayer("CrackActivator"))
             return;
-
+        
         if (_stuckObject != null && !_stuckObject.activeSelf)
         {
             _stuckObject = collision.gameObject;
@@ -63,6 +63,7 @@ public class ObjectConfinement : MonoBehaviour
 
         if (_stuckObject.TryGetComponent<WarpingInterface>(out var warpInteract))
         {
+            Debug.Log(_stuckObject);
             warpInteract.Warping();
         }
     }
@@ -82,7 +83,8 @@ public class ObjectConfinement : MonoBehaviour
     {
         Collider2D[] results = new Collider2D[20];
         var filter = new ContactFilter2D().NoFilter();
-        filter.useTriggers = true;  // triggerµµ Æ÷ÇÔ
+        filter.useTriggers = true;
+        Debug.Log(123);
 
         int count = Physics2D.OverlapCollider(
             GetComponent<Collider2D>(),
@@ -90,16 +92,13 @@ public class ObjectConfinement : MonoBehaviour
             results
         );
 
-        Debug.Log($"Overlap count: {count}");
 
         for (int i = 0; i < count; i++)
         {
             if (results[i] == null) continue;
-            Debug.Log($"Detected: {results[i].gameObject.name} / layer:{LayerMask.LayerToName(results[i].gameObject.layer)} / trigger:{results[i].isTrigger}");
 
             if (results[i].TryGetComponent<WarpingInterface>(out var warp))
             {
-                Debug.Log($"Warping: {results[i].gameObject.name}");
                 warp.Warping();
                 break;
             }
