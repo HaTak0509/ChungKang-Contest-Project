@@ -84,7 +84,6 @@ public class ObjectConfinement : MonoBehaviour
         Collider2D[] results = new Collider2D[20];
         var filter = new ContactFilter2D().NoFilter();
         filter.useTriggers = true;
-        Debug.Log(123);
 
         int count = Physics2D.OverlapCollider(
             GetComponent<Collider2D>(),
@@ -92,18 +91,31 @@ public class ObjectConfinement : MonoBehaviour
             results
         );
 
-
         for (int i = 0; i < count; i++)
         {
-            if (results[i] == null) continue;
+            var collision = results[i];
+            if (collision == null) continue;
 
-            if (results[i].TryGetComponent<WarpingInterface>(out var warp))
+            if (
+                (!collision.CompareTag("PuzzleObject") &&
+                 !collision.CompareTag("Enemy") &&
+                 !collision.CompareTag("HidingWall"))
+                ||
+                collision.gameObject.layer == LayerMask.NameToLayer("Crack") ||
+                collision.gameObject.layer == LayerMask.NameToLayer("CrackActivator")
+            )
+            {
+                continue;
+            }
+
+            if (collision.TryGetComponent<WarpingInterface>(out var warp))
             {
                 warp.Warping();
                 break;
             }
         }
     }
+
 
     private async UniTask Cooldown()
     {
